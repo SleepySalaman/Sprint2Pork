@@ -85,9 +85,16 @@ namespace Sprint2Pork
             // Create blocks at different positions
             // Define blocks using specific tiles from the sprite sheet
             // Define blocks using different source rectangles (tiles) but same position
-            blocks.Add(new Block(blockTexture, blockPosition, new Rectangle(0, 0, 16, 16)));  // Tile 1
-            blocks.Add(new Block(blockTexture, blockPosition, new Rectangle(32, 0, 16, 16))); // Tile 2
-            blocks.Add(new Block(blockTexture, blockPosition, new Rectangle(0, 32, 16, 16)));
+            blocks.Add(new Block(blockTexture, blockPosition, new Rectangle(16 * 0, 0, 16, 16)));  // Tile 1
+            blocks.Add(new Block(blockTexture, blockPosition, new Rectangle(16 * 1, 0, 16, 16))); // Tile 2
+            blocks.Add(new Block(blockTexture, blockPosition, new Rectangle(16 * 2, 0, 16, 16))); // Tile 3
+            blocks.Add(new Block(blockTexture, blockPosition, new Rectangle(16 * 3, 0, 16, 16))); // Tile 4
+            blocks.Add(new Block(blockTexture, blockPosition, new Rectangle(16 * 4, 0, 16, 16))); // Tile 4
+            blocks.Add(new Block(blockTexture, blockPosition, new Rectangle(16 * 5, 0, 16, 16))); // Tile 4
+            blocks.Add(new Block(blockTexture, blockPosition, new Rectangle(16 * 6, 0, 16, 16))); // Tile 4
+            blocks.Add(new Block(blockTexture, blockPosition, new Rectangle(16 * 7, 0, 16, 16))); // Tile 4
+            blocks.Add(new Block(blockTexture, blockPosition, new Rectangle(16 * 8, 0, 16, 16))); // Tile 4
+            blocks.Add(new Block(blockTexture, blockPosition, new Rectangle(16 * 9, 0, 16, 16))); // Tile 4
             font = Content.Load<SpriteFont>("File");
             textSprite = new TextSprite(200, 100, font);
         }
