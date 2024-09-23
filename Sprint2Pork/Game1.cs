@@ -82,7 +82,7 @@ namespace Sprint2Pork
             animatedSprite = new MovingAnimatedSprite(spritePos[0], spritePos[1]);
             currentSprite = staticSprite;
             characterTexture = Content.Load<Texture2D>("mario");
-            enemyTexture = Content.Load<Texture2D>("zeldabosses");
+            enemyTexture = Content.Load<Texture2D>("zeldaenemies");
             spriteBatch = new SpriteBatch(GraphicsDevice);
             characterTexture = Content.Load<Texture2D>("mario");
             blockTexture = Content.Load<Texture2D>("blocks");

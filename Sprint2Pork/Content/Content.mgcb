@@ -80,7 +80,7 @@
 /processorParam:TextureFormat=Color
 /build:NES - The Legend of Zelda - Link.png
 
-#begin zeldabosses.png
+#begin zeldaenemies.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -90,5 +90,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:zeldabosses.png
+/build:zeldaenemies.png
 
