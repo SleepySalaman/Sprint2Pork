@@ -21,7 +21,7 @@ namespace Sprint2Pork.Items
             sourceRects = frames;
             currentFrame = 0;
             totalFrames = sourceRects.Count;
-            destinationRect = new Rectangle(x, y, 16, 16); // Assuming each item is 16x16 pixels
+            destinationRect = new Rectangle(x, y, 32, 32); // Assuming each item is 16x16 pixels
             count = 0;
         }
 
