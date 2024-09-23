@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -13,43 +14,115 @@ namespace Sprint2Pork
     // TODO: Do methods inside need to be public?
     public class Link : ILink
     {
-        ILinkState state;
+        public ILinkDirectionState directionState;
+        public ILinkActionState actionState;
         private Viewport viewport;
         int x;
         int y;
 
         public Link()
         {
+            directionState = new DownFacingLinkState(this);
+            actionState = new IdleActionState(this);
+        }
+
+        //public void TakeDamage()
+        //{
+        //    state.TakeDamage();
+        //}
+
+        //public void UseItem()
+        //{
+        //    state.UseItem();
+        //}
+
+        //public void AttackSword()
+        //{
+        //    state.AttackSword();
+        //}
+
+        public void LookLeft()
+        {
+            directionState.LookLeft();
+        }
+
+        public void LookRight()
+        {
+            directionState.LookRight();
+        }
+
+        public void LookUp()
+        {
+            directionState.LookUp();
+        }
+
+        public void LookDown()
+        {
+            directionState.LookDown();
+        }
+
+        //public void ChangeDirection()
+        //{
+        //    switch (directionState)
+        //    {
+        //        case LeftFacingLinkState:
+        //            break;
+        //        case RightFacingLinkState:
+        //            break;
+        //        case UpFacingLinkState:
+        //            break;
+        //        case DownFacingLinkState:
+        //            break;
+        //    }
+        //}
+
+        public void BeIdle()
+        {
+            actionState.BeIdle();
+        }
+
+        public void BeMoving()
+        {
+            actionState.BeMoving();
+        }
+
+        // ACTUAL METHODS
+
+        public void Idle()
+        {
 
         }
 
-        public void ChangeDirection()
+        public void Move()
         {
-            state.changeDirection();
-        }
-
-        public void TakeDamage()
-        {
-            state.takeDamage();
-        }
-
-        public void UseItem()
-        {
-            state.useItem();
-        }
-
-        public void AttackSword()
-        {
-            state.attackSword();
-        }
-
-        public void Update()
-        {
-            state.Update();
-        }
-
-        public void MoveLeft()
-        {
+            switch (directionState)
+            {
+                case LeftFacingLinkState:
+                    if (x > 0)
+                    {
+                        this.x = this.x - 1;
+                        
+                    }
+                    break;
+                case RightFacingLinkState:
+                    if (x > viewport.Width)
+                    {
+                        this.x = this.x + 1;
+                    }
+                    break;
+                case UpFacingLinkState: 
+                    if (y > 0)
+                    {
+                        this.y = this.y - 1;
+                    }
+                    break;
+                case DownFacingLinkState:
+                    if (y > viewport.Height)
+                    {
+                        this.y = this.y + 1;
+                    }
+                    break;
+            }
 
         }
     }

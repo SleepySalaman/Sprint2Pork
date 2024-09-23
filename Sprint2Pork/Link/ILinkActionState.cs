@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Sprint2Pork
 {
-    public interface ILink
+    public interface ILinkActionState
     {
-        //void Update();
-        //void TakeDamage();
+        void BeIdle();
+        void BeMoving();
+        void Update();
     }
 }

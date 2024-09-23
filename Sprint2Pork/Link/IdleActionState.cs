@@ -6,22 +6,28 @@ using System.Threading.Tasks;
 
 namespace Sprint2Pork
 {
-    public class LeftMovingLinkState : ILinkState
+    public class IdleActionState : ILinkActionState
     {
         private Link link;
-        public LeftMovingLinkState(Link link)
+
+        public IdleActionState(Link link)
         {
             this.link = link;
         }
 
-        public void changeDirection()
+        public void BeIdle()
         {
-            //TODO
+            // NO-OP
+        }
+
+        public void BeMoving()
+        {
+            link.actionState = new MovingActionState(link);
         }
 
         public void Update()
         {
-            link.MoveLeft();
+            link.Idle();
         }
     }
 }
