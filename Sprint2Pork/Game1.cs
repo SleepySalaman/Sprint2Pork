@@ -97,12 +97,10 @@ namespace Sprint2Pork
             if (state.IsKeyDown(Keys.W))
             {
                 spritePos[1] -= 5; // Move up
-                isMoving = true;
             }
             if (state.IsKeyDown(Keys.S))
             {
                 spritePos[1] += 5; // Move down
-                isMoving = true;
             }
             if (state.IsKeyDown(Keys.A))
             {
