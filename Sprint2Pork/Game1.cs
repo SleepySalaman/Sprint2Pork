@@ -17,7 +17,7 @@ namespace Sprint2Pork
         private Texture2D characterTexture;
         private SpriteFont font;
         private int spriteMode;
-
+        //Hello does this work?
         private int[] spritePos;
         private bool moving;
 
