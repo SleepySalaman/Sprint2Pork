@@ -8,9 +8,9 @@ namespace Sprint2Pork
 {
     public class MovingActionState : ILinkActionState
     {
-        private ILink link;
+        private Link link;
 
-        public MovingActionState(ILink link) { 
+        public MovingActionState(Link link) { 
             this.link = link; 
         }
 

@@ -20,6 +20,7 @@ namespace Sprint2Pork
         private ISprite textSprite;
         private List<IController> controllerList;
         private Texture2D characterTexture;
+        private Texture2D linkTexture;
         private Texture2D enemyTexture;
         private SpriteFont font;
         //private int spriteMode;
@@ -41,6 +42,10 @@ namespace Sprint2Pork
         private ISprite staticSprite;
         private ISprite animatedSprite;
         private ISprite currentSprite;
+        private ISprite linkSprite;
+
+        // Link
+        private Link link;
 
         public Game1()
         {
@@ -71,9 +76,9 @@ namespace Sprint2Pork
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            characterSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1]);
+            characterSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1], new Rectangle(200, 120, 30, 35));
             enemySprite = new AquamentusNotAttacking();
-            staticSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1]);
+            staticSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1], new Rectangle(200, 120, 30, 35));
             animatedSprite = new MovingAnimatedSprite(spritePos[0], spritePos[1]);
             currentSprite = staticSprite;
             characterTexture = Content.Load<Texture2D>("mario");
@@ -81,6 +86,7 @@ namespace Sprint2Pork
             spriteBatch = new SpriteBatch(GraphicsDevice);
             characterTexture = Content.Load<Texture2D>("mario");
             blockTexture = Content.Load<Texture2D>("blocks");
+            linkTexture = Content.Load<Texture2D>("Link_Moving");
 
             // Create blocks at different positions
             // Define blocks using specific tiles from the sprite sheet
@@ -90,6 +96,9 @@ namespace Sprint2Pork
             blocks.Add(new Block(blockTexture, blockPosition, new Rectangle(0, 32, 16, 16)));
             font = Content.Load<SpriteFont>("File");
             textSprite = new TextSprite(200, 100, font);
+
+            //Link
+            link = new Link();
         }
 
         protected override void Update(GameTime gameTime)
@@ -190,6 +199,7 @@ namespace Sprint2Pork
             currentSprite.Draw(spriteBatch, characterTexture);
             enemySprite.Draw(spriteBatch, enemyTexture);
             textSprite.Draw(spriteBatch, characterTexture);
+            link.Draw(spriteBatch, linkTexture);
             KeyboardState state = Keyboard.GetState();
             bool isMoving = false;
             Vector2 newPosition = new Vector2(spritePos[0], spritePos[1]);
@@ -240,7 +250,7 @@ namespace Sprint2Pork
                 playerMode = spriteList;
                 switch (spriteList){
                     case PlayerSpriteList.NonMovingNonAnimatedPlayer:
-                        characterSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1]);
+                        characterSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1], new Rectangle(200, 120, 30, 35));
                         moving = false;
                         break;
                     case PlayerSpriteList.NonMovingAnimatedPlayer:
