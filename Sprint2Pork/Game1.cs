@@ -17,12 +17,14 @@ namespace Sprint2Pork
         private Texture2D characterTexture;
         private Texture2D enemyTexture;
         private SpriteFont font;
-        private int spriteMode;
+        //private int spriteMode;
         //Hello does this work?
         private int[] spritePos;
         private bool moving;
 
-        private enum PlayerSpriteList { NonMovingNonAnimatedPlayer, NonMovingAnimatedPlayer, MovingNonAnimatedPlayer, MovingAnimatedPlayer };
+        public enum PlayerSpriteList { NonMovingNonAnimatedPlayer, NonMovingAnimatedPlayer, MovingNonAnimatedPlayer, MovingAnimatedPlayer };
+
+        private PlayerSpriteList playerMode;
 
         public Game1()
         {
@@ -35,7 +37,8 @@ namespace Sprint2Pork
             spritePos = new int[2];
             spritePos[0] = 50;
             spritePos[1] = 50;
-            spriteMode = 1;
+            //spriteMode = 1;
+            playerMode = PlayerSpriteList.NonMovingNonAnimatedPlayer;
             moving = false;
         }
 
@@ -93,26 +96,23 @@ namespace Sprint2Pork
             spriteBatch.End();
         }
 
-        public void setMode(int mode)
-        {
-            if (spriteMode != mode)
-            {
-                spriteMode = mode;
-                switch (mode)
-                {
-                    case 1:
+        public void setMode(PlayerSpriteList spriteList){
+            if (playerMode != spriteList){
+                playerMode = spriteList;
+                switch (spriteList){
+                    case PlayerSpriteList.NonMovingNonAnimatedPlayer:
                         characterSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1]);
                         moving = false;
                         break;
-                    case 2:
+                    case PlayerSpriteList.NonMovingAnimatedPlayer:
                         characterSprite = new NonMovingAnimatedSprite(spritePos[0], spritePos[1]);
                         moving = false;
                         break;
-                    case 3:
+                    case PlayerSpriteList.MovingNonAnimatedPlayer:
                         characterSprite = new MovingNonAnimatedSprite(spritePos[0], spritePos[1]);
                         moving = true;
                         break;
-                    case 4:
+                    case PlayerSpriteList.MovingAnimatedPlayer:
                         characterSprite = new MovingAnimatedSprite(spritePos[0], spritePos[1]);
                         moving = true;
                         break;
