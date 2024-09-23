@@ -84,23 +84,19 @@ namespace Sprint2Pork
             characterTexture = Content.Load<Texture2D>("mario");
             enemyTexture = Content.Load<Texture2D>("zeldaenemies");
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            characterTexture = Content.Load<Texture2D>("mario");
             blockTexture = Content.Load<Texture2D>("blocks");
             linkTexture = Content.Load<Texture2D>("Link_Moving");
 
             // Create blocks at different positions
             // Define blocks using specific tiles from the sprite sheet
             // Define blocks using different source rectangles (tiles) but same position
-            blocks.Add(new Block(blockTexture, blockPosition, new Rectangle(16 * 0, 0, 16, 16)));  // Tile 1
-            blocks.Add(new Block(blockTexture, blockPosition, new Rectangle(16 * 1, 0, 16, 16))); // Tile 2
-            blocks.Add(new Block(blockTexture, blockPosition, new Rectangle(16 * 2, 0, 16, 16))); // Tile 3
-            blocks.Add(new Block(blockTexture, blockPosition, new Rectangle(16 * 3, 0, 16, 16))); // Tile 4
-            blocks.Add(new Block(blockTexture, blockPosition, new Rectangle(16 * 4, 0, 16, 16))); // Tile 4
-            blocks.Add(new Block(blockTexture, blockPosition, new Rectangle(16 * 5, 0, 16, 16))); // Tile 4
-            blocks.Add(new Block(blockTexture, blockPosition, new Rectangle(16 * 6, 0, 16, 16))); // Tile 4
-            blocks.Add(new Block(blockTexture, blockPosition, new Rectangle(16 * 7, 0, 16, 16))); // Tile 4
-            blocks.Add(new Block(blockTexture, blockPosition, new Rectangle(16 * 8, 0, 16, 16))); // Tile 4
-            blocks.Add(new Block(blockTexture, blockPosition, new Rectangle(16 * 9, 0, 16, 16))); // Tile 4
+            // Create blocks using a loop instead of hardcoding each one
+            int numberOfBlocks = 10;
+            for (int i = 0; i < numberOfBlocks; i++)
+            {
+                // Each block uses a tile that is 16x16 pixels in size, and they are placed horizontally on the texture
+                blocks.Add(new Block(blockTexture, blockPosition, new Rectangle(16 * i, 0, 16, 16)));
+            }
             font = Content.Load<SpriteFont>("File");
             textSprite = new TextSprite(200, 100, font);
 

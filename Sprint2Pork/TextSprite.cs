@@ -30,8 +30,8 @@ public class TextSprite : ISprite
 
     void ISprite.Draw(SpriteBatch sb, Texture2D txt)
     {
-        sb.DrawString(font, "Credits: ", new Vector2(200, 220), Color.Purple);
-        sb.DrawString(font, "Program Made By: Shivam Engineer", new Vector2(200, 250), Color.Purple);
-        sb.DrawString(font, "Sprites from: Files Section of Carmen Canvas Page", new Vector2(200, 280), Color.Purple);
+        //sb.DrawString(font, "Credits: ", new Vector2(200, 220), Color.Purple);
+        //sb.DrawString(font, "Program Made By: Shivam Engineer", new Vector2(200, 250), Color.Purple);
+        //sb.DrawString(font, "Sprites from: Files Section of Carmen Canvas Page", new Vector2(200, 280), Color.Purple);
     }
 }
