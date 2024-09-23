@@ -6,13 +6,17 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Sprint2Pork.Enemies.Manhandla {
-    public class Manhandla : IEnemy {
+    public class ManhandlaMoving : IEnemy {
 
-        public void Update() {
+        void IEnemy.Update() {
 
         }
 
-        public void Draw(SpriteBatch sb, Texture2D txt) {
+        void IEnemy.takeDamage() {
+
+        }
+
+        void IEnemy.Draw(SpriteBatch sb, Texture2D txt) {
 
         }
 

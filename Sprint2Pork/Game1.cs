@@ -31,6 +31,7 @@ namespace Sprint2Pork
         private int currentBlockIndex;
         private Vector2 blockPosition;  // Constant position for all blocks
 
+        public enum Direction { Left, Right };
         public enum PlayerSpriteList { NonMovingNonAnimatedPlayer, NonMovingAnimatedPlayer, MovingNonAnimatedPlayer, MovingAnimatedPlayer };
 
         private PlayerSpriteList playerMode;

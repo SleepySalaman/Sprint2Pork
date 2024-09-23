@@ -6,13 +6,17 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Sprint2Pork.Enemies.Digdogger {
-    public class Digdogger : IEnemy {
+    public class DigdoggerSmall : IEnemy {
 
-        public void Update() {
+        void IEnemy.Update() {
 
         }
 
-        public void Draw(SpriteBatch sb, Texture2D txt) {
+        void IEnemy.takeDamage() {
+
+        }
+
+        void IEnemy.Draw(SpriteBatch sb, Texture2D txt) {
 
         }
 

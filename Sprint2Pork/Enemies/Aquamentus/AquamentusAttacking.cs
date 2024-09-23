@@ -6,11 +6,16 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Sprint2Pork.Enemies.Aquamentus {
-    public class Aquamentus : IEnemy {
+    public class AquamentusAttacking : IEnemy {
+        
         public void Update() {
 
         }
-        
+
+        public void takeDamage() {
+
+        }
+
         public void Draw(SpriteBatch sb, Texture2D txt) {
 
         }
