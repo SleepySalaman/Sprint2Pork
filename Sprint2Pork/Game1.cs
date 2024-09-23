@@ -15,6 +15,7 @@ namespace Sprint2Pork
         private ISprite textSprite;
         private List<IController> controllerList;
         private Texture2D characterTexture;
+        private Texture2D enemyTexture;
         private SpriteFont font;
         private int spriteMode;
         //Hello does this work?
@@ -48,6 +49,7 @@ namespace Sprint2Pork
             spriteBatch = new SpriteBatch(GraphicsDevice);
             characterSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1]);
             characterTexture = Content.Load<Texture2D>("mario");
+            enemyTexture = Content.Load<Texture2D>("zeldabosses");
             font = Content.Load<SpriteFont>("File");
             textSprite = new TextSprite(200, 100, font);
         }
