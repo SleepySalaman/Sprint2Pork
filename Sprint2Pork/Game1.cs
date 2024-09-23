@@ -1,12 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Sprint2Pork.Blocks;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace Sprint2Pork
-{
+{   
     public class Game1 : Game
     {
         private GraphicsDeviceManager graphics;
@@ -21,6 +23,13 @@ namespace Sprint2Pork
         //Hello does this work?
         private int[] spritePos;
         private bool moving;
+        private double switchCooldown = 0.1;  // 0.5 seconds cooldown between switches
+        private double timeSinceLastSwitch = 0;
+        // Block-related variables
+        private Texture2D blockTexture;
+        private List<Block> blocks;
+        private int currentBlockIndex;
+        private Vector2 blockPosition;  // Constant position for all blocks
 
         private enum PlayerSpriteList { NonMovingNonAnimatedPlayer, NonMovingAnimatedPlayer, MovingNonAnimatedPlayer, MovingAnimatedPlayer };
 
@@ -37,6 +46,11 @@ namespace Sprint2Pork
             spritePos[1] = 50;
             spriteMode = 1;
             moving = false;
+
+            blocks = new List<Block>();
+            currentBlockIndex = 0;
+            blockPosition = new Vector2(200, 200);  // Constant position for block
+
         }
 
         protected override void Initialize()
@@ -50,6 +64,16 @@ namespace Sprint2Pork
             characterSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1]);
             characterTexture = Content.Load<Texture2D>("mario");
             enemyTexture = Content.Load<Texture2D>("zeldabosses");
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+            characterTexture = Content.Load<Texture2D>("mario");
+            blockTexture = Content.Load<Texture2D>("blocks");
+
+            // Create blocks at different positions
+            // Define blocks using specific tiles from the sprite sheet
+            // Define blocks using different source rectangles (tiles) but same position
+            blocks.Add(new Block(blockTexture, blockPosition, new Rectangle(0, 0, 16, 16)));  // Tile 1
+            blocks.Add(new Block(blockTexture, blockPosition, new Rectangle(32, 0, 16, 16))); // Tile 2
+            blocks.Add(new Block(blockTexture, blockPosition, new Rectangle(0, 32, 16, 16)));
             font = Content.Load<SpriteFont>("File");
             textSprite = new TextSprite(200, 100, font);
         }
@@ -76,6 +100,26 @@ namespace Sprint2Pork
                 spritePos[1] = -5;
             }
 
+            // Accumulate the elapsed time
+            timeSinceLastSwitch += gameTime.ElapsedGameTime.TotalSeconds;
+
+            KeyboardState state = Keyboard.GetState();
+
+            // If 'T' is pressed and cooldown period has passed, switch to the previous block
+            if (state.IsKeyDown(Keys.T) && timeSinceLastSwitch >= switchCooldown)
+            {
+                currentBlockIndex = (currentBlockIndex - 1 + blocks.Count) % blocks.Count;
+                timeSinceLastSwitch = 0;  // Reset timer
+            }
+
+            // If 'Y' is pressed and cooldown period has passed, switch to the next block
+            if (state.IsKeyDown(Keys.Y) && timeSinceLastSwitch >= switchCooldown)
+            {
+                currentBlockIndex = (currentBlockIndex + 1) % blocks.Count;
+                timeSinceLastSwitch = 0;  // Reset timer
+            }
+
+            base.Update(gameTime);
             characterSprite.Update(spritePos[0], spritePos[1]);
 
             base.Update(gameTime);
@@ -88,6 +132,9 @@ namespace Sprint2Pork
 
             characterSprite.Draw(spriteBatch, characterTexture);
             textSprite.Draw(spriteBatch, characterTexture);
+
+            // Draw the current block
+            blocks[currentBlockIndex].Draw(spriteBatch);
 
             base.Draw(gameTime);
             spriteBatch.End();
