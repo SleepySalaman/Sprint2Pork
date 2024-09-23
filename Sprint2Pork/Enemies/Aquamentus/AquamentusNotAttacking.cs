@@ -32,13 +32,12 @@ namespace Sprint2Pork.Enemies.Aquamentus {
         private int scaleX;
         private int scaleY;
 
-        public AquamentusNotAttacking() {
+        public AquamentusNotAttacking()
+        {
             sourceRects = new List<Rectangle> {
-                new Rectangle(1, 10, 25, 34),
-                new Rectangle(26, 10, 25, 34),
-                new Rectangle(51, 10, 25, 34),
-                new Rectangle(76, 10, 25, 34)
-            };
+                    new Rectangle(36, 0, 36, 36),
+                    new Rectangle(84, 0, 36, 36),
+                };
 
             scaleX = 1;
             scaleY = 1;
@@ -68,7 +67,8 @@ namespace Sprint2Pork.Enemies.Aquamentus {
             if(count > maxCount) {
                 currentFrame++;
                 count = 0;
-                if(currentFrame == totalFrames) {
+                if (currentFrame == totalFrames)
+                {
                     currentFrame = 0;
                 }
             }
