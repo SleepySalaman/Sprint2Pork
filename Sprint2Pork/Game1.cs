@@ -95,6 +95,27 @@ namespace Sprint2Pork
         protected override void Update(GameTime gameTime)
         {
             KeyboardState state = Keyboard.GetState();
+
+            // Quit the game if 'Q' is pressed
+            if (state.IsKeyDown(Keys.Q))
+            {
+                Exit();
+            }
+            // Reset the game if 'R' is pressed
+            if (state.IsKeyDown(Keys.R))
+            {
+                ResetGame();
+            }
+            // Existing code for quitting with Escape or Mouse click
+            if (state.IsKeyDown(Keys.Escape) || state.IsKeyDown(Keys.D0) || Mouse.GetState().RightButton == ButtonState.Pressed)
+            {
+                Exit();
+            }
+            foreach (IController c in controllerList)
+            {
+                c.Update();
+            }
+
             bool isMoving = false;
 
             // Handle WASD movement
