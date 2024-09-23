@@ -16,25 +16,33 @@ namespace Sprint2Pork
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        private ISprite characterSprite;
-        private IEnemy enemySprite;
-        private ISprite textSprite;
         private List<IController> controllerList;
+
+        private ISprite characterSprite;
+        private ISprite textSprite;
+
+        private IEnemy enemySprite;
+
         private Texture2D characterTexture;
         private Texture2D linkTexture;
         private Texture2D enemyTexture;
+
+        private Texture2D linkMovingTexture;
+        private Texture2D linkAttackingTexture;
+
         private SpriteFont font;
-        //private int spriteMode;
-        //Hello does this work?
+
         private int[] spritePos;
         private bool moving;
         private double switchCooldown = 0.1;  // 0.5 seconds cooldown between switches
         private double timeSinceLastSwitch = 0;
+
         // Block-related variables
         private Texture2D blockTexture;
         private List<Block> blocks;
         private int currentBlockIndex;
         private Vector2 blockPosition;  // Constant position for all blocks
+
         private List<Item> items;
         private int currentItemIndex;
         private Texture2D itemTexture;
@@ -47,7 +55,9 @@ namespace Sprint2Pork
         private ISprite staticSprite;
         private ISprite animatedSprite;
         private ISprite currentSprite;
-        private ISprite linkSprite;
+
+        private ILink LinkMovingSprite;
+        private ILink LinkAttackingSprite;
 
         // Link
         private Link link;
@@ -87,16 +97,15 @@ namespace Sprint2Pork
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            characterSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1], new Rectangle(200, 120, 30, 35));
+            characterSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1], new Rectangle(80, 0, 16, 16));
             enemySprite = new AquamentusNotAttacking();
-            staticSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1], new Rectangle(200, 120, 30, 35));
+            staticSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1], new Rectangle(80, 0, 16, 16));
             animatedSprite = new MovingAnimatedSprite(spritePos[0], spritePos[1]);
             currentSprite = staticSprite;
-            characterTexture = Content.Load<Texture2D>("mario");
+            characterTexture = Content.Load<Texture2D>("Link_Moving");
             enemyTexture = Content.Load<Texture2D>("zeldaenemies");
             spriteBatch = new SpriteBatch(GraphicsDevice);
             blockTexture = Content.Load<Texture2D>("blocks");
-            linkTexture = Content.Load<Texture2D>("Link_Moving");
 
             // Create blocks at different positions
             // Define blocks using specific tiles from the sprite sheet
@@ -267,7 +276,6 @@ namespace Sprint2Pork
             currentSprite.Draw(spriteBatch, characterTexture);
             enemySprite.Draw(spriteBatch, enemyTexture);
             textSprite.Draw(spriteBatch, characterTexture);
-            link.Draw(spriteBatch, linkTexture);
             KeyboardState state = Keyboard.GetState();
             bool isMoving = false;
             Vector2 newPosition = new Vector2(spritePos[0], spritePos[1]);

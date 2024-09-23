@@ -15,10 +15,9 @@ public class MovingAnimatedSprite : ISprite
 
     public MovingAnimatedSprite(int x, int y)
     {
-        sourceRects = new List<Rectangle>();
-        sourceRects.Add(new Rectangle(200, 120, 30, 35));
-        sourceRects.Add(new Rectangle(230, 120, 30, 35));
-        sourceRects.Add(new Rectangle(255, 120, 30, 35));
+        sourceRects = new List<Rectangle> {
+            new Rectangle(84, 0, 16, 16)
+        };
 
         count = 0;
         currentFrame = 0;

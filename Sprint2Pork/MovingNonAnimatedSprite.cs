@@ -13,8 +13,9 @@ public class MovingNonAnimatedSprite : ISprite
 
     public MovingNonAnimatedSprite(int x, int y)
     {
-        sourceRects = new List<Rectangle>();
-        sourceRects.Add(new Rectangle(200, 120, 30, 35));
+        sourceRects = new List<Rectangle> {
+            new Rectangle(84, 0, 16, 16)
+        };
 
         currentFrame = 0;
         totalFrames = sourceRects.Count;
