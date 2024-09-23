@@ -184,7 +184,44 @@ namespace Sprint2Pork
 
             currentSprite.Draw(spriteBatch, characterTexture);
             textSprite.Draw(spriteBatch, characterTexture);
+            KeyboardState state = Keyboard.GetState();
+            bool isMoving = false;
+            Vector2 newPosition = new Vector2(spritePos[0], spritePos[1]);
 
+            // Handle WASD movement
+            if (state.IsKeyDown(Keys.W))
+            {
+                newPosition.Y -= 5; // Move up
+                isMoving = true;
+            }
+            if (state.IsKeyDown(Keys.S))
+            {
+                newPosition.Y += 5; // Move down
+                isMoving = true;
+            }
+            if (state.IsKeyDown(Keys.A))
+            {
+                newPosition.X -= 5; // Move left
+                isMoving = true;
+            }
+            if (state.IsKeyDown(Keys.D))
+            {
+                newPosition.X += 5; // Move right
+                isMoving = true;
+            }
+
+            // Switch between static and animated sprites
+            currentSprite = isMoving ? animatedSprite : staticSprite;
+
+            // Update the current sprite only if the position has changed
+            if (newPosition != new Vector2(spritePos[0], spritePos[1]))
+            {
+                spritePos[0] = (int)newPosition.X;
+                spritePos[1] = (int)newPosition.Y;
+                currentSprite.Update(spritePos[0], spritePos[1]);
+            }
+
+            // Existing code for quitting with Escape or Mouse click
             // Draw the current block
             blocks[currentBlockIndex].Draw(spriteBatch);
 
