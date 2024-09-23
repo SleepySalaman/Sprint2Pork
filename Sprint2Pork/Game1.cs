@@ -54,7 +54,8 @@ namespace Sprint2Pork
 
         protected override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape) || Keyboard.GetState().IsKeyDown(Keys.D0))
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape) || Keyboard.GetState().IsKeyDown(Keys.D0) 
+                || Mouse.GetState().RightButton == ButtonState.Pressed)
             {
                 Exit();
             }
