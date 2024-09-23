@@ -35,6 +35,9 @@ namespace Sprint2Pork
         public enum PlayerSpriteList { NonMovingNonAnimatedPlayer, NonMovingAnimatedPlayer, MovingNonAnimatedPlayer, MovingAnimatedPlayer };
 
         private PlayerSpriteList playerMode;
+        private ISprite staticSprite;
+        private ISprite animatedSprite;
+        private ISprite currentSprite;
 
         public Game1()
         {
@@ -66,6 +69,9 @@ namespace Sprint2Pork
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             characterSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1]);
+            staticSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1]);
+            animatedSprite = new MovingAnimatedSprite(spritePos[0], spritePos[1]);
+            currentSprite = staticSprite;
             characterTexture = Content.Load<Texture2D>("mario");
             enemyTexture = Content.Load<Texture2D>("zeldabosses");
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -85,18 +91,42 @@ namespace Sprint2Pork
         protected override void Update(GameTime gameTime)
         {
             KeyboardState state = Keyboard.GetState();
+            bool isMoving = false;
 
-            // Quit the game if 'Q' is pressed
-            if (state.IsKeyDown(Keys.Q))
+            // Handle WASD movement
+            if (state.IsKeyDown(Keys.W))
             {
-                Exit();
+                spritePos[1] -= 5; // Move up
+                isMoving = true;
+            }
+            if (state.IsKeyDown(Keys.S))
+            {
+                spritePos[1] += 5; // Move down
+                isMoving = true;
+            }
+            if (state.IsKeyDown(Keys.A))
+            {
+                spritePos[0] -= 5; // Move left
+                isMoving = true;
+            }
+            if (state.IsKeyDown(Keys.D))
+            {
+                spritePos[0] += 5; // Move right
+                isMoving = true;
             }
 
-            // Reset the game if 'R' is pressed
-            if (state.IsKeyDown(Keys.R))
+            // Switch between static and animated sprites
+            if (isMoving)
             {
-                ResetGame();
+                currentSprite = animatedSprite;
             }
+            else
+            {
+                currentSprite = staticSprite;
+            }
+
+            // Update the current sprite
+            currentSprite.Update(spritePos[0], spritePos[1]);
 
             // Existing code for quitting with Escape or Mouse click
             if (state.IsKeyDown(Keys.Escape) || state.IsKeyDown(Keys.D0) || Mouse.GetState().RightButton == ButtonState.Pressed)
@@ -107,24 +137,6 @@ namespace Sprint2Pork
             foreach (IController c in controllerList)
             {
                 c.Update();
-            }
-
-            // Handle WASD movement
-            if (state.IsKeyDown(Keys.W))
-            {
-                spritePos[1] -= 5; // Move up
-            }
-            if (state.IsKeyDown(Keys.S))
-            {
-                spritePos[1] += 5; // Move down
-            }
-            if (state.IsKeyDown(Keys.A))
-            {
-                spritePos[0] -= 5; // Move left
-            }
-            if (state.IsKeyDown(Keys.D))
-            {
-                spritePos[0] += 5; // Move right
             }
 
             // Accumulate the elapsed time for block switching cooldown
@@ -145,7 +157,6 @@ namespace Sprint2Pork
             }
 
             base.Update(gameTime);
-            characterSprite.Update(spritePos[0], spritePos[1]);
         }
 
         private void ResetGame()
@@ -169,9 +180,9 @@ namespace Sprint2Pork
         protected override void Draw(GameTime gameTime)
         {
             spriteBatch.Begin();
-            GraphicsDevice.Clear(Color.Cyan);
+            GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            characterSprite.Draw(spriteBatch, characterTexture);
+            currentSprite.Draw(spriteBatch, characterTexture);
             textSprite.Draw(spriteBatch, characterTexture);
 
             // Draw the current block
