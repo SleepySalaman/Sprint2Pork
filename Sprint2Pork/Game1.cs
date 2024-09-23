@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Sprint2Pork.Blocks;
+using Sprint2Pork.Enemies;
+using Sprint2Pork.Enemies.Aquamentus;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +16,7 @@ namespace Sprint2Pork
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private ISprite characterSprite;
+        private IEnemy enemySprite;
         private ISprite textSprite;
         private List<IController> controllerList;
         private Texture2D characterTexture;
@@ -69,6 +72,7 @@ namespace Sprint2Pork
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             characterSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1]);
+            enemySprite = new AquamentusNotAttacking();
             staticSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1]);
             animatedSprite = new MovingAnimatedSprite(spritePos[0], spritePos[1]);
             currentSprite = staticSprite;
@@ -91,6 +95,27 @@ namespace Sprint2Pork
         protected override void Update(GameTime gameTime)
         {
             KeyboardState state = Keyboard.GetState();
+
+            // Quit the game if 'Q' is pressed
+            if (state.IsKeyDown(Keys.Q))
+            {
+                Exit();
+            }
+            // Reset the game if 'R' is pressed
+            if (state.IsKeyDown(Keys.R))
+            {
+                ResetGame();
+            }
+            // Existing code for quitting with Escape or Mouse click
+            if (state.IsKeyDown(Keys.Escape) || state.IsKeyDown(Keys.D0) || Mouse.GetState().RightButton == ButtonState.Pressed)
+            {
+                Exit();
+            }
+            foreach (IController c in controllerList)
+            {
+                c.Update();
+            }
+
             bool isMoving = false;
 
             // Handle WASD movement
@@ -125,6 +150,7 @@ namespace Sprint2Pork
 
             // Update the current sprite
             currentSprite.Update(spritePos[0], spritePos[1]);
+            enemySprite.Update();
 
             // Existing code for quitting with Escape or Mouse click
             if (state.IsKeyDown(Keys.Escape) || state.IsKeyDown(Keys.D0) || Mouse.GetState().RightButton == ButtonState.Pressed)
@@ -172,6 +198,7 @@ namespace Sprint2Pork
 
             // Reset the character sprite to its initial mode (NonMovingNonAnimatedSprite)
             setMode(PlayerSpriteList.NonMovingNonAnimatedPlayer);
+            enemySprite = new AquamentusNotAttacking();
         }
 
 
@@ -181,6 +208,7 @@ namespace Sprint2Pork
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             currentSprite.Draw(spriteBatch, characterTexture);
+            enemySprite.Draw(spriteBatch, enemyTexture);
             textSprite.Draw(spriteBatch, characterTexture);
             KeyboardState state = Keyboard.GetState();
             bool isMoving = false;
