@@ -80,8 +80,22 @@ namespace Sprint2Pork
 
         protected override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape) || Keyboard.GetState().IsKeyDown(Keys.D0) 
-                || Mouse.GetState().RightButton == ButtonState.Pressed)
+            KeyboardState state = Keyboard.GetState();
+
+            // Quit the game if 'Q' is pressed
+            if (state.IsKeyDown(Keys.Q))
+            {
+                Exit();
+            }
+
+            // Reset the game if 'R' is pressed
+            if (state.IsKeyDown(Keys.R))
+            {
+                ResetGame();
+            }
+
+            // Existing code for quitting with Escape or Mouse click
+            if (state.IsKeyDown(Keys.Escape) || state.IsKeyDown(Keys.D0) || Mouse.GetState().RightButton == ButtonState.Pressed)
             {
                 Exit();
             }
@@ -100,30 +114,44 @@ namespace Sprint2Pork
                 spritePos[1] = -5;
             }
 
-            // Accumulate the elapsed time
+            // Accumulate the elapsed time for block switching cooldown
             timeSinceLastSwitch += gameTime.ElapsedGameTime.TotalSeconds;
 
-            KeyboardState state = Keyboard.GetState();
-
-            // If 'T' is pressed and cooldown period has passed, switch to the previous block
+            // Switch to the previous block with 'T' and cooldown check
             if (state.IsKeyDown(Keys.T) && timeSinceLastSwitch >= switchCooldown)
             {
                 currentBlockIndex = (currentBlockIndex - 1 + blocks.Count) % blocks.Count;
-                timeSinceLastSwitch = 0;  // Reset timer
+                timeSinceLastSwitch = 0;
             }
 
-            // If 'Y' is pressed and cooldown period has passed, switch to the next block
+            // Switch to the next block with 'Y' and cooldown check
             if (state.IsKeyDown(Keys.Y) && timeSinceLastSwitch >= switchCooldown)
             {
                 currentBlockIndex = (currentBlockIndex + 1) % blocks.Count;
-                timeSinceLastSwitch = 0;  // Reset timer
+                timeSinceLastSwitch = 0;
             }
 
             base.Update(gameTime);
             characterSprite.Update(spritePos[0], spritePos[1]);
-
-            base.Update(gameTime);
         }
+
+        private void ResetGame()
+        {
+            // Reset block index to the first block
+            currentBlockIndex = 0;
+
+            // Reset character position
+            spritePos[0] = 50;
+            spritePos[1] = 50;
+
+            // Reset other necessary variables
+            moving = false;
+            timeSinceLastSwitch = 0;
+
+            // Reset the character sprite to its initial mode (NonMovingNonAnimatedSprite)
+            setMode(1);
+        }
+
 
         protected override void Draw(GameTime gameTime)
         {
