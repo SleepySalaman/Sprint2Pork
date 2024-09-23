@@ -200,6 +200,7 @@ namespace Sprint2Pork
 
             // Reset the character sprite to its initial mode (NonMovingNonAnimatedSprite)
             setMode(PlayerSpriteList.NonMovingNonAnimatedPlayer);
+            enemySprite = new AquamentusNotAttacking();
         }
 
 
