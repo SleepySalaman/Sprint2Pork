@@ -152,7 +152,7 @@ namespace Sprint2Pork
             timeSinceLastSwitch = 0;
 
             // Reset the character sprite to its initial mode (NonMovingNonAnimatedSprite)
-            setMode(1);
+            setMode(PlayerSpriteList.NonMovingNonAnimatedPlayer);
         }
 
 

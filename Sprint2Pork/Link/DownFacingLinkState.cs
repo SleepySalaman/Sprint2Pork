@@ -8,26 +8,26 @@ namespace Sprint2Pork
 {
     public class DownFacingLinkState : ILinkDirectionState
     {
-        private Link link;
+        private ILink link;
 
-        public DownFacingLinkState(Link link)
+        public DownFacingLinkState(ILink link)
         {
             this.link = link;
         }
 
         public void LookLeft()
         {
-            link.directionState = new LeftFacingLinkState(link);
+            //link.directionState = new LeftFacingLinkState(link);
         }
 
         public void LookRight()
         {
-            link.directionState = new RightFacingLinkState(link);
+            //link.directionState = new RightFacingLinkState(link);
         }
 
         public void LookUp()
         {
-            link.directionState = new UpFacingLinkState(link);
+            //link.directionState = new UpFacingLinkState(link);
         }
 
         public void LookDown()
