@@ -104,18 +104,37 @@ namespace Sprint2Pork
         protected override void Update(GameTime gameTime)
         {
             KeyboardState state = Keyboard.GetState();
+
+            // Quit the game if 'Q' is pressed
+            if (state.IsKeyDown(Keys.Q))
+            {
+                Exit();
+            }
+            // Reset the game if 'R' is pressed
+            if (state.IsKeyDown(Keys.R))
+            {
+                ResetGame();
+            }
+            // Existing code for quitting with Escape or Mouse click
+            if (state.IsKeyDown(Keys.Escape) || state.IsKeyDown(Keys.D0) || Mouse.GetState().RightButton == ButtonState.Pressed)
+            {
+                Exit();
+            }
+            foreach (IController c in controllerList)
+            {
+                c.Update();
+            }
+
             bool isMoving = false;
 
             // Handle WASD movement
             if (state.IsKeyDown(Keys.W))
             {
                 spritePos[1] -= 5; // Move up
-                isMoving = true;
             }
             if (state.IsKeyDown(Keys.S))
             {
                 spritePos[1] += 5; // Move down
-                isMoving = true;
             }
             if (state.IsKeyDown(Keys.A))
             {
@@ -188,6 +207,7 @@ namespace Sprint2Pork
 
             // Reset the character sprite to its initial mode (NonMovingNonAnimatedSprite)
             setMode(PlayerSpriteList.NonMovingNonAnimatedPlayer);
+            enemySprite = new AquamentusNotAttacking();
         }
 
 
