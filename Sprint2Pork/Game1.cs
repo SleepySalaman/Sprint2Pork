@@ -191,22 +191,22 @@ namespace Sprint2Pork
             // Handle WASD movement
             if (state.IsKeyDown(Keys.W))
             {
-                newPosition.Y -= 5; // Move up
+                newPosition.Y -= 1; // Move up
                 isMoving = true;
             }
             if (state.IsKeyDown(Keys.S))
             {
-                newPosition.Y += 5; // Move down
+                newPosition.Y += 1; // Move down
                 isMoving = true;
             }
             if (state.IsKeyDown(Keys.A))
             {
-                newPosition.X -= 5; // Move left
+                newPosition.X -= 1; // Move left
                 isMoving = true;
             }
             if (state.IsKeyDown(Keys.D))
             {
-                newPosition.X += 5; // Move right
+                newPosition.X += 1; // Move right
                 isMoving = true;
             }
 
