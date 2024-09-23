@@ -23,6 +23,6 @@ namespace Sprint2Pork
 
         //void UseItem();
 
-        void Update();
+        //void Update();
     }
 }
