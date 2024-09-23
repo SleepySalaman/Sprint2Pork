@@ -109,13 +109,22 @@ namespace Sprint2Pork
                 c.Update();
             }
 
-            if (moving && spritePos[1] < GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 2.2)
+            // Handle WASD movement
+            if (state.IsKeyDown(Keys.W))
             {
-                spritePos[1]++;
+                spritePos[1] -= 5; // Move up
             }
-            else if (moving)
+            if (state.IsKeyDown(Keys.S))
             {
-                spritePos[1] = -5;
+                spritePos[1] += 5; // Move down
+            }
+            if (state.IsKeyDown(Keys.A))
+            {
+                spritePos[0] -= 5; // Move left
+            }
+            if (state.IsKeyDown(Keys.D))
+            {
+                spritePos[0] += 5; // Move right
             }
 
             // Accumulate the elapsed time for block switching cooldown
