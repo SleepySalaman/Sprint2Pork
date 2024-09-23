@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace Sprint2Pork
         public LeftFacingLinkState(Link link)
         {
             this.link = link;
-            linkSprite = new NonMovingNonAnimatedSprite(link.x, link.y, new Microsoft.Xna.Framework.Rectangle(80, 0, 16, 16));
+            linkSprite = new NonMovingNonAnimatedSprite(link.x, link.y, new Rectangle(80, 0, 16, 16));
         }
 
         public void Update()
