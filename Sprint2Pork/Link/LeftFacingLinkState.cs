@@ -8,10 +8,13 @@ namespace Sprint2Pork
 {
     public class LeftFacingLinkState : ILinkDirectionState
     {
-        private ILink link;
-        public LeftFacingLinkState(ILink link)
+        private Link link;
+        private ISprite linkSprite;
+
+        public LeftFacingLinkState(Link link)
         {
             this.link = link;
+            linkSprite = new NonMovingNonAnimatedSprite(link.x, link.y, new Microsoft.Xna.Framework.Rectangle(80, 0, 16, 16));
         }
 
         public void Update()

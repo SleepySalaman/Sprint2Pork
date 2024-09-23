@@ -11,10 +11,10 @@ public class NonMovingNonAnimatedSprite : ISprite
     private List<Rectangle> sourceRects;
     private Rectangle destinationRect;
 
-    public NonMovingNonAnimatedSprite(int x, int y)
+    public NonMovingNonAnimatedSprite(int x, int y, Rectangle rect)
     {
         sourceRects = new List<Rectangle>();
-        sourceRects.Add(new Rectangle(200, 120, 30, 35));
+        sourceRects.Add(rect);
 
         destinationRect = new Rectangle(x, y, 100, 100);
 

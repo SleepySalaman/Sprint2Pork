@@ -8,9 +8,9 @@ namespace Sprint2Pork
 {
     public class UpFacingLinkState : ILinkDirectionState
     {
-        private ILink link;
+        private Link link;
 
-        public UpFacingLinkState(ILink link)
+        public UpFacingLinkState(Link link)
         {
             this.link = link;
         }

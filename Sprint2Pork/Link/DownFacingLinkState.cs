@@ -3,16 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace Sprint2Pork
 {
     public class DownFacingLinkState : ILinkDirectionState
     {
-        private ILink link;
+        private Link link;
+        private ISprite linkSprite;
 
-        public DownFacingLinkState(ILink link)
+        public DownFacingLinkState(Link link)
         {
             this.link = link;
+            //Rectangle sprite = new Rectangle(0, 0, 15, 15);
+            link.linkSprite = new NonMovingNonAnimatedSprite(link.x, link.y, new Rectangle(0, 0, 16, 16));
         }
 
         public void LookLeft()
