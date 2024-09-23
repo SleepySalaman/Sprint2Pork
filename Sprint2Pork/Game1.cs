@@ -78,7 +78,13 @@ namespace Sprint2Pork
             moving = false;
 
             blocks = new List<Block>();
-            items = new List<Item>();
+            //adds item to list
+            items = new List<Item> {
+                new Item(300, 100, new List<Rectangle> { new Rectangle(72, 0, 8, 16), new Rectangle(72, 16, 8, 16) }),
+                new Item(300, 100, new List<Rectangle> { new Rectangle(80, 0, 8, 16), new Rectangle(80, 16, 8, 16) }),
+                new Item(300, 100, new List<Rectangle> { new Rectangle(88, 0, 8, 16), new Rectangle(88, 16, 8, 16) }),
+                new Item(300, 100, new List<Rectangle> { new Rectangle(24, 0, 16, 16), new Rectangle(24, 0, 16, 16) })
+            };
 
             currentBlockIndex = 0;
             currentItemIndex = 0;
@@ -121,11 +127,6 @@ namespace Sprint2Pork
             textSprite = new TextSprite(200, 100, font);
 
             itemTexture = Content.Load<Texture2D>("items_and_weapons");
-            // Add items to the list
-            items.Add(new Item(300, 100, new List<Rectangle> { new Rectangle(72, 0, 8, 16), new Rectangle(72, 16, 8, 16) }));
-            items.Add(new Item(300, 100, new List<Rectangle> { new Rectangle(80, 0, 8, 16), new Rectangle(80, 16, 8, 16) }));
-            items.Add(new Item(300, 100, new List<Rectangle> { new Rectangle(88, 0, 8, 16), new Rectangle(88, 16, 8, 16) }));
-            items.Add(new Item(300, 100, new List<Rectangle> { new Rectangle(24, 0, 16, 16), new Rectangle(24, 0, 16, 16) }));
 
             //Link
             link = new Link();
@@ -156,40 +157,46 @@ namespace Sprint2Pork
             }
 
             bool isMoving = false;
+            Vector2 newPosition = new Vector2(spritePos[0], spritePos[1]);
 
             // Handle WASD movement
             if (state.IsKeyDown(Keys.W))
             {
-                spritePos[1] -= 5; // Move up
+                // Move up
+                newPosition.Y -= 5;
+                isMoving = true;
             }
             if (state.IsKeyDown(Keys.S))
             {
-                spritePos[1] += 5; // Move down
+                // Move down
+                newPosition.Y += 5;
             }
             if (state.IsKeyDown(Keys.A))
             {
-                spritePos[0] -= 5; // Move left
+                // Move left
+                newPosition.X -= 5;
                 isMoving = true;
             }
             if (state.IsKeyDown(Keys.D))
             {
-                spritePos[0] += 5; // Move right
+                // Move right
+                newPosition.X += 5;
                 isMoving = true;
             }
 
             // Switch between static and animated sprites
-            if (isMoving)
-            {
-                currentSprite = animatedSprite;
-            }
-            else
-            {
-                currentSprite = staticSprite;
-            }
+            currentSprite = isMoving ? animatedSprite : staticSprite;
 
             // Update the current sprite
             currentSprite.Update(spritePos[0], spritePos[1]);
             enemySprite.Update();
+
+            // Update the current sprite only if the position has changed
+            if (newPosition != new Vector2(spritePos[0], spritePos[1])) {
+                spritePos[0] = (int)newPosition.X;
+                spritePos[1] = (int)newPosition.Y;
+                currentSprite.Update(spritePos[0], spritePos[1]);
+            }
 
             // Existing code for quitting with Escape or Mouse click
             if (state.IsKeyDown(Keys.Escape) || state.IsKeyDown(Keys.D0) || Mouse.GetState().RightButton == ButtonState.Pressed)
@@ -276,42 +283,6 @@ namespace Sprint2Pork
             currentSprite.Draw(spriteBatch, characterTexture);
             enemySprite.Draw(spriteBatch, enemyTexture);
             textSprite.Draw(spriteBatch, characterTexture);
-            KeyboardState state = Keyboard.GetState();
-            bool isMoving = false;
-            Vector2 newPosition = new Vector2(spritePos[0], spritePos[1]);
-
-            // Handle WASD movement
-            if (state.IsKeyDown(Keys.W))
-            {
-                newPosition.Y -= 1; // Move up
-                isMoving = true;
-            }
-            if (state.IsKeyDown(Keys.S))
-            {
-                newPosition.Y += 1; // Move down
-                isMoving = true;
-            }
-            if (state.IsKeyDown(Keys.A))
-            {
-                newPosition.X -= 1; // Move left
-                isMoving = true;
-            }
-            if (state.IsKeyDown(Keys.D))
-            {
-                newPosition.X += 1; // Move right
-                isMoving = true;
-            }
-
-            // Switch between static and animated sprites
-            currentSprite = isMoving ? animatedSprite : staticSprite;
-
-            // Update the current sprite only if the position has changed
-            if (newPosition != new Vector2(spritePos[0], spritePos[1]))
-            {
-                spritePos[0] = (int)newPosition.X;
-                spritePos[1] = (int)newPosition.Y;
-                currentSprite.Update(spritePos[0], spritePos[1]);
-            }
 
             // Existing code for quitting with Escape or Mouse click
             // Draw the current block
