@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using Sprint2Pork.Blocks;
 using Sprint2Pork.Enemies;
 using Sprint2Pork.Enemies.Aquamentus;
+using Sprint2Pork.Items;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -34,6 +35,10 @@ namespace Sprint2Pork
         private List<Block> blocks;
         private int currentBlockIndex;
         private Vector2 blockPosition;  // Constant position for all blocks
+        private List<Item> items;
+        private int currentItemIndex;
+        private Texture2D itemTexture;
+        private KeyboardState previousState;
 
         public enum Direction { Left, Right };
         public enum PlayerSpriteList { NonMovingNonAnimatedPlayer, NonMovingAnimatedPlayer, MovingNonAnimatedPlayer, MovingAnimatedPlayer };
@@ -63,13 +68,19 @@ namespace Sprint2Pork
             moving = false;
 
             blocks = new List<Block>();
+            items = new List<Item>();
+
             currentBlockIndex = 0;
+            currentItemIndex = 0;
+
             blockPosition = new Vector2(200, 200);  // Constant position for block
 
         }
 
         protected override void Initialize()
         {
+            previousState = Keyboard.GetState();
+
             base.Initialize();
         }
 
@@ -99,6 +110,13 @@ namespace Sprint2Pork
             }
             font = Content.Load<SpriteFont>("File");
             textSprite = new TextSprite(200, 100, font);
+
+            itemTexture = Content.Load<Texture2D>("items_and_weapons");
+            // Add items to the list
+            items.Add(new Item(300, 100, new List<Rectangle> { new Rectangle(72, 0, 8, 16), new Rectangle(72, 16, 8, 16) }));
+            items.Add(new Item(300, 100, new List<Rectangle> { new Rectangle(80, 0, 8, 16), new Rectangle(80, 16, 8, 16) }));
+            items.Add(new Item(300, 100, new List<Rectangle> { new Rectangle(88, 0, 8, 16), new Rectangle(88, 16, 8, 16) }));
+            items.Add(new Item(300, 100, new List<Rectangle> { new Rectangle(24, 0, 16, 16), new Rectangle(24, 0, 16, 16) }));
 
             //Link
             link = new Link();
@@ -179,18 +197,45 @@ namespace Sprint2Pork
             timeSinceLastSwitch += gameTime.ElapsedGameTime.TotalSeconds;
 
             // Switch to the previous block with 'T' and cooldown check
-            if (state.IsKeyDown(Keys.T) && timeSinceLastSwitch >= switchCooldown)
+            if (state.IsKeyDown(Keys.T) && timeSinceLastSwitch >= switchCooldown && !previousState.IsKeyDown(Keys.T))
             {
                 currentBlockIndex = (currentBlockIndex - 1 + blocks.Count) % blocks.Count;
                 timeSinceLastSwitch = 0;
             }
 
             // Switch to the next block with 'Y' and cooldown check
-            if (state.IsKeyDown(Keys.Y) && timeSinceLastSwitch >= switchCooldown)
+            if (state.IsKeyDown(Keys.Y) && timeSinceLastSwitch >= switchCooldown && !previousState.IsKeyDown(Keys.Y))
             {
                 currentBlockIndex = (currentBlockIndex + 1) % blocks.Count;
                 timeSinceLastSwitch = 0;
             }
+
+            // Handle item cycling
+            if (state.IsKeyDown(Keys.U) && !previousState.IsKeyDown(Keys.U))
+            {
+                // Store the current position
+                var currentPosition = items[currentItemIndex].destinationRect.Location;
+                currentItemIndex = (currentItemIndex - 1 + items.Count) % items.Count;
+                // Set the new current item's position to the stored position
+                items[currentItemIndex].destinationRect.Location = currentPosition;
+            }
+
+            // Cycle to the next item with 'I'
+            if (state.IsKeyDown(Keys.I) && !previousState.IsKeyDown(Keys.I))
+            {
+                // Store the current position
+                var currentPosition = items[currentItemIndex].destinationRect.Location;
+                currentItemIndex = (currentItemIndex + 1) % items.Count;
+                // Set the new current item's position to the stored position
+                items[currentItemIndex].destinationRect.Location = currentPosition;
+            }
+
+            previousState = state;
+
+
+            // Update the current item
+            items[currentItemIndex].Update(items[currentItemIndex].destinationRect.X, items[currentItemIndex].destinationRect.Y);
+
 
             base.Update(gameTime);
         }
@@ -263,6 +308,9 @@ namespace Sprint2Pork
             // Existing code for quitting with Escape or Mouse click
             // Draw the current block
             blocks[currentBlockIndex].Draw(spriteBatch);
+
+            // Draw the current item
+            items[currentItemIndex].Draw(spriteBatch, itemTexture);
 
             base.Draw(gameTime);
             spriteBatch.End();
