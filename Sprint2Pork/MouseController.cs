@@ -23,19 +23,19 @@ public class MouseController : IController
 
         if (mouseDown && ms.X < width / 2 && ms.Y < height / 2)
         {
-            programGame.setMode(1);
+            programGame.setMode(Game1.PlayerSpriteList.NonMovingNonAnimatedPlayer);
         }
         else if (mouseDown && ms.X < width / 2 && ms.Y >= height / 2)
         {
-            programGame.setMode(3);
+            programGame.setMode(Game1.PlayerSpriteList.MovingNonAnimatedPlayer);
         }
         else if (mouseDown && ms.X >= width / 2 && ms.Y < height / 2)
         {
-            programGame.setMode(2);
+            programGame.setMode(Game1.PlayerSpriteList.NonMovingAnimatedPlayer);
         }
         else if (mouseDown)
         {
-            programGame.setMode(4);
+            programGame.setMode(Game1.PlayerSpriteList.MovingAnimatedPlayer);
         }
     }
 
