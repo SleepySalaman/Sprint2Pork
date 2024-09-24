@@ -34,8 +34,15 @@ namespace Sprint2Pork.Enemies.Manhandla {
 
         public ManhandlaMoving() {
             sourceRects = new List<Rectangle> {
-                new Rectangle(60, 80, 24, 32),
-                new Rectangle(60, 110, 24, 32)
+                new Rectangle(0, 199, 60, 50),
+                new Rectangle(60, 200, 60, 50),
+                new Rectangle(120, 200, 60, 50),
+                new Rectangle(180, 199, 60, 50),
+                new Rectangle(240, 199, 60, 50),
+                new Rectangle(0, 255, 60, 50),
+                new Rectangle(60, 256, 60, 50),
+                new Rectangle(120, 255, 60, 50),
+                new Rectangle(180, 255, 60, 50)
             };
 
             scaleX = 1;

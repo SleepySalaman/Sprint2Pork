@@ -34,8 +34,8 @@ namespace Sprint2Pork.Enemies.Digdogger {
 
         public DigdoggerLarge() {
             sourceRects = new List<Rectangle> {
-                new Rectangle(60, 80, 24, 32),
-                new Rectangle(60, 110, 24, 32)
+                new Rectangle(220, 0, 40, 40),
+                new Rectangle(260, 0, 40, 40)
             };
 
             scaleX = 1;
