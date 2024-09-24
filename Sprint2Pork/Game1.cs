@@ -62,6 +62,8 @@ namespace Sprint2Pork
         public enum EnemyList { Aquamentus, Dodongo, Manhandla, Gleeok, Digdogger, Gohma, Ganon };
 
         public EnemyList currentEnemy;
+        private int currentEnemyNum;
+        private int numEnemies;
 
         private PlayerSpriteList playerMode;
         private ISprite staticSprite;
@@ -91,6 +93,8 @@ namespace Sprint2Pork
             //spriteMode = 1;
             playerMode = PlayerSpriteList.NonMovingNonAnimatedPlayer;
             currentEnemy = EnemyList.Gleeok;
+            currentEnemyNum = 0;
+            numEnemies = 7;
             moving = false;
 
             blocks = new List<Block>();
@@ -390,78 +394,40 @@ namespace Sprint2Pork
         }
 
         public void cycleEnemies() {
-            switch (currentEnemy) {
-                case EnemyList.Aquamentus:
-                    currentEnemy = EnemyList.Dodongo;
-                    break;
-                case EnemyList.Dodongo:
-                    currentEnemy = EnemyList.Manhandla;
-                    break;
-                case EnemyList.Manhandla:
-                    currentEnemy = EnemyList.Gleeok;
-                    break;
-                case EnemyList.Gleeok:
-                    currentEnemy = EnemyList.Digdogger;
-                    break;
-                case EnemyList.Digdogger:
-                    currentEnemy = EnemyList.Gohma;
-                    break;
-                case EnemyList.Gohma:
-                    currentEnemy = EnemyList.Ganon;
-                    break;
-                case EnemyList.Ganon:
-                    currentEnemy = EnemyList.Aquamentus;
-                    break;
+            currentEnemyNum++;
+            if(currentEnemyNum > numEnemies - 1) {
+                currentEnemyNum = 0;
             }
         }
 
         public void cycleEnemiesBackwards() {
-            switch (currentEnemy) {
-                case EnemyList.Aquamentus:
-                    currentEnemy = EnemyList.Ganon;
-                    break;
-                case EnemyList.Dodongo:
-                    currentEnemy = EnemyList.Aquamentus;
-                    break;
-                case EnemyList.Manhandla:
-                    currentEnemy = EnemyList.Dodongo;
-                    break;
-                case EnemyList.Gleeok:
-                    currentEnemy = EnemyList.Manhandla;
-                    break;
-                case EnemyList.Digdogger:
-                    currentEnemy = EnemyList.Gleeok;
-                    break;
-                case EnemyList.Gohma:
-                    currentEnemy = EnemyList.Digdogger;
-                    break;
-                case EnemyList.Ganon:
-                    currentEnemy = EnemyList.Gohma;
-                    break;
+            currentEnemyNum--;
+            if(currentEnemyNum < 0) {
+                currentEnemyNum = numEnemies - 1;
             }
         }
 
         public void setEnemySprite() {
-            switch (currentEnemy) {
-                case EnemyList.Aquamentus:
+            switch (currentEnemyNum) {
+                case 0:
                     enemySprite = new AquamentusNotAttacking();
                     break;
-                case EnemyList.Dodongo:
+                case 1:
                     enemySprite = new DodongoIdle();
                     break;
-                case EnemyList.Manhandla:
+                case 2:
                     enemySprite = new ManhandlaMoving();
                     break;
-                case EnemyList.Gleeok:
+                case 3:
                     enemySprite = new GleeokMoving();
                     break;
-                case EnemyList.Digdogger:
+                case 4:
                     enemySprite = new DigdoggerLarge();
                     break;
-                case EnemyList.Gohma:
+                case 5:
                     enemySprite = new GohmaNotAttacking();
                     break;
-                case EnemyList.Ganon:
+                case 6:
                     enemySprite = new GanonNotDamaged();
                     break;
             }
