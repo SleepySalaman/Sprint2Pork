@@ -109,41 +109,59 @@ namespace Sprint2Pork
 
         public void Move()
         {
-            
-                switch (directionState)
-                {
-                    case LeftFacingLinkState:
+
+            switch (directionState)
+            {
+                case LeftFacingLinkState:
                     //directionState = new LeftFacingLinkState(this);
-                        if (x > 0)
-                        {
-                            this.x = this.x - 2;
+                    if (x > 0)
+                    {
+                        this.x = this.x - 2;
 
-                        }
-                        break;
-                    case RightFacingLinkState:
+                    }
+                    break;
+                case RightFacingLinkState:
                     //directionState = new RightFacingLinkState(this);
-                        if (x < screenWidth)
-                        {
-                            this.x = this.x + 2;
-                        }
-                        break;
-                    case UpFacingLinkState:
+                    if (x < screenWidth)
+                    {
+                        this.x = this.x + 2;
+                    }
+                    break;
+                case UpFacingLinkState:
                     //directionState = new UpFacingLinkState(this);
-                        if (y > 0)
-                        {
-                            this.y = this.y - 2;
-                        }
-                        break;
-                    case DownFacingLinkState:
+                    if (y > 0)
+                    {
+                        this.y = this.y - 2;
+                    }
+                    break;
+                case DownFacingLinkState:
                     //directionState = new DownFacingLinkState(this);
-                        if (y < screenHeight)
-                        {
-                            this.y = this.y + 2;
-                        }
-                        break;
-                }
-            
+                    if (y < screenHeight)
+                    {
+                        this.y = this.y + 2;
+                    }
+                    break;
+            }
 
+
+        }
+        public void Attack()
+        {
+            switch (directionState)
+            {
+                case UpFacingLinkState:
+                    actionState = new UpAttackingLinkState(this);
+                    break;
+                case DownFacingLinkState:
+                    actionState = new DownAttackingLinkState(this);
+                    break;
+                case LeftFacingLinkState:
+                    actionState = new LeftAttackingLinkState(this);
+                    break;
+                case RightFacingLinkState:
+                    actionState = new RightAttackingLinkState(this);
+                    break;
             }
         }
+    }
 }

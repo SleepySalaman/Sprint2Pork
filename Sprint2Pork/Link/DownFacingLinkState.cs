@@ -11,7 +11,6 @@ namespace Sprint2Pork
     public class DownFacingLinkState : ILinkDirectionState
     {
         private Link link;
-        private ISprite linkSprite;
 
         public DownFacingLinkState(Link link)
         {

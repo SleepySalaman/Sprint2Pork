@@ -183,31 +183,6 @@ namespace Sprint2Pork
             bool isMoving = false;
             Vector2 newPosition = new Vector2(spritePos[0], spritePos[1]);
 
-            //// Handle WASD movement
-            //if (state.IsKeyDown(Keys.W))
-            //{
-            //    // Move up
-            //    newPosition.Y -= 5;
-            //    isMoving = true;
-            //}
-            //if (state.IsKeyDown(Keys.S))
-            //{
-            //    // Move down
-            //    newPosition.Y += 5;
-            //}
-            //if (state.IsKeyDown(Keys.A))
-            //{
-            //    // Move left
-            //    newPosition.X -= 5;
-            //    isMoving = true;
-            //}
-            //if (state.IsKeyDown(Keys.D))
-            //{
-            //    // Move right
-            //    newPosition.X += 5;
-            //    isMoving = true;
-            //}
-
             // Switch between static and animated sprites
             currentSprite = isMoving ? animatedSprite : staticSprite;
 
@@ -276,33 +251,28 @@ namespace Sprint2Pork
             // Link
 
 
-            bool moving = false;
             // Handle WASD movement
             if (state.IsKeyDown(Keys.W) || state.IsKeyDown(Keys.Up))
             {
                 // Move up
-                moving = true;
                 link.LookUp();
                 //link.Move();
             }
             else if (state.IsKeyDown(Keys.S) || state.IsKeyDown(Keys.Down))
             {
                 // Move down
-                moving = true;
                 link.LookDown();
                 //link.Move();
             }
             else if (state.IsKeyDown(Keys.A) || state.IsKeyDown(Keys.Left))
             {
                 // Move left
-                moving = true;
                 link.LookLeft();
                 //link.Move();
             }
             else if (state.IsKeyDown(Keys.D) || state.IsKeyDown(Keys.Right))
             {
                 // Move right
-                moving = true;
                 link.LookRight();
                 //link.Move();
             }
@@ -316,15 +286,18 @@ namespace Sprint2Pork
                 setEnemySprite();
                 timeSinceSwitchedEnemy = 0;
             }
+            // Handle attack
+            if (state.IsKeyDown(Keys.Z) || state.IsKeyDown(Keys.N))
+            {
+                link.Attack();
+            }
 
             if (state.IsKeyUp(Keys.W) && state.IsKeyUp(Keys.A) && state.IsKeyUp(Keys.S) && state.IsKeyUp(Keys.D) && state.IsKeyUp(Keys.Up) && state.IsKeyUp(Keys.Left) && state.IsKeyUp(Keys.Right) && state.IsKeyUp(Keys.Down))
             {
-                moving = false;
                 link.BeIdle();
             }
             else
             {
-                moving = true;
                 link.BeMoving();
             }
             //link.directionState.Update();
