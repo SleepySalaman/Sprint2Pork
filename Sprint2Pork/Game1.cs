@@ -319,6 +319,7 @@ namespace Sprint2Pork
         {
             // Reset block index to the first block
             currentBlockIndex = 0;
+            currentItemIndex = 0;
 
             // Reset character position
             spritePos[0] = 50;
@@ -331,6 +332,7 @@ namespace Sprint2Pork
             // Reset the character sprite to its initial mode (NonMovingNonAnimatedSprite)
             setMode(PlayerSpriteList.NonMovingNonAnimatedPlayer);
             enemySprite = new AquamentusNotAttacking();
+            link = new Link(viewport.Width, viewport.Height);
         }
 
 
