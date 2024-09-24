@@ -49,6 +49,11 @@ namespace Sprint2Pork
             link.actionState = new MovingActionState(link);
         }
 
+        public void BeAttacking()
+        {
+            link.actionState = new AttackingActionState(link);
+        }
+
         public void Update()
         {
             link.Idle();

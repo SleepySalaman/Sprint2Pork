@@ -153,7 +153,7 @@ namespace Sprint2Pork
                     actionState = new UpAttackingLinkState(this);
                     break;
                 case DownFacingLinkState:
-                    actionState = new DownAttackingLinkState(this);
+                    actionState = new AttackingActionState(this);
                     break;
                 case LeftFacingLinkState:
                     actionState = new LeftAttackingLinkState(this);

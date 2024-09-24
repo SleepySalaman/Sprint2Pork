@@ -10,6 +10,7 @@ namespace Sprint2Pork
     {
         void BeIdle();
         void BeMoving();
+        void BeAttacking();
         void Update();
     }
 }
