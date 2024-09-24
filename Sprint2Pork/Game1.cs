@@ -263,25 +263,25 @@ namespace Sprint2Pork
 
             bool moving = false;
             // Handle WASD movement
-            if (state.IsKeyDown(Keys.W))
+            if (state.IsKeyDown(Keys.W) || state.IsKeyDown(Keys.Up))
             {
                 // Move up
                 link.LookUp();
                 //link.Move();
             }
-            if (state.IsKeyDown(Keys.S))
+            if (state.IsKeyDown(Keys.S) || state.IsKeyDown(Keys.Down))
             {
                 // Move down
                 link.LookDown();
                 //link.Move();
             }
-            if (state.IsKeyDown(Keys.A))
+            if (state.IsKeyDown(Keys.A) || state.IsKeyDown(Keys.Left))
             {
                 // Move left
                 link.LookLeft();
                 //link.Move();
             }
-            if (state.IsKeyDown(Keys.D))
+            if (state.IsKeyDown(Keys.D) || state.IsKeyDown(Keys.Right))
             {
                 // Move right
                 link.LookRight();
