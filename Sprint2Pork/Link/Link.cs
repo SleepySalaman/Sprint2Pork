@@ -25,6 +25,8 @@ namespace Sprint2Pork
 
         private bool moving;
 
+        int attackFrameCount;
+
         public Link(int width, int height)
         {
             screenWidth = width;
@@ -33,6 +35,7 @@ namespace Sprint2Pork
             actionState = new IdleActionState(this);
             x = 0;
             y = 0;
+            attackFrameCount = 0;
         }
 
         //public void TakeDamage()
@@ -147,21 +150,13 @@ namespace Sprint2Pork
         }
         public void Attack()
         {
-            switch (directionState)
+            attackFrameCount++;
+            if (attackFrameCount > 60)
             {
-                case UpFacingLinkState:
-                    actionState = new UpAttackingLinkState(this);
-                    break;
-                case DownFacingLinkState:
-                    actionState = new AttackingActionState(this);
-                    break;
-                case LeftFacingLinkState:
-                    actionState = new LeftAttackingLinkState(this);
-                    break;
-                case RightFacingLinkState:
-                    actionState = new RightAttackingLinkState(this);
-                    break;
+                attackFrameCount = 0;
+                this.BeIdle();
             }
+
         }
     }
 }

@@ -14,6 +14,17 @@ namespace Sprint2Pork
         public AttackingActionState(Link link)
         {
             this.link = link;
+            switch (link.directionState)
+            {
+                case LeftFacingLinkState:
+                    break;
+                case RightFacingLinkState:
+                    break;
+                case UpFacingLinkState:
+                    break;
+                case DownFacingLinkState:
+                    break;
+            }
             List<Rectangle> rects = new List<Rectangle>
                 {
                     new Rectangle(69, 11, 16, 16),
@@ -21,7 +32,7 @@ namespace Sprint2Pork
                     new Rectangle(103, 11, 16, 16),
                     new Rectangle(120, 11, 16, 16)
                 };
-            link.linkSprite = new MovingAnimatedSprite(link.x, link.y, rects, false, 15);
+            link.linkSprite = new MovingAnimatedSprite(link.x, link.y, rects, false, 15); // non-moving?
         }
 
         public void BeIdle()
@@ -41,7 +52,7 @@ namespace Sprint2Pork
 
         public void Update()
         {
-            // Update logic for attacking
+            link.Attack();
         }
     }
 }
