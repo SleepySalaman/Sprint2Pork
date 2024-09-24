@@ -50,6 +50,10 @@ public class MovingAnimatedSprite : ISprite
         }
         destinationRect.X = x;
         destinationRect.Y = y;
+
+        // Update the width and height of the destination rectangle based on the current frame's source rectangle
+        destinationRect.Width = sourceRects[currentFrame].Width * 7;
+        destinationRect.Height = sourceRects[currentFrame].Height * 7;
     }
 
     void ISprite.Draw(SpriteBatch sb, Texture2D txt)

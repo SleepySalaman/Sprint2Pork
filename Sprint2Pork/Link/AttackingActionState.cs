@@ -21,35 +21,73 @@ namespace Sprint2Pork
             {
                 // TODO: Update rects to be correct attack animations for each direction
                 case LeftFacingLinkState:
-                    // Extend sword
-                    rects.Add(new Rectangle(0, 48, 16, 15));
-                    rects.Add(new Rectangle(16, 48, 16, 15));
-                    rects.Add(new Rectangle(42, 48, 16, 15));
-                    rects.Add(new Rectangle(60, 48, 16, 15));
-                    // Retract sword
-                    rects.Add(new Rectangle(42, 48, 16, 15));
-                    rects.Add(new Rectangle(16, 48, 16, 15));
-                    rects.Add(new Rectangle(0, 48, 16, 15));
+                    // no sword
+                    rects.Add(new Rectangle(0, 43, 16, 16));
+                    // half extended brown
+                    rects.Add(new Rectangle(69, 43, 22, 16));
+                    // fully extended brown
+                    rects.Add(new Rectangle(45, 43, 23, 16));
+                    // fully extended blue
+                    rects.Add(new Rectangle(16, 43, 28, 16));
+
+                    // fully extended brown
+                    rects.Add(new Rectangle(45, 43, 23, 16));
+                    // half extended brown
+                    rects.Add(new Rectangle(69, 43, 22, 16));
+                    // no sword
+                    rects.Add(new Rectangle(0, 43, 16, 16));
+
                     flipped = true;
                     break;
                 case RightFacingLinkState:
                     // Extend sword
-                    rects.Add(new Rectangle(0, 48, 16, 15));
-                    rects.Add(new Rectangle(16, 48, 16, 15));
-                    rects.Add(new Rectangle(42, 48, 16, 15));
-                    rects.Add(new Rectangle(60, 48, 16, 15));
-                    // Retract sword
-                    rects.Add(new Rectangle(42, 48, 16, 15));
-                    rects.Add(new Rectangle(16, 48, 16, 15));
-                    rects.Add(new Rectangle(0, 48, 16, 15));
+                    // no sword
+                    rects.Add(new Rectangle(0, 43, 16, 16));
+                    // half extended brown
+                    rects.Add(new Rectangle(69, 43, 22, 16));
+                    // fully extended brown
+                    rects.Add(new Rectangle(45, 43, 23, 16));
+                    // fully extended blue
+                    rects.Add(new Rectangle(16, 43, 28, 16));
+
+                    // fully extended brown
+                    rects.Add(new Rectangle(45, 43, 23, 16));
+                    // half extended brown
+                    rects.Add(new Rectangle(69, 43, 22, 16));
+                    // no sword
+                    rects.Add(new Rectangle(0, 43, 16, 16));
                     break;
                 case UpFacingLinkState:
-                    rects.Add(new Rectangle(0, 0, 16, 15));
-                    rects.Add(new Rectangle(50, 0, 16, 15));
+                    // no sword
+                    rects.Add(new Rectangle(0, 86, 16, 17));
+                    // short sword
+                    rects.Add(new Rectangle(50, 82, 16, 22));
+                    // 3/4 sword blue
+                    rects.Add(new Rectangle(34, 75, 16, 29));
+                    // full sword blue
+                    rects.Add(new Rectangle(17, 75, 16, 29));
+                    // 3/4 sword blue
+                    rects.Add(new Rectangle(34, 75, 16, 29));
+                    // short sword
+                    rects.Add(new Rectangle(50, 82, 16, 22));
+                    // no sword
+                    rects.Add(new Rectangle(0, 86, 16, 17));
                     break;
                 case DownFacingLinkState:
-                    rects.Add(new Rectangle(0, 0, 16, 15));
-                    rects.Add(new Rectangle(50, 0, 16, 15));
+                    // no sword
+                    rects.Add(new Rectangle(0, 16, 16, 16));
+                    //short sword
+                    rects.Add(new Rectangle(50, 16, 16, 22));
+                    // half sword
+                    rects.Add(new Rectangle(33, 16, 16, 26));
+                    // full sword blue
+                    rects.Add(new Rectangle(16, 16, 16, 27));
+                    // half sword
+                    rects.Add(new Rectangle(33, 16, 16, 26));
+                    //short sword
+                    rects.Add(new Rectangle(50, 16, 16, 22));
+                    // no sword
+                    rects.Add(new Rectangle(0, 16, 16, 16));
                     break;
             }
             link.linkSprite = new MovingAnimatedSprite(link.x, link.y, rects, flipped, 15); // non-moving?

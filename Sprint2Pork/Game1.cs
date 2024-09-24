@@ -124,8 +124,12 @@ namespace Sprint2Pork
             characterSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1], new Rectangle(80, 0, 16, 16), false);
             enemySprite = new AquamentusNotAttacking();
             staticSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1], new Rectangle(80, 0, 16, 16), false);
-            animatedSprite = new MovingAnimatedSprite(spritePos[0], spritePos[1], new List<Rectangle>() { new Rectangle(84, 0, 16, 16) }, false, 30);
-            currentSprite = staticSprite;
+            animatedSprite = new MovingAnimatedSprite(spritePos[0], spritePos[1], new List<Rectangle>()
+            {
+                new Rectangle(200, 120, 30, 35),
+                new Rectangle(230, 120, 30, 35),
+                new Rectangle(255, 120, 30, 35)
+            }, false, 30); currentSprite = staticSprite;
             characterTexture = Content.Load<Texture2D>("LinkAllSprites");
             enemyTexture = Content.Load<Texture2D>("zeldaenemies");
             spriteBatch = new SpriteBatch(GraphicsDevice);
