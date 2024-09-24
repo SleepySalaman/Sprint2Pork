@@ -11,11 +11,10 @@ public class MovingNonAnimatedSprite : ISprite
     private List<Rectangle> sourceRects;
     private Rectangle destinationRect;
 
-    public MovingNonAnimatedSprite(int x, int y)
+    public MovingNonAnimatedSprite(int x, int y, Rectangle rectangle)
     {
-        sourceRects = new List<Rectangle> {
-            new Rectangle(84, 0, 16, 16)
-        };
+        sourceRects = new List<Rectangle>();
+        sourceRects.Add(rectangle);
 
         currentFrame = 0;
         totalFrames = sourceRects.Count;

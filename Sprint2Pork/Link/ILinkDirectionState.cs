@@ -13,6 +13,7 @@ namespace Sprint2Pork
         void LookRight();
         void LookUp();
         void LookDown();
+        void Update();
 
         //void BeIdle();
         //void BeMoving();

@@ -13,9 +13,8 @@ public class NonMovingNonAnimatedSprite : ISprite
 
     public NonMovingNonAnimatedSprite(int x, int y, Rectangle rect)
     {
-        sourceRects = new List<Rectangle> {
-            new Rectangle(84, 0, 16, 16)
-        };
+        sourceRects = new List<Rectangle>();
+        sourceRects.Add(rect);
 
         destinationRect = new Rectangle(x, y, 100, 100);
 

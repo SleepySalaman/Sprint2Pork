@@ -55,9 +55,12 @@ namespace Sprint2Pork
         private ISprite staticSprite;
         private ISprite animatedSprite;
         private ISprite currentSprite;
+        private List<Rectangle> sourceRects;
 
         private ILink LinkMovingSprite;
         private ILink LinkAttackingSprite;
+
+        public Viewport viewport;
 
         // Link
         private Link link;
@@ -97,6 +100,8 @@ namespace Sprint2Pork
         {
             previousState = Keyboard.GetState();
 
+            viewport = graphics.GraphicsDevice.Viewport;
+
             base.Initialize();
         }
 
@@ -106,9 +111,9 @@ namespace Sprint2Pork
             characterSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1], new Rectangle(80, 0, 16, 16));
             enemySprite = new AquamentusNotAttacking();
             staticSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1], new Rectangle(80, 0, 16, 16));
-            animatedSprite = new MovingAnimatedSprite(spritePos[0], spritePos[1]);
+            animatedSprite = new MovingAnimatedSprite(spritePos[0], spritePos[1], new List<Rectangle>() { new Rectangle(84, 0, 16, 16) }, false);
             currentSprite = staticSprite;
-            characterTexture = Content.Load<Texture2D>("Link_Moving");
+            characterTexture = Content.Load<Texture2D>("NES - The Legend of Zelda - Link");
             enemyTexture = Content.Load<Texture2D>("zeldaenemies");
             spriteBatch = new SpriteBatch(GraphicsDevice);
             blockTexture = Content.Load<Texture2D>("blocks");
@@ -126,10 +131,15 @@ namespace Sprint2Pork
             font = Content.Load<SpriteFont>("File");
             textSprite = new TextSprite(200, 100, font);
 
+            sourceRects = new List<Rectangle>();
+            sourceRects.Add(new Rectangle(200, 120, 30, 35));
+            sourceRects.Add(new Rectangle(230, 120, 30, 35));
+            sourceRects.Add(new Rectangle(255, 120, 30, 35));
+
             itemTexture = Content.Load<Texture2D>("items_and_weapons");
 
             //Link
-            link = new Link();
+            link = new Link(viewport.Width, viewport.Height);
         }
 
         protected override void Update(GameTime gameTime)
@@ -159,30 +169,30 @@ namespace Sprint2Pork
             bool isMoving = false;
             Vector2 newPosition = new Vector2(spritePos[0], spritePos[1]);
 
-            // Handle WASD movement
-            if (state.IsKeyDown(Keys.W))
-            {
-                // Move up
-                newPosition.Y -= 5;
-                isMoving = true;
-            }
-            if (state.IsKeyDown(Keys.S))
-            {
-                // Move down
-                newPosition.Y += 5;
-            }
-            if (state.IsKeyDown(Keys.A))
-            {
-                // Move left
-                newPosition.X -= 5;
-                isMoving = true;
-            }
-            if (state.IsKeyDown(Keys.D))
-            {
-                // Move right
-                newPosition.X += 5;
-                isMoving = true;
-            }
+            //// Handle WASD movement
+            //if (state.IsKeyDown(Keys.W))
+            //{
+            //    // Move up
+            //    newPosition.Y -= 5;
+            //    isMoving = true;
+            //}
+            //if (state.IsKeyDown(Keys.S))
+            //{
+            //    // Move down
+            //    newPosition.Y += 5;
+            //}
+            //if (state.IsKeyDown(Keys.A))
+            //{
+            //    // Move left
+            //    newPosition.X -= 5;
+            //    isMoving = true;
+            //}
+            //if (state.IsKeyDown(Keys.D))
+            //{
+            //    // Move right
+            //    newPosition.X += 5;
+            //    isMoving = true;
+            //}
 
             // Switch between static and animated sprites
             currentSprite = isMoving ? animatedSprite : staticSprite;
@@ -248,6 +258,51 @@ namespace Sprint2Pork
 
             previousState = state;
 
+            // Link
+
+
+            bool moving = false;
+            // Handle WASD movement
+            if (state.IsKeyDown(Keys.W))
+            {
+                // Move up
+                link.LookUp();
+                //link.Move();
+            }
+            if (state.IsKeyDown(Keys.S))
+            {
+                // Move down
+                link.LookDown();
+                //link.Move();
+            }
+            if (state.IsKeyDown(Keys.A))
+            {
+                // Move left
+                link.LookLeft();
+                //link.Move();
+            }
+            if (state.IsKeyDown(Keys.D))
+            {
+                // Move right
+                link.LookRight();
+                //link.Move();
+            }
+
+            if (!state.IsKeyUp(Keys.W) && !state.IsKeyUp(Keys.A) && !state.IsKeyUp(Keys.S) && !state.IsKeyUp(Keys.D))
+            {
+                moving = false;
+                link.BeIdle();
+            }
+            else
+            {
+                moving = true;
+                link.BeMoving();
+            }
+            //link.directionState.Update();
+            link.actionState.Update();
+            link.linkSprite.Update(link.x, link.y);
+
+
 
             // Update the current item
             items[currentItemIndex].Update(items[currentItemIndex].destinationRect.X, items[currentItemIndex].destinationRect.Y);
@@ -291,6 +346,8 @@ namespace Sprint2Pork
             // Draw the current item
             items[currentItemIndex].Draw(spriteBatch, itemTexture);
 
+            link.Draw(spriteBatch, characterTexture);
+
             base.Draw(gameTime);
             spriteBatch.End();
         }
@@ -304,15 +361,15 @@ namespace Sprint2Pork
                         moving = false;
                         break;
                     case PlayerSpriteList.NonMovingAnimatedPlayer:
-                        characterSprite = new NonMovingAnimatedSprite(spritePos[0], spritePos[1]);
+                        characterSprite = new NonMovingAnimatedSprite(spritePos[0], spritePos[1], sourceRects);
                         moving = false;
                         break;
                     case PlayerSpriteList.MovingNonAnimatedPlayer:
-                        characterSprite = new MovingNonAnimatedSprite(spritePos[0], spritePos[1]);
+                        characterSprite = new MovingNonAnimatedSprite(spritePos[0], spritePos[1], new Rectangle(84, 0, 16, 16));
                         moving = true;
                         break;
                     case PlayerSpriteList.MovingAnimatedPlayer:
-                        characterSprite = new MovingAnimatedSprite(spritePos[0], spritePos[1]);
+                        characterSprite = new MovingAnimatedSprite(spritePos[0], spritePos[1], new List<Rectangle>() { new Rectangle(84, 0, 16, 16) }, false);
                         moving = true;
                         break;
                 }

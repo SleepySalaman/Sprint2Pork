@@ -16,17 +16,23 @@ namespace Sprint2Pork
     {
         public ILinkDirectionState directionState;
         public ILinkActionState actionState;
-        private Viewport viewport;
+        //private Viewport viewport;
         public int x;
         public int y;
+        private int screenWidth;
+        private int screenHeight;
         public ISprite linkSprite;
 
-        public Link()
+        private bool moving;
+
+        public Link(int width, int height)
         {
+            screenWidth = width;
+            screenHeight = height;
             directionState = new DownFacingLinkState(this);
             actionState = new IdleActionState(this);
-            x = viewport.Width / 2;
-            y = viewport.Height / 2;
+            x = 0;
+            y = 0;
         }
 
         //public void TakeDamage()
@@ -98,40 +104,42 @@ namespace Sprint2Pork
 
         public void Idle()
         {
-
+            moving = false;
         }
 
         public void Move()
         {
-            switch (directionState)
-            {
-                case LeftFacingLinkState:
-                    if (x > 0)
-                    {
-                        this.x = this.x - 1;
+            
+                switch (directionState)
+                {
+                    case LeftFacingLinkState:
+                        if (x > 0)
+                        {
+                            this.x = this.x - 1;
 
-                    }
-                    break;
-                case RightFacingLinkState:
-                    if (x > viewport.Width)
-                    {
-                        this.x = this.x + 1;
-                    }
-                    break;
-                case UpFacingLinkState:
-                    if (y > 0)
-                    {
-                        this.y = this.y - 1;
-                    }
-                    break;
-                case DownFacingLinkState:
-                    if (y > viewport.Height)
-                    {
-                        this.y = this.y + 1;
-                    }
-                    break;
+                        }
+                        break;
+                    case RightFacingLinkState:
+                        if (x < screenWidth)
+                        {
+                            this.x = this.x + 1;
+                        }
+                        break;
+                    case UpFacingLinkState:
+                        if (y > 0)
+                        {
+                            this.y = this.y - 1;
+                        }
+                        break;
+                    case DownFacingLinkState:
+                        if (y < screenHeight)
+                        {
+                            this.y = this.y + 1;
+                        }
+                        break;
+                }
+            
+
             }
-
         }
-    }
 }

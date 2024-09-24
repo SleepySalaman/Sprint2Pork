@@ -16,23 +16,30 @@ namespace Sprint2Pork
         public DownFacingLinkState(Link link)
         {
             this.link = link;
-            //Rectangle sprite = new Rectangle(0, 0, 15, 15);
-            link.linkSprite = new NonMovingNonAnimatedSprite(link.x, link.y, new Rectangle(0, 0, 16, 16));
+            List<Rectangle> rects = new List<Rectangle>();
+            rects.Add(new Rectangle(1, 11, 16, 16));
+            rects.Add(new Rectangle(18, 11, 16, 16));
+            link.linkSprite = new MovingAnimatedSprite(link.x, link.y, rects, false);
+        }
+
+        public void Update()
+        {
+            //link.LookDown();
         }
 
         public void LookLeft()
         {
-            //link.directionState = new LeftFacingLinkState(link);
+            link.directionState = new LeftFacingLinkState(link);
         }
 
         public void LookRight()
         {
-            //link.directionState = new RightFacingLinkState(link);
+            link.directionState = new RightFacingLinkState(link);
         }
 
         public void LookUp()
         {
-            //link.directionState = new UpFacingLinkState(link);
+            link.directionState = new UpFacingLinkState(link);
         }
 
         public void LookDown()

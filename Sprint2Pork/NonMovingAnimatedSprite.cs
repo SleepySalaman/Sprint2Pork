@@ -12,8 +12,9 @@ public class NonMovingAnimatedSprite : ISprite
     private List<Rectangle> sourceRects;
     private Rectangle destinationRect;
 
-    public NonMovingAnimatedSprite(int x, int y)
+    public NonMovingAnimatedSprite(int x, int y, List<Rectangle> rects)
     {
+        sourceRects = rects;
         sourceRects = new List<Rectangle>();
         sourceRects.Add(new Rectangle(200, 120, 30, 35));
         sourceRects.Add(new Rectangle(230, 120, 30, 35));

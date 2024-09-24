@@ -16,7 +16,7 @@ namespace Sprint2Pork
 
         public void BeIdle()
         {
-            //link.actionState = new IdleActionState(link);
+            link.actionState = new IdleActionState(link);
         }
 
         public void BeMoving()
@@ -26,7 +26,7 @@ namespace Sprint2Pork
 
         public void Update()
         {
-            //link.Move();
+            link.Move();
         }
     }
 }

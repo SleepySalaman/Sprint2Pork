@@ -22,12 +22,12 @@ namespace Sprint2Pork
 
         public void BeMoving()
         {
-            //link.actionState = new MovingActionState(link);
+            link.actionState = new MovingActionState(link);
         }
 
         public void Update()
         {
-            //link.Idle();
+            link.Idle();
         }
     }
 }
