@@ -7,11 +7,11 @@ using Microsoft.Xna.Framework;
 
 namespace Sprint2Pork
 {
-    public class AttackingActionState : ILinkActionState
+    public class DownAttackingLinkState : ILinkActionState
     {
         private Link link;
 
-        public AttackingActionState(Link link)
+        public DownAttackingLinkState(Link link)
         {
             this.link = link;
             switch (link.directionState)
@@ -43,11 +43,6 @@ namespace Sprint2Pork
         public void BeMoving()
         {
             link.actionState = new MovingActionState(link);
-        }
-
-        public void BeAttacking()
-        {
-            // NO-OP
         }
 
         public void Update()
