@@ -339,7 +339,6 @@ namespace Sprint2Pork
             spriteBatch.Begin();
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            currentSprite.Draw(spriteBatch, characterTexture);
             enemySprite.Draw(spriteBatch, enemyTexture);
             textSprite.Draw(spriteBatch, characterTexture);
 
