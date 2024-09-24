@@ -27,11 +27,11 @@ namespace Sprint2Pork
                     flipped = false;
                     break;
                 case LeftFacingLinkState: 
-                    rect = new Rectangle(32, 0, 16, 16);
+                    rect = new Rectangle(33, 0, 16, 16);
                     flipped = true;
                     break;
                 case RightFacingLinkState: 
-                    rect = new Rectangle(32, 0, 16, 16);
+                    rect = new Rectangle(33, 0, 16, 16);
                     flipped = false;
                     break;               
             }
