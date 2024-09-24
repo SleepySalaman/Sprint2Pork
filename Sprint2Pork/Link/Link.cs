@@ -115,26 +115,26 @@ namespace Sprint2Pork
                     case LeftFacingLinkState:
                         if (x > 0)
                         {
-                            this.x = this.x - 1;
+                            this.x = this.x - 2;
 
                         }
                         break;
                     case RightFacingLinkState:
                         if (x < screenWidth)
                         {
-                            this.x = this.x + 1;
+                            this.x = this.x + 2;
                         }
                         break;
                     case UpFacingLinkState:
                         if (y > 0)
                         {
-                            this.y = this.y - 1;
+                            this.y = this.y - 2;
                         }
                         break;
                     case DownFacingLinkState:
                         if (y < screenHeight)
                         {
-                            this.y = this.y + 1;
+                            this.y = this.y + 2;
                         }
                         break;
                 }
