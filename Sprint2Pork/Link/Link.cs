@@ -150,6 +150,7 @@ namespace Sprint2Pork
         }
         public void Attack()
         {
+            actionState = new AttackingActionState(this);
             attackFrameCount++;
             if (attackFrameCount > 60)
             {

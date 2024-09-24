@@ -7,31 +7,35 @@ using Microsoft.Xna.Framework;
 
 namespace Sprint2Pork
 {
-    public class DownAttackingLinkState : ILinkActionState
+    public class AttackingActionState : ILinkActionState
     {
         private Link link;
 
-        public DownAttackingLinkState(Link link)
+        public AttackingActionState(Link link)
         {
             this.link = link;
+            List<Rectangle> rects = new List<Rectangle>();
+
             switch (link.directionState)
             {
+                // TODO: Update rects to be correct attack animations for each direction
                 case LeftFacingLinkState:
+                    rects.Add(new Rectangle(0, 0, 16, 15));
+                    rects.Add(new Rectangle(0, 0, 16, 15));
                     break;
                 case RightFacingLinkState:
+                    rects.Add(new Rectangle(0, 0, 16, 15));
+                    rects.Add(new Rectangle(0, 0, 16, 15));
                     break;
                 case UpFacingLinkState:
+                    rects.Add(new Rectangle(0, 0, 16, 15));
+                    rects.Add(new Rectangle(50, 0, 16, 15));
                     break;
                 case DownFacingLinkState:
+                    rects.Add(new Rectangle(0, 0, 16, 15));
+                    rects.Add(new Rectangle(50, 0, 16, 15));
                     break;
             }
-            List<Rectangle> rects = new List<Rectangle>
-                {
-                    new Rectangle(69, 11, 16, 16),
-                    new Rectangle(86, 11, 16, 16),
-                    new Rectangle(103, 11, 16, 16),
-                    new Rectangle(120, 11, 16, 16)
-                };
             link.linkSprite = new MovingAnimatedSprite(link.x, link.y, rects, false, 15); // non-moving?
         }
 
