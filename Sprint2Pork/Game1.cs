@@ -129,7 +129,7 @@ namespace Sprint2Pork
                 new Rectangle(200, 120, 30, 35),
                 new Rectangle(230, 120, 30, 35),
                 new Rectangle(255, 120, 30, 35)
-            }, false, 30); currentSprite = staticSprite;
+            }, false, 30, "Right"); currentSprite = staticSprite;
             characterTexture = Content.Load<Texture2D>("LinkAllSprites");
             enemyTexture = Content.Load<Texture2D>("zeldaenemies");
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -382,7 +382,7 @@ namespace Sprint2Pork
                         moving = true;
                         break;
                     case PlayerSpriteList.MovingAnimatedPlayer:
-                        characterSprite = new MovingAnimatedSprite(spritePos[0], spritePos[1], new List<Rectangle>() { new Rectangle(84, 0, 16, 16) }, false, 30);
+                        characterSprite = new MovingAnimatedSprite(spritePos[0], spritePos[1], new List<Rectangle>() { new Rectangle(84, 0, 16, 16) }, false, 30, "Right");
                         moving = true;
                         break;
                 }
