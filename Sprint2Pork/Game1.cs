@@ -43,6 +43,9 @@ namespace Sprint2Pork
         private double switchCooldown = 0.1;  // 0.5 seconds cooldown between switches
         private double timeSinceLastSwitch = 0;
 
+        private double switchEnemyCooldown = 0.3;
+        private double timeSinceSwitchedEnemy = 0;
+
         // Block-related variables
         private Texture2D blockTexture;
         private List<Block> blocks;
@@ -58,7 +61,8 @@ namespace Sprint2Pork
         public enum PlayerSpriteList { NonMovingNonAnimatedPlayer, NonMovingAnimatedPlayer, MovingNonAnimatedPlayer, MovingAnimatedPlayer };
         public enum EnemyList { Aquamentus, Dodongo, Manhandla, Gleeok, Digdogger, Gohma, Ganon };
 
-        private EnemyList currentEnemy;
+        public EnemyList currentEnemy;
+
         private PlayerSpriteList playerMode;
         private ISprite staticSprite;
         private ISprite animatedSprite;
@@ -86,7 +90,7 @@ namespace Sprint2Pork
             spritePos[1] = 50;
             //spriteMode = 1;
             playerMode = PlayerSpriteList.NonMovingNonAnimatedPlayer;
-            currentEnemy = EnemyList.Aquamentus;
+            currentEnemy = EnemyList.Gleeok;
             moving = false;
 
             blocks = new List<Block>();
@@ -118,7 +122,7 @@ namespace Sprint2Pork
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             characterSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1], new Rectangle(80, 0, 16, 16), false);
-            enemySprite = new GleeokMoving();
+            enemySprite = new AquamentusNotAttacking();
             staticSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1], new Rectangle(80, 0, 16, 16), false);
             animatedSprite = new MovingAnimatedSprite(spritePos[0], spritePos[1], new List<Rectangle>() { new Rectangle(84, 0, 16, 16) }, false, 30);
             currentSprite = staticSprite;
@@ -231,6 +235,7 @@ namespace Sprint2Pork
 
             // Accumulate the elapsed time for block switching cooldown
             timeSinceLastSwitch += gameTime.ElapsedGameTime.TotalSeconds;
+            timeSinceSwitchedEnemy += gameTime.ElapsedGameTime.TotalSeconds;
 
             // Switch to the previous block with 'T' and cooldown check
             if (state.IsKeyDown(Keys.T) && timeSinceLastSwitch >= switchCooldown && !previousState.IsKeyDown(Keys.T))
@@ -301,13 +306,15 @@ namespace Sprint2Pork
                 link.LookRight();
                 //link.Move();
             }
-            if (state.IsKeyDown(Keys.O)) {
-                cycleEnemiesBackwards(currentEnemy);
-                setEnemySprite(currentEnemy);
+            if (state.IsKeyDown(Keys.O) && timeSinceSwitchedEnemy >= switchEnemyCooldown) {
+                cycleEnemiesBackwards();
+                setEnemySprite();
+                timeSinceSwitchedEnemy = 0;
             }
-            if (state.IsKeyDown(Keys.P)) {
-                cycleEnemies(currentEnemy);
-                setEnemySprite(currentEnemy);
+            if (state.IsKeyDown(Keys.P) && timeSinceSwitchedEnemy >= switchEnemyCooldown) {
+                cycleEnemies();
+                setEnemySprite();
+                timeSinceSwitchedEnemy = 0;
             }
 
             if (state.IsKeyUp(Keys.W) && state.IsKeyUp(Keys.A) && state.IsKeyUp(Keys.S) && state.IsKeyUp(Keys.D) && state.IsKeyUp(Keys.Up) && state.IsKeyUp(Keys.Left) && state.IsKeyUp(Keys.Right) && state.IsKeyUp(Keys.Down))
@@ -399,60 +406,60 @@ namespace Sprint2Pork
             }
         }
 
-        public void cycleEnemies(EnemyList enemy) {
-            switch (enemy) {
+        public void cycleEnemies() {
+            switch (currentEnemy) {
                 case EnemyList.Aquamentus:
-                    enemy = EnemyList.Dodongo;
+                    currentEnemy = EnemyList.Dodongo;
                     break;
                 case EnemyList.Dodongo:
-                    enemy = EnemyList.Manhandla;
+                    currentEnemy = EnemyList.Manhandla;
                     break;
                 case EnemyList.Manhandla:
-                    enemy = EnemyList.Gleeok;
+                    currentEnemy = EnemyList.Gleeok;
                     break;
                 case EnemyList.Gleeok:
-                    enemy = EnemyList.Digdogger;
+                    currentEnemy = EnemyList.Digdogger;
                     break;
                 case EnemyList.Digdogger:
-                    enemy = EnemyList.Gohma;
+                    currentEnemy = EnemyList.Gohma;
                     break;
                 case EnemyList.Gohma:
-                    enemy = EnemyList.Ganon;
+                    currentEnemy = EnemyList.Ganon;
                     break;
                 case EnemyList.Ganon:
-                    enemy = EnemyList.Aquamentus;
+                    currentEnemy = EnemyList.Aquamentus;
                     break;
             }
         }
 
-        public void cycleEnemiesBackwards(EnemyList enemy) {
-            switch (enemy) {
+        public void cycleEnemiesBackwards() {
+            switch (currentEnemy) {
                 case EnemyList.Aquamentus:
-                    enemy = EnemyList.Ganon;
+                    currentEnemy = EnemyList.Ganon;
                     break;
                 case EnemyList.Dodongo:
-                    enemy = EnemyList.Aquamentus;
+                    currentEnemy = EnemyList.Aquamentus;
                     break;
                 case EnemyList.Manhandla:
-                    enemy = EnemyList.Dodongo;
+                    currentEnemy = EnemyList.Dodongo;
                     break;
                 case EnemyList.Gleeok:
-                    enemy = EnemyList.Manhandla;
+                    currentEnemy = EnemyList.Manhandla;
                     break;
                 case EnemyList.Digdogger:
-                    enemy = EnemyList.Gleeok;
+                    currentEnemy = EnemyList.Gleeok;
                     break;
                 case EnemyList.Gohma:
-                    enemy = EnemyList.Digdogger;
+                    currentEnemy = EnemyList.Digdogger;
                     break;
                 case EnemyList.Ganon:
-                    enemy = EnemyList.Gohma;
+                    currentEnemy = EnemyList.Gohma;
                     break;
             }
         }
 
-        public void setEnemySprite(EnemyList enemy) {
-            switch (enemy) {
+        public void setEnemySprite() {
+            switch (currentEnemy) {
                 case EnemyList.Aquamentus:
                     enemySprite = new AquamentusNotAttacking();
                     break;
