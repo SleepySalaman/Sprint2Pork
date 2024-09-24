@@ -15,17 +15,33 @@ namespace Sprint2Pork
         {
             this.link = link;
             List<Rectangle> rects = new List<Rectangle>();
+            bool flipped = false;
 
             switch (link.directionState)
             {
                 // TODO: Update rects to be correct attack animations for each direction
                 case LeftFacingLinkState:
-                    rects.Add(new Rectangle(0, 0, 16, 15));
-                    rects.Add(new Rectangle(0, 0, 16, 15));
+                    // Extend sword
+                    rects.Add(new Rectangle(0, 48, 16, 15));
+                    rects.Add(new Rectangle(16, 48, 16, 15));
+                    rects.Add(new Rectangle(42, 48, 16, 15));
+                    rects.Add(new Rectangle(60, 48, 16, 15));
+                    // Retract sword
+                    rects.Add(new Rectangle(42, 48, 16, 15));
+                    rects.Add(new Rectangle(16, 48, 16, 15));
+                    rects.Add(new Rectangle(0, 48, 16, 15));
+                    flipped = true;
                     break;
                 case RightFacingLinkState:
-                    rects.Add(new Rectangle(0, 0, 16, 15));
-                    rects.Add(new Rectangle(0, 0, 16, 15));
+                    // Extend sword
+                    rects.Add(new Rectangle(0, 48, 16, 15));
+                    rects.Add(new Rectangle(16, 48, 16, 15));
+                    rects.Add(new Rectangle(42, 48, 16, 15));
+                    rects.Add(new Rectangle(60, 48, 16, 15));
+                    // Retract sword
+                    rects.Add(new Rectangle(42, 48, 16, 15));
+                    rects.Add(new Rectangle(16, 48, 16, 15));
+                    rects.Add(new Rectangle(0, 48, 16, 15));
                     break;
                 case UpFacingLinkState:
                     rects.Add(new Rectangle(0, 0, 16, 15));
@@ -36,7 +52,7 @@ namespace Sprint2Pork
                     rects.Add(new Rectangle(50, 0, 16, 15));
                     break;
             }
-            link.linkSprite = new MovingAnimatedSprite(link.x, link.y, rects, false, 15); // non-moving?
+            link.linkSprite = new MovingAnimatedSprite(link.x, link.y, rects, flipped, 15); // non-moving?
         }
 
         public void BeIdle()
