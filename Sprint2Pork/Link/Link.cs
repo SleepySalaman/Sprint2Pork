@@ -98,6 +98,11 @@ namespace Sprint2Pork
             actionState.BeMoving();
         }
 
+        public void BeAttacking()
+        {
+            actionState.BeAttacking();
+        }
+
         // ACTUAL METHODS
 
         public void Draw(SpriteBatch sb, Texture2D texture)
@@ -116,7 +121,6 @@ namespace Sprint2Pork
             switch (directionState)
             {
                 case LeftFacingLinkState:
-                    //directionState = new LeftFacingLinkState(this);
                     if (x > 0)
                     {
                         this.x = this.x - 2;
@@ -124,21 +128,18 @@ namespace Sprint2Pork
                     }
                     break;
                 case RightFacingLinkState:
-                    //directionState = new RightFacingLinkState(this);
                     if (x < screenWidth)
                     {
                         this.x = this.x + 2;
                     }
                     break;
                 case UpFacingLinkState:
-                    //directionState = new UpFacingLinkState(this);
                     if (y > 0)
                     {
                         this.y = this.y - 2;
                     }
                     break;
                 case DownFacingLinkState:
-                    //directionState = new DownFacingLinkState(this);
                     if (y < screenHeight)
                     {
                         this.y = this.y + 2;
@@ -150,9 +151,9 @@ namespace Sprint2Pork
         }
         public void Attack()
         {
-            actionState = new AttackingActionState(this);
+            //actionState = new AttackingActionState(this);
             attackFrameCount++;
-            if (attackFrameCount > 60)
+            if (attackFrameCount > 120)
             {
                 attackFrameCount = 0;
                 this.BeIdle();

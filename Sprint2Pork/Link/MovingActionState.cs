@@ -40,6 +40,11 @@ namespace Sprint2Pork
             // NO-OP
         }
 
+        public void BeAttacking()
+        {
+            link.actionState = new AttackingActionState(link);
+        }
+
         public void Update()
         {
             link.Move();
