@@ -19,19 +19,19 @@ namespace Sprint2Pork
             switch (link.directionState)
             {
                 case UpFacingLinkState:
-                    rect = new Rectangle(69, 11, 16, 16);
+                    rect = (new Rectangle(100, 0, 16, 16));
                     flipped = false;
                     break;
                 case DownFacingLinkState: 
-                    rect = new Rectangle(1, 11, 16, 16);
+                    rect = new Rectangle(0, 0, 16, 16);
                     flipped = false;
                     break;
                 case LeftFacingLinkState: 
-                    rect = new Rectangle(35, 11, 16, 16);
+                    rect = new Rectangle(32, 0, 16, 16);
                     flipped = true;
                     break;
                 case RightFacingLinkState: 
-                    rect = new Rectangle(35, 11, 16, 16);
+                    rect = new Rectangle(32, 0, 16, 16);
                     flipped = false;
                     break;               
             }

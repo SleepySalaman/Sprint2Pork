@@ -126,7 +126,7 @@ namespace Sprint2Pork
             staticSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1], new Rectangle(80, 0, 16, 16), false);
             animatedSprite = new MovingAnimatedSprite(spritePos[0], spritePos[1], new List<Rectangle>() { new Rectangle(84, 0, 16, 16) }, false, 30);
             currentSprite = staticSprite;
-            characterTexture = Content.Load<Texture2D>("NES - The Legend of Zelda - Link");
+            characterTexture = Content.Load<Texture2D>("LinkAllSprites");
             enemyTexture = Content.Load<Texture2D>("zeldaenemies");
             spriteBatch = new SpriteBatch(GraphicsDevice);
             blockTexture = Content.Load<Texture2D>("blocks");
