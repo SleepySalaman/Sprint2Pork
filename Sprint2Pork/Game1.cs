@@ -303,9 +303,11 @@ namespace Sprint2Pork
             }
             if (state.IsKeyDown(Keys.O)) {
                 cycleEnemiesBackwards(currentEnemy);
+                setEnemySprite(currentEnemy);
             }
             if (state.IsKeyDown(Keys.P)) {
                 cycleEnemies(currentEnemy);
+                setEnemySprite(currentEnemy);
             }
 
             if (state.IsKeyUp(Keys.W) && state.IsKeyUp(Keys.A) && state.IsKeyUp(Keys.S) && state.IsKeyUp(Keys.D) && state.IsKeyUp(Keys.Up) && state.IsKeyUp(Keys.Left) && state.IsKeyUp(Keys.Right) && state.IsKeyUp(Keys.Down))
