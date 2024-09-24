@@ -4,6 +4,12 @@ using Microsoft.Xna.Framework.Input;
 using Sprint2Pork.Blocks;
 using Sprint2Pork.Enemies;
 using Sprint2Pork.Enemies.Aquamentus;
+using Sprint2Pork.Enemies.Dodongo;
+using Sprint2Pork.Enemies.Digdogger;
+using Sprint2Pork.Enemies.Manhandla;
+using Sprint2Pork.Enemies.Patra_Ganon;
+using Sprint2Pork.Enemies.Gleeok;
+using Sprint2Pork.Enemies.Gohma;
 using Sprint2Pork.Items;
 using System;
 using System.Collections.Generic;
@@ -50,7 +56,9 @@ namespace Sprint2Pork
 
         public enum Direction { Left, Right };
         public enum PlayerSpriteList { NonMovingNonAnimatedPlayer, NonMovingAnimatedPlayer, MovingNonAnimatedPlayer, MovingAnimatedPlayer };
+        public enum EnemyList { Aquamentus, Dodongo, Manhandla, Gleeok, Digdogger, Gohma, Ganon };
 
+        private EnemyList currentEnemy;
         private PlayerSpriteList playerMode;
         private ISprite staticSprite;
         private ISprite animatedSprite;
@@ -78,6 +86,7 @@ namespace Sprint2Pork
             spritePos[1] = 50;
             //spriteMode = 1;
             playerMode = PlayerSpriteList.NonMovingNonAnimatedPlayer;
+            currentEnemy = EnemyList.Aquamentus;
             moving = false;
 
             blocks = new List<Block>();
@@ -109,7 +118,7 @@ namespace Sprint2Pork
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             characterSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1], new Rectangle(80, 0, 16, 16), false);
-            enemySprite = new AquamentusNotAttacking();
+            enemySprite = new DodongoIdle();
             staticSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1], new Rectangle(80, 0, 16, 16), false);
             animatedSprite = new MovingAnimatedSprite(spritePos[0], spritePos[1], new List<Rectangle>() { new Rectangle(84, 0, 16, 16) }, false, 30);
             currentSprite = staticSprite;
@@ -378,6 +387,32 @@ namespace Sprint2Pork
                         moving = true;
                         break;
                 }
+            }
+        }
+
+        public void cycleEnemies(EnemyList enemy) {
+            switch (enemy) {
+                case EnemyList.Aquamentus:
+                    enemy = EnemyList.Dodongo;
+                    break;
+                case EnemyList.Dodongo:
+                    enemy = EnemyList.Manhandla;
+                    break;
+                case EnemyList.Manhandla:
+                    enemy = EnemyList.Gleeok;
+                    break;
+                case EnemyList.Gleeok:
+                    enemy = EnemyList.Digdogger;
+                    break;
+                case EnemyList.Digdogger:
+                    enemy = EnemyList.Gohma;
+                    break;
+                case EnemyList.Gohma:
+                    enemy = EnemyList.Ganon;
+                    break;
+                case EnemyList.Ganon:
+                    enemy = EnemyList.Aquamentus;
+                    break;
             }
         }
     }

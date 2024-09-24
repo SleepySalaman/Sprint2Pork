@@ -37,7 +37,7 @@ namespace Sprint2Pork.Enemies.Aquamentus {
             sourceRects = new List<Rectangle> {
                     new Rectangle(36, 0, 36, 36),
                     new Rectangle(84, 0, 36, 36),
-                };
+            };
 
             scaleX = 1;
             scaleY = 1;

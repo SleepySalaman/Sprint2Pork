@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Sprint2Pork.Enemies.Dodongo {
-    internal class DodongoIdle : IEnemy {
+    public class DodongoMovingDown {
 
         private int totalFrames;
         private int currentFrame;
@@ -32,10 +32,9 @@ namespace Sprint2Pork.Enemies.Dodongo {
         private int scaleX;
         private int scaleY;
 
-        public DodongoIdle() {
+        public DodongoMovingDown() {
             sourceRects = new List<Rectangle> {
-                new Rectangle(60, 80, 24, 32),
-                new Rectangle(60, 110, 24, 32)
+               new Rectangle(0, 80, 24, 32)
             };
 
             scaleX = 1;
@@ -71,6 +70,24 @@ namespace Sprint2Pork.Enemies.Dodongo {
                 }
             }
 
+            moveCount++;
+            if (moveCount > moveMaxCount) {
+                moveCount = 0;
+                if (movingRight) {
+                    if (relativeX < 50) {
+                        relativeX++;
+                    } else {
+                        movingRight = false;
+                    }
+                } else {
+                    if (relativeX > -50) {
+                        relativeX--;
+                    } else {
+                        movingRight = true;
+                    }
+                }
+            }
+
             destinationRect.X = initX + relativeX;
         }
 
@@ -83,5 +100,4 @@ namespace Sprint2Pork.Enemies.Dodongo {
         }
 
     }
-
 }
