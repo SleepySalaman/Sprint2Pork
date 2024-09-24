@@ -280,21 +280,21 @@ namespace Sprint2Pork
                 link.LookUp();
                 //link.Move();
             }
-            if (state.IsKeyDown(Keys.S) || state.IsKeyDown(Keys.Down))
+            else if (state.IsKeyDown(Keys.S) || state.IsKeyDown(Keys.Down))
             {
                 // Move down
                 moving = true;
                 link.LookDown();
                 //link.Move();
             }
-            if (state.IsKeyDown(Keys.A) || state.IsKeyDown(Keys.Left))
+            else if (state.IsKeyDown(Keys.A) || state.IsKeyDown(Keys.Left))
             {
                 // Move left
                 moving = true;
                 link.LookLeft();
                 //link.Move();
             }
-            if (state.IsKeyDown(Keys.D) || state.IsKeyDown(Keys.Right))
+            else if (state.IsKeyDown(Keys.D) || state.IsKeyDown(Keys.Right))
             {
                 // Move right
                 moving = true;
