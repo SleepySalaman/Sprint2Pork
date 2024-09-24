@@ -12,18 +12,20 @@ public class MovingAnimatedSprite : ISprite
 
     private int spriteWidth;
     private int spriteHeight;
+    private int interval;
 
     private List<Rectangle> sourceRects;
     private Rectangle destinationRect;
 
     private int count;
 
-    public MovingAnimatedSprite(int x, int y, List<Rectangle> rects, bool flipped)
+    public MovingAnimatedSprite(int x, int y, List<Rectangle> rects, bool flipped,  int frameInt)
     {
         sourceRects = rects;
         Rectangle rect = rects[0];
         spriteWidth = rect.Width;
         spriteHeight = rect.Height;
+        interval = frameInt;
 
         count = 0;
         currentFrame = 0;
@@ -37,7 +39,7 @@ public class MovingAnimatedSprite : ISprite
     void ISprite.Update(int x, int y)
     {
         count++;
-        if (count > 30)
+        if (count > interval)
         {
             currentFrame++;
             count = 0;

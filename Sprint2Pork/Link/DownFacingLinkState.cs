@@ -19,7 +19,7 @@ namespace Sprint2Pork
             List<Rectangle> rects = new List<Rectangle>();
             rects.Add(new Rectangle(1, 11, 16, 16));
             rects.Add(new Rectangle(18, 11, 16, 16));
-            link.linkSprite = new MovingAnimatedSprite(link.x, link.y, rects, false);
+            link.linkSprite = new MovingAnimatedSprite(link.x, link.y, rects, false, 15);
         }
 
         public void Update()

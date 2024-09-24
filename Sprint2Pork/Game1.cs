@@ -111,7 +111,7 @@ namespace Sprint2Pork
             characterSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1], new Rectangle(80, 0, 16, 16));
             enemySprite = new AquamentusNotAttacking();
             staticSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1], new Rectangle(80, 0, 16, 16));
-            animatedSprite = new MovingAnimatedSprite(spritePos[0], spritePos[1], new List<Rectangle>() { new Rectangle(84, 0, 16, 16) }, false);
+            animatedSprite = new MovingAnimatedSprite(spritePos[0], spritePos[1], new List<Rectangle>() { new Rectangle(84, 0, 16, 16) }, false, 30);
             currentSprite = staticSprite;
             characterTexture = Content.Load<Texture2D>("NES - The Legend of Zelda - Link");
             enemyTexture = Content.Load<Texture2D>("zeldaenemies");
@@ -288,7 +288,7 @@ namespace Sprint2Pork
                 //link.Move();
             }
 
-            if (!state.IsKeyUp(Keys.W) && !state.IsKeyUp(Keys.A) && !state.IsKeyUp(Keys.S) && !state.IsKeyUp(Keys.D))
+            if (state.IsKeyUp(Keys.W) && state.IsKeyUp(Keys.A) && state.IsKeyUp(Keys.S) && state.IsKeyUp(Keys.D))
             {
                 moving = false;
                 link.BeIdle();
@@ -369,7 +369,7 @@ namespace Sprint2Pork
                         moving = true;
                         break;
                     case PlayerSpriteList.MovingAnimatedPlayer:
-                        characterSprite = new MovingAnimatedSprite(spritePos[0], spritePos[1], new List<Rectangle>() { new Rectangle(84, 0, 16, 16) }, false);
+                        characterSprite = new MovingAnimatedSprite(spritePos[0], spritePos[1], new List<Rectangle>() { new Rectangle(84, 0, 16, 16) }, false, 30);
                         moving = true;
                         break;
                 }
