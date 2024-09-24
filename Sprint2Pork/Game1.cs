@@ -266,29 +266,33 @@ namespace Sprint2Pork
             if (state.IsKeyDown(Keys.W) || state.IsKeyDown(Keys.Up))
             {
                 // Move up
+                moving = true;
                 link.LookUp();
                 //link.Move();
             }
             if (state.IsKeyDown(Keys.S) || state.IsKeyDown(Keys.Down))
             {
                 // Move down
+                moving = true;
                 link.LookDown();
                 //link.Move();
             }
             if (state.IsKeyDown(Keys.A) || state.IsKeyDown(Keys.Left))
             {
                 // Move left
+                moving = true;
                 link.LookLeft();
                 //link.Move();
             }
             if (state.IsKeyDown(Keys.D) || state.IsKeyDown(Keys.Right))
             {
                 // Move right
+                moving = true;
                 link.LookRight();
                 //link.Move();
             }
 
-            if (state.IsKeyUp(Keys.W) && state.IsKeyUp(Keys.A) && state.IsKeyUp(Keys.S) && state.IsKeyUp(Keys.D))
+            if (state.IsKeyUp(Keys.W) && state.IsKeyUp(Keys.A) && state.IsKeyUp(Keys.S) && state.IsKeyUp(Keys.D) && state.IsKeyUp(Keys.Up) && state.IsKeyUp(Keys.Left) && state.IsKeyUp(Keys.Right) && state.IsKeyUp(Keys.Down))
             {
                 moving = false;
                 link.BeIdle();
