@@ -113,6 +113,7 @@ namespace Sprint2Pork
                 switch (directionState)
                 {
                     case LeftFacingLinkState:
+                    //directionState = new LeftFacingLinkState(this);
                         if (x > 0)
                         {
                             this.x = this.x - 2;
@@ -120,18 +121,21 @@ namespace Sprint2Pork
                         }
                         break;
                     case RightFacingLinkState:
+                    //directionState = new RightFacingLinkState(this);
                         if (x < screenWidth)
                         {
                             this.x = this.x + 2;
                         }
                         break;
                     case UpFacingLinkState:
+                    //directionState = new UpFacingLinkState(this);
                         if (y > 0)
                         {
                             this.y = this.y - 2;
                         }
                         break;
                     case DownFacingLinkState:
+                    //directionState = new DownFacingLinkState(this);
                         if (y < screenHeight)
                         {
                             this.y = this.y + 2;

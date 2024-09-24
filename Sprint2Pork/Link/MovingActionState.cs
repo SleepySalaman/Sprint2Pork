@@ -11,7 +11,23 @@ namespace Sprint2Pork
         private Link link;
 
         public MovingActionState(Link link) { 
-            this.link = link; 
+
+            switch (link.directionState)
+            {
+                case LeftFacingLinkState:
+                    link.directionState = new LeftFacingLinkState(link);
+                    break;
+                    case RightFacingLinkState:
+                    link.directionState = new RightFacingLinkState(link);
+                    break;
+                case UpFacingLinkState:
+                    link.directionState = new UpFacingLinkState(link);
+                    break;
+                case DownFacingLinkState:
+                    link.directionState = new DownFacingLinkState(link);
+                    break;
+            }
+            this.link = link;
         }
 
         public void BeIdle()

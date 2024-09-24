@@ -8,15 +8,18 @@ public class NonMovingNonAnimatedSprite : ISprite
     private int totalFrames;
     private int currentFrame;
 
+    private bool flipped;
+
     private List<Rectangle> sourceRects;
     private Rectangle destinationRect;
 
-    public NonMovingNonAnimatedSprite(int x, int y, Rectangle rect)
+    public NonMovingNonAnimatedSprite(int x, int y, Rectangle rect, bool flipped)
     {
         sourceRects = new List<Rectangle>();
         sourceRects.Add(rect);
 
         destinationRect = new Rectangle(x, y, 100, 100);
+        this.flipped = flipped;
 
 
         currentFrame = 0;
@@ -36,6 +39,14 @@ public class NonMovingNonAnimatedSprite : ISprite
 
     void ISprite.Draw(SpriteBatch sb, Texture2D txt)
     {
-        sb.Draw(txt, destinationRect, sourceRects[currentFrame], Color.White);
+        if (!flipped)
+        {
+            sb.Draw(txt, destinationRect, sourceRects[currentFrame], Color.White);
+        }
+        else
+        {
+            sb.Draw(txt, destinationRect, sourceRects[currentFrame], Color.White, 0, new Vector2(0, 0), SpriteEffects.FlipHorizontally, 0);
+        }
+
     }
 }

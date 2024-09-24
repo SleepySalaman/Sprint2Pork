@@ -108,9 +108,9 @@ namespace Sprint2Pork
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            characterSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1], new Rectangle(80, 0, 16, 16));
+            characterSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1], new Rectangle(80, 0, 16, 16), false);
             enemySprite = new AquamentusNotAttacking();
-            staticSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1], new Rectangle(80, 0, 16, 16));
+            staticSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1], new Rectangle(80, 0, 16, 16), false);
             animatedSprite = new MovingAnimatedSprite(spritePos[0], spritePos[1], new List<Rectangle>() { new Rectangle(84, 0, 16, 16) }, false, 30);
             currentSprite = staticSprite;
             characterTexture = Content.Load<Texture2D>("NES - The Legend of Zelda - Link");
@@ -361,7 +361,7 @@ namespace Sprint2Pork
                 playerMode = spriteList;
                 switch (spriteList){
                     case PlayerSpriteList.NonMovingNonAnimatedPlayer:
-                        characterSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1], new Rectangle(200, 120, 30, 35));
+                        characterSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1], new Rectangle(200, 120, 30, 35), false);
                         moving = false;
                         break;
                     case PlayerSpriteList.NonMovingAnimatedPlayer:
