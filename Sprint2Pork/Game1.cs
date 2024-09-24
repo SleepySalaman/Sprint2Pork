@@ -259,31 +259,7 @@ namespace Sprint2Pork
             // Link
 
 
-            // Handle WASD movement
-            if (state.IsKeyDown(Keys.W) || state.IsKeyDown(Keys.Up))
-            {
-                // Move up
-                link.LookUp();
-                //link.Move();
-            }
-            else if (state.IsKeyDown(Keys.S) || state.IsKeyDown(Keys.Down))
-            {
-                // Move down
-                link.LookDown();
-                //link.Move();
-            }
-            else if (state.IsKeyDown(Keys.A) || state.IsKeyDown(Keys.Left))
-            {
-                // Move left
-                link.LookLeft();
-                //link.Move();
-            }
-            else if (state.IsKeyDown(Keys.D) || state.IsKeyDown(Keys.Right))
-            {
-                // Move right
-                link.LookRight();
-                //link.Move();
-            }
+            
             if (state.IsKeyDown(Keys.O) && timeSinceSwitchedEnemy >= switchEnemyCooldown) {
                 cycleEnemiesBackwards();
                 setEnemySprite();
@@ -301,6 +277,31 @@ namespace Sprint2Pork
             //}
             if (!link.frozen)
             {
+                // Handle WASD movement
+                if (state.IsKeyDown(Keys.W) || state.IsKeyDown(Keys.Up))
+                {
+                    // Move up
+                    link.LookUp();
+                    //link.Move();
+                }
+                else if (state.IsKeyDown(Keys.S) || state.IsKeyDown(Keys.Down))
+                {
+                    // Move down
+                    link.LookDown();
+                    //link.Move();
+                }
+                else if (state.IsKeyDown(Keys.A) || state.IsKeyDown(Keys.Left))
+                {
+                    // Move left
+                    link.LookLeft();
+                    //link.Move();
+                }
+                else if (state.IsKeyDown(Keys.D) || state.IsKeyDown(Keys.Right))
+                {
+                    // Move right
+                    link.LookRight();
+                    //link.Move();
+                }
                 if (state.IsKeyUp(Keys.Z) && state.IsKeyUp(Keys.N) && state.IsKeyUp(Keys.W) && state.IsKeyUp(Keys.A) && state.IsKeyUp(Keys.S) && state.IsKeyUp(Keys.D) && state.IsKeyUp(Keys.Up) && state.IsKeyUp(Keys.Left) && state.IsKeyUp(Keys.Right) && state.IsKeyUp(Keys.Down))
                 {
                     link.BeIdle();
