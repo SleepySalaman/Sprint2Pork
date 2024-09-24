@@ -24,6 +24,7 @@ namespace Sprint2Pork
         public ISprite linkSprite;
 
         private bool moving;
+        public bool frozen;
 
         int attackFrameCount;
 
@@ -36,6 +37,7 @@ namespace Sprint2Pork
             x = 0;
             y = 0;
             attackFrameCount = 0;
+            frozen = false;
         }
 
         //public void TakeDamage()
@@ -152,10 +154,12 @@ namespace Sprint2Pork
         public void Attack()
         {
             //actionState = new AttackingActionState(this);
+            frozen = true;
             attackFrameCount++;
             if (attackFrameCount > 120)
             {
                 attackFrameCount = 0;
+                frozen = false;
                 this.BeIdle();
             }
 

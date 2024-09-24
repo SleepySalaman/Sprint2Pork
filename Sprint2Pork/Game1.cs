@@ -291,18 +291,20 @@ namespace Sprint2Pork
             //{
             //    link.BeAttacking();
             //}
-
-            if (state.IsKeyUp(Keys.Z) && state.IsKeyUp(Keys.N) && state.IsKeyUp(Keys.W) && state.IsKeyUp(Keys.A) && state.IsKeyUp(Keys.S) && state.IsKeyUp(Keys.D) && state.IsKeyUp(Keys.Up) && state.IsKeyUp(Keys.Left) && state.IsKeyUp(Keys.Right) && state.IsKeyUp(Keys.Down))
+            if (!link.frozen)
             {
-                link.BeIdle();
-            }
-            else if (state.IsKeyDown(Keys.Z) || state.IsKeyDown(Keys.N))
-            {
-                link.BeAttacking();
-            }
-            else
-            {
-                link.BeMoving();
+                if (state.IsKeyUp(Keys.Z) && state.IsKeyUp(Keys.N) && state.IsKeyUp(Keys.W) && state.IsKeyUp(Keys.A) && state.IsKeyUp(Keys.S) && state.IsKeyUp(Keys.D) && state.IsKeyUp(Keys.Up) && state.IsKeyUp(Keys.Left) && state.IsKeyUp(Keys.Right) && state.IsKeyUp(Keys.Down))
+                {
+                    link.BeIdle();
+                }
+                else if (state.IsKeyDown(Keys.Z) || state.IsKeyDown(Keys.N))
+                {
+                    link.BeAttacking();
+                }
+                else
+                {
+                    link.BeMoving();
+                }
             }
             //link.directionState.Update();
             link.actionState.Update();
