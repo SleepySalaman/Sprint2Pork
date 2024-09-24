@@ -118,7 +118,7 @@ namespace Sprint2Pork
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             characterSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1], new Rectangle(80, 0, 16, 16), false);
-            enemySprite = new DodongoIdle();
+            enemySprite = new GleeokMoving();
             staticSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1], new Rectangle(80, 0, 16, 16), false);
             animatedSprite = new MovingAnimatedSprite(spritePos[0], spritePos[1], new List<Rectangle>() { new Rectangle(84, 0, 16, 16) }, false, 30);
             currentSprite = staticSprite;
@@ -165,6 +165,7 @@ namespace Sprint2Pork
             {
                 ResetGame();
             }
+
             // Existing code for quitting with Escape or Mouse click
             if (state.IsKeyDown(Keys.Escape) || state.IsKeyDown(Keys.D0) || Mouse.GetState().RightButton == ButtonState.Pressed)
             {
@@ -300,6 +301,12 @@ namespace Sprint2Pork
                 link.LookRight();
                 //link.Move();
             }
+            if (state.IsKeyDown(Keys.O)) {
+                cycleEnemiesBackwards(currentEnemy);
+            }
+            if (state.IsKeyDown(Keys.P)) {
+                cycleEnemies(currentEnemy);
+            }
 
             if (state.IsKeyUp(Keys.W) && state.IsKeyUp(Keys.A) && state.IsKeyUp(Keys.S) && state.IsKeyUp(Keys.D) && state.IsKeyUp(Keys.Up) && state.IsKeyUp(Keys.Left) && state.IsKeyUp(Keys.Right) && state.IsKeyUp(Keys.Down))
             {
@@ -412,6 +419,58 @@ namespace Sprint2Pork
                     break;
                 case EnemyList.Ganon:
                     enemy = EnemyList.Aquamentus;
+                    break;
+            }
+        }
+
+        public void cycleEnemiesBackwards(EnemyList enemy) {
+            switch (enemy) {
+                case EnemyList.Aquamentus:
+                    enemy = EnemyList.Ganon;
+                    break;
+                case EnemyList.Dodongo:
+                    enemy = EnemyList.Aquamentus;
+                    break;
+                case EnemyList.Manhandla:
+                    enemy = EnemyList.Dodongo;
+                    break;
+                case EnemyList.Gleeok:
+                    enemy = EnemyList.Manhandla;
+                    break;
+                case EnemyList.Digdogger:
+                    enemy = EnemyList.Gleeok;
+                    break;
+                case EnemyList.Gohma:
+                    enemy = EnemyList.Digdogger;
+                    break;
+                case EnemyList.Ganon:
+                    enemy = EnemyList.Gohma;
+                    break;
+            }
+        }
+
+        public void setEnemySprite(EnemyList enemy) {
+            switch (enemy) {
+                case EnemyList.Aquamentus:
+                    enemySprite = new AquamentusNotAttacking();
+                    break;
+                case EnemyList.Dodongo:
+                    enemySprite = new DodongoIdle();
+                    break;
+                case EnemyList.Manhandla:
+                    enemySprite = new ManhandlaMoving();
+                    break;
+                case EnemyList.Gleeok:
+                    enemySprite = new GleeokMoving();
+                    break;
+                case EnemyList.Digdogger:
+                    enemySprite = new DigdoggerLarge();
+                    break;
+                case EnemyList.Gohma:
+                    enemySprite = new GohmaNotAttacking();
+                    break;
+                case EnemyList.Ganon:
+                    enemySprite = new GanonNotDamaged();
                     break;
             }
         }
