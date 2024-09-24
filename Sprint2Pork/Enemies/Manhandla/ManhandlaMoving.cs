@@ -65,7 +65,7 @@ namespace Sprint2Pork.Enemies.Manhandla {
             currentFrame = 0;
             totalFrames = sourceRects.Count;
 
-            destinationRect = new Rectangle(initX, initY, 100 * scaleX, 100 * scaleY);
+            destinationRect = new Rectangle(initX + relativeY, initY + relativeX, 100 * scaleX, 100 * scaleY);
         }
 
         public void Update() {

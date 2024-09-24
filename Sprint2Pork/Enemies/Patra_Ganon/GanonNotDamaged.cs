@@ -34,8 +34,11 @@ namespace Sprint2Pork.Enemies.Patra_Ganon {
 
         public GanonNotDamaged() {
             sourceRects = new List<Rectangle> {
-                new Rectangle(60, 80, 24, 32),
-                new Rectangle(60, 110, 24, 32)
+                new Rectangle(0, 310, 40, 32),
+                new Rectangle(40, 310, 40, 32),
+                new Rectangle(80, 310, 40, 32),
+                new Rectangle(120, 310, 40, 32),
+                new Rectangle(160, 310, 40, 32)
             };
 
             scaleX = 1;
