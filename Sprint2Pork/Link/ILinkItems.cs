@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sprint2Pork
 {
-    internal interface ILinkItems
+    public interface ILinkItems
     {
         void Update(Link link);
     }

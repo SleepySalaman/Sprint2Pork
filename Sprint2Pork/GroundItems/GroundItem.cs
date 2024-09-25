@@ -18,7 +18,7 @@ namespace Sprint2Pork.Items
             sourceRects = frames;
             currentFrame = 0;
             totalFrames = sourceRects.Count;
-            destinationRect = new Rectangle(x, y, 32, 32); // Assuming each item is 32x32 pixels
+            destinationRect = new Rectangle(x, y, 32, 32);
             count = 0;
         }
 
@@ -41,6 +41,6 @@ namespace Sprint2Pork.Items
             spriteBatch.Draw(texture, destinationRect, sourceRects[currentFrame], Color.White);
         }
 
-        public abstract void PerformAction(); // Abstract method to be implemented by derived classes
+        public abstract void PerformAction();
     }
 }
