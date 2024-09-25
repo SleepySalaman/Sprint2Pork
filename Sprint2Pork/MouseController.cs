@@ -20,23 +20,6 @@ public class MouseController : IController
         bool mouseDown = ms.LeftButton == ButtonState.Pressed;
         double width = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 2.2;
         double height = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 2.2;
-
-        if (mouseDown && ms.X < width / 2 && ms.Y < height / 2)
-        {
-            programGame.setMode(Game1.PlayerSpriteList.NonMovingNonAnimatedPlayer);
-        }
-        else if (mouseDown && ms.X < width / 2 && ms.Y >= height / 2)
-        {
-            programGame.setMode(Game1.PlayerSpriteList.MovingNonAnimatedPlayer);
-        }
-        else if (mouseDown && ms.X >= width / 2 && ms.Y < height / 2)
-        {
-            programGame.setMode(Game1.PlayerSpriteList.NonMovingAnimatedPlayer);
-        }
-        else if (mouseDown)
-        {
-            programGame.setMode(Game1.PlayerSpriteList.MovingAnimatedPlayer);
-        }
     }
 
     public void Test()
