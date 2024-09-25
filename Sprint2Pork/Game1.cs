@@ -39,7 +39,7 @@ namespace Sprint2Pork
 
         private int[] spritePos;
         private bool moving;
-        private double switchCooldown = 0.1;  // 0.5 seconds cooldown between switches
+        private double switchCooldown = 0.1;  
         private double timeSinceLastSwitch = 0;
 
         private double switchEnemyCooldown = 0.3;
@@ -49,8 +49,9 @@ namespace Sprint2Pork
         private Texture2D blockTexture;
         private List<Block> blocks;
         private int currentBlockIndex;
-        private Vector2 blockPosition;  // Constant position for all blocks
+        private Vector2 blockPosition;
 
+        // Item variables
         private List<Item> items;
         private int currentItemIndex;
         private Texture2D itemTexture;
