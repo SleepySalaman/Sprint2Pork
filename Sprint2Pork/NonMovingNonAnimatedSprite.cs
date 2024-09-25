@@ -18,7 +18,7 @@ public class NonMovingNonAnimatedSprite : ISprite
         totalFrames = sourceRects.Count;
 
         // Apply the same scaling factor as MovingAnimatedSprite
-        destinationRect = new Rectangle(x, y, rect.Width * 7, rect.Height * 7);
+        destinationRect = new Rectangle(x, y, rect.Width * 5, rect.Height * 5);
     }
 
     void ISprite.Update(int x, int y)
