@@ -32,6 +32,13 @@ public class MovingAnimatedSprite : ISprite
 
     void ISprite.Update(int x, int y)
     {
+        CountFrames();
+        // Update the width and height of the destination rectangle based on the current frame's source rectangle
+        DynamicallyAdjustDestinationRectangleSize(x, y);
+    }
+
+    private void CountFrames()
+    {
         count++;
         if (count > interval)
         {
@@ -42,8 +49,10 @@ public class MovingAnimatedSprite : ISprite
                 currentFrame = 0;
             }
         }
+    }
 
-        // Update the width and height of the destination rectangle based on the current frame's source rectangle
+    private void DynamicallyAdjustDestinationRectangleSize(int x, int y)
+    {
         destinationRect.Width = sourceRects[currentFrame].Width * 5;
         destinationRect.Height = sourceRects[currentFrame].Height * 5;
 
