@@ -52,7 +52,7 @@ namespace Sprint2Pork
         private Vector2 blockPosition;
 
         // Item variables
-        private List<Item> items;
+        private List<GroundItem> items;
         private int currentItemIndex;
         private Texture2D itemTexture;
         private KeyboardState previousState;
@@ -91,20 +91,27 @@ namespace Sprint2Pork
             numEnemies = 7;
             moving = false;
 
-            blocks = new List<Block>();
-            //adds item to list
-            items = new List<Item> {
-                new Item(300, 100, new List<Rectangle> { new Rectangle(72, 0, 8, 16), new Rectangle(72, 16, 8, 16) }),
-                new Item(300, 100, new List<Rectangle> { new Rectangle(80, 0, 8, 16), new Rectangle(80, 16, 8, 16) }),
-                new Item(300, 100, new List<Rectangle> { new Rectangle(88, 0, 8, 16), new Rectangle(88, 16, 8, 16) }),
-                new Item(300, 100, new List<Rectangle> { new Rectangle(24, 0, 16, 16), new Rectangle(24, 0, 16, 16) })
-            };
+            LoadGroundItems();
 
+            blocks = new List<Block>();
             currentBlockIndex = 0;
             currentItemIndex = 0;
+            blockPosition = new Vector2(200, 200);
+        }
 
-            blockPosition = new Vector2(200, 200);  // Constant position for block
-
+        private void LoadGroundItems()
+        {
+            // Load item frames from spritesheet and create new objects
+            List<Rectangle> rupeeFrames = new List<Rectangle> { new Rectangle(72, 0, 8, 16), new Rectangle(72, 16, 8, 16) };
+            List<Rectangle> potionFrames = new List<Rectangle> { new Rectangle(80, 0, 8, 16), new Rectangle(80, 16, 8, 16) };
+            List<Rectangle> scrollFrames = new List<Rectangle> { new Rectangle(88, 0, 8, 16), new Rectangle(88, 16, 8, 16) };
+            List<Rectangle> heartFrames = new List<Rectangle> { new Rectangle(24, 0, 16, 16), new Rectangle(24, 16, 8, 16) };
+            items = new List<GroundItem> {
+                new Heart(400, 200, heartFrames),
+                new Rupee(400, 200, rupeeFrames),
+                new Potion(400, 200, potionFrames),
+                new Scroll(400, 200, scrollFrames),
+            };
         }
 
         protected override void Initialize()

@@ -1,0 +1,46 @@
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Sprint2Pork.GroundItems;
+using System.Collections.Generic;
+
+namespace Sprint2Pork.Items
+{
+    public abstract class GroundItem : IGroundItem
+    {
+        protected List<Rectangle> sourceRects;
+        public Rectangle destinationRect;
+        protected int currentFrame;
+        protected int totalFrames;
+        protected int count;
+
+        public GroundItem(int x, int y, List<Rectangle> frames)
+        {
+            sourceRects = frames;
+            currentFrame = 0;
+            totalFrames = sourceRects.Count;
+            destinationRect = new Rectangle(x, y, 32, 32); // Assuming each item is 32x32 pixels
+            count = 0;
+        }
+
+        public void Update(int x, int y)
+        {
+            count++;
+            if (count > 30)
+            {
+                currentFrame++;
+                count = 0;
+                if (currentFrame == totalFrames)
+                {
+                    currentFrame = 0;
+                }
+            }
+        }
+
+        public void Draw(SpriteBatch spriteBatch, Texture2D texture)
+        {
+            spriteBatch.Draw(texture, destinationRect, sourceRects[currentFrame], Color.White);
+        }
+
+        public abstract void PerformAction(); // Abstract method to be implemented by derived classes
+    }
+}
