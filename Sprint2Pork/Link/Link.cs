@@ -125,26 +125,26 @@ namespace Sprint2Pork
                 case LeftFacingLinkState:
                     if (x > 0)
                     {
-                        this.x = this.x - 2;
+                        this.x = this.x - 3;
 
                     }
                     break;
                 case RightFacingLinkState:
                     if (x < screenWidth)
                     {
-                        this.x = this.x + 2;
+                        this.x = this.x + 3;
                     }
                     break;
                 case UpFacingLinkState:
                     if (y > 0)
                     {
-                        this.y = this.y - 2;
+                        this.y = this.y - 3;
                     }
                     break;
                 case DownFacingLinkState:
                     if (y < screenHeight)
                     {
-                        this.y = this.y + 2;
+                        this.y = this.y + 3;
                     }
                     break;
             }
@@ -156,7 +156,7 @@ namespace Sprint2Pork
             //actionState = new AttackingActionState(this);
             frozen = true;
             attackFrameCount++;
-            if (attackFrameCount > 120)
+            if (attackFrameCount > 40)
             {
                 attackFrameCount = 0;
                 frozen = false;

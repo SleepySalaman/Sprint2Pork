@@ -44,19 +44,19 @@ public class MovingAnimatedSprite : ISprite
         }
 
         // Update the width and height of the destination rectangle based on the current frame's source rectangle
-        destinationRect.Width = sourceRects[currentFrame].Width * 7;
-        destinationRect.Height = sourceRects[currentFrame].Height * 7;
+        destinationRect.Width = sourceRects[currentFrame].Width * 5;
+        destinationRect.Height = sourceRects[currentFrame].Height * 5;
 
         // Adjust the position based on the direction
         if (direction == "Left")
         {
-            destinationRect.X = x - destinationRect.Width + spriteWidth * 7;
+            destinationRect.X = x - destinationRect.Width + spriteWidth * 5;
             destinationRect.Y = y;
         }
         else if (direction == "Up")
         {
             destinationRect.X = x;
-            destinationRect.Y = y - destinationRect.Height + spriteHeight * 7;
+            destinationRect.Y = y - destinationRect.Height + spriteHeight * 5;
         }
         else
         {

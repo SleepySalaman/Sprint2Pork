@@ -4,26 +4,21 @@ using System.Collections.Generic;
 
 public class NonMovingNonAnimatedSprite : ISprite
 {
-
     private int totalFrames;
     private int currentFrame;
-
     private bool flipped;
-
     private List<Rectangle> sourceRects;
     private Rectangle destinationRect;
 
     public NonMovingNonAnimatedSprite(int x, int y, Rectangle rect, bool flipped)
     {
-        sourceRects = new List<Rectangle>();
-        sourceRects.Add(rect);
-
-        destinationRect = new Rectangle(x, y, 100, 100);
+        sourceRects = new List<Rectangle> { rect };
         this.flipped = flipped;
-
-
         currentFrame = 0;
         totalFrames = sourceRects.Count;
+
+        // Apply the same scaling factor as MovingAnimatedSprite
+        destinationRect = new Rectangle(x, y, rect.Width * 5, rect.Height * 5);
     }
 
     void ISprite.Update(int x, int y)
@@ -47,6 +42,5 @@ public class NonMovingNonAnimatedSprite : ISprite
         {
             sb.Draw(txt, destinationRect, sourceRects[currentFrame], Color.White, 0, new Vector2(0, 0), SpriteEffects.FlipHorizontally, 0);
         }
-
     }
 }

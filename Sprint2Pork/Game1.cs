@@ -24,7 +24,6 @@ namespace Sprint2Pork
         private SpriteBatch spriteBatch;
         private List<IController> controllerList;
 
-        private ISprite characterSprite;
         private ISprite textSprite;
 
         private IEnemy enemySprite;
@@ -61,14 +60,10 @@ namespace Sprint2Pork
         public enum PlayerSpriteList { NonMovingNonAnimatedPlayer, NonMovingAnimatedPlayer, MovingNonAnimatedPlayer, MovingAnimatedPlayer };
         public enum EnemyList { Aquamentus, Dodongo, Manhandla, Gleeok, Digdogger, Gohma, Ganon };
 
-        public EnemyList currentEnemy;
         private int currentEnemyNum;
         private int numEnemies;
 
         private PlayerSpriteList playerMode;
-        private ISprite staticSprite;
-        private ISprite animatedSprite;
-        private ISprite currentSprite;
         private List<Rectangle> sourceRects;
 
         private ILink LinkMovingSprite;
@@ -90,9 +85,7 @@ namespace Sprint2Pork
             spritePos = new int[2];
             spritePos[0] = 50;
             spritePos[1] = 50;
-            //spriteMode = 1;
             playerMode = PlayerSpriteList.NonMovingNonAnimatedPlayer;
-            currentEnemy = EnemyList.Gleeok;
             currentEnemyNum = 0;
             numEnemies = 7;
             moving = false;
@@ -125,19 +118,14 @@ namespace Sprint2Pork
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            characterSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1], new Rectangle(80, 0, 16, 16), false);
             enemySprite = new AquamentusNotAttacking();
-            staticSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1], new Rectangle(80, 0, 16, 16), false);
-            animatedSprite = new MovingAnimatedSprite(spritePos[0], spritePos[1], new List<Rectangle>()
-            {
-                new Rectangle(200, 120, 30, 35),
-                new Rectangle(230, 120, 30, 35),
-                new Rectangle(255, 120, 30, 35)
-            }, false, 30, "Right"); currentSprite = staticSprite;
-            characterTexture = Content.Load<Texture2D>("LinkAllSprites");
+
+            characterTexture = Content.Load<Texture2D>("LinkMovingWithDamage");
             enemyTexture = Content.Load<Texture2D>("zeldaenemies");
-            spriteBatch = new SpriteBatch(GraphicsDevice);
             blockTexture = Content.Load<Texture2D>("blocks");
+            itemTexture = Content.Load<Texture2D>("items_and_weapons");
+
+            spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // Create blocks at different positions
             // Define blocks using specific tiles from the sprite sheet
@@ -152,12 +140,11 @@ namespace Sprint2Pork
             font = Content.Load<SpriteFont>("File");
             textSprite = new TextSprite(200, 100, font);
 
-            sourceRects = new List<Rectangle>();
-            sourceRects.Add(new Rectangle(200, 120, 30, 35));
-            sourceRects.Add(new Rectangle(230, 120, 30, 35));
-            sourceRects.Add(new Rectangle(255, 120, 30, 35));
-
-            itemTexture = Content.Load<Texture2D>("items_and_weapons");
+            sourceRects = new List<Rectangle>{
+                new Rectangle(200, 120, 30, 35),
+                new Rectangle(230, 120, 30, 35),
+                new Rectangle(255, 120, 30, 35)
+            };
 
             //Link
             link = new Link(viewport.Width, viewport.Height);
@@ -167,19 +154,15 @@ namespace Sprint2Pork
         {
             KeyboardState state = Keyboard.GetState();
 
-            // Quit the game if 'Q' is pressed
-            if (state.IsKeyDown(Keys.Q))
-            {
-                Exit();
-            }
             // Reset the game if 'R' is pressed
             if (state.IsKeyDown(Keys.R))
             {
                 ResetGame();
             }
 
-            // Existing code for quitting with Escape or Mouse click
-            if (state.IsKeyDown(Keys.Escape) || state.IsKeyDown(Keys.D0) || Mouse.GetState().RightButton == ButtonState.Pressed)
+            // Existing code for quitting with Q, 0, Escape or Mouse click
+            if (state.IsKeyDown(Keys.Escape) || state.IsKeyDown(Keys.Q) || state.IsKeyDown(Keys.D0) 
+                || Mouse.GetState().RightButton == ButtonState.Pressed)
             {
                 Exit();
             }
@@ -188,21 +171,14 @@ namespace Sprint2Pork
                 c.Update();
             }
 
-            bool isMoving = false;
             Vector2 newPosition = new Vector2(spritePos[0], spritePos[1]);
 
-            // Switch between static and animated sprites
-            currentSprite = isMoving ? animatedSprite : staticSprite;
-
-            // Update the current sprite
-            currentSprite.Update(spritePos[0], spritePos[1]);
             enemySprite.Update();
 
             // Update the current sprite only if the position has changed
             if (newPosition != new Vector2(spritePos[0], spritePos[1])) {
                 spritePos[0] = (int)newPosition.X;
                 spritePos[1] = (int)newPosition.Y;
-                currentSprite.Update(spritePos[0], spritePos[1]);
             }
 
             // Existing code for quitting with Escape or Mouse click
@@ -257,9 +233,6 @@ namespace Sprint2Pork
             previousState = state;
 
             // Link
-
-
-            
             if (state.IsKeyDown(Keys.O) && timeSinceSwitchedEnemy >= switchEnemyCooldown) {
                 cycleEnemiesBackwards();
                 setEnemySprite();
@@ -319,11 +292,8 @@ namespace Sprint2Pork
             link.actionState.Update();
             link.linkSprite.Update(link.x, link.y);
 
-
-
             // Update the current item
             items[currentItemIndex].Update(items[currentItemIndex].destinationRect.X, items[currentItemIndex].destinationRect.Y);
-
 
             base.Update(gameTime);
         }
@@ -343,7 +313,6 @@ namespace Sprint2Pork
             timeSinceLastSwitch = 0;
 
             // Reset the character sprite to its initial mode (NonMovingNonAnimatedSprite)
-            setMode(PlayerSpriteList.NonMovingNonAnimatedPlayer);
             enemySprite = new AquamentusNotAttacking();
             link = new Link(viewport.Width, viewport.Height);
         }
@@ -357,7 +326,6 @@ namespace Sprint2Pork
             enemySprite.Draw(spriteBatch, enemyTexture);
             textSprite.Draw(spriteBatch, characterTexture);
 
-            // Existing code for quitting with Escape or Mouse click
             // Draw the current block
             blocks[currentBlockIndex].Draw(spriteBatch);
 
@@ -368,30 +336,6 @@ namespace Sprint2Pork
 
             base.Draw(gameTime);
             spriteBatch.End();
-        }
-
-        public void setMode(PlayerSpriteList spriteList){
-            if (playerMode != spriteList){
-                playerMode = spriteList;
-                switch (spriteList){
-                    case PlayerSpriteList.NonMovingNonAnimatedPlayer:
-                        characterSprite = new NonMovingNonAnimatedSprite(spritePos[0], spritePos[1], new Rectangle(200, 120, 30, 35), false);
-                        moving = false;
-                        break;
-                    case PlayerSpriteList.NonMovingAnimatedPlayer:
-                        characterSprite = new NonMovingAnimatedSprite(spritePos[0], spritePos[1], sourceRects);
-                        moving = false;
-                        break;
-                    case PlayerSpriteList.MovingNonAnimatedPlayer:
-                        characterSprite = new MovingNonAnimatedSprite(spritePos[0], spritePos[1], new Rectangle(84, 0, 16, 16));
-                        moving = true;
-                        break;
-                    case PlayerSpriteList.MovingAnimatedPlayer:
-                        characterSprite = new MovingAnimatedSprite(spritePos[0], spritePos[1], new List<Rectangle>() { new Rectangle(84, 0, 16, 16) }, false, 30, "Right");
-                        moving = true;
-                        break;
-                }
-            }
         }
 
         public void cycleEnemies() {

@@ -15,16 +15,17 @@ public class NonMovingAnimatedSprite : ISprite
     public NonMovingAnimatedSprite(int x, int y, List<Rectangle> rects)
     {
         sourceRects = rects;
-        sourceRects = new List<Rectangle>();
-        sourceRects.Add(new Rectangle(200, 120, 30, 35));
-        sourceRects.Add(new Rectangle(230, 120, 30, 35));
-        sourceRects.Add(new Rectangle(255, 120, 30, 35));
+        sourceRects = new List<Rectangle> {
+            new Rectangle(200, 120, 30, 35),
+            new Rectangle(230, 120, 30, 35),
+            new Rectangle(255, 120, 30, 35),
+        };
 
         count = 0;
         currentFrame = 0;
         totalFrames = sourceRects.Count;
 
-        destinationRect = new Rectangle(x, y, 100, 100);
+        destinationRect = new Rectangle(x, y, rects[0].Width * 5, rects[0].Height * 5);
     }
 
     void ISprite.Update(int x, int y)
