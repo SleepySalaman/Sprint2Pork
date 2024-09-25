@@ -156,7 +156,7 @@ namespace Sprint2Pork
             //actionState = new AttackingActionState(this);
             frozen = true;
             attackFrameCount++;
-            if (attackFrameCount > 120)
+            if (attackFrameCount > 40)
             {
                 attackFrameCount = 0;
                 frozen = false;

@@ -37,7 +37,7 @@ namespace Sprint2Pork
                     // no sword
                     rects.Add(new Rectangle(0, 43, 16, 16));
                     flipped = true;
-                    link.linkSprite = new MovingAnimatedSprite(link.x, link.y, rects, flipped, 15, "Left"); // non-moving?
+                    link.linkSprite = new MovingAnimatedSprite(link.x, link.y, rects, flipped, 5, "Left"); // non-moving?
                     break;
                 case RightFacingLinkState:
                     // no sword
@@ -55,7 +55,7 @@ namespace Sprint2Pork
                     rects.Add(new Rectangle(69, 43, 22, 16));
                     // no sword
                     rects.Add(new Rectangle(0, 43, 16, 16));
-                    link.linkSprite = new MovingAnimatedSprite(link.x, link.y, rects, flipped, 15, "Right"); // non-moving?
+                    link.linkSprite = new MovingAnimatedSprite(link.x, link.y, rects, flipped, 5, "Right"); // non-moving?
                     break;
                 case UpFacingLinkState:
                     // no sword
@@ -72,7 +72,7 @@ namespace Sprint2Pork
                     rects.Add(new Rectangle(50, 82, 16, 22));
                     // no sword
                     rects.Add(new Rectangle(0, 86, 16, 17));
-                    link.linkSprite = new MovingAnimatedSprite(link.x, link.y, rects, flipped, 15, "Up"); // non-moving?
+                    link.linkSprite = new MovingAnimatedSprite(link.x, link.y, rects, flipped, 5, "Up"); // non-moving?
                     break;
                 case DownFacingLinkState:
                     // no sword
@@ -89,7 +89,7 @@ namespace Sprint2Pork
                     rects.Add(new Rectangle(50, 16, 16, 22));
                     // no sword
                     rects.Add(new Rectangle(0, 16, 16, 16));
-                    link.linkSprite = new MovingAnimatedSprite(link.x, link.y, rects, flipped, 15, "Down"); // non-moving?
+                    link.linkSprite = new MovingAnimatedSprite(link.x, link.y, rects, flipped, 5, "Down"); // non-moving?
                     break;
             }
         }

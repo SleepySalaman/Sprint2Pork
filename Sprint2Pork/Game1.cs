@@ -134,7 +134,7 @@ namespace Sprint2Pork
                 new Rectangle(230, 120, 30, 35),
                 new Rectangle(255, 120, 30, 35)
             }, false, 30, "Right"); currentSprite = staticSprite;
-            characterTexture = Content.Load<Texture2D>("LinkAllSprites");
+            characterTexture = Content.Load<Texture2D>("LinkMovingWithDamage");
             enemyTexture = Content.Load<Texture2D>("zeldaenemies");
             spriteBatch = new SpriteBatch(GraphicsDevice);
             blockTexture = Content.Load<Texture2D>("blocks");
