@@ -16,15 +16,20 @@ namespace Sprint2Pork
     {
         public ILinkDirectionState directionState;
         public ILinkActionState actionState;
+        public ILinkItems linkItem;
         //private Viewport viewport;
         public int x;
         public int y;
         private int screenWidth;
         private int screenHeight;
         public ISprite linkSprite;
+        public ISprite linkItemSprite;
 
         private bool moving;
         public bool frozen;
+        public bool damage;
+        public int linkCount;
+        
 
         int attackFrameCount;
 
@@ -34,6 +39,7 @@ namespace Sprint2Pork
             screenHeight = height;
             directionState = new DownFacingLinkState(this);
             actionState = new IdleActionState(this);
+            linkItem = new IdleItem(this);
             x = 0;
             y = 0;
             attackFrameCount = 0;
@@ -105,6 +111,10 @@ namespace Sprint2Pork
             actionState.BeAttacking();
         }
 
+        public void loseItem()
+        {
+            linkItem = new IdleItem(this);
+        }
         // ACTUAL METHODS
 
         public void Draw(SpriteBatch sb, Texture2D texture)
@@ -163,6 +173,27 @@ namespace Sprint2Pork
                 this.BeIdle();
             }
 
+        }
+
+        public void UseItem(int index)
+        {
+            if(index == 1)
+            {
+                linkItem = new Arrow(this);
+            }
+        }
+
+        public void UseArrow()
+        {
+            frozen = true;
+            linkCount++;
+
+            if (linkCount > 40)
+            {
+                linkCount = 0;
+                frozen = false;
+                loseItem();
+            }
         }
     }
 }
