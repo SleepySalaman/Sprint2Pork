@@ -60,7 +60,6 @@ namespace Sprint2Pork
         public enum PlayerSpriteList { NonMovingNonAnimatedPlayer, NonMovingAnimatedPlayer, MovingNonAnimatedPlayer, MovingAnimatedPlayer };
         public enum EnemyList { Aquamentus, Dodongo, Manhandla, Gleeok, Digdogger, Gohma, Ganon };
 
-        public EnemyList currentEnemy;
         private int currentEnemyNum;
         private int numEnemies;
 
@@ -86,9 +85,7 @@ namespace Sprint2Pork
             spritePos = new int[2];
             spritePos[0] = 50;
             spritePos[1] = 50;
-            //spriteMode = 1;
             playerMode = PlayerSpriteList.NonMovingNonAnimatedPlayer;
-            currentEnemy = EnemyList.Gleeok;
             currentEnemyNum = 0;
             numEnemies = 7;
             moving = false;
@@ -174,7 +171,6 @@ namespace Sprint2Pork
                 c.Update();
             }
 
-            bool isMoving = false;
             Vector2 newPosition = new Vector2(spritePos[0], spritePos[1]);
 
             enemySprite.Update();
@@ -183,7 +179,6 @@ namespace Sprint2Pork
             if (newPosition != new Vector2(spritePos[0], spritePos[1])) {
                 spritePos[0] = (int)newPosition.X;
                 spritePos[1] = (int)newPosition.Y;
-                //currentSprite.Update(spritePos[0], spritePos[1]);
             }
 
             // Existing code for quitting with Escape or Mouse click
@@ -238,9 +233,6 @@ namespace Sprint2Pork
             previousState = state;
 
             // Link
-
-
-            
             if (state.IsKeyDown(Keys.O) && timeSinceSwitchedEnemy >= switchEnemyCooldown) {
                 cycleEnemiesBackwards();
                 setEnemySprite();
@@ -300,11 +292,8 @@ namespace Sprint2Pork
             link.actionState.Update();
             link.linkSprite.Update(link.x, link.y);
 
-
-
             // Update the current item
             items[currentItemIndex].Update(items[currentItemIndex].destinationRect.X, items[currentItemIndex].destinationRect.Y);
-
 
             base.Update(gameTime);
         }
@@ -337,7 +326,6 @@ namespace Sprint2Pork
             enemySprite.Draw(spriteBatch, enemyTexture);
             textSprite.Draw(spriteBatch, characterTexture);
 
-            // Existing code for quitting with Escape or Mouse click
             // Draw the current block
             blocks[currentBlockIndex].Draw(spriteBatch);
 
