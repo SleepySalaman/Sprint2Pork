@@ -163,6 +163,25 @@ namespace Sprint2Pork
             currentBlockIndex = CurrentBlockIndex; // This updates based on the index changed in the controller
 
         }
+        public void PreviousItem()
+        {
+            currentItemIndex = (currentItemIndex - 1 + items.Count) % items.Count;
+            SetCurrentItem();
+        }
+
+        public void NextItem()
+        {
+            currentItemIndex = (currentItemIndex + 1) % items.Count;
+            SetCurrentItem();
+        }
+
+        private void SetCurrentItem()
+        {
+            // Logic to set the current item based on currentItemIndex
+            // This might involve updating the position or state of the item
+            GroundItem currentItem = items[currentItemIndex];
+            currentItem.destinationRect = new Rectangle(400, 200, 32, 32); // Example position
+        }
         public void ResetGame()
         {
             // Reset the game logic (item/block index, position, etc.)
@@ -185,8 +204,6 @@ namespace Sprint2Pork
             }
 
         }
-
-
 
         protected override void Draw(GameTime gameTime)
         {
