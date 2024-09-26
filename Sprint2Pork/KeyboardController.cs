@@ -73,18 +73,22 @@ public class KeyboardController : IController
         //Link Items
         if (ks.IsKeyDown(Keys.D1))
         {
+            link.BeAttacking();
             link.UseItem(1);
         }
         else if (ks.IsKeyDown(Keys.D2))
         {
+            link.BeAttacking();
             link.UseItem(2);
         }
         else if (ks.IsKeyDown(Keys.D3))
         {
+            link.BeAttacking();
             link.UseItem(3);
         }
         else if (ks.IsKeyDown(Keys.Z) || ks.IsKeyDown(Keys.N))
         {
+            link.BeAttacking();
             link.AttackSword();
         }
 
