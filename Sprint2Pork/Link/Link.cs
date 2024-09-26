@@ -204,6 +204,12 @@ namespace Sprint2Pork
             }
         }
 
+        public void AttackSword()
+        {
+            itemInUse = true;
+            linkItem = new Sword(this);
+        }
+
         public void UpdateItem()
         {
             itemInUse = true;
