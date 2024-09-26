@@ -8,29 +8,29 @@ using System.Threading.Tasks;
 
 namespace Sprint2Pork
 {
-    public class Boomerang : ILinkItems
+    public class Bomb : ILinkItems
     {
         public int direction = 0;
         Rectangle rect = new Rectangle();
-        public Boomerang(Link link) {
+        public Bomb(Link link) {
             switch (link.directionState)
             {
                 
                 case LeftFacingLinkState:
                     direction = 0;
-                    rect = new Rectangle(129, 2, 6, 9);
+                    rect = new Rectangle(136, 0, 7, 14); // 144, 14
                     break;
                 case RightFacingLinkState:
                     direction = 1;
-                    rect = new Rectangle(129, 2, 6, 9);
+                    rect = new Rectangle(136, 0, 7, 14);
                     break;
                 case DownFacingLinkState:
                     direction = 2;
-                    rect = new Rectangle(129, 2, 6, 9);
+                    rect = new Rectangle(136, 0, 7, 14);
                     break;
                 case UpFacingLinkState:
                     direction = 3;
-                    rect = new Rectangle(129, 2, 6, 9);
+                    rect = new Rectangle(136, 0, 7, 14);
                     break;
 
             }

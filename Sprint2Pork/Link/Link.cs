@@ -193,9 +193,14 @@ namespace Sprint2Pork
                 linkItem = new Arrow(this);
             }
 
-            if(index == 2)
+            else if(index == 2)
             {
                 linkItem = new Boomerang(this);
+            }
+
+            else if(index == 3)
+            {
+                linkItem = new Bomb(this);
             }
         }
 

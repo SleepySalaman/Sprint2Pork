@@ -79,6 +79,10 @@ public class KeyboardController : IController
         {
             link.UseItem(2);
         }
+        else if (ks.IsKeyDown(Keys.D3))
+        {
+            link.UseItem(3);
+        }
 
         // Rotate Blocks (t and y)
         if (ks.IsKeyDown(Keys.T) && timeSinceLastBlockSwitch >= blockSwitchCooldown)
