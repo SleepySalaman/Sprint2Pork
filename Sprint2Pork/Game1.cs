@@ -163,6 +163,7 @@ namespace Sprint2Pork
             currentBlockIndex = CurrentBlockIndex; // This updates based on the index changed in the controller
 
         }
+
         public void PreviousItem()
         {
             currentItemIndex = (currentItemIndex - 1 + items.Count) % items.Count;
