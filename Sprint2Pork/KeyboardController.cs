@@ -22,7 +22,10 @@ public class KeyboardController : IController
         listOfBlocks = blocks;
         currentBlockIndex = 0;
     }
-
+    public void UpdateLink(Link newLink)
+    {
+        link = newLink;
+    }
     void IController.Update()
     {
         KeyboardState ks = Keyboard.GetState();
@@ -97,7 +100,10 @@ public class KeyboardController : IController
         {
             // Rotate enemies logic (e.g., rotate right)
         }
-
+        if (ks.IsKeyDown(Keys.R))
+        {
+            programGame.ResetGame();
+        }
         // Quit Game
         if (ks.IsKeyDown(Keys.Q))
         {

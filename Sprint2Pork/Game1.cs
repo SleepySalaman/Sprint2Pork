@@ -163,7 +163,7 @@ namespace Sprint2Pork
             currentBlockIndex = CurrentBlockIndex; // This updates based on the index changed in the controller
 
         }
-        private void ResetGame()
+        public void ResetGame()
         {
             // Reset the game logic (item/block index, position, etc.)
             currentBlockIndex = 0;
@@ -174,7 +174,19 @@ namespace Sprint2Pork
 
             enemySprite = new AquamentusNotAttacking();
             link = new Link(viewport.Width, viewport.Height);
+
+            // Update the KeyboardController's reference to the new Link instance
+            foreach (IController controller in controllerList)
+            {
+                if (controller is KeyboardController keyboardController)
+                {
+                    keyboardController.UpdateLink(link);
+                }
+            }
+
         }
+
+
 
         protected override void Draw(GameTime gameTime)
         {
