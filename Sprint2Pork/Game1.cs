@@ -129,7 +129,6 @@ namespace Sprint2Pork
             font = Content.Load<SpriteFont>("File");
             textSprite = new TextSprite(200, 100, font);
 
-            // Create blocks of different types
             blocks.Add(new Block1(blockTexture, blockPosition));
             blocks.Add(new Block2(blockTexture, blockPosition));
             blocks.Add(new Block3(blockTexture, blockPosition));
@@ -154,7 +153,6 @@ namespace Sprint2Pork
             timeSinceLastSwitch += gameTime.ElapsedGameTime.TotalSeconds;
             timeSinceSwitchedEnemy += gameTime.ElapsedGameTime.TotalSeconds;
 
-            // Link state update
             link.actionState.Update();
             link.linkSprite.Update(link.x, link.y);
             if (link.itemInUse)
@@ -162,7 +160,6 @@ namespace Sprint2Pork
                 link.linkItem.Update(link);
             }
 
-            // Update current item
             items[currentItemIndex].Update(items[currentItemIndex].destinationRect.X, items[currentItemIndex].destinationRect.Y);
             
             base.Update(gameTime);
@@ -187,8 +184,6 @@ namespace Sprint2Pork
 
         private void SetCurrentItem()
         {
-            // Logic to set the current item based on currentItemIndex
-            // This might involve updating the position or state of the item
             GroundItem currentItem = items[currentItemIndex];
             currentItem.destinationRect = new Rectangle(400, 200, 32, 32); // Example position
         }
@@ -224,7 +219,6 @@ namespace Sprint2Pork
             testEnemySprite.Draw(spriteBatch, enemyTexture);
             textSprite.Draw(spriteBatch, characterTexture);
 
-            // Draw the current block and item
             blocks[CurrentBlockIndex].Draw(spriteBatch); // This draws the updated block
             items[currentItemIndex].Draw(spriteBatch, itemTexture);
 

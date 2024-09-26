@@ -11,11 +11,10 @@ public class KeyboardController : IController
     private Link link;
     private List<Block> listOfBlocks;
     private int currentBlockIndex;
-    // Block switch cooldown timer
+
     private double timeSinceLastBlockSwitch;
     private double blockSwitchCooldown = 0.1;
 
-    // Item switch cooldown timer
     private double timeSinceLastItemSwitch;
     private double itemSwitchCooldown = 0.1;
 
@@ -37,7 +36,6 @@ public class KeyboardController : IController
     {
         KeyboardState ks = Keyboard.GetState();
 
-        // Update the cooldown timer by manually incrementing it
         timeSinceLastBlockSwitch += 1 / 60.0; // Assuming 60 FPS; adjust if necessary
         timeSinceLastItemSwitch += 1 / 60.0;
         timeSinceLastEnemySwitch += 1 / 60.0;
