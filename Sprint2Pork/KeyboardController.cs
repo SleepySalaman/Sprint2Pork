@@ -1,20 +1,34 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Sprint2Pork;
+using Sprint2Pork.Blocks;
+using System.Collections.Generic;
+using static System.Reflection.Metadata.BlobBuilder;
 
 public class KeyboardController : IController
 {
     private Game1 programGame;
     private Link link;
+    private List<Block> listOfBlocks;
+    private int currentBlockIndex;
+    // Add a cooldown timer
+    private double timeSinceLastBlockSwitch;
+    private double blockSwitchCooldown = 0.1; // Adjust as needed
 
-    public KeyboardController(Game1 g, Link linkCharacter)
+    public KeyboardController(Game1 g, Link linkCharacter, List<Block> blocks)
     {
         programGame = g;
         link = linkCharacter;
+        listOfBlocks = blocks;
+        currentBlockIndex = 0;
     }
 
     void IController.Update()
     {
         KeyboardState ks = Keyboard.GetState();
+
+        // Update the cooldown timer by manually incrementing it
+        timeSinceLastBlockSwitch += 1 / 60.0; // Assuming 60 FPS; adjust if necessary
 
         // Link Movement
         if (ks.IsKeyDown(Keys.Left) || ks.IsKeyDown(Keys.A))
@@ -47,19 +61,21 @@ public class KeyboardController : IController
         {
             link.BeAttacking();
         }
-        if (ks.IsKeyDown(Keys.S))
-        {
-            link.UseItem(1); // Assuming 1 represents using an arrow or some item
-        }
 
         // Rotate Blocks (t and y)
-        if (ks.IsKeyDown(Keys.T))
+        if (ks.IsKeyDown(Keys.T) && timeSinceLastBlockSwitch >= blockSwitchCooldown)
         {
-            // Rotate blocks logic (e.g., rotate left)
+            currentBlockIndex = (currentBlockIndex + 1) % listOfBlocks.Count;
+            programGame.CurrentBlockIndex = currentBlockIndex; // Update current block index in Game1
+            programGame.UpdateCurrentBlock(); // Call method to update block logic
+            timeSinceLastBlockSwitch = 0; // Reset the timer
         }
-        if (ks.IsKeyDown(Keys.Y))
+        if (ks.IsKeyDown(Keys.Y) && timeSinceLastBlockSwitch >= blockSwitchCooldown)
         {
-            // Rotate blocks logic (e.g., rotate right)
+            currentBlockIndex = (currentBlockIndex - 1 + listOfBlocks.Count) % listOfBlocks.Count;
+            programGame.CurrentBlockIndex = currentBlockIndex; // Update current block index in Game1
+            programGame.UpdateCurrentBlock(); // Call method to update block logic
+            timeSinceLastBlockSwitch = 0; // Reset the timer
         }
 
         // Rotate Items (u and i)
@@ -83,7 +99,7 @@ public class KeyboardController : IController
         }
 
         // Quit Game
-        if (ks.IsKeyDown(Keys.Escape))
+        if (ks.IsKeyDown(Keys.Q))
         {
             programGame.Exit();
         }

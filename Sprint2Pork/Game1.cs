@@ -10,6 +10,7 @@ using Sprint2Pork.Enemies.Gohma;
 using Sprint2Pork.Enemies.Manhandla;
 using Sprint2Pork.Enemies.Patra_Ganon;
 using Sprint2Pork.Items;
+using System;
 using System.Collections.Generic;
 
 namespace Sprint2Pork
@@ -52,12 +53,27 @@ namespace Sprint2Pork
 
         private Link link;
         public Viewport viewport;
+        public int CurrentBlockIndex
+        {
+            get => currentBlockIndex;
+            set
+            {
+                currentBlockIndex = value;
+                UpdateCurrentBlock(); // Call to update current block whenever the index is set
+            }
+        }
+
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+
+            blocks = new List<Block>();
+            currentBlockIndex = 0;
+            currentItemIndex = 0;
+            blockPosition = new Vector2(200, 200);
 
             controllerList = new List<IController>();
             spritePos = new int[2] { 50, 50 };
@@ -67,10 +83,6 @@ namespace Sprint2Pork
 
             LoadGroundItems();
 
-            blocks = new List<Block>();
-            currentBlockIndex = 0;
-            currentItemIndex = 0;
-            blockPosition = new Vector2(200, 200);
         }
 
         private void LoadGroundItems()
@@ -93,8 +105,8 @@ namespace Sprint2Pork
         {
             viewport = graphics.GraphicsDevice.Viewport;
             link = new Link(viewport.Width, viewport.Height);
+            controllerList.Add(new KeyboardController(this, link, blocks));
 
-            controllerList.Add(new KeyboardController(this, link));
             controllerList.Add(new MouseController(this)); // Keep MouseController if it's relevant
 
             base.Initialize();
@@ -113,12 +125,17 @@ namespace Sprint2Pork
             font = Content.Load<SpriteFont>("File");
             textSprite = new TextSprite(200, 100, font);
 
-            // Create blocks
-            int numberOfBlocks = 10;
-            for (int i = 0; i < numberOfBlocks; i++)
-            {
-                blocks.Add(new Block(blockTexture, blockPosition, new Rectangle(16 * i, 0, 16, 16)));
-            }
+            // Create blocks of different types
+            blocks.Add(new Block1(blockTexture, blockPosition));
+            blocks.Add(new Block2(blockTexture, blockPosition));
+            blocks.Add(new Block3(blockTexture, blockPosition));
+            blocks.Add(new Block4(blockTexture, blockPosition));
+            blocks.Add(new Block5(blockTexture, blockPosition));
+            blocks.Add(new Block6(blockTexture, blockPosition));
+            blocks.Add(new Block7(blockTexture, blockPosition));
+            blocks.Add(new Block8(blockTexture, blockPosition));
+            blocks.Add(new Block9(blockTexture, blockPosition));
+            blocks.Add(new Block10(blockTexture, blockPosition));
         }
 
         protected override void Update(GameTime gameTime)
@@ -138,10 +155,14 @@ namespace Sprint2Pork
 
             // Update current item
             items[currentItemIndex].Update(items[currentItemIndex].destinationRect.X, items[currentItemIndex].destinationRect.Y);
-
+            
             base.Update(gameTime);
         }
+        public void UpdateCurrentBlock()
+        {
+            currentBlockIndex = CurrentBlockIndex; // This updates based on the index changed in the controller
 
+        }
         private void ResetGame()
         {
             // Reset the game logic (item/block index, position, etc.)
@@ -164,7 +185,7 @@ namespace Sprint2Pork
             textSprite.Draw(spriteBatch, characterTexture);
 
             // Draw the current block and item
-            blocks[currentBlockIndex].Draw(spriteBatch);
+            blocks[CurrentBlockIndex].Draw(spriteBatch); // This draws the updated block
             items[currentItemIndex].Draw(spriteBatch, itemTexture);
 
             link.Draw(spriteBatch, characterTexture);
