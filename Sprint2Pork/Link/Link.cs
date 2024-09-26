@@ -187,14 +187,19 @@ namespace Sprint2Pork
 
         public void UseItem(int index)
         {
+            itemInUse = true;
             if(index == 1)
             {
                 linkItem = new Arrow(this);
-                itemInUse = true;
+            }
+
+            if(index == 2)
+            {
+                linkItem = new Boomerang(this);
             }
         }
 
-        public void UseArrow()
+        public void UpdateItem()
         {
             itemInUse = true;
             linkCount++;
@@ -216,7 +221,7 @@ namespace Sprint2Pork
                 offsetY -= 7;
             }
 
-            if (linkCount > 40)
+            if (linkCount > 20)
             {
                 linkCount = 0;
                 itemInUse = false;
