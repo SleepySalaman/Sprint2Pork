@@ -9,6 +9,8 @@ using Sprint2Pork.Enemies.Gleeok;
 using Sprint2Pork.Enemies.Gohma;
 using Sprint2Pork.Enemies.Manhandla;
 using Sprint2Pork.Enemies.Patra_Ganon;
+using Sprint2Pork.Entity;
+using Sprint2Pork.Entity.Moving;
 using Sprint2Pork.Items;
 using System;
 using System.Collections.Generic;
@@ -23,6 +25,7 @@ namespace Sprint2Pork
 
         private ISprite textSprite;
         private IEnemy enemySprite;
+        private IEntity testEnemySprite;
 
         private Texture2D characterTexture;
         private Texture2D enemyTexture;
@@ -116,6 +119,7 @@ namespace Sprint2Pork
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             enemySprite = new AquamentusNotAttacking();
+            testEnemySprite = new Dodongo();
 
             characterTexture = Content.Load<Texture2D>("LinkMovingWithDamage");
             enemyTexture = Content.Load<Texture2D>("zeldaenemies");
@@ -146,6 +150,7 @@ namespace Sprint2Pork
             }
 
             enemySprite.Update();
+            testEnemySprite.Update();
             timeSinceLastSwitch += gameTime.ElapsedGameTime.TotalSeconds;
             timeSinceSwitchedEnemy += gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -212,6 +217,7 @@ namespace Sprint2Pork
             GraphicsDevice.Clear(Color.DimGray);
 
             enemySprite.Draw(spriteBatch, enemyTexture);
+            testEnemySprite.Draw(spriteBatch, enemyTexture);
             textSprite.Draw(spriteBatch, characterTexture);
 
             // Draw the current block and item
