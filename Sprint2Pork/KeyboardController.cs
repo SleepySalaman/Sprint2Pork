@@ -19,6 +19,9 @@ public class KeyboardController : IController
     private double timeSinceLastItemSwitch;
     private double itemSwitchCooldown = 0.1;
 
+    private double timeSinceLastEnemySwitch;
+    private double enemySwitchCooldown = 0.3;
+
     public KeyboardController(Game1 g, Link linkCharacter, List<Block> blocks)
     {
         programGame = g;
@@ -37,6 +40,7 @@ public class KeyboardController : IController
         // Update the cooldown timer by manually incrementing it
         timeSinceLastBlockSwitch += 1 / 60.0; // Assuming 60 FPS; adjust if necessary
         timeSinceLastItemSwitch += 1 / 60.0;
+        timeSinceLastEnemySwitch += 1 / 60.0;
 
         // Link Movement
         if (ks.IsKeyDown(Keys.Left) || ks.IsKeyDown(Keys.A))
@@ -120,20 +124,20 @@ public class KeyboardController : IController
             timeSinceLastItemSwitch = 0; // Reset the timer
         }
 
-        // Rotate Enemies (o and p)
-        if (ks.IsKeyDown(Keys.O))
+        if (ks.IsKeyDown(Keys.O) && timeSinceLastEnemySwitch >= enemySwitchCooldown)
         {
-            // Rotate enemies logic (e.g., rotate left)
+            programGame.cycleEnemiesBackwards();
+            timeSinceLastEnemySwitch = 0;
         }
-        if (ks.IsKeyDown(Keys.P))
+        if (ks.IsKeyDown(Keys.P) && timeSinceLastEnemySwitch >= enemySwitchCooldown)
         {
-            // Rotate enemies logic (e.g., rotate right)
+            programGame.cycleEnemies();
+            timeSinceLastEnemySwitch = 0;
         }
         if (ks.IsKeyDown(Keys.R))
         {
             programGame.ResetGame();
         }
-        // Quit Game
         if (ks.IsKeyDown(Keys.Q))
         {
             programGame.Exit();
