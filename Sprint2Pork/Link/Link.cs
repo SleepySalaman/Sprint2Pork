@@ -20,6 +20,8 @@ namespace Sprint2Pork
         //private Viewport viewport;
         public int x;
         public int y;
+        public int offsetX;
+        public int offsetY;
         private int screenWidth;
         private int screenHeight;
         public ISprite linkSprite;
@@ -32,6 +34,7 @@ namespace Sprint2Pork
         
 
         int attackFrameCount;
+        public bool itemInUse;
 
         public Link(int width, int height)
         {
@@ -39,9 +42,11 @@ namespace Sprint2Pork
             screenHeight = height;
             directionState = new DownFacingLinkState(this);
             actionState = new IdleActionState(this);
-            linkItem = new IdleItem(this);
+            itemInUse = false;
             x = 0;
             y = 0;
+            offsetX = 0;
+            offsetY = 0;
             attackFrameCount = 0;
             frozen = false;
         }
@@ -113,13 +118,18 @@ namespace Sprint2Pork
 
         public void loseItem()
         {
-            linkItem = new IdleItem(this);
+            itemInUse = false;
         }
         // ACTUAL METHODS
 
-        public void Draw(SpriteBatch sb, Texture2D texture)
+        public void Draw(SpriteBatch sb, Texture2D texture, Texture2D itemTexture)
         {
             linkSprite.Draw(sb, texture);
+            if (itemInUse)
+            {
+                linkItemSprite.Draw(sb, itemTexture);
+            }
+            
         }
 
         public void Idle()
@@ -180,18 +190,38 @@ namespace Sprint2Pork
             if(index == 1)
             {
                 linkItem = new Arrow(this);
+                itemInUse = true;
             }
         }
 
         public void UseArrow()
         {
-            frozen = true;
+            itemInUse = true;
             linkCount++;
+
+            if(linkItem.getDirection() == 0)
+            {
+                offsetX -= 7;
+            }
+            else if(linkItem.getDirection() == 1)
+            {
+                offsetX += 7;
+            }
+            else if(linkItem.getDirection() == 2)
+            {
+                offsetY += 7;
+            }
+            else if(linkItem.getDirection() == 3)
+            {
+                offsetY -= 7;
+            }
 
             if (linkCount > 40)
             {
                 linkCount = 0;
-                frozen = false;
+                itemInUse = false;
+                offsetY = 0;
+                offsetX = 0;
                 loseItem();
             }
         }

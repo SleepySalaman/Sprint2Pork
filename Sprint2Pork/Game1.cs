@@ -157,6 +157,10 @@ namespace Sprint2Pork
             // Link state update
             link.actionState.Update();
             link.linkSprite.Update(link.x, link.y);
+            if (link.itemInUse)
+            {
+                link.linkItem.Update(link);
+            }
 
             // Update current item
             items[currentItemIndex].Update(items[currentItemIndex].destinationRect.X, items[currentItemIndex].destinationRect.Y);
@@ -224,7 +228,7 @@ namespace Sprint2Pork
             blocks[CurrentBlockIndex].Draw(spriteBatch); // This draws the updated block
             items[currentItemIndex].Draw(spriteBatch, itemTexture);
 
-            link.Draw(spriteBatch, characterTexture);
+            link.Draw(spriteBatch, characterTexture, itemTexture);
 
             spriteBatch.End();
             base.Draw(gameTime);

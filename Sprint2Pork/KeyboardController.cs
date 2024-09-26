@@ -70,6 +70,12 @@ public class KeyboardController : IController
             link.BeAttacking();
         }
 
+        //Link Items
+        if (ks.IsKeyDown(Keys.D1))
+        {
+            link.UseItem(1);
+        }
+
         // Rotate Blocks (t and y)
         if (ks.IsKeyDown(Keys.T) && timeSinceLastBlockSwitch >= blockSwitchCooldown)
         {
