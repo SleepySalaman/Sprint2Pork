@@ -215,7 +215,28 @@ namespace Sprint2Pork
             itemInUse = true;
             linkCount++;
 
-            if(linkItem.getDirection() == 0)
+            if (linkItem is Sword || linkItem is Boomerang)
+            {
+                if (linkItem.getDirection() == 0)
+                {
+                    offsetX -= (linkCount <= 10) ? 7 : -7;
+                }
+                else if (linkItem.getDirection() == 1)
+                {
+                    offsetX += (linkCount <= 10) ? 7 : -7;
+                }
+                else if (linkItem.getDirection() == 2)
+                {
+                    offsetY += (linkCount <= 10) ? 7 : -7;
+                }
+                else if (linkItem.getDirection() == 3)
+                {
+                    offsetY -= (linkCount <= 10) ? 7 : -7;
+                }
+            }
+            else if (linkItem is Arrow)
+            {
+                if(linkItem.getDirection() == 0)
             {
                 offsetX -= 7;
             }
@@ -230,6 +251,13 @@ namespace Sprint2Pork
             else if(linkItem.getDirection() == 3)
             {
                 offsetY -= 7;
+            }
+            }
+            else if (linkItem is Bomb)
+            {
+                // Bomb remains in the same spot
+                offsetX = 0;
+                offsetY = 0;
             }
 
             if (linkCount > 20)
