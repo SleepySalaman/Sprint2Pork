@@ -1,10 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sprint2Pork
 {
@@ -13,28 +8,31 @@ namespace Sprint2Pork
         public int direction = 0;
         Rectangle rect = new Rectangle();
         public Bomb(Link link) {
+            string directionStr = "Down"; // Default direction
             switch (link.directionState)
             {
-                
                 case LeftFacingLinkState:
                     direction = 0;
-                    rect = new Rectangle(136, 0, 7, 14); // 144, 14
+                    directionStr = "Down";
+                    rect = new Rectangle(136, 0, 8, 14);
                     break;
                 case RightFacingLinkState:
                     direction = 1;
-                    rect = new Rectangle(136, 0, 7, 14);
+                    directionStr = "Down";
+                    rect = new Rectangle(136, 0, 8, 14);
                     break;
                 case DownFacingLinkState:
                     direction = 2;
-                    rect = new Rectangle(136, 0, 7, 14);
+                    directionStr = "Down";
+                    rect = new Rectangle(136, 0, 8, 14);
                     break;
                 case UpFacingLinkState:
                     direction = 3;
-                    rect = new Rectangle(136, 0, 7, 14);
+                    directionStr = "Down";
+                    rect = new Rectangle(136, 0, 8, 14);
                     break;
-
             }
-            link.linkItemSprite = new MovingNonAnimatedSprite(link.x + link.offsetX, link.y + link.offsetY, rect); // non-moving?
+            link.linkItemSprite = new MovingNonAnimatedSprite(link.x + link.offsetX, link.y + link.offsetY, rect, directionStr);
         }
 
         public void Update(Link link)
