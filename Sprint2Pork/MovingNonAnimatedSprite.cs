@@ -19,7 +19,8 @@ public class MovingNonAnimatedSprite : ISprite
         currentFrame = 0;
         totalFrames = sourceRects.Count;
 
-        destinationRect = new Rectangle(x, y, 100, 100);
+        // Scale for link items and sword
+        destinationRect = new Rectangle(x, y, 50, 50);
     }
 
     void ISprite.Update(int x, int y)
