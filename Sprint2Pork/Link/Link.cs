@@ -236,22 +236,26 @@ namespace Sprint2Pork
             }
             else if (linkItem is Arrow)
             {
+                //left
                 if(linkItem.getDirection() == 0)
-            {
-                offsetX -= 7;
-            }
-            else if(linkItem.getDirection() == 1)
-            {
-                offsetX += 7;
-            }
-            else if(linkItem.getDirection() == 2)
-            {
-                offsetY += 7;
-            }
-            else if(linkItem.getDirection() == 3)
-            {
-                offsetY -= 7;
-            }
+                {
+                    offsetX -= 0;
+                }
+                //right
+                else if(linkItem.getDirection() == 1)
+                {
+                    offsetX += 7;
+                }
+                //down
+                else if(linkItem.getDirection() == 2)
+                {
+                    offsetY += 7;
+                }
+                //up
+                else if(linkItem.getDirection() == 3)
+                {
+                    offsetY -= 7;
+                }
             }
             else if (linkItem is Bomb)
             {
