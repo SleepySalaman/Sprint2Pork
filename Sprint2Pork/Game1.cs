@@ -85,15 +85,31 @@ namespace Sprint2Pork
         {
             // Load items with predefined frames
             List<Rectangle> rupeeFrames = new List<Rectangle> { new Rectangle(72, 0, 8, 16), new Rectangle(72, 16, 8, 16) };
+            List<Rectangle> triangleFrames = new List<Rectangle> { new Rectangle(270, 0, 16, 16), new Rectangle(270, 16, 16, 16) };
+            List<Rectangle> compassFrames = new List<Rectangle> { new Rectangle(256, 0, 16, 16)};
+            List<Rectangle> keyFrames = new List<Rectangle> { new Rectangle(248, 0, 8, 16), new Rectangle(240, 0, 8, 16) };
+            List<Rectangle> candleFrames = new List<Rectangle> { new Rectangle(160, 0, 8, 16), new Rectangle(160, 16, 8, 16) };
+            List<Rectangle> arrowFrames = new List<Rectangle> { new Rectangle(152, 0, 8, 16), new Rectangle(152, 16, 8, 16) };
+            List<Rectangle> gypsieFrames = new List<Rectangle> { new Rectangle(48, 0, 8, 16), new Rectangle(40, 0, 8, 16) };
+            List<Rectangle> meatFrames = new List<Rectangle> { new Rectangle(96, 0, 8, 16) };
+            List<Rectangle> clockFrames = new List<Rectangle> { new Rectangle(58, 0, 10, 19) };
             List<Rectangle> potionFrames = new List<Rectangle> { new Rectangle(80, 0, 8, 16), new Rectangle(80, 16, 8, 16) };
             List<Rectangle> scrollFrames = new List<Rectangle> { new Rectangle(88, 0, 8, 16), new Rectangle(88, 16, 8, 16) };
             List<Rectangle> heartFrames = new List<Rectangle> { new Rectangle(24, 0, 16, 16), new Rectangle(24, 16, 8, 16) };
 
             items = new List<GroundItem> {
-                new Heart(400, 200, heartFrames),
                 new Rupee(400, 200, rupeeFrames),
+                new Triangle(400, 200, triangleFrames),
+                new Compass(400, 200, compassFrames),
+                new Key(400, 200, keyFrames),
+                new Candle(400, 200, candleFrames),
+                new GroundArrow(400, 200, arrowFrames),
+                new Gypsie(400, 200, gypsieFrames),
+                new Meat(400, 200, meatFrames),
+                new Clock(400, 200, clockFrames),
                 new Potion(400, 200, potionFrames),
                 new Scroll(400, 200, scrollFrames),
+                new Heart(400, 200, heartFrames),
             };
         }
 
