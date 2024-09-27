@@ -13,10 +13,10 @@ public class KeyboardController : IController
     private int currentBlockIndex;
 
     private double timeSinceLastBlockSwitch;
-    private double blockSwitchCooldown = 0.1;
+    private double blockSwitchCooldown = 0.3;
 
     private double timeSinceLastItemSwitch;
-    private double itemSwitchCooldown = 0.1;
+    private double itemSwitchCooldown = 0.3;
 
     private double timeSinceLastEnemySwitch;
     private double enemySwitchCooldown = 0.3;
