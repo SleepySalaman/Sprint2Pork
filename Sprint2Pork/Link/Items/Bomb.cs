@@ -7,7 +7,8 @@ namespace Sprint2Pork
     {
         public int direction = 0;
         Rectangle rect = new Rectangle();
-        public Bomb(Link link) {
+        public Bomb(Link link)
+        {
             string directionStr = "Down";
             switch (link.directionState)
             {

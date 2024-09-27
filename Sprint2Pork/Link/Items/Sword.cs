@@ -9,7 +9,8 @@ namespace Sprint2Pork
         Rectangle rect = new Rectangle();
         int startX = 0;
         int startY = 0;
-        public Sword(Link link) {
+        public Sword(Link link)
+        {
             string directionStr = "Up";
             switch (link.directionState)
             {
