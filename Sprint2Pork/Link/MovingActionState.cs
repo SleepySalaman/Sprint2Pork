@@ -45,6 +45,11 @@ namespace Sprint2Pork
             link.actionState = new AttackingActionState(link);
         }
 
+        public void TakeDamage()
+        {
+            //link.actionState = new DamageActionState(link);
+        }
+
         public void Update()
         {
             link.Move();

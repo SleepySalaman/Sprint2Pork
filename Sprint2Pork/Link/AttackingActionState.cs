@@ -109,6 +109,11 @@ namespace Sprint2Pork
             // NO-OP
         }
 
+        public void TakeDamage()
+        {
+            // NO-OP
+        }
+
         public void Update()
         {
             link.Attack();

@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Input;
 namespace Sprint2Pork
 {
     // TODO: Do methods inside need to be public?
-    public class Link : ILink
+    public class Link
     {
         public ILinkDirectionState directionState;
         public ILinkActionState actionState;
@@ -51,11 +51,6 @@ namespace Sprint2Pork
             frozen = false;
         }
 
-        //public void TakeDamage()
-        //{
-        //    state.TakeDamage();
-        //}
-
         public void LookLeft()
         {
             directionState.LookLeft();
@@ -89,6 +84,11 @@ namespace Sprint2Pork
         public void BeAttacking()
         {
             actionState.BeAttacking();
+        }
+
+        public void TakeDamage()
+        {
+            actionState.TakeDamage();
         }
 
         public void loseItem()
