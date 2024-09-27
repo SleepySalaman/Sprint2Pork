@@ -1,13 +1,13 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 
-namespace Sprint2Pork.Entity {
-    public abstract class Entity : IEntity {
+namespace Sprint2Pork.Entity.Moving {
+    public abstract class Enemy : IEnemy {
 
         protected int totalFrames;
         protected int currentFrame = 0;
@@ -34,6 +34,10 @@ namespace Sprint2Pork.Entity {
                 }
             }
         }
+
+        public abstract void Move();
+
+        public abstract void Attack();
 
         public void Draw(SpriteBatch sb, Texture2D txt) {
             sb.Draw(txt, destinationRect, sourceRects[currentFrame], Color.White);

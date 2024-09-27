@@ -9,7 +9,6 @@ namespace Sprint2Pork.Entity {
     public interface IEntity {
 
         void Update();
-        //void Move();
         void Draw(SpriteBatch sb, Texture2D txt);
 
     }
