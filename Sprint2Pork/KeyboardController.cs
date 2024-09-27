@@ -93,6 +93,10 @@ public class KeyboardController : IController
             link.BeAttacking();
             link.AttackSword();
         }
+        else if (ks.IsKeyDown(Keys.E))
+        {
+            link.TakeDamage();
+        }
 
         // Rotate Blocks (t and y)
         if (ks.IsKeyDown(Keys.T) && timeSinceLastBlockSwitch >= blockSwitchCooldown)
