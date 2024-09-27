@@ -16,7 +16,7 @@ namespace Sprint2Pork
         private List<IController> controllerList;
 
         private ISprite textSprite;
-        private IEntity enemySprite;
+        private IEnemy enemySprite;
         private IEntity fireball;
 
         private Texture2D characterTexture;
@@ -143,6 +143,8 @@ namespace Sprint2Pork
             }
 
             enemySprite.Update();
+            enemySprite.Move();
+
             fireball.Update();
             timeSinceLastSwitch += gameTime.ElapsedGameTime.TotalSeconds;
             timeSinceSwitchedEnemy += gameTime.ElapsedGameTime.TotalSeconds;

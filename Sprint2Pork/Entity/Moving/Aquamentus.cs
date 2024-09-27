@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 namespace Sprint2Pork.Entity.Moving {
     public class Aquamentus : Enemy {
 
+        private List<Fireball> aquamentusFireballs;
+
         private int moveCount = 0;
         private int moveMaxCount = 2;
 

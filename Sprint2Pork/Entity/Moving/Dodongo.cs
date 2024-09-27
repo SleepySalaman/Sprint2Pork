@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Sprint2Pork.Entity.Moving {
-    public class Dodongo : Entity {
+    public class Dodongo : Enemy {
 
         public Dodongo() {
             sourceRects = new List<Rectangle> {
@@ -17,6 +17,14 @@ namespace Sprint2Pork.Entity.Moving {
             totalFrames = sourceRects.Count;
 
             destinationRect = new Rectangle(initX, initY, 100, 100);
+        }
+
+        public override void Move() {
+
+        }
+
+        public override void Attack() {
+
         }
 
     }

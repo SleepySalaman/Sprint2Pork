@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Sprint2Pork.Entity.Moving {
-    public class Ganon : Entity {
+    public class Ganon : Enemy {
 
         public Ganon() {
             sourceRects = new List<Rectangle>() {
@@ -20,6 +20,14 @@ namespace Sprint2Pork.Entity.Moving {
             totalFrames = sourceRects.Count;
 
             destinationRect = new Rectangle(initX, initY, rectW, rectH);
+        }
+
+        public override void Move() {
+
+        }
+
+        public override void Attack() {
+
         }
 
     }
