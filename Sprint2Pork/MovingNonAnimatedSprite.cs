@@ -37,7 +37,7 @@ public class MovingNonAnimatedSprite : ISprite
     void ISprite.Draw(SpriteBatch sb, Texture2D txt)
     {
         float rotation = 0f;
-        Vector2 origin = new Vector2(destinationRect.Width / 2, destinationRect.Height / 2);
+        Vector2 origin = new Vector2(0, 0);
 
         if (direction == "Left")
         {

@@ -112,7 +112,7 @@ namespace Sprint2Pork
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             enemySprite = new Aquamentus();
-            //fireball = new Fireball();
+            //fireball = new Fireball(0);
 
             characterTexture = Content.Load<Texture2D>("LinkMovingWithDamage");
             fireballTexture = Content.Load<Texture2D>("zeldabosses");
@@ -145,7 +145,7 @@ namespace Sprint2Pork
             enemySprite.Update();
             enemySprite.Move();
 
-            fireball.Update();
+            //fireball.Update();
             timeSinceLastSwitch += gameTime.ElapsedGameTime.TotalSeconds;
             timeSinceSwitchedEnemy += gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -212,7 +212,7 @@ namespace Sprint2Pork
             GraphicsDevice.Clear(Color.DimGray);
 
             enemySprite.Draw(spriteBatch, enemyTexture);
-            fireball.Draw(spriteBatch, fireballTexture);
+            //fireball.Draw(spriteBatch, fireballTexture);
             textSprite.Draw(spriteBatch, characterTexture);
 
             blocks[CurrentBlockIndex].Draw(spriteBatch); // This draws the updated block

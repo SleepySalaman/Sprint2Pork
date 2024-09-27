@@ -239,7 +239,7 @@ namespace Sprint2Pork
                 //left
                 if(linkItem.getDirection() == 0)
                 {
-                    offsetX -= 0;
+                    offsetX -= 7;
                 }
                 //right
                 else if(linkItem.getDirection() == 1)
@@ -259,9 +259,22 @@ namespace Sprint2Pork
             }
             else if (linkItem is Bomb)
             {
-                // Bomb remains in the same spot
-                offsetX = 0;
-                offsetY = 0;
+                // Bomb is placed in front of Link
+                switch (linkItem.getDirection())
+                {
+                    case 1:
+                        offsetX = -10;
+                        break;
+                    case 2:
+                        offsetX = 10;
+                        break;
+                    case 3:
+                        offsetY = 10;
+                        break;
+                    case 4:
+                        offsetY = -10;
+                        break;
+                }
             }
 
             if (linkCount > 20)
