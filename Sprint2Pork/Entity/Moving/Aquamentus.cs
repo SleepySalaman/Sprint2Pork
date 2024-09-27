@@ -11,6 +11,11 @@ namespace Sprint2Pork.Entity.Moving {
 
         private List<Fireball> aquamentusFireballs;
 
+        private bool fireballsCreated;
+
+        private int fireballCount = 3;
+        private int fireballDistance = -40;
+
         private int moveCount = 0;
         private int moveMaxCount = 2;
 
@@ -23,6 +28,8 @@ namespace Sprint2Pork.Entity.Moving {
                 new Rectangle(36, 0, 36, 36),
                 new Rectangle(84, 0, 36, 36)
             };
+
+            aquamentusFireballs = new List<Fireball>();
 
             totalFrames = sourceRects.Count;
 
@@ -46,6 +53,12 @@ namespace Sprint2Pork.Entity.Moving {
 
         public override void Attack() {
 
+        }
+
+        private void generateFireballs() {
+            for(int i = 0; i < fireballCount; i++) {
+                aquamentusFireballs.Add(new Fireball(i));
+            }
         }
 
     }

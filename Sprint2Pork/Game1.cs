@@ -112,7 +112,7 @@ namespace Sprint2Pork
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             enemySprite = new Aquamentus();
-            fireball = new Fireball();
+            //fireball = new Fireball();
 
             characterTexture = Content.Load<Texture2D>("LinkMovingWithDamage");
             fireballTexture = Content.Load<Texture2D>("zeldabosses");

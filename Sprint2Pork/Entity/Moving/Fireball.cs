@@ -9,7 +9,9 @@ using System.Threading.Tasks;
 namespace Sprint2Pork.Entity.Moving {
     public class Fireball : Entity {
 
-        public Fireball() {
+        private int fireballID;
+
+        public Fireball(int id) {
             sourceRects = new List<Rectangle>() {
                 new Rectangle(101, 14, 8, 10),
                 new Rectangle(110, 14, 8, 10),
@@ -18,8 +20,13 @@ namespace Sprint2Pork.Entity.Moving {
             };
 
             totalFrames = sourceRects.Count;
+            fireballID = id;
 
             destinationRect = new Rectangle(initX - 100, initY - 100, 20, 20);
+        }
+
+        public int getFireballID() {
+            return fireballID;
         }
     }
 }
