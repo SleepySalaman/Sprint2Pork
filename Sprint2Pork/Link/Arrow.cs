@@ -45,7 +45,7 @@ namespace Sprint2Pork
                     direction = 3;
                     directionStr = "Down";
                     startX = 25;
-                    startY = -601;
+                    startY = -60;
                     rect = new Rectangle(154, 16, 5, 16);
                     break;
             }

@@ -13,18 +13,26 @@ namespace Sprint2Pork
             {
                 case LeftFacingLinkState:
                     direction = 0;
+                    link.offsetX = -50;
+                    link.offsetY = 15;
                     rect = new Rectangle(136, 0, 8, 14);
                     break;
                 case RightFacingLinkState:
                     direction = 1;
+                    link.offsetX = 87;
+                    link.offsetY = 15;
                     rect = new Rectangle(136, 0, 8, 14);
                     break;
                 case DownFacingLinkState:
                     direction = 2;
+                    link.offsetX = 25;
+                    link.offsetY = 75;
                     rect = new Rectangle(136, 0, 8, 14);
                     break;
                 case UpFacingLinkState:
                     direction = 3;
+                    link.offsetX = 25;
+                    link.offsetY = -75;
                     rect = new Rectangle(136, 0, 8, 14);
                     break;
             }
