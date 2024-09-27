@@ -1,14 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sprint2Pork.Blocks;
-using Sprint2Pork.Enemies;
-using Sprint2Pork.Enemies.Aquamentus;
-using Sprint2Pork.Enemies.Digdogger;
-using Sprint2Pork.Enemies.Dodongo;
-using Sprint2Pork.Enemies.Gleeok;
-using Sprint2Pork.Enemies.Gohma;
-using Sprint2Pork.Enemies.Manhandla;
-using Sprint2Pork.Enemies.Patra_Ganon;
 using Sprint2Pork.Entity;
 using Sprint2Pork.Entity.Moving;
 using Sprint2Pork.Items;
@@ -25,7 +17,6 @@ namespace Sprint2Pork
 
         private ISprite textSprite;
         private IEntity enemySprite;
-        //private IEntity testEnemySprite;
 
         private Texture2D characterTexture;
         private Texture2D enemyTexture;
@@ -119,7 +110,6 @@ namespace Sprint2Pork
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             enemySprite = new Aquamentus();
-            //testEnemySprite = new Dodongo();
 
             characterTexture = Content.Load<Texture2D>("LinkMovingWithDamage");
             enemyTexture = Content.Load<Texture2D>("zeldaenemies");
@@ -149,7 +139,6 @@ namespace Sprint2Pork
             }
 
             enemySprite.Update();
-            //testEnemySprite.Update();
             timeSinceLastSwitch += gameTime.ElapsedGameTime.TotalSeconds;
             timeSinceSwitchedEnemy += gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -216,7 +205,6 @@ namespace Sprint2Pork
             GraphicsDevice.Clear(Color.DimGray);
 
             enemySprite.Draw(spriteBatch, enemyTexture);
-            //testEnemySprite.Draw(spriteBatch, enemyTexture);
             textSprite.Draw(spriteBatch, characterTexture);
 
             blocks[CurrentBlockIndex].Draw(spriteBatch); // This draws the updated block
