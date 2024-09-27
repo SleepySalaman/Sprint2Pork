@@ -14,14 +14,7 @@ namespace Sprint2Pork.Entity.Moving {
                 new Rectangle(60, 110, 24, 32)
             };
 
-            count = 0;
-            maxCount = 30;
-
-            currentFrame = 0;
             totalFrames = sourceRects.Count;
-
-            initX = 450;
-            initY = 250;
 
             destinationRect = new Rectangle(initX, initY, 100, 100);
         }

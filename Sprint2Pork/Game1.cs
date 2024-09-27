@@ -24,8 +24,8 @@ namespace Sprint2Pork
         private List<IController> controllerList;
 
         private ISprite textSprite;
-        private IEnemy enemySprite;
-        private IEntity testEnemySprite;
+        private IEntity enemySprite;
+        //private IEntity testEnemySprite;
 
         private Texture2D characterTexture;
         private Texture2D enemyTexture;
@@ -118,8 +118,8 @@ namespace Sprint2Pork
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            enemySprite = new AquamentusNotAttacking();
-            testEnemySprite = new Dodongo();
+            enemySprite = new Aquamentus();
+            //testEnemySprite = new Dodongo();
 
             characterTexture = Content.Load<Texture2D>("LinkMovingWithDamage");
             enemyTexture = Content.Load<Texture2D>("zeldaenemies");
@@ -149,7 +149,7 @@ namespace Sprint2Pork
             }
 
             enemySprite.Update();
-            testEnemySprite.Update();
+            //testEnemySprite.Update();
             timeSinceLastSwitch += gameTime.ElapsedGameTime.TotalSeconds;
             timeSinceSwitchedEnemy += gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -196,7 +196,7 @@ namespace Sprint2Pork
             spritePos[1] = 50;
             moving = false;
 
-            enemySprite = new AquamentusNotAttacking();
+            enemySprite = new Aquamentus();
             link = new Link(viewport.Width, viewport.Height);
 
             // Update the KeyboardController's reference to the new Link instance
@@ -216,7 +216,7 @@ namespace Sprint2Pork
             GraphicsDevice.Clear(Color.DimGray);
 
             enemySprite.Draw(spriteBatch, enemyTexture);
-            testEnemySprite.Draw(spriteBatch, enemyTexture);
+            //testEnemySprite.Draw(spriteBatch, enemyTexture);
             textSprite.Draw(spriteBatch, characterTexture);
 
             blocks[CurrentBlockIndex].Draw(spriteBatch); // This draws the updated block
@@ -244,13 +244,13 @@ namespace Sprint2Pork
         {
             switch (currentEnemyNum)
             {
-                case 0: enemySprite = new AquamentusNotAttacking(); break;
-                case 1: enemySprite = new DodongoIdle(); break;
-                case 2: enemySprite = new ManhandlaMoving(); break;
-                case 3: enemySprite = new GleeokMoving(); break;
-                case 4: enemySprite = new DigdoggerLarge(); break;
-                case 5: enemySprite = new GohmaNotAttacking(); break;
-                case 6: enemySprite = new GanonNotDamaged(); break;
+                case 0: enemySprite = new Aquamentus(); break;
+                case 1: enemySprite = new Dodongo(); break;
+                case 2: enemySprite = new Manhandla(); break;
+                case 3: enemySprite = new Gleeok(); break;
+                case 4: enemySprite = new Digdogger(); break;
+                case 5: enemySprite = new Gohma(); break;
+                case 6: enemySprite = new Ganon(); break;
             }
         }
     }

@@ -10,16 +10,19 @@ namespace Sprint2Pork.Entity {
     public abstract class Entity : IEntity {
 
         protected int totalFrames;
-        protected int currentFrame;
+        protected int currentFrame = 0;
+
+        protected int count = 0;
+        protected int maxCount = 30;
+
+        protected int initX = 450;
+        protected int initY = 350;
+
+        protected int rectW = 100;
+        protected int rectH = 100;
 
         protected List<Rectangle> sourceRects;
         protected Rectangle destinationRect;
-
-        protected int count;
-        protected int maxCount;
-
-        protected int initX;
-        protected int initY;
 
         public void Update() {
             count++;
@@ -31,6 +34,10 @@ namespace Sprint2Pork.Entity {
                 }
             }
         }
+
+        //public void Move() {
+            //does nothing
+        //}
 
         public void Draw(SpriteBatch sb, Texture2D txt) {
             sb.Draw(txt, destinationRect, sourceRects[currentFrame], Color.White);
