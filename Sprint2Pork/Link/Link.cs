@@ -56,16 +56,6 @@ namespace Sprint2Pork
         //    state.TakeDamage();
         //}
 
-        //public void UseItem()
-        //{
-        //    state.UseItem();
-        //}
-
-        //public void AttackSword()
-        //{
-        //    state.AttackSword();
-        //}
-
         public void LookLeft()
         {
             directionState.LookLeft();
@@ -86,21 +76,6 @@ namespace Sprint2Pork
             directionState.LookDown();
         }
 
-        //public void ChangeDirection()
-        //{
-        //    switch (directionState)
-        //    {
-        //        case LeftFacingLinkState:
-        //            break;
-        //        case RightFacingLinkState:
-        //            break;
-        //        case UpFacingLinkState:
-        //            break;
-        //        case DownFacingLinkState:
-        //            break;
-        //    }
-        //}
-
         public void BeIdle()
         {
             actionState.BeIdle();
@@ -120,8 +95,8 @@ namespace Sprint2Pork
         {
             itemInUse = false;
         }
-        // ACTUAL METHODS
 
+        // METHOD BODIES
         public void Draw(SpriteBatch sb, Texture2D texture, Texture2D itemTexture)
         {
             linkSprite.Draw(sb, texture);
@@ -129,7 +104,6 @@ namespace Sprint2Pork
             {
                 linkItemSprite.Draw(sb, itemTexture);
             }
-            
         }
 
         public void Idle()
@@ -139,14 +113,12 @@ namespace Sprint2Pork
 
         public void Move()
         {
-
             switch (directionState)
             {
                 case LeftFacingLinkState:
                     if (x > 0)
                     {
                         this.x = this.x - 3;
-
                     }
                     break;
                 case RightFacingLinkState:
@@ -168,9 +140,8 @@ namespace Sprint2Pork
                     }
                     break;
             }
-
-
         }
+
         public void Attack()
         {
             //actionState = new AttackingActionState(this);
@@ -182,7 +153,6 @@ namespace Sprint2Pork
                 frozen = false;
                 this.BeIdle();
             }
-
         }
 
         public void UseItem(int index)
@@ -192,12 +162,10 @@ namespace Sprint2Pork
             {
                 linkItem = new Arrow(this);
             }
-
             else if(index == 2)
             {
                 linkItem = new Boomerang(this);
             }
-
             else if(index == 3)
             {
                 linkItem = new Bomb(this);
@@ -236,22 +204,18 @@ namespace Sprint2Pork
             }
             else if (linkItem is Arrow)
             {
-                //left
                 if(linkItem.getDirection() == 0)
                 {
                     offsetX -= 7;
                 }
-                //right
                 else if(linkItem.getDirection() == 1)
                 {
                     offsetX += 7;
                 }
-                //down
                 else if(linkItem.getDirection() == 2)
                 {
                     offsetY += 7;
                 }
-                //up
                 else if(linkItem.getDirection() == 3)
                 {
                     offsetY -= 7;
@@ -259,7 +223,6 @@ namespace Sprint2Pork
             }
             else if (linkItem is Bomb)
             {
-                // Bomb is placed in front of Link
                 switch (linkItem.getDirection())
                 {
                     case 1:
