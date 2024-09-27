@@ -14,30 +14,26 @@ namespace Sprint2Pork
         Rectangle rect = new Rectangle();
         public Arrow(Link link)
         {
-            string directionStr = "Down"; // Default direction
+            string directionStr = "Down";
             switch (link.directionState)
             {
                 case LeftFacingLinkState:
                     direction = 0;
-                    //link.offsetX = -16;
                     directionStr = "Right";
                     rect = new Rectangle(154, 16, 5, 16);
                     break;
                 case RightFacingLinkState:
                     direction = 1;
-                    //link.offsetX = 16;
                     directionStr = "Left";
                     rect = new Rectangle(154, 16, 5, 16);
                     break;
                 case DownFacingLinkState:
                     direction = 2;
-                    //link.offsetY = 16;
                     directionStr = "Up";
                     rect = new Rectangle(154, 16, 5, 16);
                     break;
                 case UpFacingLinkState:
                     direction = 3;
-                    //link.offsetY = -16;
                     directionStr = "Down";
                     rect = new Rectangle(154, 16, 5, 16);
                     break;

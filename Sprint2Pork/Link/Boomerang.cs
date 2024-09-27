@@ -9,7 +9,7 @@ namespace Sprint2Pork
         Rectangle rect = new Rectangle();
         public Boomerang(Link link)
         {
-            string directionStr = "Down"; // Default direction
+            string directionStr = "Down";
             switch (link.directionState)
             {
                 case LeftFacingLinkState:

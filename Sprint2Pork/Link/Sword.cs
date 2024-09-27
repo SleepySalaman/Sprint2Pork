@@ -8,7 +8,7 @@ namespace Sprint2Pork
         public int direction = 0;
         Rectangle rect = new Rectangle();
         public Sword(Link link) {
-            string directionStr = "Up"; // Default direction
+            string directionStr = "Up";
             switch (link.directionState)
             {
                 case LeftFacingLinkState:
