@@ -41,7 +41,7 @@ namespace Sprint2Pork
         private List<GroundItem> items;
         private int currentItemIndex;
 
-        private FireballManager fireballManager;
+        private EnemyManager enemyManager;
 
         private int currentEnemyNum;
         private int numEnemies;
@@ -70,7 +70,7 @@ namespace Sprint2Pork
             currentItemIndex = 0;
             blockPosition = new Vector2(200, 200);
 
-            fireballManager = new FireballManager(this);
+            enemyManager = new EnemyManager();
 
             controllerList = new List<IController>();
             spritePos = new int[2] { 50, 50 };
@@ -161,6 +161,8 @@ namespace Sprint2Pork
             enemySprite.Update();
             enemySprite.Move();
 
+            enemyManager.Update(gameTime);
+
             timeSinceLastSwitch += gameTime.ElapsedGameTime.TotalSeconds;
             timeSinceSwitchedEnemy += gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -233,6 +235,7 @@ namespace Sprint2Pork
             items[currentItemIndex].Draw(spriteBatch, itemTexture);
 
             link.Draw(spriteBatch, characterTexture, itemTexture);
+            enemyManager.Draw(spriteBatch, fireballTexture);
 
             spriteBatch.End();
             base.Draw(gameTime);
