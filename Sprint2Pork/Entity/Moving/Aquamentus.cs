@@ -49,15 +49,5 @@ namespace Sprint2Pork.Entity.Moving {
             destinationRect.X = initX + relativeX;
         }
 
-        public override void Attack() {
-
-        }
-
-        /*private void generateFireballs() {
-            for(int i = 0; i < fireballCount; i++) {
-                fireballs.Add(new Fireball(i));
-            }
-        }*/
-
     }
 }

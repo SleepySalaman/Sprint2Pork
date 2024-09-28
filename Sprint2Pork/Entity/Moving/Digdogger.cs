@@ -22,9 +22,5 @@ namespace Sprint2Pork.Entity.Moving {
         public override void Move() {
 
         }
-
-        public override void Attack() {
-
-        }
     }
 }

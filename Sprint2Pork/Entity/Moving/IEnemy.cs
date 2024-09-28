@@ -8,8 +8,6 @@ namespace Sprint2Pork.Entity.Moving {
     public interface IEnemy : IEntity {
 
         void Move();
-        void Attack();
-
         int getX();
 
     }
