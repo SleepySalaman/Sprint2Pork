@@ -21,6 +21,8 @@ namespace Sprint2Pork.Entity.Moving {
         protected int rectW = 100;
         protected int rectH = 100;
 
+        protected int relativeX = 0;
+
         protected List<Rectangle> sourceRects;
         protected Rectangle destinationRect;
 
@@ -41,6 +43,10 @@ namespace Sprint2Pork.Entity.Moving {
 
         public void Draw(SpriteBatch sb, Texture2D txt) {
             sb.Draw(txt, destinationRect, sourceRects[currentFrame], Color.White);
+        }
+
+        public int getX() {
+            return relativeX;
         }
 
     }

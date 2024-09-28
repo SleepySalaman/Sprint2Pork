@@ -19,8 +19,6 @@ namespace Sprint2Pork.Entity.Moving {
         private int moveCount = 0;
         private int moveMaxCount = 1;
 
-        private int relativeX = 0;
-
         private bool movingRight = true;
 
         public Aquamentus() {
@@ -55,11 +53,11 @@ namespace Sprint2Pork.Entity.Moving {
 
         }
 
-        private void generateFireballs() {
+        /*private void generateFireballs() {
             for(int i = 0; i < fireballCount; i++) {
                 fireballs.Add(new Fireball(i));
             }
-        }
+        }*/
 
     }
 }
