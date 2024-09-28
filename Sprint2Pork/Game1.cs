@@ -159,8 +159,9 @@ namespace Sprint2Pork
 
             enemySprite.Update();
             enemySprite.Move();
-
-            enemyManager.Update(gameTime, enemySprite.getX());
+            if(currentEnemyNum == 0) {
+                enemyManager.Update(gameTime, enemySprite.getX());
+            }
 
             timeSinceLastSwitch += gameTime.ElapsedGameTime.TotalSeconds;
             timeSinceSwitchedEnemy += gameTime.ElapsedGameTime.TotalSeconds;

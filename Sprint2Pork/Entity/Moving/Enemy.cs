@@ -39,8 +39,6 @@ namespace Sprint2Pork.Entity.Moving {
 
         public abstract void Move();
 
-        public abstract void Attack();
-
         public void Draw(SpriteBatch sb, Texture2D txt) {
             sb.Draw(txt, destinationRect, sourceRects[currentFrame], Color.White);
         }
