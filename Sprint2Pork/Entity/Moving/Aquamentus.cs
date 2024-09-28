@@ -17,7 +17,7 @@ namespace Sprint2Pork.Entity.Moving {
         private List<Fireball> fireballs;
 
         private int moveCount = 0;
-        private int moveMaxCount = 2;
+        private int moveMaxCount = 1;
 
         private int relativeX = 0;
 
