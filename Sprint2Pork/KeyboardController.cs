@@ -65,37 +65,37 @@ public class KeyboardController : IController
 
         //Link Items
         // blue boomerang and light arrow
-        if (ks.IsKeyDown(Keys.D1) || linkItem is Arrow)
+        if ((ks.IsKeyDown(Keys.D1) && previousKeyboardState.IsKeyUp(Keys.D1)) || linkItem is Arrow)
         {
             link.BeAttacking();
             link.UseItem(1);
         }
-        else if (ks.IsKeyDown(Keys.D2) || linkItem is Boomerang)
+        else if ((ks.IsKeyDown(Keys.D2) && previousKeyboardState.IsKeyUp(Keys.D2)) || linkItem is Boomerang)
         {
             link.BeAttacking();
             link.UseItem(2);
         }
-        else if (ks.IsKeyDown(Keys.D3) || linkItem is Bomb)
+        else if ((ks.IsKeyDown(Keys.D3) && previousKeyboardState.IsKeyUp(Keys.D3)) || linkItem is Bomb)
         {
             link.BeAttacking();
             link.UseItem(3);
         }
-        else if (ks.IsKeyDown(Keys.D4) || linkItem is WoodArrow)
+        else if ((ks.IsKeyDown(Keys.D4) && previousKeyboardState.IsKeyUp(Keys.D4)) || linkItem is WoodArrow)
         {
             link.BeAttacking();
             link.UseItem(4);
         }
-        else if (ks.IsKeyDown(Keys.D5) || linkItem is BlueBoomer)
+        else if ((ks.IsKeyDown(Keys.D5) && previousKeyboardState.IsKeyUp(Keys.D5)) || linkItem is BlueBoomer)
         {
             link.BeAttacking();
             link.UseItem(5);
         }
-        else if (ks.IsKeyDown(Keys.D6) || linkItem is Fire)
+        else if ((ks.IsKeyDown(Keys.D6) && previousKeyboardState.IsKeyUp(Keys.D6)) || linkItem is Fire)
         {
             link.BeAttacking();
             link.UseItem(6);
         }
-        else if (ks.IsKeyDown(Keys.Z) || ks.IsKeyDown(Keys.N) || linkItem is Sword)
+        else if ((ks.IsKeyDown(Keys.Z) && previousKeyboardState.IsKeyUp(Keys.Z)) || ks.IsKeyDown(Keys.N) || linkItem is Sword)
         {
             link.BeAttacking();
             link.UseItem(0);
