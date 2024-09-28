@@ -257,13 +257,13 @@ namespace Sprint2Pork
         {
             switch (currentEnemyNum)
             {
-                case 0: enemySprite = new Aquamentus(); break;
-                case 1: enemySprite = new Dodongo(); break;
+                case 0: enemySprite = new Aquamentus(); enemyManager = new EnemyManager();  break;
+                case 1: enemySprite = new Dodongo(); enemyManager.clearFireballs();  break;
                 case 2: enemySprite = new Manhandla(); break;
                 case 3: enemySprite = new Gleeok(); break;
                 case 4: enemySprite = new Digdogger(); break;
                 case 5: enemySprite = new Gohma(); break;
-                case 6: enemySprite = new Ganon(); break;
+                case 6: enemySprite = new Ganon(); enemyManager.clearFireballs(); break;
             }
         }
     }

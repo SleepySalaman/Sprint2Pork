@@ -64,5 +64,9 @@ namespace Sprint2Pork {
             }
         }
 
+        public void clearFireballs() {
+            fireballs.Clear();
+        }
+
     }
 }
