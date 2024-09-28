@@ -64,6 +64,7 @@ public class KeyboardController : IController
         }
 
         //Link Items
+        // blue boomerang and light arrow
         if (ks.IsKeyDown(Keys.D1) || linkItem is Arrow)
         {
             link.BeAttacking();
@@ -79,10 +80,25 @@ public class KeyboardController : IController
             link.BeAttacking();
             link.UseItem(3);
         }
-        else if (ks.IsKeyDown(Keys.Z) || ks.IsKeyDown(Keys.N) || linkItem is Sword)
+        else if (ks.IsKeyDown(Keys.D4) || linkItem is WoodArrow)
         {
             link.BeAttacking();
             link.UseItem(4);
+        }
+        else if (ks.IsKeyDown(Keys.D5) || linkItem is BlueBoomer)
+        {
+            link.BeAttacking();
+            link.UseItem(5);
+        }
+        else if (ks.IsKeyDown(Keys.D6) || linkItem is Fire)
+        {
+            link.BeAttacking();
+            link.UseItem(6);
+        }
+        else if (ks.IsKeyDown(Keys.Z) || ks.IsKeyDown(Keys.N) || linkItem is Sword)
+        {
+            link.BeAttacking();
+            link.UseItem(0);
         }
         else if (ks.IsKeyDown(Keys.E))
         {

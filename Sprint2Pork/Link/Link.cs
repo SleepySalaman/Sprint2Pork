@@ -159,7 +159,11 @@ namespace Sprint2Pork
         public void UseItem(int index)
         {
             itemInUse = true;
-            if(index == 1)
+            if (index == 0)
+            {
+                linkItem = new Sword(this);
+            }
+            else if (index == 1)
             {
                 linkItem = new Arrow(this);
             }
@@ -173,7 +177,15 @@ namespace Sprint2Pork
             }
             else if(index == 4)
             {
-                linkItem = new Sword(this);
+                linkItem = new WoodArrow(this);
+            }
+            else if(index == 5)
+            {
+                linkItem = new BlueBoomer(this);
+            }
+            else if(index == 6)
+            {
+                linkItem = new Fire(this);
             }
         }
 
@@ -201,21 +213,59 @@ namespace Sprint2Pork
                     offsetY -= (linkCount <= 10) ? 7 : -7;
                 }
             }
-            else if (linkItem is Arrow)
+            else if (linkItem is BlueBoomer)
+            {
+                if (linkItem.getDirection() == 0)
+                {
+                    offsetX -= (linkCount <= 10) ? 12 : -12;
+                }
+                else if (linkItem.getDirection() == 1)
+                {
+                    offsetX += (linkCount <= 10) ? 12 : -12;
+                }
+                else if (linkItem.getDirection() == 2)
+                {
+                    offsetY += (linkCount <= 10) ? 12 : -12;
+                }
+                else if (linkItem.getDirection() == 3)
+                {
+                    offsetY -= (linkCount <= 10) ? 12 : -12;
+                }
+            }
+            else if (linkItem is Arrow || linkItem is Fire)
             {
                 if(linkItem.getDirection() == 0)
                 {
-                    offsetX -= 7;
+                    offsetX -= 12;
                 }
                 else if(linkItem.getDirection() == 1)
                 {
-                    offsetX += 7;
+                    offsetX += 12;
                 }
                 else if(linkItem.getDirection() == 2)
                 {
-                    offsetY += 7;
+                    offsetY += 12;
                 }
                 else if(linkItem.getDirection() == 3)
+                {
+                    offsetY -= 12;
+                }
+            }
+            else if (linkItem is WoodArrow)
+            {
+                if (linkItem.getDirection() == 0)
+                {
+                    offsetX -= 7;
+                }
+                else if (linkItem.getDirection() == 1)
+                {
+                    offsetX += 7;
+                }
+                else if (linkItem.getDirection() == 2)
+                {
+                    offsetY += 7;
+                }
+                else if (linkItem.getDirection() == 3)
                 {
                     offsetY -= 7;
                 }
