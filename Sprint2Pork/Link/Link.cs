@@ -94,6 +94,7 @@ namespace Sprint2Pork
         public void loseItem()
         {
             itemInUse = false;
+            linkItem = new NoItem();
         }
 
         // METHOD BODIES

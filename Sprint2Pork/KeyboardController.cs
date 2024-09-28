@@ -2,6 +2,7 @@
 using Sprint2Pork.Blocks;
 using Sprint2Pork;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 public class KeyboardController : IController
 {
@@ -28,6 +29,7 @@ public class KeyboardController : IController
     void IController.Update()
     {
         KeyboardState ks = Keyboard.GetState();
+        ILinkItems linkItem = link.linkItem;
 
         // Link Movement
         if (ks.IsKeyDown(Keys.Left) || ks.IsKeyDown(Keys.A))
@@ -62,22 +64,22 @@ public class KeyboardController : IController
         }
 
         //Link Items
-        if (ks.IsKeyDown(Keys.D1))
+        if (ks.IsKeyDown(Keys.D1) || linkItem is Arrow)
         {
             link.BeAttacking();
             link.UseItem(1);
         }
-        else if (ks.IsKeyDown(Keys.D2))
+        else if (ks.IsKeyDown(Keys.D2) || linkItem is Boomerang)
         {
             link.BeAttacking();
             link.UseItem(2);
         }
-        else if (ks.IsKeyDown(Keys.D3))
+        else if (ks.IsKeyDown(Keys.D3) || linkItem is Bomb)
         {
             link.BeAttacking();
             link.UseItem(3);
         }
-        else if (ks.IsKeyDown(Keys.Z) || ks.IsKeyDown(Keys.N))
+        else if (ks.IsKeyDown(Keys.Z) || ks.IsKeyDown(Keys.N) || linkItem is Sword)
         {
             link.BeAttacking();
             link.UseItem(4);
