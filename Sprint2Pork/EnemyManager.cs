@@ -16,17 +16,22 @@ namespace Sprint2Pork {
         private int distanceTraveled = 0;
 
         private double timeSinceAttacked = 0.0;
-        private double timeBetweenAttacks = 3.0;
+        private double timeBetweenAttacks = 1.0;
 
         public EnemyManager() {
             fireballs = new List<Fireball>();
+            generateFireballs();
         }
 
         public void Update(GameTime gameTime) {
             for(int i = 0; i < fireballs.Count; i++) {
                 fireballs[i].Update();
+                fireballs[i].Move();
             }
-            distanceTraveled++;
+            if (attacking) {
+                distanceTraveled++;
+            }
+            switchModes(gameTime);
         }
 
         public void Draw(SpriteBatch sb, Texture2D txt) {
@@ -37,16 +42,17 @@ namespace Sprint2Pork {
 
         public void switchModes(GameTime gameTime) {
             if (attacking) {
-                if(distanceTraveled > 50) {
+                if(distanceTraveled > 100) {
                     attacking = false;
-                    //fireballs.Clear();
+                    fireballs.Clear();
+                    distanceTraveled = 0;
                 }
             } else {
                 timeSinceAttacked += gameTime.ElapsedGameTime.TotalSeconds;
                 if(timeSinceAttacked > timeBetweenAttacks) {
                     timeSinceAttacked = 0.0;
                     attacking = true;
-                    //generateFireballs();
+                    generateFireballs();
                 }
 
             }
