@@ -91,7 +91,7 @@ public class KeyboardController : IController
         else if (ks.IsKeyDown(Keys.Z) || ks.IsKeyDown(Keys.N))
         {
             link.BeAttacking();
-            link.AttackSword();
+            link.UseItem(4);
         }
         else if (ks.IsKeyDown(Keys.E))
         {

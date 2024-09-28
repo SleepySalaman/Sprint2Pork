@@ -170,12 +170,10 @@ namespace Sprint2Pork
             {
                 linkItem = new Bomb(this);
             }
-        }
-
-        public void AttackSword()
-        {
-            itemInUse = true;
-            linkItem = new Sword(this);
+            else if(index == 4)
+            {
+                linkItem = new Sword(this);
+            }
         }
 
         public void UpdateItem()
