@@ -11,6 +11,11 @@ namespace Sprint2Pork.Entity.Moving {
 
         private int fireballID;
 
+        private int changeX = 0;
+        private int changeY = 0;
+
+        private int maxX = -50;
+
         public Fireball(int id) {
             sourceRects = new List<Rectangle>() {
                 new Rectangle(101, 14, 8, 10),
@@ -22,11 +27,18 @@ namespace Sprint2Pork.Entity.Moving {
             totalFrames = sourceRects.Count;
             fireballID = id;
 
-            destinationRect = new Rectangle(initX - 100, initY - 100, 20, 20);
+            destinationRect = new Rectangle(initX, initY, 20, 20);
         }
 
-        public int getFireballID() {
-            return fireballID;
+        public void Move() {
+            changeX--;
+            if(fireballID == 0) {
+                changeY--;
+            } else if(fireballID == 2) {
+                changeY++;
+            }
+            destinationRect.X = initX + changeX;
+            destinationRect.Y = initY + changeY;
         }
     }
 }

@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 namespace Sprint2Pork.Entity.Moving {
     public class Aquamentus : Enemy {
 
-        private List<Fireball> aquamentusFireballs;
-
         private bool fireballsCreated;
 
         private int fireballCount = 3;
         private int fireballDistance = -40;
+
+        private List<Fireball> fireballs;
 
         private int moveCount = 0;
         private int moveMaxCount = 2;
@@ -29,7 +29,7 @@ namespace Sprint2Pork.Entity.Moving {
                 new Rectangle(84, 0, 36, 36)
             };
 
-            aquamentusFireballs = new List<Fireball>();
+            fireballs = new List<Fireball>();
 
             totalFrames = sourceRects.Count;
 
@@ -57,7 +57,7 @@ namespace Sprint2Pork.Entity.Moving {
 
         private void generateFireballs() {
             for(int i = 0; i < fireballCount; i++) {
-                aquamentusFireballs.Add(new Fireball(i));
+                fireballs.Add(new Fireball(i));
             }
         }
 

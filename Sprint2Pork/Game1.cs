@@ -17,7 +17,6 @@ namespace Sprint2Pork
 
         private ISprite textSprite;
         private IEnemy enemySprite;
-        private IEntity fireball;
 
         private Texture2D characterTexture;
         private Texture2D fireballTexture;
@@ -42,7 +41,7 @@ namespace Sprint2Pork
         private List<GroundItem> items;
         private int currentItemIndex;
 
-        public enum EnemyList { Aquamentus, Dodongo, Manhandla, Gleeok, Digdogger, Gohma, Ganon };
+        private FireballManager fireballManager;
 
         private int currentEnemyNum;
         private int numEnemies;
@@ -70,6 +69,8 @@ namespace Sprint2Pork
             currentBlockIndex = 0;
             currentItemIndex = 0;
             blockPosition = new Vector2(200, 200);
+
+            fireballManager = new FireballManager(this);
 
             controllerList = new List<IController>();
             spritePos = new int[2] { 50, 50 };
@@ -128,7 +129,6 @@ namespace Sprint2Pork
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             enemySprite = new Aquamentus();
-            //fireball = new Fireball(0);
 
             characterTexture = Content.Load<Texture2D>("LinkMovingWithDamage");
             fireballTexture = Content.Load<Texture2D>("zeldabosses");
@@ -161,7 +161,6 @@ namespace Sprint2Pork
             enemySprite.Update();
             enemySprite.Move();
 
-            //fireball.Update();
             timeSinceLastSwitch += gameTime.ElapsedGameTime.TotalSeconds;
             timeSinceSwitchedEnemy += gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -228,7 +227,6 @@ namespace Sprint2Pork
             GraphicsDevice.Clear(Color.DimGray);
 
             enemySprite.Draw(spriteBatch, enemyTexture);
-            //fireball.Draw(spriteBatch, fireballTexture);
             textSprite.Draw(spriteBatch, characterTexture);
 
             blocks[CurrentBlockIndex].Draw(spriteBatch); // This draws the updated block
