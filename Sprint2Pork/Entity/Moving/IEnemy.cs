@@ -10,5 +10,7 @@ namespace Sprint2Pork.Entity.Moving {
         void Move();
         void Attack();
 
+        int getX();
+
     }
 }

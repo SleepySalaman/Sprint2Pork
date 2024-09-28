@@ -70,8 +70,6 @@ namespace Sprint2Pork
             currentItemIndex = 0;
             blockPosition = new Vector2(200, 200);
 
-            enemyManager = new EnemyManager();
-
             controllerList = new List<IController>();
             spritePos = new int[2] { 50, 50 };
             currentEnemyNum = 0;
@@ -129,6 +127,7 @@ namespace Sprint2Pork
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             enemySprite = new Aquamentus();
+            enemyManager = new EnemyManager(enemySprite.getX());
 
             characterTexture = Content.Load<Texture2D>("LinkMovingWithDamage");
             fireballTexture = Content.Load<Texture2D>("zeldabosses");
@@ -161,7 +160,7 @@ namespace Sprint2Pork
             enemySprite.Update();
             enemySprite.Move();
 
-            enemyManager.Update(gameTime);
+            enemyManager.Update(gameTime, enemySprite.getX());
 
             timeSinceLastSwitch += gameTime.ElapsedGameTime.TotalSeconds;
             timeSinceSwitchedEnemy += gameTime.ElapsedGameTime.TotalSeconds;
@@ -257,7 +256,7 @@ namespace Sprint2Pork
         {
             switch (currentEnemyNum)
             {
-                case 0: enemySprite = new Aquamentus(); enemyManager = new EnemyManager();  break;
+                case 0: enemySprite = new Aquamentus(); enemyManager = new EnemyManager(enemySprite.getX());  break;
                 case 1: enemySprite = new Dodongo(); enemyManager.clearFireballs();  break;
                 case 2: enemySprite = new Manhandla(); break;
                 case 3: enemySprite = new Gleeok(); break;
