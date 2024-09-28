@@ -1,9 +1,7 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Sprint2Pork;
+﻿using Microsoft.Xna.Framework.Input;
 using Sprint2Pork.Blocks;
+using Sprint2Pork;
 using System.Collections.Generic;
-using static System.Reflection.Metadata.BlobBuilder;
 
 public class KeyboardController : IController
 {
@@ -12,14 +10,7 @@ public class KeyboardController : IController
     private List<Block> listOfBlocks;
     private int currentBlockIndex;
 
-    private double timeSinceLastBlockSwitch;
-    private double blockSwitchCooldown = 0.3;
-
-    private double timeSinceLastItemSwitch;
-    private double itemSwitchCooldown = 0.3;
-
-    private double timeSinceLastEnemySwitch;
-    private double enemySwitchCooldown = 0.3;
+    private KeyboardState previousKeyboardState; // Add field to store the previous keyboard state
 
     public KeyboardController(Game1 g, Link linkCharacter, List<Block> blocks)
     {
@@ -27,18 +18,16 @@ public class KeyboardController : IController
         link = linkCharacter;
         listOfBlocks = blocks;
         currentBlockIndex = 0;
+        previousKeyboardState = Keyboard.GetState(); // Initialize previousKeyboardState
     }
     public void UpdateLink(Link newLink)
     {
         link = newLink;
     }
+
     void IController.Update()
     {
         KeyboardState ks = Keyboard.GetState();
-
-        timeSinceLastBlockSwitch += 1 / 60.0; // Assuming 60 FPS; adjust if necessary
-        timeSinceLastItemSwitch += 1 / 60.0;
-        timeSinceLastEnemySwitch += 1 / 60.0;
 
         // Link Movement
         if (ks.IsKeyDown(Keys.Left) || ks.IsKeyDown(Keys.A))
@@ -98,44 +87,38 @@ public class KeyboardController : IController
             link.TakeDamage();
         }
 
-        // Rotate Blocks (t and y)
-        if (ks.IsKeyDown(Keys.T) && timeSinceLastBlockSwitch >= blockSwitchCooldown)
+        
+        if (ks.IsKeyDown(Keys.T) && previousKeyboardState.IsKeyUp(Keys.T))
         {
             currentBlockIndex = (currentBlockIndex + 1) % listOfBlocks.Count;
-            programGame.CurrentBlockIndex = currentBlockIndex; // Update current block index in Game1
-            programGame.UpdateCurrentBlock(); // Call method to update block logic
-            timeSinceLastBlockSwitch = 0; // Reset the timer
+            programGame.CurrentBlockIndex = currentBlockIndex; 
+            programGame.UpdateCurrentBlock(); 
         }
-        if (ks.IsKeyDown(Keys.Y) && timeSinceLastBlockSwitch >= blockSwitchCooldown)
+        if (ks.IsKeyDown(Keys.Y) && previousKeyboardState.IsKeyUp(Keys.Y))
         {
             currentBlockIndex = (currentBlockIndex - 1 + listOfBlocks.Count) % listOfBlocks.Count;
-            programGame.CurrentBlockIndex = currentBlockIndex; // Update current block index in Game1
-            programGame.UpdateCurrentBlock(); // Call method to update block logic
-            timeSinceLastBlockSwitch = 0; // Reset the timer
+            programGame.CurrentBlockIndex = currentBlockIndex; 
+            programGame.UpdateCurrentBlock(); 
         }
 
-        // Rotate Items (u and i)
-        if (ks.IsKeyDown(Keys.U) && timeSinceLastItemSwitch >= itemSwitchCooldown)
+        if (ks.IsKeyDown(Keys.U) && previousKeyboardState.IsKeyUp(Keys.U))
         {
             programGame.PreviousItem();
-            timeSinceLastItemSwitch = 0;
         }
-        if (ks.IsKeyDown(Keys.I) && timeSinceLastItemSwitch >= itemSwitchCooldown)
+        if (ks.IsKeyDown(Keys.I) && previousKeyboardState.IsKeyUp(Keys.I))
         {
             programGame.NextItem();
-            timeSinceLastItemSwitch = 0; // Reset the timer
         }
 
-        if (ks.IsKeyDown(Keys.O) && timeSinceLastEnemySwitch >= enemySwitchCooldown)
+        if (ks.IsKeyDown(Keys.O) && previousKeyboardState.IsKeyUp(Keys.O))
         {
             programGame.cycleEnemiesBackwards();
-            timeSinceLastEnemySwitch = 0;
         }
-        if (ks.IsKeyDown(Keys.P) && timeSinceLastEnemySwitch >= enemySwitchCooldown)
+        if (ks.IsKeyDown(Keys.P) && previousKeyboardState.IsKeyUp(Keys.P))
         {
             programGame.cycleEnemies();
-            timeSinceLastEnemySwitch = 0;
         }
+
         if (ks.IsKeyDown(Keys.R))
         {
             programGame.ResetGame();
@@ -144,5 +127,7 @@ public class KeyboardController : IController
         {
             programGame.Exit();
         }
+
+        previousKeyboardState = ks;
     }
 }
