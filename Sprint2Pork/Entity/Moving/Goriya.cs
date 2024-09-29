@@ -22,7 +22,6 @@ namespace Sprint2Pork.Entity.Moving {
         private List<Rectangle> upRects;
         private List<Rectangle> leftRects;
         private List<Rectangle> rightRects;
-        //down left up right
 
         public Goriya() {
             sourceRects = new List<Rectangle>();
