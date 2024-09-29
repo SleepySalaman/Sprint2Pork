@@ -7,9 +7,9 @@ namespace Sprint2Pork
     {
         public int direction = 0;
         Rectangle rect = new Rectangle();
+        string directionStr = "Down";
         public Bomb(Link link)
         {
-            string directionStr = "Down";
             switch (link.directionState)
             {
                 case LeftFacingLinkState:
@@ -56,6 +56,25 @@ namespace Sprint2Pork
                 case 4:
                     link.offsetY = -10;
                     break;
+            }
+
+            //Bomb Explosion
+            if (link.linkCount >= 18){
+                rect = new Rectangle(153, 29, 17, 28); // 170 47
+                if (link.directionState is RightFacingLinkState)
+                {
+                    link.offsetX += 87;
+                }
+                else if(link.directionState is UpFacingLinkState)
+                {
+                    link.offsetY -= 87;
+                    link.offsetX -= 25;
+                }
+                else if(link.directionState is LeftFacingLinkState)
+                {
+                    link.offsetX -= 15;
+                }
+                link.linkItemSprite = new MovingNonAnimatedSprite(link.x + link.offsetX, link.y + link.offsetY, rect, directionStr);
             }
             link.UpdateItem();
         }
