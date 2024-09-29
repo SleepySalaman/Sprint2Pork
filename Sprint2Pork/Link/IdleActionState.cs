@@ -56,7 +56,7 @@ namespace Sprint2Pork
 
         public void TakeDamage()
         {
-            //link.actionState = new DamageActionState(link);
+            link.actionState = new DamagedActionState(link, 10);
         }
         public void Update()
         {

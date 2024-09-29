@@ -7,7 +7,7 @@ namespace Sprint2Pork
     public class DamagedActionState : ILinkActionState
     {
         private Link link;
-        private int damageDuration; // Duration for flashing
+        private int damageDuration;
         private int frameCounter;
         private bool isFlashing;
 
