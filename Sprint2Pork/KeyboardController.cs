@@ -64,7 +64,6 @@ public class KeyboardController : IController
         }
 
         //Link Items
-        // blue boomerang and light arrow
         if ((ks.IsKeyDown(Keys.D1) && previousKeyboardState.IsKeyUp(Keys.D1)) || linkItem is Arrow)
         {
             link.BeAttacking();
