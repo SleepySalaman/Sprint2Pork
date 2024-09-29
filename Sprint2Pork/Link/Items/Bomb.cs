@@ -58,7 +58,7 @@ namespace Sprint2Pork
                     break;
             }
 
-            //Bomb Explosion
+            //Explosion
             if (link.linkCount >= 18){
                 rect = new Rectangle(153, 29, 17, 28); // 170 47
                 if (link.directionState is RightFacingLinkState)

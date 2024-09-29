@@ -13,11 +13,11 @@ namespace Sprint2Pork
     {
         public int direction = 0;
         Rectangle rect = new Rectangle();
+        string directionStr = "Down";
         int startX = 0;
         int startY = 0;
         public Arrow(Link link)
         {
-            string directionStr = "Down";
             switch (link.directionState)
             {
                 case LeftFacingLinkState:
@@ -70,6 +70,33 @@ namespace Sprint2Pork
             {
                 link.offsetY -= 12;
             }
+
+            //Explosion
+            if (link.linkCount >= 19)
+            {
+                rect = new Rectangle(51, 34, 10, 9); // 170 47
+                if (link.directionState is RightFacingLinkState)
+                {
+                    link.offsetX += 87;
+                    link.offsetY += 17;
+                }
+                else if (link.directionState is UpFacingLinkState)
+                {
+                    link.offsetX += 25;
+                    link.offsetY -= 15;
+                }
+                else if (link.directionState is LeftFacingLinkState)
+                {
+                    link.offsetY += 50;
+                }
+                else if (link.directionState is DownFacingLinkState)
+                {
+                    link.offsetX += 50;
+                    link.offsetY += 100;
+                }
+                link.linkItemSprite = new MovingNonAnimatedSprite(link.x + link.offsetX, link.y + link.offsetY, rect, directionStr);
+            }
+
             link.UpdateItem();
         }
 
