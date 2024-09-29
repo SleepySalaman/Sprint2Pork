@@ -24,6 +24,7 @@ namespace Sprint2Pork
         private Texture2D batTexture;
         private Texture2D goriyaTexture;
         private Texture2D stalfosTexture;
+        private Texture2D gelTexture;
         private Texture2D blockTexture;
         private Texture2D itemTexture;
 
@@ -76,7 +77,7 @@ namespace Sprint2Pork
             controllerList = new List<IController>();
             spritePos = new int[2] { 50, 50 };
             currentEnemyNum = 0;
-            numEnemies = 10;
+            numEnemies = 11;
             moving = false;
 
             LoadGroundItems();
@@ -133,11 +134,14 @@ namespace Sprint2Pork
             enemyManager = new EnemyManager(enemySprite.getX());
 
             characterTexture = Content.Load<Texture2D>("LinkMovingWithDamage");
+
             fireballTexture = Content.Load<Texture2D>("zeldabosses");
             enemyTexture = Content.Load<Texture2D>("zeldaenemies");
             batTexture = Content.Load<Texture2D>("bat");
             goriyaTexture = Content.Load<Texture2D>("red_goriya");
             stalfosTexture = Content.Load<Texture2D>("stalfos");
+            gelTexture = Content.Load<Texture2D>("gel");
+
             blockTexture = Content.Load<Texture2D>("blocks");
             itemTexture = Content.Load<Texture2D>("items_and_weapons");
 
@@ -232,7 +236,7 @@ namespace Sprint2Pork
         protected override void Draw(GameTime gameTime)
         {
             spriteBatch.Begin();
-            GraphicsDevice.Clear(Color.DimGray);
+            GraphicsDevice.Clear(Color.DodgerBlue);
 
             drawCurrentEnemy();
             //enemySprite.Draw(spriteBatch, enemyTexture);
@@ -271,20 +275,23 @@ namespace Sprint2Pork
                 case 4: enemySprite = new Digdogger(); break;
                 case 5: enemySprite = new Gohma(); break;
                 case 6: enemySprite = new Ganon(); break;
-                case 7: enemySprite = new Bat(); break;
-                case 8: enemySprite = new Goriya(); break;
-                case 9: enemySprite = new Stalfos(); enemyManager.clearFireballs(); break;
+                case 7: enemySprite = new Gel(); break;
+                case 8: enemySprite = new Bat(); break;
+                case 9: enemySprite = new Goriya(); break;
+                case 10: enemySprite = new Stalfos(); enemyManager.clearFireballs(); break;
             }
         }
 
         public void drawCurrentEnemy() {
-            if(currentEnemyNum < 7) {
+            if (currentEnemyNum < 7) {
                 enemySprite.Draw(spriteBatch, enemyTexture);
-            } else if(currentEnemyNum == 7){
+            } else if(currentEnemyNum == 7) {
+                enemySprite.Draw(spriteBatch, gelTexture);
+            } else if(currentEnemyNum == 8){
                 enemySprite.Draw(spriteBatch, batTexture);
-            } else if(currentEnemyNum == 8) {
-                enemySprite.Draw(spriteBatch, goriyaTexture);
             } else if(currentEnemyNum == 9) {
+                enemySprite.Draw(spriteBatch, goriyaTexture);
+            } else if(currentEnemyNum == 10) {
                 enemySprite.Draw(spriteBatch, stalfosTexture);
             }
         }
