@@ -29,6 +29,7 @@ namespace Sprint2Pork
 
         private Texture2D blockTexture;
         private Texture2D itemTexture;
+        private Texture2D expandedItemTexture;
 
         private SpriteFont font;
 
@@ -147,6 +148,7 @@ namespace Sprint2Pork
 
             blockTexture = Content.Load<Texture2D>("blocks");
             itemTexture = Content.Load<Texture2D>("items_and_weapons");
+            expandedItemTexture = Content.Load<Texture2D>("ItemsAndWeapons");
 
             font = Content.Load<SpriteFont>("File");
             textSprite = new TextSprite(200, 100, font);
@@ -248,7 +250,7 @@ namespace Sprint2Pork
             blocks[CurrentBlockIndex].Draw(spriteBatch); // This draws the updated block
             items[currentItemIndex].Draw(spriteBatch, itemTexture);
 
-            link.Draw(spriteBatch, characterTexture, itemTexture);
+            link.Draw(spriteBatch, characterTexture, expandedItemTexture);
             enemyManager.Draw(spriteBatch, fireballTexture);
 
             spriteBatch.End();

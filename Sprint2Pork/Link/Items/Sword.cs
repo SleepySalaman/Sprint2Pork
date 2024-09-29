@@ -19,27 +19,27 @@ namespace Sprint2Pork
                     directionStr = "Right";
                     startX = 0;
                     startY = 65;
-                    rect = new Rectangle(104, 16, 8, 16);
+                    rect = new Rectangle(34, 0, 8, 16);
                     break;
                 case RightFacingLinkState:
                     direction = 1;
                     directionStr = "Left";
                     startX = 80;
                     startY = 40;
-                    rect = new Rectangle(104, 16, 8, 16);
+                    rect = new Rectangle(34, 0, 8, 16);
                     break;
                 case DownFacingLinkState:
                     direction = 2;
                     directionStr = "Up";
                     startX = 67;
                     startY = 100;
-                    rect = new Rectangle(104, 16, 8, 16);
+                    rect = new Rectangle(34, 0, 8, 16);
                     break;
                 case UpFacingLinkState:
                     direction = 3;
                     directionStr = "Down";
                     startY = -10;
-                    rect = new Rectangle(104, 16, 8, 16);
+                    rect = new Rectangle(34, 0, 8, 16);
                     break;
             }
             link.linkItemSprite = new MovingNonAnimatedSprite(link.x + link.offsetX + startX, link.y + link.offsetY + startY, rect, directionStr);
