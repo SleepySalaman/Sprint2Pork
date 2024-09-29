@@ -33,7 +33,7 @@ namespace Sprint2Pork.Entity.Moving {
         public override void Move() {
             if (!moving) {
                 moving = true;
-                direction = new Random().Next(1, 4);
+                direction = new Random().Next(1, 5);
             } else {
                 movedAmount++;
                 if(movedAmount > moveDistance) {
