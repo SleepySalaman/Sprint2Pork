@@ -42,6 +42,21 @@ namespace Sprint2Pork
 
         public void Update(Link link)
         {
+            switch (direction)
+            {
+                case 1:
+                    link.offsetX = -10;
+                    break;
+                case 2:
+                    link.offsetX = 10;
+                    break;
+                case 3:
+                    link.offsetY = 10;
+                    break;
+                case 4:
+                    link.offsetY = -10;
+                    break;
+            }
             link.UpdateItem();
         }
 

@@ -54,6 +54,22 @@ namespace Sprint2Pork
 
         public void Update(Link link)
         {
+            if (direction == 0)
+            {
+                link.offsetX -= 7;
+            }
+            else if (direction == 1)
+            {
+                link.offsetX += 7;
+            }
+            else if (direction == 2)
+            {
+                link.offsetY += 7;
+            }
+            else if (direction == 3)
+            {
+                link.offsetY -= 7;
+            }
             link.UpdateItem();
         }
 
