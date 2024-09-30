@@ -8,10 +8,6 @@ namespace Sprint2Pork
 {
     internal class NoItem : ILinkItems
     {
-        public int getDirection()
-        {
-            return 0;
-        }
 
         public void Update(Link link)
         {
