@@ -210,6 +210,9 @@ namespace Sprint2Pork
             moving = false;
 
             enemySprite = new Aquamentus();
+            enemyManager = new EnemyManager(enemySprite.getX());
+            currentEnemyNum = 0;
+
             link = new Link(viewport.Width, viewport.Height);
 
             // Update the KeyboardController's reference to the new Link instance
