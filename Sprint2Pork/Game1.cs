@@ -18,14 +18,8 @@ namespace Sprint2Pork
         private ISprite textSprite;
         private IEnemy enemySprite;
 
-        private Texture2D characterTexture;
-        private Texture2D fireballTexture;
-        private Texture2D enemyTexture;
-        private Texture2D batTexture;
-        private Texture2D goriyaTexture;
-        private Texture2D stalfosTexture;
-        private Texture2D gelTexture;
-        private Texture2D wizardTexture;
+        //character, fb, enemy, gel, bat, goriya, wizard, stalfos
+        private List<Texture2D> allTextures;
 
         private Texture2D blockTexture;
         private Texture2D itemTexture;
@@ -72,6 +66,7 @@ namespace Sprint2Pork
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
+            allTextures = new List<Texture2D>();
             blocks = new List<Block>();
             currentBlockIndex = 0;
             currentItemIndex = 0;
@@ -136,15 +131,14 @@ namespace Sprint2Pork
             enemySprite = new Aquamentus();
             enemyManager = new EnemyManager(enemySprite.getX());
 
-            characterTexture = Content.Load<Texture2D>("LinkMovingWithDamage");
-
-            fireballTexture = Content.Load<Texture2D>("zeldabosses");
-            enemyTexture = Content.Load<Texture2D>("zeldaenemies");
-            batTexture = Content.Load<Texture2D>("bat");
-            goriyaTexture = Content.Load<Texture2D>("red_goriya");
-            stalfosTexture = Content.Load<Texture2D>("stalfos");
-            gelTexture = Content.Load<Texture2D>("gel");
-            wizardTexture = Content.Load<Texture2D>("wizard");
+            allTextures.Add(Content.Load<Texture2D>("LinkMovingWithDamage")); //character
+            allTextures.Add(Content.Load<Texture2D>("zeldabosses")); //fireball
+            allTextures.Add(Content.Load<Texture2D>("zeldaenemies")); //enemies
+            allTextures.Add(Content.Load<Texture2D>("gel")); //gel
+            allTextures.Add(Content.Load<Texture2D>("bat")); //bat
+            allTextures.Add(Content.Load<Texture2D>("red_goriya")); //goriya
+            allTextures.Add(Content.Load<Texture2D>("wizard")); //wizard
+            allTextures.Add(Content.Load<Texture2D>("stalfos")); //stalfos
 
             blockTexture = Content.Load<Texture2D>("blocks");
             itemTexture = Content.Load<Texture2D>("items_and_weapons");
@@ -245,13 +239,13 @@ namespace Sprint2Pork
 
             drawCurrentEnemy();
             //enemySprite.Draw(spriteBatch, enemyTexture);
-            textSprite.Draw(spriteBatch, characterTexture);
+            textSprite.Draw(spriteBatch, allTextures[0]);
 
             blocks[CurrentBlockIndex].Draw(spriteBatch); // This draws the updated block
             items[currentItemIndex].Draw(spriteBatch, itemTexture);
 
-            link.Draw(spriteBatch, characterTexture, expandedItemTexture);
-            enemyManager.Draw(spriteBatch, fireballTexture);
+            link.Draw(spriteBatch, allTextures[0], expandedItemTexture);
+            enemyManager.Draw(spriteBatch, allTextures[1]);
 
             spriteBatch.End();
             base.Draw(gameTime);
@@ -290,18 +284,10 @@ namespace Sprint2Pork
 
         public void drawCurrentEnemy() {
             if (currentEnemyNum < 7) {
-                enemySprite.Draw(spriteBatch, enemyTexture);
-            } else if (currentEnemyNum == 7) {
-                enemySprite.Draw(spriteBatch, gelTexture);
-            } else if (currentEnemyNum == 8) {
-                enemySprite.Draw(spriteBatch, batTexture);
-            } else if (currentEnemyNum == 9) {
-                enemySprite.Draw(spriteBatch, goriyaTexture);
-            } else if(currentEnemyNum == 10) {
-                enemySprite.Draw(spriteBatch, wizardTexture);
-            } else if(currentEnemyNum == 11) {
-                enemySprite.Draw(spriteBatch, stalfosTexture);
-            }
+                enemySprite.Draw(spriteBatch, allTextures[2]);
+            } else {
+                enemySprite.Draw(spriteBatch, allTextures[currentEnemyNum - 4]);
+            } 
         }
     }
 }
