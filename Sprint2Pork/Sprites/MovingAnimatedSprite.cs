@@ -27,7 +27,7 @@ public class MovingAnimatedSprite : ISprite
         totalFrames = sourceRects.Count;
         this.flipped = flipped;
         this.direction = direction;
-        destinationRect = new Rectangle(x, y, 50, 0);
+        destinationRect = new Rectangle(x, y, 100, 0);
     }
 
     void ISprite.Update(int x, int y)
@@ -53,19 +53,19 @@ public class MovingAnimatedSprite : ISprite
 
     private void DynamicallyAdjustDestinationRectangleSize(int x, int y)
     {
-        destinationRect.Width = sourceRects[currentFrame].Width * 5;
-        destinationRect.Height = sourceRects[currentFrame].Height * 5;
+        destinationRect.Width = sourceRects[currentFrame].Width * 3;
+        destinationRect.Height = sourceRects[currentFrame].Height * 3;
 
         // Adjust the position based on the direction
         if (direction == "Left")
         {
-            destinationRect.X = x - destinationRect.Width + spriteWidth * 5;
+            destinationRect.X = x - destinationRect.Width + spriteWidth * 3;
             destinationRect.Y = y;
         }
         else if (direction == "Up")
         {
             destinationRect.X = x;
-            destinationRect.Y = y - destinationRect.Height + spriteHeight * 5;
+            destinationRect.Y = y - destinationRect.Height + spriteHeight * 3;
         }
         else
         {
