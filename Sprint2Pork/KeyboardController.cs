@@ -124,7 +124,7 @@ public class KeyboardController : IController
             link.BeAttacking();
             link.UseItem(6);
         }
-        else if ((ks.IsKeyDown(Keys.Z) && previousKeyboardState.IsKeyUp(Keys.Z)) || ks.IsKeyDown(Keys.N) || linkItem is Sword)
+        else if ((ks.IsKeyDown(Keys.Z) && previousKeyboardState.IsKeyUp(Keys.Z)) || (ks.IsKeyDown(Keys.N) && previousKeyboardState.IsKeyUp(Keys.N)) || linkItem is Sword)
         {
             link.BeAttacking();
             link.UseItem(0);
