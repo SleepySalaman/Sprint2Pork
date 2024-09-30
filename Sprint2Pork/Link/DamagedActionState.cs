@@ -105,7 +105,7 @@ namespace Sprint2Pork
         {
             frameCounter++;
 
-            if (frameCounter % 10 == 0)
+            if (frameCounter % 10 != 0)
             {
                 isFlashing = !isFlashing;
                 SetFlashingSprite();

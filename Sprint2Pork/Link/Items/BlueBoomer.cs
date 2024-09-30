@@ -31,7 +31,7 @@ namespace Sprint2Pork
                     direction = 1;
                     directionStr = "Up";
                     startX = 85;
-                    startY = 60;
+                    startY = 20;
                     break;
                 case DownFacingLinkState:
                     startX = 25;
@@ -41,7 +41,7 @@ namespace Sprint2Pork
                     break;
                 case UpFacingLinkState:
                     direction = 3;
-                    startX = 55;
+                    startX = 10;
                     startY = -15;
                     directionStr = "Left";
                     break;
