@@ -27,7 +27,7 @@ public class MovingAnimatedSprite : ISprite
         totalFrames = sourceRects.Count;
         this.flipped = flipped;
         this.direction = direction;
-        destinationRect = new Rectangle(x, y, 100, 0);
+        destinationRect = new Rectangle(x, y, 50, 0);
     }
 
     void ISprite.Update(int x, int y)
