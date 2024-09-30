@@ -70,10 +70,5 @@ namespace Sprint2Pork
             link.linkItemSprite = new MovingNonAnimatedSprite(link.x + link.offsetX + startX, link.y + link.offsetY + startY, sourceRects[(link.linkCount % 3)], directionStr);
             link.UpdateItem();
         }
-
-        public int getDirection()
-        {
-            return direction;
-        }
     }
 }

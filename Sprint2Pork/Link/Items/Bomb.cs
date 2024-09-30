@@ -60,7 +60,7 @@ namespace Sprint2Pork
 
             //Explosion
             if (link.linkCount >= 18){
-                rect = new Rectangle(153, 29, 17, 28); // 170 47
+                rect = new Rectangle(153, 29, 17, 28);
                 if (link.directionState is RightFacingLinkState)
                 {
                     link.offsetX += 87;
@@ -79,9 +79,5 @@ namespace Sprint2Pork
             link.UpdateItem();
         }
 
-        public int getDirection()
-        {
-            return direction;
-        }
     }
 }

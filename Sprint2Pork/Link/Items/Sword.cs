@@ -66,10 +66,5 @@ namespace Sprint2Pork
             link.UpdateItem();
             link.UpdateItem();
         }
-
-        public int getDirection()
-        {
-            return direction;
-        }
     }
 }
