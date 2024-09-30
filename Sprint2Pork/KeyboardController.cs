@@ -2,7 +2,6 @@
 using Sprint2Pork.Blocks;
 using Sprint2Pork;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 
 public class KeyboardController : IController
 {
@@ -13,10 +12,10 @@ public class KeyboardController : IController
 
     private KeyboardState previousKeyboardState;
 
-    // Add fields to control damage effect
+    // Damage effect fields
     private int damageEffectCounter;
     private bool isTakingDamage;
-    private int flashRate; // Add a variable to control the flash speed
+    private const int flashRate = 5; 
 
     public KeyboardController(Game1 g, Link linkCharacter, List<Block> blocks)
     {
@@ -29,7 +28,6 @@ public class KeyboardController : IController
         // Initialize damage effect fields
         damageEffectCounter = 0;
         isTakingDamage = false;
-        flashRate = 5; // Flash every 5 frames
     }
 
     public void UpdateLink(Link newLink)
@@ -44,29 +42,42 @@ public class KeyboardController : IController
 
         if (isTakingDamage)
         {
-            if (damageEffectCounter % flashRate == 0)
-            {
-                if (damageEffectCounter / flashRate % 2 == 0)
-                {
-                    link.TakeDamage();
-                }
-                else
-                {
-                    link.BeIdle();
-                }
-            }
-
-            damageEffectCounter++;
-            if (damageEffectCounter >= flashRate * 10)
-            {
-                isTakingDamage = false;
-                damageEffectCounter = 0;
-            }
-
-            previousKeyboardState = ks;
-            return;
+            HandleDamageEffect();
+        }
+        else
+        {
+            HandleMovement(ks);
+            HandleItemUse(ks, linkItem);
+            HandleGameControls(ks);
         }
 
+        previousKeyboardState = ks;
+    }
+
+    private void HandleDamageEffect()
+    {
+        if (damageEffectCounter % flashRate == 0)
+        {
+            if ((damageEffectCounter / flashRate) % 2 == 0)
+            {
+                link.TakeDamage();
+            }
+            else
+            {
+                link.BeIdle();
+            }
+        }
+
+        damageEffectCounter++;
+        if (damageEffectCounter >= flashRate * 10)
+        {
+            isTakingDamage = false;
+            damageEffectCounter = 0;
+        }
+    }
+
+    private void HandleMovement(KeyboardState ks)
+    {
         if (ks.IsKeyDown(Keys.Left) || ks.IsKeyDown(Keys.A))
         {
             link.LookLeft();
@@ -91,40 +102,41 @@ public class KeyboardController : IController
         {
             link.BeIdle();
         }
+    }
 
-        // Attack or Use Item
-        //Link Items
-        if ((ks.IsKeyDown(Keys.D1) && previousKeyboardState.IsKeyUp(Keys.D1)) || linkItem is Arrow)
+    private void HandleItemUse(KeyboardState ks, ILinkItems linkItem)
+    {
+        if (IsKeyPressed(ks, Keys.D1) || linkItem is Arrow)
         {
             link.BeAttacking();
             link.UseItem(1);
         }
-        else if ((ks.IsKeyDown(Keys.D2) && previousKeyboardState.IsKeyUp(Keys.D2)) || linkItem is Boomerang)
+        else if (IsKeyPressed(ks, Keys.D2) || linkItem is Boomerang)
         {
             link.BeAttacking();
             link.UseItem(2);
         }
-        else if ((ks.IsKeyDown(Keys.D3) && previousKeyboardState.IsKeyUp(Keys.D3)) || linkItem is Bomb)
+        else if (IsKeyPressed(ks, Keys.D3) || linkItem is Bomb)
         {
             link.BeAttacking();
             link.UseItem(3);
         }
-        else if ((ks.IsKeyDown(Keys.D4) && previousKeyboardState.IsKeyUp(Keys.D4)) || linkItem is WoodArrow)
+        else if (IsKeyPressed(ks, Keys.D4) || linkItem is WoodArrow)
         {
             link.BeAttacking();
             link.UseItem(4);
         }
-        else if ((ks.IsKeyDown(Keys.D5) && previousKeyboardState.IsKeyUp(Keys.D5)) || linkItem is BlueBoomer)
+        else if (IsKeyPressed(ks, Keys.D5) || linkItem is BlueBoomer)
         {
             link.BeAttacking();
             link.UseItem(5);
         }
-        else if ((ks.IsKeyDown(Keys.D6) && previousKeyboardState.IsKeyUp(Keys.D6)) || linkItem is Fire)
+        else if (IsKeyPressed(ks, Keys.D6) || linkItem is Fire)
         {
             link.BeAttacking();
             link.UseItem(6);
         }
-        else if ((ks.IsKeyDown(Keys.Z) && previousKeyboardState.IsKeyUp(Keys.Z)) || (ks.IsKeyDown(Keys.N) && previousKeyboardState.IsKeyUp(Keys.N)) || linkItem is Sword)
+        else if (IsKeyPressed(ks, Keys.Z) || IsKeyPressed(ks, Keys.N) || linkItem is Sword)
         {
             link.BeAttacking();
             link.UseItem(0);
@@ -135,38 +147,39 @@ public class KeyboardController : IController
             link.BeAttacking();
         }
 
-        if (ks.IsKeyDown(Keys.E) && previousKeyboardState.IsKeyUp(Keys.E))
+        if (IsKeyPressed(ks, Keys.E))
         {
             isTakingDamage = true;
         }
+    }
 
-        if (ks.IsKeyDown(Keys.T) && previousKeyboardState.IsKeyUp(Keys.T))
+    private void HandleGameControls(KeyboardState ks)
+    {
+        if (IsKeyPressed(ks, Keys.T))
         {
             currentBlockIndex = (currentBlockIndex + 1) % listOfBlocks.Count;
-            programGame.CurrentBlockIndex = currentBlockIndex;
-            programGame.UpdateCurrentBlock();
+            UpdateCurrentBlock();
         }
-        if (ks.IsKeyDown(Keys.Y) && previousKeyboardState.IsKeyUp(Keys.Y))
+        else if (IsKeyPressed(ks, Keys.Y))
         {
             currentBlockIndex = (currentBlockIndex - 1 + listOfBlocks.Count) % listOfBlocks.Count;
-            programGame.CurrentBlockIndex = currentBlockIndex;
-            programGame.UpdateCurrentBlock();
+            UpdateCurrentBlock();
         }
 
-        if (ks.IsKeyDown(Keys.U) && previousKeyboardState.IsKeyUp(Keys.U))
+        if (IsKeyPressed(ks, Keys.U))
         {
             programGame.PreviousItem();
         }
-        if (ks.IsKeyDown(Keys.I) && previousKeyboardState.IsKeyUp(Keys.I))
+        if (IsKeyPressed(ks, Keys.I))
         {
             programGame.NextItem();
         }
 
-        if (ks.IsKeyDown(Keys.O) && previousKeyboardState.IsKeyUp(Keys.O))
+        if (IsKeyPressed(ks, Keys.O))
         {
             programGame.cycleEnemiesBackwards();
         }
-        if (ks.IsKeyDown(Keys.P) && previousKeyboardState.IsKeyUp(Keys.P))
+        if (IsKeyPressed(ks, Keys.P))
         {
             programGame.cycleEnemies();
         }
@@ -179,9 +192,16 @@ public class KeyboardController : IController
         {
             programGame.Exit();
         }
+    }
 
-        previousKeyboardState = ks;
+    private void UpdateCurrentBlock()
+    {
+        programGame.CurrentBlockIndex = currentBlockIndex;
+        programGame.UpdateCurrentBlock();
+    }
+
+    private bool IsKeyPressed(KeyboardState ks, Keys key)
+    {
+        return ks.IsKeyDown(key) && previousKeyboardState.IsKeyUp(key);
     }
 }
-
-
