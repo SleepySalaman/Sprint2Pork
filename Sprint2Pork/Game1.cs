@@ -131,14 +131,7 @@ namespace Sprint2Pork
             enemySprite = new Aquamentus();
             enemyManager = new EnemyManager(enemySprite.getX());
 
-            allTextures.Add(Content.Load<Texture2D>("LinkMovingWithDamage")); //character
-            allTextures.Add(Content.Load<Texture2D>("zeldabosses")); //fireball
-            allTextures.Add(Content.Load<Texture2D>("zeldaenemies")); //enemies
-            allTextures.Add(Content.Load<Texture2D>("gel")); //gel
-            allTextures.Add(Content.Load<Texture2D>("bat")); //bat
-            allTextures.Add(Content.Load<Texture2D>("red_goriya")); //goriya
-            allTextures.Add(Content.Load<Texture2D>("wizard")); //wizard
-            allTextures.Add(Content.Load<Texture2D>("stalfos")); //stalfos
+            LoadTextures.loadAllTextures(allTextures, Content);
 
             blockTexture = Content.Load<Texture2D>("blocks");
             itemTexture = Content.Load<Texture2D>("items_and_weapons");
