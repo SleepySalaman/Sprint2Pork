@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Sprint2Pork.Blocks;
 using Sprint2Pork.Entity;
 using Sprint2Pork.Entity.Moving;
+using Sprint2Pork.GroundItems;
 using Sprint2Pork.Items;
 using System;
 using System.Collections.Generic;
@@ -18,12 +19,8 @@ namespace Sprint2Pork
         private ISprite textSprite;
         private IEnemy enemySprite;
 
-        //character, fb, enemy, gel, bat, goriya, wizard, stalfos
+        //character, fb, enemy, gel, bat, goriya, wizard, stalfos, blocks, ItemsAndWeapons, ItemsAndWeaponsExpanded
         private List<Texture2D> allTextures;
-
-        private Texture2D blockTexture;
-        private Texture2D itemTexture;
-        private Texture2D expandedItemTexture;
 
         private SpriteFont font;
 
@@ -85,33 +82,8 @@ namespace Sprint2Pork
         private void LoadGroundItems()
         {
             // Load items with predefined frames
-            List<Rectangle> rupeeFrames = new List<Rectangle> { new Rectangle(72, 0, 8, 16), new Rectangle(72, 16, 8, 16) };
-            List<Rectangle> triangleFrames = new List<Rectangle> { new Rectangle(270, 0, 16, 16), new Rectangle(270, 16, 16, 16) };
-            List<Rectangle> compassFrames = new List<Rectangle> { new Rectangle(256, 0, 16, 16)};
-            List<Rectangle> keyFrames = new List<Rectangle> { new Rectangle(248, 0, 8, 16), new Rectangle(240, 0, 8, 16) };
-            List<Rectangle> candleFrames = new List<Rectangle> { new Rectangle(160, 0, 8, 16), new Rectangle(160, 16, 8, 16) };
-            List<Rectangle> arrowFrames = new List<Rectangle> { new Rectangle(152, 0, 8, 16), new Rectangle(152, 16, 8, 16) };
-            List<Rectangle> gypsieFrames = new List<Rectangle> { new Rectangle(48, 0, 8, 16), new Rectangle(40, 0, 8, 16) };
-            List<Rectangle> meatFrames = new List<Rectangle> { new Rectangle(96, 0, 8, 16) };
-            List<Rectangle> clockFrames = new List<Rectangle> { new Rectangle(58, 0, 10, 19) };
-            List<Rectangle> potionFrames = new List<Rectangle> { new Rectangle(80, 0, 8, 16), new Rectangle(80, 16, 8, 16) };
-            List<Rectangle> scrollFrames = new List<Rectangle> { new Rectangle(88, 0, 8, 16), new Rectangle(88, 16, 8, 16) };
-            List<Rectangle> heartFrames = new List<Rectangle> { new Rectangle(24, 0, 16, 16), new Rectangle(24, 16, 8, 16) };
-
-            items = new List<GroundItem> {
-                new Rupee(400, 200, rupeeFrames),
-                new Triangle(400, 200, triangleFrames),
-                new Compass(400, 200, compassFrames),
-                new Key(400, 200, keyFrames),
-                new Candle(400, 200, candleFrames),
-                new GroundArrow(400, 200, arrowFrames),
-                new Gypsie(400, 200, gypsieFrames),
-                new Meat(400, 200, meatFrames),
-                new Clock(400, 200, clockFrames),
-                new Potion(400, 200, potionFrames),
-                new Scroll(400, 200, scrollFrames),
-                new Heart(400, 200, heartFrames),
-            };
+            GroundItemsController itemController = new GroundItemsController();
+            items = itemController.createGroundItems();
         }
 
         protected override void Initialize()
@@ -133,14 +105,10 @@ namespace Sprint2Pork
 
             LoadTextures.loadAllTextures(allTextures, Content);
 
-            blockTexture = Content.Load<Texture2D>("blocks");
-            itemTexture = Content.Load<Texture2D>("items_and_weapons");
-            expandedItemTexture = Content.Load<Texture2D>("ItemsAndWeapons");
-
             font = Content.Load<SpriteFont>("File");
             textSprite = new TextSprite(200, 100, font);
 
-            GenerateBlocks.fillBlockList(blocks, blockTexture, blockPosition);
+            GenerateBlocks.fillBlockList(blocks, allTextures[8], blockPosition);
         }
 
         protected override void Update(GameTime gameTime)
@@ -225,13 +193,12 @@ namespace Sprint2Pork
             GraphicsDevice.Clear(Color.DodgerBlue);
 
             drawCurrentEnemy();
-            //enemySprite.Draw(spriteBatch, enemyTexture);
             textSprite.Draw(spriteBatch, allTextures[0]);
 
             blocks[CurrentBlockIndex].Draw(spriteBatch); // This draws the updated block
-            items[currentItemIndex].Draw(spriteBatch, itemTexture);
+            items[currentItemIndex].Draw(spriteBatch, allTextures[9]);
 
-            link.Draw(spriteBatch, allTextures[0], expandedItemTexture);
+            link.Draw(spriteBatch, allTextures[0], allTextures[10]);
             enemyManager.Draw(spriteBatch, allTextures[1]);
 
             spriteBatch.End();
