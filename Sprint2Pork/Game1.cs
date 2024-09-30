@@ -147,16 +147,7 @@ namespace Sprint2Pork
             font = Content.Load<SpriteFont>("File");
             textSprite = new TextSprite(200, 100, font);
 
-            blocks.Add(new Block1(blockTexture, blockPosition));
-            blocks.Add(new Block2(blockTexture, blockPosition));
-            blocks.Add(new Block3(blockTexture, blockPosition));
-            blocks.Add(new Block4(blockTexture, blockPosition));
-            blocks.Add(new Block5(blockTexture, blockPosition));
-            blocks.Add(new Block6(blockTexture, blockPosition));
-            blocks.Add(new Block7(blockTexture, blockPosition));
-            blocks.Add(new Block8(blockTexture, blockPosition));
-            blocks.Add(new Block9(blockTexture, blockPosition));
-            blocks.Add(new Block10(blockTexture, blockPosition));
+            GenerateBlocks.fillBlockList(blocks, blockTexture, blockPosition);
         }
 
         protected override void Update(GameTime gameTime)
