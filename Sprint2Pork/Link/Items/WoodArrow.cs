@@ -24,29 +24,29 @@ namespace Sprint2Pork
                 case LeftFacingLinkState:
                     direction = 0;
                     directionStr = "Right";
-                    startX = -50;
-                    startY = 50;
+                    startX = -35;
+                    startY = 35;
                     rect = new Rectangle(1, 29, 6, 18); // 7 47
                     break;
                 case RightFacingLinkState:
                     direction = 1;
                     directionStr = "Left";
-                    startX = 125;
-                    startY = 30;
+                    startX = 80;
+                    startY = 15;
                     rect = new Rectangle(1, 29, 6, 18);
                     break;
                 case DownFacingLinkState:
                     direction = 2;
                     directionStr = "Up";
-                    startX = 50;
-                    startY = 133;
+                    startX = 35;
+                    startY = 85;
                     rect = new Rectangle(1, 29, 6, 18);
                     break;
                 case UpFacingLinkState:
                     direction = 3;
                     directionStr = "Down";
-                    startX = 25;
-                    startY = -60;
+                    startX = 10;
+                    startY = -40;
                     rect = new Rectangle(1, 29, 6, 18);
                     break;
             }

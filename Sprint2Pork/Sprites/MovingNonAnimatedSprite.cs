@@ -25,7 +25,7 @@ public class MovingNonAnimatedSprite : ISprite
         currentFrame = 0;
         totalFrames = sourceRects.Count;
         this.direction = direction;
-        destinationRect = new Rectangle(x, y, rect.Width * 4, rect.Height * 4);
+        destinationRect = new Rectangle(x, y, rect.Width * 3, rect.Height * 3);
     }
 
     void ISprite.Update(int x, int y)

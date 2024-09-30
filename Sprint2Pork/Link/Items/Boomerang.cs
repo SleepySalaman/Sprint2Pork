@@ -24,23 +24,23 @@ namespace Sprint2Pork
                     direction = 0;
                     directionStr = "Down";
                     startX = -15;
-                    startY = 25;
+                    startY = 10;
                     break;
                 case RightFacingLinkState:
                     direction = 1;
                     directionStr = "Up";
                     startX = 85;
-                    startY = 60;
+                    startY = 50;
                     break;
                 case DownFacingLinkState:
-                    startX = 25;
-                    startY = 75;
+                    startX = 15;
+                    startY = 65;
                     direction = 2;
                     directionStr = "Right";
                     break;
                 case UpFacingLinkState:
                     direction = 3;
-                    startX = 55;
+                    startX = 45;
                     startY = -15;
                     directionStr = "Left";
                     break;
