@@ -192,6 +192,12 @@ public class KeyboardController : IController
         {
             programGame.Exit();
         }
+        if (IsKeyPressed(ks, Keys.F))
+        {
+            programGame.IsFullscreen = !programGame.IsFullscreen;
+            programGame.graphics.IsFullScreen = programGame.IsFullscreen;
+            programGame.graphics.ApplyChanges();
+        }
     }
 
     private void UpdateCurrentBlock()

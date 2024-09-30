@@ -12,7 +12,8 @@ namespace Sprint2Pork
 {
     public class Game1 : Game
     {
-        private GraphicsDeviceManager graphics;
+        public GraphicsDeviceManager graphics;
+        public bool IsFullscreen { get; set; }
         private SpriteBatch spriteBatch;
         private List<IController> controllerList;
 
@@ -60,7 +61,7 @@ namespace Sprint2Pork
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            //graphics.IsFullScreen = true;
+            IsFullscreen = false;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
