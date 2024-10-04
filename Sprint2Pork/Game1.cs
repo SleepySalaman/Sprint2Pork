@@ -25,8 +25,8 @@ namespace Sprint2Pork
 
         private SpriteFont font;
 
-        private int[] spritePos;
-        private bool moving;
+        private int[] spritePos = new int[2] { 0, 0 };
+        private bool moving = false;
 
         private double switchCooldown = 0.1;
         private double timeSinceLastSwitch = 0;
@@ -34,19 +34,21 @@ namespace Sprint2Pork
         private double timeSinceSwitchedEnemy = 0;
 
         private List<Block> blocks;
-        private int currentBlockIndex;
+        private int currentBlockIndex = 0;
         private Vector2 blockPosition;
 
         private List<GroundItem> items;
-        private int currentItemIndex;
+        private int currentItemIndex = 0;
 
         private EnemyManager enemyManager;
 
-        private int currentEnemyNum;
-        private int numEnemies;
+        private int currentEnemyNum = 0;
+        private int numEnemies = 12;
 
         private Link link;
         public Viewport viewport;
+
+        public bool menu = false;
         public int CurrentBlockIndex
         {
             get => currentBlockIndex;
@@ -67,15 +69,9 @@ namespace Sprint2Pork
 
             allTextures = new List<Texture2D>();
             blocks = new List<Block>();
-            currentBlockIndex = 0;
-            currentItemIndex = 0;
             blockPosition = new Vector2(200, 200);
 
             controllerList = new List<IController>();
-            spritePos = new int[2] { 50, 50 };
-            currentEnemyNum = 0;
-            numEnemies = 12;
-            moving = false;
 
             LoadGroundItems();
 
