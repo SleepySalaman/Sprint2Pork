@@ -1,7 +1,7 @@
 # Project Title
 
 ## Description
-This project is a game that allows users to control a character, switch weapons, and interact with enemies using keyboard inputs. The game includes visual assets from **Zelda enemy sprites** and incorporates multiple states (damage, block, item, and enemy states) that the user can manipulate in real-time.
+This project is a game that allows users to control a character, switch weapons, and interact with enemies using keyboard inputs. The game includes visual assets from **Zelda enemy sprites** and incorporates multiple states (damage, block, item, and enemy states) that the user can control in real-time.
 
 ### Zelda enemies spritesheet:
 - [Sprite Sheet](https://www.spriters-resource.com/fullview/36632/?source=genre)
@@ -26,23 +26,18 @@ This project is a game that allows users to control a character, switch weapons,
 3. **Fullscreen Issues**: On some monitors, toggling fullscreen can cause the resolution to display incorrectly, cutting off certain UI elements.
 
 ## Tools and Processes
-- **Visual Studio Code Metrics**: We used Visual Studio’s built-in tools to calculate code metrics such as cyclomatic complexity, maintainability index, and class coupling.
-  - Metrics were calculated weekly, and we tracked trends to ensure we were improving code quality.
-  - This data is available in a shared spreadsheet, with graphs visualizing progress over time.
-
-- **.NET Code Analyzers (Roslyn)**: We utilized Roslyn analyzers to enforce code quality standards.
-  - Most warnings were addressed, though we suppressed some warnings after review (e.g., naming conventions for specific third-party libraries).
-  - Detailed explanations of suppressed warnings are provided in a separate documentation file.
+- **Visual Studio Code Metrics**: We used Visual Studio’s built-in tools to calculate code metrics such as coupling.
+  - Metrics were tracked weekly, and we also tracked trends to ensure we were improving code quality.
 
 ## Code Reviews
 Each team member participated in code reviews, with an emphasis on readability and maintainability:
 - **Readability**: Ensured that variable and method names were clear, consistent, and well-documented.
 - **Maintainability**: Focused on adhering to SOLID principles, reducing code duplication, and making the code adaptable to future changes.
-  - Specific classes reviewed include: `PlayerController`, `EnemyManager`, and `GameStateHandler`.
+  - Specific classes reviewed include: `PlayerController`, `EnemyManager`, and `KeyboardController`.
 
 ## Sprint Reflection
 - **Team Performance**: Our team completed all key features, but timing was an issue. We waited until close to the deadline to implement some of the more complex features, which caused a last-minute rush.
-- **Burndown Chart**: The burndown chart showed that we were behind on planned tasks midway through the sprint, but we managed to catch up near the end. Next sprint, we plan to spread tasks more evenly and start working on harder features earlier.
+- **Time Management**: Our team started late on the project due to Github issues, but we managed to catch up near the end. Next sprint, we plan to spread tasks more evenly and start working on harder features first.
 - **Process Changes**: We implemented weekly code metric checks, which helped us identify potential areas for refactoring earlier in the development process. However, we need to better manage our time, especially when it comes to bug fixing.
 
 ## Future Improvements
