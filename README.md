@@ -1,16 +1,51 @@
-Zelda enemies spritesheet: [https://www.spriters-resource.com/fullview/36632/?source=genre](https://www.mariomayhem.com/downloads/sprites/the_legend_of_zelda_sprites.php)
+# Project Title
 
+## Description
+This project is a game that allows users to control a character, switch weapons, and interact with enemies using keyboard inputs. The game includes visual assets from **Zelda enemy sprites** and incorporates multiple states (damage, block, item, and enemy states) that the user can manipulate in real-time.
 
-Controls:
-WASD and Arrow Keys to move
-1,2,3,4,5,6 to switch between other weapons
-E to enter the damage state
+### Zelda enemies spritesheet:
+- [Sprite Sheet](https://www.spriters-resource.com/fullview/36632/?source=genre)
 
-T and Y to switch block states
-U and I to switch item states
-O and P to switch enemey states
+## Controls
+- **WASD** or **Arrow Keys**: Move the character
+- **1,2,3,4,5,6**: Switch between weapons
+- **E**: Enter damage state
+- **T, Y**: Switch block states
+- **U, I**: Switch item states
+- **O, P**: Switch enemy states
+- **Q**: Quit game
+- **R**: Rest (reset the game state)
+- **F**: Toggle fullscreen mode
 
-Q to quit
-R to rest
+### Known Bugs
+1. **Movement Bug While Attacking**: When the player is attacking and presses a different direction key, the attack animation may freeze or behave unexpectedly. This issue arises due to an unhandled interaction between the movement and attack state in the game engine.
+   - **Workaround**: Avoid pressing movement keys during attack sequences until this bug is resolved.
 
-F to fullscreen
+2. **Occasional Lag**: Switching item states quickly can sometimes cause minor lag or delays in input responsiveness.
+
+3. **Fullscreen Issues**: On some monitors, toggling fullscreen can cause the resolution to display incorrectly, cutting off certain UI elements.
+
+## Tools and Processes
+- **Visual Studio Code Metrics**: We used Visual Studio’s built-in tools to calculate code metrics such as cyclomatic complexity, maintainability index, and class coupling.
+  - Metrics were calculated weekly, and we tracked trends to ensure we were improving code quality.
+  - This data is available in a shared spreadsheet, with graphs visualizing progress over time.
+
+- **.NET Code Analyzers (Roslyn)**: We utilized Roslyn analyzers to enforce code quality standards.
+  - Most warnings were addressed, though we suppressed some warnings after review (e.g., naming conventions for specific third-party libraries).
+  - Detailed explanations of suppressed warnings are provided in a separate documentation file.
+
+## Code Reviews
+Each team member participated in code reviews, with an emphasis on readability and maintainability:
+- **Readability**: Ensured that variable and method names were clear, consistent, and well-documented.
+- **Maintainability**: Focused on adhering to SOLID principles, reducing code duplication, and making the code adaptable to future changes.
+  - Specific classes reviewed include: `PlayerController`, `EnemyManager`, and `GameStateHandler`.
+
+## Sprint Reflection
+- **Team Performance**: Our team completed all key features, but timing was an issue. We waited until close to the deadline to implement some of the more complex features, which caused a last-minute rush.
+- **Burndown Chart**: The burndown chart showed that we were behind on planned tasks midway through the sprint, but we managed to catch up near the end. Next sprint, we plan to spread tasks more evenly and start working on harder features earlier.
+- **Process Changes**: We implemented weekly code metric checks, which helped us identify potential areas for refactoring earlier in the development process. However, we need to better manage our time, especially when it comes to bug fixing.
+
+## Future Improvements
+- **Fixing Known Bugs**: In the next sprint, we will focus on fixing the attack movement bug and addressing the fullscreen display issues.
+- **Optimization**: Investigating ways to reduce input lag when switching item states.
+- **Code Refactoring**: More attention will be given to making the codebase modular and ready for future expansion.
