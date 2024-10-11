@@ -1,5 +1,6 @@
-# Project Title
+# Legends of Zelda
 
+# Sprint 2
 ## Description
 This project is a game that allows users to control a character, switch weapons, and interact with enemies using keyboard inputs. The game includes visual assets from **Zelda enemy sprites** and incorporates multiple states (damage, block, item, and enemy states) that the user can control in real-time.
 
