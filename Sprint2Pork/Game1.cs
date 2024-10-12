@@ -5,6 +5,7 @@ using Sprint2Pork.Entity;
 using Sprint2Pork.Entity.Moving;
 using Sprint2Pork.GroundItems;
 using Sprint2Pork.Items;
+using Sprint2Pork.rooms;
 using System;
 using System.Collections.Generic;
 
@@ -32,7 +33,7 @@ namespace Sprint2Pork
         private double timeSinceLastSwitch = 0;
         private double switchEnemyCooldown = 0.3;
         private double timeSinceSwitchedEnemy = 0;
-
+        private CSVLevelLoader csvLevelLoader;
         private List<Block> blocks;
         private int currentBlockIndex = 0;
         private Vector2 blockPosition;
@@ -55,7 +56,7 @@ namespace Sprint2Pork
             set
             {
                 currentBlockIndex = value;
-                UpdateCurrentBlock(); // Call to update current block whenever the index is set
+                UpdateCurrentBlock();
             }
         }
 
@@ -72,7 +73,7 @@ namespace Sprint2Pork
             blockPosition = new Vector2(200, 200);
 
             controllerList = new List<IController>();
-
+            csvLevelLoader = new CSVLevelLoader();
             LoadGroundItems();
 
         }
@@ -107,6 +108,8 @@ namespace Sprint2Pork
             textSprite = new TextSprite(200, 100, font);
 
             GenerateBlocks.fillBlockList(blocks, allTextures[8], blockPosition);
+
+
         }
 
         protected override void Update(GameTime gameTime)
@@ -138,7 +141,7 @@ namespace Sprint2Pork
         }
         public void UpdateCurrentBlock()
         {
-            currentBlockIndex = CurrentBlockIndex; // This updates based on the index changed in the controller
+            currentBlockIndex = CurrentBlockIndex;
 
         }
 
@@ -157,11 +160,10 @@ namespace Sprint2Pork
         private void SetCurrentItem()
         {
             GroundItem currentItem = items[currentItemIndex];
-            currentItem.destinationRect = new Rectangle(400, 200, 32, 32); // Example position
+            currentItem.destinationRect = new Rectangle(400, 200, 32, 32);
         }
         public void ResetGame()
         {
-            // Reset the game logic (item/block index, position, etc.)
             currentBlockIndex = 0;
             currentItemIndex = 0;
             spritePos[0] = 50;
@@ -174,7 +176,6 @@ namespace Sprint2Pork
 
             link = new Link(viewport.Width, viewport.Height);
 
-            // Update the KeyboardController's reference to the new Link instance
             foreach (IController controller in controllerList)
             {
                 if (controller is KeyboardController keyboardController)
@@ -193,7 +194,7 @@ namespace Sprint2Pork
             drawCurrentEnemy();
             textSprite.Draw(spriteBatch, allTextures[0]);
 
-            blocks[CurrentBlockIndex].Draw(spriteBatch); // This draws the updated block
+            blocks[CurrentBlockIndex].Draw(spriteBatch);
             items[currentItemIndex].Draw(spriteBatch, allTextures[9]);
 
             link.Draw(spriteBatch, allTextures[0], allTextures[10]);
