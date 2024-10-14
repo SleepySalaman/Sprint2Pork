@@ -53,7 +53,7 @@ namespace Sprint2Pork.Entity.Moving {
             return destinationRect;
         }
 
-        public void udpateFromCollision(bool collides) {
+        void IEnemy.updateFromCollision(bool collides) {
             if (collides) {
                 c = Color.Red;
             } else {

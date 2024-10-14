@@ -52,5 +52,9 @@ namespace Sprint2Pork.Entity {
                 c = Color.White;
             }
         }
+
+        public Rectangle getRect() {
+            return destinationRect;
+        }
     }
 }

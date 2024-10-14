@@ -85,4 +85,8 @@ public class MovingAnimatedSprite : ISprite
             sb.Draw(txt, destinationRect, sourceRects[currentFrame], Color.White, 0, new Vector2(0, 0), SpriteEffects.FlipHorizontally, 0);
         }
     }
+
+    Rectangle ISprite.getRect() {
+        return destinationRect;
+    }
 }

@@ -59,6 +59,5 @@ namespace Sprint2Pork.Entity.Moving {
             destinationRect.X = initX + moveX;
             destinationRect.Y = initY + moveY;
         }
-
     }
 }

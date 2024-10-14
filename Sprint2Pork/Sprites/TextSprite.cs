@@ -34,4 +34,8 @@ public class TextSprite : ISprite
         //sb.DrawString(font, "Program Made By: Shivam Engineer", new Vector2(200, 250), Color.Purple);
         //sb.DrawString(font, "Sprites from: Files Section of Carmen Canvas Page", new Vector2(200, 280), Color.Purple);
     }
+
+    Rectangle ISprite.getRect() {
+        return new Rectangle(0, 0, 0, 0);
+    }
 }
