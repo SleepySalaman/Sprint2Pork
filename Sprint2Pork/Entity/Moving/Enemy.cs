@@ -26,7 +26,7 @@ namespace Sprint2Pork.Entity.Moving {
         protected List<Rectangle> sourceRects;
         protected Rectangle destinationRect;
 
-        protected Color c = Color.White;
+        protected Color color = Color.White;
 
         public void Update() {
             count++;
@@ -42,7 +42,7 @@ namespace Sprint2Pork.Entity.Moving {
         public abstract void Move();
 
         public void Draw(SpriteBatch sb, Texture2D txt) {
-            sb.Draw(txt, destinationRect, sourceRects[currentFrame], c);
+            sb.Draw(txt, destinationRect, sourceRects[currentFrame], color);
         }
 
         public int getX() {
@@ -53,11 +53,11 @@ namespace Sprint2Pork.Entity.Moving {
             return destinationRect;
         }
 
-        void IEnemy.updateFromCollision(bool collides) {
+        void IEnemy.updateFromCollision(bool collides, Color c) {
             if (collides) {
-                c = Color.Red;
+                color = c;
             } else {
-                c = Color.White;
+                color = Color.White;
             }
         }
 

@@ -13,7 +13,7 @@ namespace Sprint2Pork.Entity.Moving {
 
         Rectangle getRect();
 
-        void updateFromCollision(bool collides);
+        void updateFromCollision(bool collides, Color c);
 
     }
 }
