@@ -35,6 +35,8 @@ namespace Sprint2Pork
         private double timeSinceSwitchedEnemy = 0;
         private CSVLevelLoader csvLevelLoader;
         private List<Block> blocks;
+        private List<GroundItem> groundItems;
+        private List<IEnemy> enemies;
         private int currentBlockIndex = 0;
         private Vector2 blockPosition;
 
@@ -53,7 +55,7 @@ namespace Sprint2Pork
 
         public bool menu = false;
         private string currentRoom;
-        private Dictionary<string, List<Block>> rooms;
+        private Dictionary<string, (List<Block>, List<GroundItem>, List<IEnemy>)> rooms;
 
         public int CurrentBlockIndex
         {
@@ -75,6 +77,8 @@ namespace Sprint2Pork
 
             allTextures = new List<Texture2D>();
             blocks = new List<Block>();
+            groundItems = new List<GroundItem>();
+            enemies = new List<IEnemy>();
             blockPosition = new Vector2(200, 200);
 
             controllerList = new List<IController>();
@@ -82,8 +86,7 @@ namespace Sprint2Pork
             collisionHandler = new Collision();
             LoadGroundItems();
 
-            rooms = new Dictionary<string, List<Block>>();
-
+            rooms = new Dictionary<string, (List<Block> blocks, List<GroundItem> groundItems, List<IEnemy> enemies)>();
         }
 
         private void LoadGroundItems()
@@ -117,12 +120,20 @@ namespace Sprint2Pork
 
             GenerateBlocks.fillBlockList(blocks, allTextures[8], blockPosition);
 
-            Texture2D blockTexture = allTextures[8];
-            rooms["room1"] = CSVLevelLoader.LoadBlocksFromCSV("room1.csv", blockTexture);
-            rooms["room2"] = CSVLevelLoader.LoadBlocksFromCSV("room2.csv", blockTexture);
 
+            Texture2D blockTexture = allTextures[8];
+            Texture2D groundItemTexture = allTextures[9];
+            Texture2D enemyTexture = allTextures[2];
+
+
+            CSVLevelLoader.LoadObjectsFromCSV("room1.csv", blockTexture, groundItemTexture, enemyTexture, out var room1Blocks, out var room1Items, out var room1Enemies);
+            CSVLevelLoader.LoadObjectsFromCSV("room2.csv", blockTexture, groundItemTexture, enemyTexture, out var room2Blocks, out var room2Items, out var room2Enemies);
+
+
+            rooms["room1"] = (new List<Block>(room1Blocks), new List<GroundItem>(room1Items), new List<IEnemy>(room1Enemies));
+            rooms["room2"] = (new List<Block>(room2Blocks), new List<GroundItem>(room2Items), new List<IEnemy>(room2Enemies));
             currentRoom = "room1";
-            blocks = rooms[currentRoom];
+            (blocks, groundItems, enemies) = rooms[currentRoom];
         }
 
         protected override void Update(GameTime gameTime)
@@ -132,9 +143,22 @@ namespace Sprint2Pork
                 controller.Update();
             }
 
+            foreach (var enemy in enemies)
+            {
+                enemy.Update();
+                enemy.Move();
+            }
+            foreach (var enemy in enemies)
+            {
+                enemy.updateFromCollision(collisionHandler.collides(link.getRect(), enemy.getRect()));
+            }
+            foreach (var item in groundItems)
+            {
+                item.Update(item.destinationRect.X, item.destinationRect.Y);
+            }
             enemySprite.Update();
             enemySprite.Move();
-            if(currentEnemyNum == 0) {
+            if (currentEnemyNum == 0) {
                 enemyManager.Update(gameTime, enemySprite.getX());
             }
 
@@ -163,7 +187,7 @@ namespace Sprint2Pork
                 link.x = GraphicsDevice.Viewport.Width - 1; // Reset Link's position to the right side of the screen
             }
 
-            items[currentItemIndex].Update(items[currentItemIndex].destinationRect.X, items[currentItemIndex].destinationRect.Y);
+            //items[currentItemIndex].Update(items[currentItemIndex].destinationRect.X, items[currentItemIndex].destinationRect.Y);
             
             base.Update(gameTime);
         }
@@ -205,7 +229,7 @@ namespace Sprint2Pork
             link = new Link(viewport.Width, viewport.Height);
 
             currentRoom = "room1";
-            blocks = rooms[currentRoom];
+            (blocks, groundItems, enemies) = rooms[currentRoom];
 
             foreach (IController controller in controllerList)
             {
@@ -234,6 +258,16 @@ namespace Sprint2Pork
             foreach (Block block in blocks)
             {
                 block.Draw(spriteBatch);
+            }
+
+            foreach (var item in groundItems)
+            {
+                item.Draw(spriteBatch, allTextures[9]);
+            }
+
+            foreach (var enemy in enemies)
+            {
+                enemy.Draw(spriteBatch, allTextures[10]);
             }
 
             spriteBatch.End();
@@ -296,13 +330,10 @@ namespace Sprint2Pork
             SwitchRoom(roomNames[previousIndex]);
         }
 
-        public void SwitchRoom(string roomName)
+        public void SwitchRoom(string newRoom)
         {
-            if (rooms.ContainsKey(roomName))
-            {
-                currentRoom = roomName;
-                blocks = rooms[currentRoom];
-            }
+            currentRoom = newRoom;
+            (blocks, groundItems, enemies) = rooms[currentRoom];
         }
     }
 }
