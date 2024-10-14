@@ -31,7 +31,11 @@ namespace Sprint2Pork
         public bool frozen;
         public bool damage;
         public int linkCount;
-        
+
+        private int damageEffectCounter;
+        private bool isTakingDamage;
+        private const int flashRate = 5;
+
 
         int attackFrameCount;
         public bool itemInUse;
@@ -49,6 +53,10 @@ namespace Sprint2Pork
             offsetY = 0;
             attackFrameCount = 0;
             frozen = false;
+
+            // Initialize damage effect fields
+            this.damageEffectCounter = 0;
+            this.isTakingDamage = false;
         }
 
         public void LookLeft()
@@ -187,6 +195,31 @@ namespace Sprint2Pork
             {
                 linkItem = new Fire(this);
             }
+        }
+
+        public bool BeDamaged()
+        {
+            isTakingDamage = true;
+            if (damageEffectCounter % flashRate == 0)
+            {
+                if ((damageEffectCounter / flashRate) % 2 == 0)
+                {
+                    this.TakeDamage();
+                }
+                else
+                {
+                    this.BeIdle();
+                }
+            }
+
+            damageEffectCounter++;
+            if (damageEffectCounter >= flashRate * 10)
+            {
+                isTakingDamage = false;
+                damageEffectCounter = 0;
+            }
+
+            return isTakingDamage;
         }
 
         public void UpdateItem()

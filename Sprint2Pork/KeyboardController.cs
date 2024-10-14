@@ -42,7 +42,7 @@ public class KeyboardController : IController
 
         if (isTakingDamage)
         {
-            HandleDamageEffect();
+            isTakingDamage = link.BeDamaged();
         }
         else
         {
@@ -54,27 +54,27 @@ public class KeyboardController : IController
         previousKeyboardState = ks;
     }
 
-    private void HandleDamageEffect()
-    {
-        if (damageEffectCounter % flashRate == 0)
-        {
-            if ((damageEffectCounter / flashRate) % 2 == 0)
-            {
-                link.TakeDamage();
-            }
-            else
-            {
-                link.BeIdle();
-            }
-        }
+    //private void HandleDamageEffect()
+    //{
+    //    if (damageEffectCounter % flashRate == 0)
+    //    {
+    //        if ((damageEffectCounter / flashRate) % 2 == 0)
+    //        {
+    //            link.TakeDamage();
+    //        }
+    //        else
+    //        {
+    //            link.BeIdle();
+    //        }
+    //    }
 
-        damageEffectCounter++;
-        if (damageEffectCounter >= flashRate * 10)
-        {
-            isTakingDamage = false;
-            damageEffectCounter = 0;
-        }
-    }
+    //    damageEffectCounter++;
+    //    if (damageEffectCounter >= flashRate * 10)
+    //    {
+    //        isTakingDamage = false;
+    //        damageEffectCounter = 0;
+    //    }
+    //}
 
     private void HandleMovement(KeyboardState ks)
     {

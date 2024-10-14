@@ -11,6 +11,8 @@ namespace Sprint2Pork
         private int frameCounter;
         private bool isFlashing;
 
+
+
         public DamagedActionState(Link link, int damageDuration)
         {
             this.link = link;
@@ -18,6 +20,8 @@ namespace Sprint2Pork
             this.frameCounter = 0;
             this.isFlashing = false;
             SetFlashingSprite();
+
+
         }
 
         private void SetFlashingSprite()
