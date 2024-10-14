@@ -24,7 +24,7 @@ namespace Sprint2Pork.Entity {
         protected List<Rectangle> sourceRects;
         protected Rectangle destinationRect;
 
-        private Color c = Color.White;
+        protected Color c = Color.White;
 
         public void Update() {
             count++;
@@ -41,5 +41,8 @@ namespace Sprint2Pork.Entity {
             sb.Draw(txt, destinationRect, sourceRects[currentFrame], c);
         }
 
+        public Rectangle getHitbox() {
+            return destinationRect;
+        }
     }
 }

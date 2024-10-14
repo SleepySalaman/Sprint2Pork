@@ -12,6 +12,7 @@ namespace Sprint2Pork.Items
         protected int currentFrame;
         protected int totalFrames;
         protected int count;
+        protected Color c = Color.White;
 
         public GroundItem(int x, int y, List<Rectangle> frames)
         {
@@ -38,9 +39,13 @@ namespace Sprint2Pork.Items
 
         public void Draw(SpriteBatch spriteBatch, Texture2D texture)
         {
-            spriteBatch.Draw(texture, destinationRect, sourceRects[currentFrame], Color.White);
+            spriteBatch.Draw(texture, destinationRect, sourceRects[currentFrame], c);
         }
 
         public abstract void PerformAction();
+
+        public Rectangle getRect() {
+            return destinationRect;
+        }
     }
 }
