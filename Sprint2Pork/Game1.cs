@@ -150,7 +150,7 @@ namespace Sprint2Pork
             }
             foreach (var enemy in enemies)
             {
-                enemy.updateFromCollision(collisionHandler.collides(link.getRect(), enemy.getRect()));
+                enemy.updateFromCollision(collisionHandler.collides(link.getRect(), enemy.getRect()), Color.Red);
             }
             foreach (var item in groundItems)
             {
