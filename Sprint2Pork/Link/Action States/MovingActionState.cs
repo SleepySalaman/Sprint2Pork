@@ -52,7 +52,7 @@ namespace Sprint2Pork
 
         public void Update()
         {
-            link.Move();
+            link.Move(false);
         }
     }
 }

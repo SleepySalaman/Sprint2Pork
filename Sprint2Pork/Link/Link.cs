@@ -120,32 +120,37 @@ namespace Sprint2Pork
             moving = false;
         }
 
-        public void Move()
+        public void Move(bool reverse)
         {
+            int stepLength = 4;
+            if (reverse)
+            {
+                stepLength = -8;
+            }
             switch (directionState)
             {
                 case LeftFacingLinkState:
                     if (x > 0)
                     {
-                        this.x = this.x - 4;
+                        this.x = this.x - stepLength;
                     }
                     break;
                 case RightFacingLinkState:
                     if (x < screenWidth)
                     {
-                        this.x = this.x + 4;
+                        this.x = this.x + stepLength;
                     }
                     break;
                 case UpFacingLinkState:
                     if (y > 0)
                     {
-                        this.y = this.y - 4;
+                        this.y = this.y - stepLength;
                     }
                     break;
                 case DownFacingLinkState:
                     if (y < screenHeight)
                     {
-                        this.y = this.y + 4;
+                        this.y = this.y + stepLength;
                     }
                     break;
             }
@@ -210,6 +215,7 @@ namespace Sprint2Pork
                 {
                     this.BeIdle();
                 }
+                this.Move(true);
             }
 
             damageEffectCounter++;
