@@ -47,8 +47,8 @@ namespace Sprint2Pork
             directionState = new DownFacingLinkState(this);
             actionState = new IdleActionState(this);
             itemInUse = false;
-            x = 0;
-            y = 0;
+            x = 50;
+            y = 50;
             offsetX = 0;
             offsetY = 0;
             attackFrameCount = 0;
