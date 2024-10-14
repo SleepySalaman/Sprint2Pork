@@ -9,11 +9,13 @@ namespace Sprint2Pork.rooms
 {
     public class CSVLevelLoader
     {
-        public static List<Block> LoadBlocksFromCSV(string filePath, Texture2D texture)
+        public static List<Block> LoadBlocksFromCSV(string fileName, Texture2D texture)
         {
             List<Block> blocks = new List<Block>();
             int tileSize = 16;
             int row = 0;
+
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "rooms", "levels", fileName);
 
             foreach (string line in File.ReadLines(filePath))
             {
@@ -25,7 +27,9 @@ namespace Sprint2Pork.rooms
                     if (int.TryParse(cells[col], out blockID) && blockID != 0)
                     {
                         Vector2 position = new Vector2(col * tileSize, row * tileSize);
-                        Block block = CreateBlock(blockID, texture, position);
+                        //Block block = CreateBlock(blockID, texture, position);
+                        // Hard coded block for demo
+                        Block block = new Block1(texture, position);
                         if (block != null)
                         {
                             blocks.Add(block);

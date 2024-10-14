@@ -52,6 +52,9 @@ namespace Sprint2Pork
         public Viewport viewport;
 
         public bool menu = false;
+        private string currentRoom;
+        private Dictionary<string, List<Block>> rooms;
+
         public int CurrentBlockIndex
         {
             get => currentBlockIndex;
@@ -77,6 +80,8 @@ namespace Sprint2Pork
             controllerList = new List<IController>();
             csvLevelLoader = new CSVLevelLoader();
             LoadGroundItems();
+
+            rooms = new Dictionary<string, List<Block>>();
 
         }
 
@@ -111,7 +116,11 @@ namespace Sprint2Pork
 
             GenerateBlocks.fillBlockList(blocks, allTextures[8], blockPosition);
 
+            Texture2D blockTexture = allTextures[8];
+            rooms["room1"] = CSVLevelLoader.LoadBlocksFromCSV("room1.csv", blockTexture);
 
+            currentRoom = "room1";
+            blocks = rooms[currentRoom];
         }
 
         protected override void Update(GameTime gameTime)
@@ -202,8 +211,14 @@ namespace Sprint2Pork
             link.Draw(spriteBatch, allTextures[0], allTextures[10]);
             enemyManager.Draw(spriteBatch, allTextures[1]);
 
+            foreach (Block block in blocks)
+            {
+                block.Draw(spriteBatch);
+            }
+
             spriteBatch.End();
             base.Draw(gameTime);
+
         }
 
         public void cycleEnemies()
@@ -244,5 +259,21 @@ namespace Sprint2Pork
                 enemySprite.Draw(spriteBatch, allTextures[currentEnemyNum - 4]);
             } 
         }
+
+        public void SwitchRoom(string roomName)
+        {
+            if (rooms.ContainsKey(roomName))
+            {
+                currentRoom = roomName;
+                blocks = rooms[currentRoom];
+            }
+        }
+        /*
+        Example of switching rooms when the player reaches a certain position
+        if (link.Position.X > someThreshold)
+        {
+            SwitchRoom("room2");
+        }
+        */
     }
 }
