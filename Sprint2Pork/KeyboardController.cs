@@ -198,6 +198,14 @@ public class KeyboardController : IController
             programGame.graphics.IsFullScreen = programGame.IsFullscreen;
             programGame.graphics.ApplyChanges();
         }
+        if (IsKeyPressed(ks, Keys.G))
+        {
+            programGame.SwitchToNextRoom();
+        }
+        else if (IsKeyPressed(ks, Keys.H))
+        {
+            programGame.SwitchToPreviousRoom();
+        }
     }
 
     private void UpdateCurrentBlock()

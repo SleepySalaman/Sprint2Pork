@@ -277,6 +277,22 @@ namespace Sprint2Pork
             } 
         }
 
+        public void SwitchToNextRoom()
+        {
+            var roomNames = new List<string>(rooms.Keys);
+            int currentIndex = roomNames.IndexOf(currentRoom);
+            int nextIndex = (currentIndex + 1) % roomNames.Count;
+            SwitchRoom(roomNames[nextIndex]);
+        }
+
+        public void SwitchToPreviousRoom()
+        {
+            var roomNames = new List<string>(rooms.Keys);
+            int currentIndex = roomNames.IndexOf(currentRoom);
+            int previousIndex = (currentIndex - 1 + roomNames.Count) % roomNames.Count;
+            SwitchRoom(roomNames[previousIndex]);
+        }
+
         public void SwitchRoom(string roomName)
         {
             if (rooms.ContainsKey(roomName))
