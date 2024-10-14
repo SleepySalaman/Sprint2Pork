@@ -46,6 +46,8 @@ namespace Sprint2Pork
         private int currentEnemyNum = 0;
         private int numEnemies = 12;
 
+        private Collision collisionHandler;
+
         private Link link;
         public Viewport viewport;
 

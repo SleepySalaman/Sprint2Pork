@@ -44,5 +44,13 @@ namespace Sprint2Pork.Entity {
         public Rectangle getHitbox() {
             return destinationRect;
         }
+
+        public void udpateFromCollision(bool collides) {
+            if (collides) {
+                c = Color.Red;
+            } else {
+                c = Color.White;
+            }
+        }
     }
 }

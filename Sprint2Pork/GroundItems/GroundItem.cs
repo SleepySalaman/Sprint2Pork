@@ -47,5 +47,13 @@ namespace Sprint2Pork.Items
         public Rectangle getRect() {
             return destinationRect;
         }
+
+        public void udpateFromCollision(bool collides) {
+            if (collides) {
+                c = Color.Red;
+            } else {
+                c = Color.White;
+            }
+        }
     }
 }

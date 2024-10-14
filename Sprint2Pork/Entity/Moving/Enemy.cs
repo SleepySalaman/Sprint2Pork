@@ -49,5 +49,17 @@ namespace Sprint2Pork.Entity.Moving {
             return relativeX;
         }
 
+        public Rectangle getRect() {
+            return destinationRect;
+        }
+
+        public void udpateFromCollision(bool collides) {
+            if (collides) {
+                c = Color.Red;
+            } else {
+                c = Color.White;
+            }
+        }
+
     }
 }
