@@ -246,5 +246,9 @@ namespace Sprint2Pork
         public Rectangle getRect() {
             return linkSprite.getRect();
         }
+
+        public Rectangle getItemRect() {
+            return linkItemSprite.getRect();
+        }
     }
 }

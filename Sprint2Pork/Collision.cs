@@ -19,5 +19,9 @@ namespace Sprint2Pork {
                 rect1.Y < rect2.Y + rect2.Height);
         }
 
+        public int collisionDirection() {
+            return 0;
+        }
+
     }
 }
