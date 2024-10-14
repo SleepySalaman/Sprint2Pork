@@ -118,6 +118,7 @@ namespace Sprint2Pork
 
             Texture2D blockTexture = allTextures[8];
             rooms["room1"] = CSVLevelLoader.LoadBlocksFromCSV("room1.csv", blockTexture);
+            rooms["room2"] = CSVLevelLoader.LoadBlocksFromCSV("room2.csv", blockTexture);
 
             currentRoom = "room1";
             blocks = rooms[currentRoom];
@@ -144,6 +145,19 @@ namespace Sprint2Pork
             if (link.itemInUse)
             {
                 link.linkItem.Update(link);
+            }
+
+            // Check if Link has moved off the right side of the screen
+            if (currentRoom == "room1" && link.x > GraphicsDevice.Viewport.Width)
+            {
+                SwitchRoom("room2");
+                link.x = 0; // Reset Link's position to the left side of the screen
+            }
+            // Check if Link has moved off the left side of the screen
+            else if (currentRoom == "room2" && link.x <= 0)
+            {
+                SwitchRoom("room1");
+                link.x = GraphicsDevice.Viewport.Width - 1; // Reset Link's position to the right side of the screen
             }
 
             items[currentItemIndex].Update(items[currentItemIndex].destinationRect.X, items[currentItemIndex].destinationRect.Y);
@@ -186,6 +200,9 @@ namespace Sprint2Pork
             currentEnemyNum = 0;
 
             link = new Link(viewport.Width, viewport.Height);
+
+            currentRoom = "room1";
+            blocks = rooms[currentRoom];
 
             foreach (IController controller in controllerList)
             {
@@ -268,12 +285,5 @@ namespace Sprint2Pork
                 blocks = rooms[currentRoom];
             }
         }
-        /*
-        Example of switching rooms when the player reaches a certain position
-        if (link.Position.X > someThreshold)
-        {
-            SwitchRoom("room2");
-        }
-        */
     }
 }
