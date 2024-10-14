@@ -24,6 +24,8 @@ namespace Sprint2Pork.Entity {
         protected List<Rectangle> sourceRects;
         protected Rectangle destinationRect;
 
+        private Color c = Color.White;
+
         public void Update() {
             count++;
             if (count > maxCount) {
@@ -36,7 +38,7 @@ namespace Sprint2Pork.Entity {
         }
 
         public void Draw(SpriteBatch sb, Texture2D txt) {
-            sb.Draw(txt, destinationRect, sourceRects[currentFrame], Color.White);
+            sb.Draw(txt, destinationRect, sourceRects[currentFrame], c);
         }
 
     }
