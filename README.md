@@ -14,7 +14,7 @@ This project is a game that allows users to control a character, switch weapons,
 - **T, Y**: Switch block states
 - **U, I**: Switch item states
 - **O, P**: Switch enemy states
-- - **G, H**: Switch room states
+- **G, H**: Switch room states
 - **Q**: Quit game
 - **R**: Rest (reset the game state)
 - **F**: Toggle fullscreen mode
