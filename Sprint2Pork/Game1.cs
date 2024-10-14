@@ -141,8 +141,7 @@ namespace Sprint2Pork
             timeSinceLastSwitch += gameTime.ElapsedGameTime.TotalSeconds;
             timeSinceSwitchedEnemy += gameTime.ElapsedGameTime.TotalSeconds;
 
-            Rectangle enemyRect = enemySprite.getRect();
-            enemySprite.updateFromCollision(collisionHandler.collides(link.getRect(), enemyRect));
+            enemySprite.updateFromCollision(collisionHandler.collides(link.getRect(), enemySprite.getRect()));
 
             link.actionState.Update();
             link.linkSprite.Update(link.x, link.y);
