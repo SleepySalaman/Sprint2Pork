@@ -167,6 +167,8 @@ namespace Sprint2Pork
 
             if (link.linkItemSprite != null) {
                 enemySprite.updateFromCollision(collisionHandler.collides(link.linkItemSprite.getRect(), enemySprite.getRect()), Color.Red);
+            } else {
+                enemySprite.updateFromCollision(false, Color.White);
             }
 
             link.actionState.Update();
