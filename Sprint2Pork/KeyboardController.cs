@@ -54,27 +54,6 @@ public class KeyboardController : IController
         previousKeyboardState = ks;
     }
 
-    //private void HandleDamageEffect()
-    //{
-    //    if (damageEffectCounter % flashRate == 0)
-    //    {
-    //        if ((damageEffectCounter / flashRate) % 2 == 0)
-    //        {
-    //            link.TakeDamage();
-    //        }
-    //        else
-    //        {
-    //            link.BeIdle();
-    //        }
-    //    }
-
-    //    damageEffectCounter++;
-    //    if (damageEffectCounter >= flashRate * 10)
-    //    {
-    //        isTakingDamage = false;
-    //        damageEffectCounter = 0;
-    //    }
-    //}
 
     private void HandleMovement(KeyboardState ks)
     {
@@ -197,6 +176,10 @@ public class KeyboardController : IController
             programGame.IsFullscreen = !programGame.IsFullscreen;
             programGame.graphics.IsFullScreen = programGame.IsFullscreen;
             programGame.graphics.ApplyChanges();
+        }
+        if(IsKeyPressed(ks, Keys.F12))
+        {
+            programGame.getDevRoom();
         }
         if (IsKeyPressed(ks, Keys.G))
         {

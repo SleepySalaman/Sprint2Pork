@@ -180,7 +180,7 @@ namespace Sprint2Pork
             if (currentRoom == "room1" && link.x > GraphicsDevice.Viewport.Width)
             {
                 SwitchRoom("room2");
-                link.x = 0; // Reset Link's position to the left side of the screen
+                link.x = 0;
             }
             // Check if Link has moved off the left side of the screen
             else if (currentRoom == "room2" && link.x <= 0)
@@ -188,8 +188,6 @@ namespace Sprint2Pork
                 SwitchRoom("room1");
                 link.x = GraphicsDevice.Viewport.Width - 1; // Reset Link's position to the right side of the screen
             }
-
-            //items[currentItemIndex].Update(items[currentItemIndex].destinationRect.X, items[currentItemIndex].destinationRect.Y);
             
             base.Update(gameTime);
         }
@@ -315,7 +313,13 @@ namespace Sprint2Pork
                 enemySprite.Draw(spriteBatch, allTextures[currentEnemyNum - 4]);
             } 
         }
-
+        public void getDevRoom()
+        {
+            SwitchRoom("room1");
+            link.x = 50;
+            link.y = 50;
+            link.LookDown();
+        }
         public void SwitchToNextRoom()
         {
             var roomNames = new List<string>(rooms.Keys);
