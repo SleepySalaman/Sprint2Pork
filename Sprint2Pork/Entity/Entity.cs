@@ -1,13 +1,11 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
-using System;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
-namespace Sprint2Pork.Entity {
-    public abstract class Entity : IEntity {
+namespace Sprint2Pork.Entity
+{
+    public abstract class Entity : IEntity
+    {
 
         protected int totalFrames;
         protected int currentFrame = 0;
@@ -26,34 +24,44 @@ namespace Sprint2Pork.Entity {
 
         protected Color c = Color.White;
 
-        public void Update() {
+        public void Update()
+        {
             count++;
-            if (count > maxCount) {
+            if (count > maxCount)
+            {
                 currentFrame++;
                 count = 0;
-                if (currentFrame == totalFrames) {
+                if (currentFrame == totalFrames)
+                {
                     currentFrame = 0;
                 }
             }
         }
 
-        public void Draw(SpriteBatch sb, Texture2D txt) {
+        public void Draw(SpriteBatch sb, Texture2D txt)
+        {
             sb.Draw(txt, destinationRect, sourceRects[currentFrame], c);
         }
 
-        public Rectangle getHitbox() {
+        public Rectangle getHitbox()
+        {
             return destinationRect;
         }
 
-        public void udpateFromCollision(bool collides) {
-            if (collides) {
+        public void udpateFromCollision(bool collides)
+        {
+            if (collides)
+            {
                 c = Color.Red;
-            } else {
+            }
+            else
+            {
                 c = Color.White;
             }
         }
 
-        public Rectangle getRect() {
+        public Rectangle getRect()
+        {
             return destinationRect;
         }
     }

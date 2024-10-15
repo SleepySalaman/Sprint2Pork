@@ -1,12 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Sprint2Pork.Entity.Moving {
-    public class Digdogger : Enemy {
+namespace Sprint2Pork.Entity.Moving
+{
+    public class Digdogger : Enemy
+    {
 
         private List<Rectangle> digdoggerLarge;
         private List<Rectangle> digdoggerSmall;
@@ -16,7 +15,8 @@ namespace Sprint2Pork.Entity.Moving {
         private int switchTimer = 0;
         private int maxSwitchTime = 150;
 
-        public Digdogger() {
+        public Digdogger()
+        {
             sourceRects = new List<Rectangle>();
 
             digdoggerLarge = new List<Rectangle> {
@@ -34,23 +34,31 @@ namespace Sprint2Pork.Entity.Moving {
             destinationRect = new Rectangle(initX, initY, rectW, rectH);
         }
 
-        public override void Move() {
-            if (!switchMode) {
+        public override void Move()
+        {
+            if (!switchMode)
+            {
                 switchMode = true;
                 digdoggerSelector = new Random().Next(1, 3);
-                if(digdoggerSelector == 1) {
+                if (digdoggerSelector == 1)
+                {
                     sourceRects = digdoggerLarge;
                     destinationRect.Width = rectW;
                     destinationRect.Height = rectH;
-                } else {
+                }
+                else
+                {
                     sourceRects = digdoggerSmall;
                     destinationRect.Width = rectW / 2;
                     destinationRect.Height = rectH / 2;
                 }
                 totalFrames = sourceRects.Count;
-            } else {
+            }
+            else
+            {
                 switchTimer++;
-                if(switchTimer > maxSwitchTime) {
+                if (switchTimer > maxSwitchTime)
+                {
                     switchMode = false;
                     switchTimer = 0;
                 }

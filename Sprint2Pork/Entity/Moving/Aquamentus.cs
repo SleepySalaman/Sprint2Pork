@@ -1,13 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Sprint2Pork.Entity.Moving {
-    public class Aquamentus : Enemy {
+namespace Sprint2Pork.Entity.Moving
+{
+    public class Aquamentus : Enemy
+    {
 
         private bool fireballsCreated;
 
@@ -21,7 +18,8 @@ namespace Sprint2Pork.Entity.Moving {
 
         private bool movingRight = true;
 
-        public Aquamentus() {
+        public Aquamentus()
+        {
             sourceRects = new List<Rectangle>() {
                 new Rectangle(36, 0, 36, 36),
                 new Rectangle(84, 0, 36, 36)
@@ -34,15 +32,22 @@ namespace Sprint2Pork.Entity.Moving {
             destinationRect = new Rectangle(initX, initY, rectW, rectH);
         }
 
-        public override void Move() {
+        public override void Move()
+        {
             moveCount++;
-            if(moveCount > moveMaxCount) {
+            if (moveCount > moveMaxCount)
+            {
                 moveCount = 0;
-                if (movingRight && relativeX < 50) {
+                if (movingRight && relativeX < 50)
+                {
                     relativeX++;
-                } else if (!movingRight && relativeX > -50) {
+                }
+                else if (!movingRight && relativeX > -50)
+                {
                     relativeX--;
-                } else {
+                }
+                else
+                {
                     movingRight = !movingRight;
                 }
             }

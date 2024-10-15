@@ -9,9 +9,9 @@ namespace Sprint2Pork
         public int direction = 0;
         int startX = 0;
         int startY = 0;
-        List<Rectangle> sourceRects = new List<Rectangle> ();
+        List<Rectangle> sourceRects = new List<Rectangle>();
         String directionStr;
-        
+
         public BlueBoomer(Link link)
         {
             string directionStr = "Down";
@@ -25,7 +25,7 @@ namespace Sprint2Pork
                     direction = 0;
                     directionStr = "Down";
                     startX = -15;
-                    startY = 10; 
+                    startY = 10;
                     break;
                 case RightFacingLinkState:
                     direction = 1;

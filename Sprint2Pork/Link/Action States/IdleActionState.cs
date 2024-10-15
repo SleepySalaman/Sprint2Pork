@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
 namespace Sprint2Pork
 {
@@ -22,18 +17,18 @@ namespace Sprint2Pork
                     rect = (new Rectangle(100, 0, 16, 15));
                     flipped = false;
                     break;
-                case DownFacingLinkState: 
+                case DownFacingLinkState:
                     rect = new Rectangle(0, 0, 16, 15);
                     flipped = false;
                     break;
-                case LeftFacingLinkState: 
+                case LeftFacingLinkState:
                     rect = new Rectangle(34, 0, 16, 15);
                     flipped = true;
                     break;
-                case RightFacingLinkState: 
+                case RightFacingLinkState:
                     rect = new Rectangle(34, 0, 16, 15);
                     flipped = false;
-                    break;               
+                    break;
             }
             link.linkSprite = new NonMovingNonAnimatedSprite(link.x, link.y, rect, flipped);
 

@@ -55,7 +55,8 @@ public class MovingNonAnimatedSprite : ISprite
         sb.Draw(txt, destinationRect, sourceRects[currentFrame], Color.White, rotation, origin, SpriteEffects.None, 0);
     }
 
-    Rectangle ISprite.getRect() {
+    Rectangle ISprite.getRect()
+    {
         return destinationRect;
     }
 }

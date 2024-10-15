@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace Sprint2Pork
 {
@@ -180,23 +172,23 @@ namespace Sprint2Pork
             {
                 linkItem = new Arrow(this);
             }
-            else if(index == 2)
+            else if (index == 2)
             {
                 linkItem = new Boomerang(this);
             }
-            else if(index == 3)
+            else if (index == 3)
             {
                 linkItem = new Bomb(this);
             }
-            else if(index == 4)
+            else if (index == 4)
             {
                 linkItem = new WoodArrow(this);
             }
-            else if(index == 5)
+            else if (index == 5)
             {
                 linkItem = new BlueBoomer(this);
             }
-            else if(index == 6)
+            else if (index == 6)
             {
                 linkItem = new Fire(this);
             }
@@ -243,11 +235,13 @@ namespace Sprint2Pork
             }
         }
 
-        public Rectangle getRect() {
+        public Rectangle getRect()
+        {
             return linkSprite.getRect();
         }
 
-        public Rectangle getItemRect() {
+        public Rectangle getItemRect()
+        {
             return linkItemSprite.getRect();
         }
     }

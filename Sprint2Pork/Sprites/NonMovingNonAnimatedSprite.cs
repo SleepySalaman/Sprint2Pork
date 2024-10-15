@@ -44,7 +44,8 @@ public class NonMovingNonAnimatedSprite : ISprite
         }
     }
 
-    Rectangle ISprite.getRect() {
+    Rectangle ISprite.getRect()
+    {
         return destinationRect;
     }
 }

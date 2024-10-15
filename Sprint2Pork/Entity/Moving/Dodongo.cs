@@ -1,12 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Sprint2Pork.Entity.Moving {
-    public class Dodongo : Enemy {
+namespace Sprint2Pork.Entity.Moving
+{
+    public class Dodongo : Enemy
+    {
 
         private int moveX = 0;
         private int moveY = 0;
@@ -25,7 +24,8 @@ namespace Sprint2Pork.Entity.Moving {
         private List<Rectangle> damagedLeftRects;
         private List<Rectangle> downRects;
 
-        public Dodongo() {
+        public Dodongo()
+        {
             sourceRects = new List<Rectangle>();
 
             upRects = new List<Rectangle>() {
@@ -38,7 +38,8 @@ namespace Sprint2Pork.Entity.Moving {
                 new Rectangle(84, 110, 32, 32)
             };
 
-            damagedRightRects = new List<Rectangle>() {
+            damagedRightRects = new List<Rectangle>()
+            {
 
             };
 
@@ -47,7 +48,8 @@ namespace Sprint2Pork.Entity.Moving {
                 new Rectangle(24, 110, 32, 32)
             };
 
-            damagedLeftRects = new List<Rectangle>() {
+            damagedLeftRects = new List<Rectangle>()
+            {
 
             };
 
@@ -62,11 +64,14 @@ namespace Sprint2Pork.Entity.Moving {
             destinationRect = new Rectangle(initX, initY, 100, 100);
         }
 
-        public override void Move() {
-            if (!moving) {
+        public override void Move()
+        {
+            if (!moving)
+            {
                 moving = true;
                 direction = new Random().Next(1, 5);
-                switch (direction) {
+                switch (direction)
+                {
                     case 1: //right
                         sourceRects = rightRects;
                         break;
@@ -81,13 +86,19 @@ namespace Sprint2Pork.Entity.Moving {
                         break;
                 }
                 totalFrames = sourceRects.Count;
-            } else {
+            }
+            else
+            {
                 movedAmount++;
-                if (movedAmount > moveDistance) {
+                if (movedAmount > moveDistance)
+                {
                     moving = false;
                     movedAmount = 0;
-                } else {
-                    switch (direction) {
+                }
+                else
+                {
+                    switch (direction)
+                    {
                         case 1: //right
                             moveX++;
                             break;

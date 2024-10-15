@@ -2,10 +2,13 @@
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
-namespace Sprint2Pork.Blocks {
-    public class GenerateBlocks {
+namespace Sprint2Pork.Blocks
+{
+    public class GenerateBlocks
+    {
 
-        public static void fillBlockList(List<Block> blocks, Texture2D txt, Vector2 pos) {
+        public static void fillBlockList(List<Block> blocks, Texture2D txt, Vector2 pos)
+        {
             blocks.Add(new Block1(txt, pos));
             blocks.Add(new Block2(txt, pos));
             blocks.Add(new Block3(txt, pos));

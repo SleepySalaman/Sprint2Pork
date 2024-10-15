@@ -1,13 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Sprint2Pork.Entity.Moving {
-    public abstract class Enemy : IEnemy {
+namespace Sprint2Pork.Entity.Moving
+{
+    public abstract class Enemy : IEnemy
+    {
 
         protected int totalFrames;
         protected int currentFrame = 0;
@@ -28,12 +26,15 @@ namespace Sprint2Pork.Entity.Moving {
 
         protected Color color = Color.White;
 
-        public void Update() {
+        public void Update()
+        {
             count++;
-            if (count > maxCount) {
+            if (count > maxCount)
+            {
                 currentFrame++;
                 count = 0;
-                if (currentFrame == totalFrames) {
+                if (currentFrame == totalFrames)
+                {
                     currentFrame = 0;
                 }
             }
@@ -41,22 +42,29 @@ namespace Sprint2Pork.Entity.Moving {
 
         public abstract void Move();
 
-        public void Draw(SpriteBatch sb, Texture2D txt) {
+        public void Draw(SpriteBatch sb, Texture2D txt)
+        {
             sb.Draw(txt, destinationRect, sourceRects[currentFrame], color);
         }
 
-        public int getX() {
+        public int getX()
+        {
             return relativeX;
         }
 
-        public Rectangle getRect() {
+        public Rectangle getRect()
+        {
             return destinationRect;
         }
 
-        void IEnemy.updateFromCollision(bool collides, Color c) {
-            if (collides) {
+        void IEnemy.updateFromCollision(bool collides, Color c)
+        {
+            if (collides)
+            {
                 color = c;
-            } else {
+            }
+            else
+            {
                 color = Color.White;
             }
         }

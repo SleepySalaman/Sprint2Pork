@@ -1,19 +1,17 @@
 ﻿using Microsoft.Xna.Framework;
-using Sprint2Pork.GroundItems;
 using Sprint2Pork.Items;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Sprint2Pork.GroundItems {
-    public class GroundItemsController {
+namespace Sprint2Pork.GroundItems
+{
+    public class GroundItemsController
+    {
 
         //rupee, triangle, compass, key, candle, arrow, gypsie, meat, clock, potion, scroll, heart
         private List<List<Rectangle>> itemFrames;
 
-        public GroundItemsController() {
+        public GroundItemsController()
+        {
             itemFrames = new List<List<Rectangle>> {
                 new List<Rectangle> { new Rectangle(72, 0, 8, 16), new Rectangle(72, 16, 8, 16) },
                 new List<Rectangle> { new Rectangle(270, 0, 16, 16), new Rectangle(270, 16, 16, 16) },
@@ -30,7 +28,8 @@ namespace Sprint2Pork.GroundItems {
             };
         }
 
-        public List<GroundItem> createGroundItems() {
+        public List<GroundItem> createGroundItems()
+        {
             List<GroundItem> items = new List<GroundItem> {
                 new Rupee(400, 200, itemFrames[0]),
                 new Triangle(400, 200, itemFrames[1]),

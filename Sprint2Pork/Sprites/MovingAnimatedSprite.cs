@@ -86,7 +86,8 @@ public class MovingAnimatedSprite : ISprite
         }
     }
 
-    Rectangle ISprite.getRect() {
+    Rectangle ISprite.getRect()
+    {
         return destinationRect;
     }
 }

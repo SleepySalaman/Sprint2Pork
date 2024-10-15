@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Input;
-using Sprint2Pork.Blocks;
 using Sprint2Pork;
+using Sprint2Pork.Blocks;
 using System.Collections.Generic;
 
 public class KeyboardController : IController
@@ -15,7 +15,7 @@ public class KeyboardController : IController
     // Damage effect fields
     private int damageEffectCounter;
     private bool isTakingDamage;
-    private const int flashRate = 5; 
+    private const int flashRate = 5;
 
     public KeyboardController(Game1 g, Link linkCharacter, List<Block> blocks)
     {
@@ -177,7 +177,7 @@ public class KeyboardController : IController
             programGame.graphics.IsFullScreen = programGame.IsFullscreen;
             programGame.graphics.ApplyChanges();
         }
-        if(IsKeyPressed(ks, Keys.F12))
+        if (IsKeyPressed(ks, Keys.F12))
         {
             programGame.getDevRoom();
         }

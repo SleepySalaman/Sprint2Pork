@@ -1,12 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Sprint2Pork.Entity.Moving {
-    public class Stalfos : Enemy {
+namespace Sprint2Pork.Entity.Moving
+{
+    public class Stalfos : Enemy
+    {
 
         private int moveX = 0;
         private int moveY = 0;
@@ -18,7 +17,8 @@ namespace Sprint2Pork.Entity.Moving {
 
         private bool moving = false;
 
-        public Stalfos() {
+        public Stalfos()
+        {
             sourceRects = new List<Rectangle>() {
                new Rectangle(0, 0, 15, 16),
                new Rectangle(13, 0, 15, 16)
@@ -30,17 +30,25 @@ namespace Sprint2Pork.Entity.Moving {
             destinationRect = new Rectangle(initX, initY, rectW / 2, rectH / 2);
         }
 
-        public override void Move() {
-            if (!moving) {
+        public override void Move()
+        {
+            if (!moving)
+            {
                 moving = true;
                 direction = new Random().Next(1, 5);
-            } else {
+            }
+            else
+            {
                 movedAmount++;
-                if(movedAmount > moveDistance) {
+                if (movedAmount > moveDistance)
+                {
                     moving = false;
                     movedAmount = 0;
-                } else {
-                    switch (direction) {
+                }
+                else
+                {
+                    switch (direction)
+                    {
                         case 1: //right
                             moveX++;
                             break;

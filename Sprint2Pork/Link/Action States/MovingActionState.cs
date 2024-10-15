@@ -1,23 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sprint2Pork
+﻿namespace Sprint2Pork
 {
     public class MovingActionState : ILinkActionState
     {
         private Link link;
 
-        public MovingActionState(Link link) { 
+        public MovingActionState(Link link)
+        {
 
             switch (link.directionState)
             {
                 case LeftFacingLinkState:
                     link.directionState = new LeftFacingLinkState(link);
                     break;
-                    case RightFacingLinkState:
+                case RightFacingLinkState:
                     link.directionState = new RightFacingLinkState(link);
                     break;
                 case UpFacingLinkState:

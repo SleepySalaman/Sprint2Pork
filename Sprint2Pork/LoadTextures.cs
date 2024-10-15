@@ -1,15 +1,14 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Sprint2Pork {
-    public class LoadTextures {
+namespace Sprint2Pork
+{
+    public class LoadTextures
+    {
 
-        public static void loadAllTextures(List<Texture2D> allTextures, ContentManager Content) {
+        public static void loadAllTextures(List<Texture2D> allTextures, ContentManager Content)
+        {
             allTextures.Add(Content.Load<Texture2D>("LinkMovingWithDamage")); //character
             allTextures.Add(Content.Load<Texture2D>("zeldabosses")); //fireball
             allTextures.Add(Content.Load<Texture2D>("zeldaenemies")); //enemies

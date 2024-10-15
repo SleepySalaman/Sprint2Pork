@@ -1,12 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sprint2Pork.Blocks;
-using Sprint2Pork.Entity;
 using Sprint2Pork.Entity.Moving;
 using Sprint2Pork.GroundItems;
 using Sprint2Pork.Items;
 using Sprint2Pork.rooms;
-using System;
 using System.Collections.Generic;
 
 namespace Sprint2Pork
@@ -120,15 +118,12 @@ namespace Sprint2Pork
 
             GenerateBlocks.fillBlockList(blocks, allTextures[8], blockPosition);
 
-
             Texture2D blockTexture = allTextures[8];
             Texture2D groundItemTexture = allTextures[9];
             Texture2D enemyTexture = allTextures[2];
 
-
             CSVLevelLoader.LoadObjectsFromCSV("room1.csv", blockTexture, groundItemTexture, enemyTexture, out var room1Blocks, out var room1Items, out var room1Enemies);
             CSVLevelLoader.LoadObjectsFromCSV("room2.csv", blockTexture, groundItemTexture, enemyTexture, out var room2Blocks, out var room2Items, out var room2Enemies);
-
 
             rooms["room1"] = (new List<Block>(room1Blocks), new List<GroundItem>(room1Items), new List<IEnemy>(room1Enemies));
             rooms["room2"] = (new List<Block>(room2Blocks), new List<GroundItem>(room2Items), new List<IEnemy>(room2Enemies));
@@ -147,7 +142,6 @@ namespace Sprint2Pork
             UpdateControllers();
             UpdateGroundItems();
             UpdateEnemies(gameTime);
-
             UpdateLink(linkPreviousX, linkPreviousY);
 
             CheckRoomChange();
@@ -338,8 +332,8 @@ namespace Sprint2Pork
         {
             switch (currentEnemyNum)
             {
-                case 0: enemySprite = new Aquamentus(); enemyManager = new EnemyManager(enemySprite.getX());  break;
-                case 1: enemySprite = new Dodongo(); enemyManager.clearFireballs();  break;
+                case 0: enemySprite = new Aquamentus(); enemyManager = new EnemyManager(enemySprite.getX()); break;
+                case 1: enemySprite = new Dodongo(); enemyManager.clearFireballs(); break;
                 case 2: enemySprite = new Manhandla(); break;
                 case 3: enemySprite = new Gleeok(); break;
                 case 4: enemySprite = new Digdogger(); break;
@@ -353,12 +347,16 @@ namespace Sprint2Pork
             }
         }
 
-        public void drawCurrentEnemy() {
-            if (currentEnemyNum < 7) {
+        public void drawCurrentEnemy()
+        {
+            if (currentEnemyNum < 7)
+            {
                 enemySprite.Draw(spriteBatch, allTextures[2]);
-            } else {
+            }
+            else
+            {
                 enemySprite.Draw(spriteBatch, allTextures[currentEnemyNum - 4]);
-            } 
+            }
         }
         public void getDevRoom()
         {

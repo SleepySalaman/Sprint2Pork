@@ -1,13 +1,10 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
-using System;
+﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Sprint2Pork.Entity.Moving {
-    public class Fireball : Entity {
+namespace Sprint2Pork.Entity.Moving
+{
+    public class Fireball : Entity
+    {
 
         private int fireballID;
 
@@ -19,7 +16,8 @@ namespace Sprint2Pork.Entity.Moving {
 
         private int maxX = -50;
 
-        public Fireball(int id, int x) {
+        public Fireball(int id, int x)
+        {
             sourceRects = new List<Rectangle>() {
                 new Rectangle(101, 14, 8, 10),
                 new Rectangle(110, 14, 8, 10),
@@ -35,11 +33,15 @@ namespace Sprint2Pork.Entity.Moving {
             destinationRect = new Rectangle(initX + relX + modX, initY, 20, 20);
         }
 
-        public void Move() {
+        public void Move()
+        {
             changeX--;
-            if(fireballID == 0) {
+            if (fireballID == 0)
+            {
                 changeY--;
-            } else if(fireballID == 2) {
+            }
+            else if (fireballID == 2)
+            {
                 changeY++;
             }
             destinationRect.X = initX + changeX + relX + modX;

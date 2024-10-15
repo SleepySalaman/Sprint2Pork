@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 
 namespace Sprint2Pork
 {
@@ -59,18 +58,19 @@ namespace Sprint2Pork
             }
 
             //Explosion
-            if (link.linkCount >= 18){
+            if (link.linkCount >= 18)
+            {
                 rect = new Rectangle(153, 29, 17, 28);
                 if (link.directionState is RightFacingLinkState)
                 {
                     link.offsetX += 87;
                 }
-                else if(link.directionState is UpFacingLinkState)
+                else if (link.directionState is UpFacingLinkState)
                 {
                     link.offsetY -= 87;
                     link.offsetX -= 25;
                 }
-                else if(link.directionState is LeftFacingLinkState)
+                else if (link.directionState is LeftFacingLinkState)
                 {
                     link.offsetX -= 15;
                 }

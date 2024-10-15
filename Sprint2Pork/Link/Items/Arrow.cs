@@ -1,11 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Sprint2Pork
 {
@@ -38,7 +31,7 @@ namespace Sprint2Pork
                     direction = 2;
                     directionStr = "Up";
                     startX = 35;
-                    startY = 80; 
+                    startY = 80;
                     rect = new Rectangle(27, 30, 7, 18);
                     break;
                 case UpFacingLinkState:

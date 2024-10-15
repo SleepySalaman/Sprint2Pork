@@ -1,9 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
 
 namespace Sprint2Pork
 {
@@ -48,7 +44,7 @@ namespace Sprint2Pork
                     rects.Add(new Rectangle(45, 43, 23, 16));
                     // fully extended blue
                     rects.Add(new Rectangle(16, 43, 28, 16));
-                    
+
                     // fully extended brown
                     rects.Add(new Rectangle(45, 43, 23, 16));
                     // half extended brown
