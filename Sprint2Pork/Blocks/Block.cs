@@ -8,6 +8,8 @@ namespace Sprint2Pork.Blocks
         public Texture2D Texture { get; set; }
         public Vector2 Position { get; set; }
         public Rectangle SourceRect { get; set; } // Rectangle to define which part of the sprite sheet is used
+        public Rectangle BoundingBox => new Rectangle((int)Position.X, (int)Position.Y, SourceRect.Width, SourceRect.Height);
+
 
         public Block(Texture2D texture, Vector2 position, Rectangle sourceRect)
         {

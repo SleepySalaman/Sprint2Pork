@@ -142,7 +142,8 @@ namespace Sprint2Pork
             {
                 controller.Update();
             }
-
+            int linkPreviousX = link.x;
+            int linkPreviousY = link.y;
             foreach (var enemy in enemies)
             {
                 enemy.Update();
@@ -176,6 +177,12 @@ namespace Sprint2Pork
             if (link.itemInUse)
             {
                 link.linkItem.Update(link);
+            }
+
+            if (CollisionManager.CheckCollision(link.getRect(), blocks))
+            {
+                link.x = linkPreviousX;
+                link.y = linkPreviousY;
             }
 
             // Check if Link has moved off the right side of the screen
