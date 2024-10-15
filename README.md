@@ -4,6 +4,8 @@
 ## Description
 This project is a game that allows users to control a character, switch weapons, and interact with enemies using keyboard inputs. The game includes visual assets from **Zelda enemy sprites** and incorporates multiple states (damage, block, item, and enemy states) that the user can control in real-time.
 
+Rooms are loaded from room csv files where 0 represents empty space and positive integers represent unique game objects such as ground items, blocks, and enemies. Rooms are populated based on the positions of these ints within the csv file (matrix represents room).
+
 ### Zelda enemies spritesheet:
 - [Sprite Sheet](https://www.spriters-resource.com/fullview/36632/?source=genre)
 
@@ -14,9 +16,9 @@ This project is a game that allows users to control a character, switch weapons,
 - **T, Y**: Switch block states
 - **U, I**: Switch item states
 - **O, P**: Switch enemy states
-- **G, H**: Switch room states
+- **Left/Right Mouse**: Switch room states
 - **Q**: Quit game
-- **R**: Rest (reset the game state)
+- **R**: Reset (reset the game state)
 - **F**: Toggle fullscreen mode
 
 ### Known Bugs
@@ -26,6 +28,9 @@ This project is a game that allows users to control a character, switch weapons,
 2. **Occasional Lag**: Switching item states quickly can sometimes cause minor lag or delays in input responsiveness.
 
 3. **Fullscreen Issues**: On some monitors, toggling fullscreen can cause the resolution to display incorrectly, cutting off certain UI elements.
+
+4. **Trapped on Room Switch**: When manually switching rooms, it is possible for Link to be stuck in a wall in the new room. This is due to Link's position being constant on a manual room change. This is a small bug that only occurs when debugging as manual room switching will not be incorporated into the final game.
+
 
 ## Tools and Processes
 - **Visual Studio Code Metrics**: We used Visual Studio’s built-in tools to calculate code metrics such as coupling.
