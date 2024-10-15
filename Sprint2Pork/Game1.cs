@@ -152,6 +152,7 @@ namespace Sprint2Pork
             foreach (var enemy in enemies)
             {
                 enemy.updateFromCollision(collisionHandler.collides(link.getRect(), enemy.getRect()), Color.Red);
+                link.TakeDamage();
             }
             foreach (var item in groundItems)
             {
@@ -179,13 +180,16 @@ namespace Sprint2Pork
                 link.linkItem.Update(link);
             }
 
-            if (CollisionManager.CheckCollision(link.getRect(), blocks))
+            foreach (Block block in blocks)
             {
-                link.x = linkPreviousX;
-                link.y = linkPreviousY;
+                if (collisionHandler.collides(link.getRect(), block.getBoundingBox()))
+                {
+                    link.x = linkPreviousX;
+                    link.y = linkPreviousY;
+                    break;
+                }
             }
 
-            // Check if Link has moved off the right side of the screen
             if (currentRoom == "room1" && link.x > GraphicsDevice.Viewport.Width)
             {
                 SwitchRoom("room2");
