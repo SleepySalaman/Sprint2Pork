@@ -98,9 +98,9 @@ namespace Sprint2Pork
         {
             viewport = graphics.GraphicsDevice.Viewport;
             link = new Link(viewport.Width, viewport.Height);
-            controllerList.Add(new KeyboardController(this, link, blocks));
 
-            controllerList.Add(new MouseController(this)); // Keep MouseController if it's relevant
+            controllerList.Add(new KeyboardController(this, link, blocks));
+            controllerList.Add(new MouseController(this)); 
 
             base.Initialize();
         }
@@ -358,7 +358,7 @@ namespace Sprint2Pork
                 enemySprite.Draw(spriteBatch, allTextures[currentEnemyNum - 4]);
             }
         }
-        public void getDevRoom()
+        public void GetDevRoom()
         {
             SwitchRoom("room1");
             link.x = 50;

@@ -179,15 +179,7 @@ public class KeyboardController : IController
         }
         if (IsKeyPressed(ks, Keys.F12))
         {
-            programGame.getDevRoom();
-        }
-        if (IsKeyPressed(ks, Keys.G))
-        {
-            programGame.SwitchToNextRoom();
-        }
-        else if (IsKeyPressed(ks, Keys.H))
-        {
-            programGame.SwitchToPreviousRoom();
+            programGame.GetDevRoom();
         }
     }
 
