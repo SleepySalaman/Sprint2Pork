@@ -41,36 +41,40 @@ namespace Sprint2Pork.rooms
                                 break;
 
                             // Blocks
+                            case -1:
+                                blocks.Add(new InvisibleBlock(blockTexture, position));
+                                break;
                             case 1:
-                                blocks.Add(new Block1(blockTexture, position));
+                                blocks.Add(new FloorBlock(blockTexture, position));
                                 break;
                             case 2:
                                 blocks.Add(new Block2(blockTexture, position));
                                 break;
                             case 3:
-                                blocks.Add(new Block3(blockTexture, position));
+                                blocks.Add(new EnemyBlock1(blockTexture, position));
                                 break;
                             case 4:
                                 blocks.Add(new Block4(blockTexture, position));
                                 break;
                             case 5:
-                                blocks.Add(new Block5(blockTexture, position));
+                                blocks.Add(new BlackBlock(blockTexture, position));
                                 break;
                             case 6:
-                                blocks.Add(new Block6(blockTexture, position));
+                                blocks.Add(new SpeckledBlock(blockTexture, position));
                                 break;
                             case 7:
-                                blocks.Add(new Block7(blockTexture, position));
+                                blocks.Add(new DarkBlueBlock(blockTexture, position));
                                 break;
                             case 8:
-                                blocks.Add(new Block8(blockTexture, position));
+                                blocks.Add(new StairBlock(blockTexture, position));
                                 break;
                             case 9:
                                 blocks.Add(new Block9(blockTexture, position));
                                 break;
                             case 10:
-                                blocks.Add(new Block10(blockTexture, position));
+                                blocks.Add(new StripedBlock(blockTexture, position));
                                 break;
+
 
                             // Ground Items
                             case 11:

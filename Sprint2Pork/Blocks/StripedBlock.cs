@@ -3,9 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Sprint2Pork.Blocks
 {
-    public class Block10 : Block
+    public class StripedBlock : Block
     {
-        public Block10(Texture2D texture, Vector2 position)
+        public StripedBlock(Texture2D texture, Vector2 position)
             : base(texture, position, new Rectangle(144, 0, 16, 16))
         {
         }
