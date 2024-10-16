@@ -8,6 +8,8 @@ namespace Sprint2Pork
     public class EnemyManager
     {
 
+        private int startX, startY;
+
         List<Fireball> fireballs;
 
         private bool attacking = true;
@@ -16,9 +18,11 @@ namespace Sprint2Pork
         private double timeSinceAttacked = 0.0;
         private double timeBetweenAttacks = 1.0;
 
-        public EnemyManager(int x)
+        public EnemyManager(int x, int initX, int initY)
         {
             fireballs = new List<Fireball>();
+            startX = initX;
+            startY = initY;
             generateFireballs(x);
         }
 
@@ -72,7 +76,7 @@ namespace Sprint2Pork
         {
             for (int i = 0; i < 3; i++)
             {
-                fireballs.Add(new Fireball(i, x));
+                fireballs.Add(new Fireball(i, x, startX, startY));
             }
         }
 

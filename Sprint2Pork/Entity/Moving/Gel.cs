@@ -6,6 +6,7 @@ namespace Sprint2Pork.Entity.Moving
 {
     public class Gel : Enemy
     {
+        private int startX, startY;
 
         private int moveX = 0;
         private int moveY = 0;
@@ -17,12 +18,14 @@ namespace Sprint2Pork.Entity.Moving
 
         private bool moving = false;
 
-        public Gel()
-        {
+        public Gel(int initX, int initY){
             sourceRects = new List<Rectangle>() {
                 new Rectangle(0, 0, 8, 8),
                 new Rectangle(8, 0, 8, 8)
             };
+
+            startX = initX;
+            startY = initY;
 
             totalFrames = sourceRects.Count;
 
@@ -62,8 +65,8 @@ namespace Sprint2Pork.Entity.Moving
                     }
                 }
             }
-            destinationRect.X = initX + moveX;
-            destinationRect.Y = initY + moveY;
+            destinationRect.X = startX + moveX;
+            destinationRect.Y = startY + moveY;
         }
 
     }

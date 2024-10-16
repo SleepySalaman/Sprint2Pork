@@ -35,6 +35,8 @@ namespace Sprint2Pork
         private List<Block> blocks;
         private List<GroundItem> groundItems;
         private List<IEnemy> enemies;
+        private int enemyInitX = 450;
+        private int enemyInitY = 350;
         private int currentBlockIndex = 0;
         private Vector2 blockPosition;
 
@@ -108,8 +110,8 @@ namespace Sprint2Pork
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            enemySprite = new Aquamentus();
-            enemyManager = new EnemyManager(enemySprite.getX());
+            enemySprite = new Aquamentus(enemyInitX, enemyInitY);
+            enemyManager = new EnemyManager(enemySprite.getX(), enemyInitX, enemyInitY);
 
             LoadTextures.loadAllTextures(allTextures, Content);
 
@@ -263,8 +265,8 @@ namespace Sprint2Pork
             spritePos[1] = 50;
             moving = false;
 
-            enemySprite = new Aquamentus();
-            enemyManager = new EnemyManager(enemySprite.getX());
+            enemySprite = new Aquamentus(enemyInitX, enemyInitY);
+            enemyManager = new EnemyManager(enemySprite.getX(), enemyInitX, enemyInitY);
             currentEnemyNum = 0;
 
             link = new Link(viewport.Width, viewport.Height);
@@ -332,18 +334,18 @@ namespace Sprint2Pork
         {
             switch (currentEnemyNum)
             {
-                case 0: enemySprite = new Aquamentus(); enemyManager = new EnemyManager(enemySprite.getX()); break;
-                case 1: enemySprite = new Dodongo(); enemyManager.clearFireballs(); break;
-                case 2: enemySprite = new Manhandla(); break;
-                case 3: enemySprite = new Gleeok(); break;
-                case 4: enemySprite = new Digdogger(); break;
-                case 5: enemySprite = new Gohma(); break;
-                case 6: enemySprite = new Ganon(); break;
-                case 7: enemySprite = new Gel(); break;
-                case 8: enemySprite = new Bat(); break;
-                case 9: enemySprite = new Goriya(); break;
-                case 10: enemySprite = new Wizard(); break;
-                case 11: enemySprite = new Stalfos(); enemyManager.clearFireballs(); break;
+                case 0: enemySprite = new Aquamentus(enemyInitX, enemyInitY); enemyManager = new EnemyManager(enemySprite.getX(), enemyInitX, enemyInitY); break;
+                case 1: enemySprite = new Dodongo(enemyInitX, enemyInitY); enemyManager.clearFireballs(); break;
+                case 2: enemySprite = new Manhandla(enemyInitX, enemyInitY); break;
+                case 3: enemySprite = new Gleeok(enemyInitX, enemyInitY); break;
+                case 4: enemySprite = new Digdogger(enemyInitX, enemyInitY); break;
+                case 5: enemySprite = new Gohma(enemyInitX, enemyInitY); break;
+                case 6: enemySprite = new Ganon(enemyInitX, enemyInitY); break;
+                case 7: enemySprite = new Gel(enemyInitX, enemyInitY); break;
+                case 8: enemySprite = new Bat(enemyInitX, enemyInitY); break;
+                case 9: enemySprite = new Goriya(enemyInitX, enemyInitY); break;
+                case 10: enemySprite = new Wizard(enemyInitX, enemyInitY); break;
+                case 11: enemySprite = new Stalfos(enemyInitX, enemyInitY); enemyManager.clearFireballs(); break;
             }
         }
 

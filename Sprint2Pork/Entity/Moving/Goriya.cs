@@ -6,6 +6,7 @@ namespace Sprint2Pork.Entity.Moving
 {
     public class Goriya : Enemy
     {
+        private int startX, startY;
 
         private int moveX = 0;
         private int moveY = 0;
@@ -22,9 +23,11 @@ namespace Sprint2Pork.Entity.Moving
         private List<Rectangle> leftRects;
         private List<Rectangle> rightRects;
 
-        public Goriya()
-        {
+        public Goriya(int initX, int initY){
             sourceRects = new List<Rectangle>();
+
+            startX = initX;
+            startY = initY;
 
             downRects = new List<Rectangle>() {
                 new Rectangle(0, 0, 13, 16),
@@ -102,8 +105,8 @@ namespace Sprint2Pork.Entity.Moving
                     }
                 }
             }
-            destinationRect.X = initX + moveX;
-            destinationRect.Y = initY + moveY;
+            destinationRect.X = startX + moveX;
+            destinationRect.Y = startY + moveY;
         }
 
     }

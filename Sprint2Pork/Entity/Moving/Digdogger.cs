@@ -15,8 +15,7 @@ namespace Sprint2Pork.Entity.Moving
         private int switchTimer = 0;
         private int maxSwitchTime = 150;
 
-        public Digdogger()
-        {
+        public Digdogger(int initX, int initY){
             sourceRects = new List<Rectangle>();
 
             digdoggerLarge = new List<Rectangle> {

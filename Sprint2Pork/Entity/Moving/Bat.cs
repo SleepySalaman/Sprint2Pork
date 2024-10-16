@@ -6,6 +6,7 @@ namespace Sprint2Pork.Entity.Moving
 {
     public class Bat : Enemy
     {
+        private int x, y;
 
         private int moveX = 0;
         private int moveY = 0;
@@ -17,12 +18,14 @@ namespace Sprint2Pork.Entity.Moving
 
         private bool moving = false;
 
-        public Bat()
-        {
+        public Bat(int initX, int initY){
             sourceRects = new List<Rectangle>() {
                 new Rectangle(0, 1, 16, 8),
                 new Rectangle(28, 1, 10, 9)
             };
+
+            x = initX;
+            y = initY;
 
             totalFrames = sourceRects.Count;
 
@@ -63,8 +66,8 @@ namespace Sprint2Pork.Entity.Moving
                     }
                 }
             }
-            destinationRect.X = initX + moveX;
-            destinationRect.Y = initY + moveY;
+            destinationRect.X = x + moveX;
+            destinationRect.Y = y + moveY;
         }
     }
 }

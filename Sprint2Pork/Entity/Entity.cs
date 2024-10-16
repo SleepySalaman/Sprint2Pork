@@ -13,9 +13,6 @@ namespace Sprint2Pork.Entity
         protected int count = 0;
         protected int maxCount = 30;
 
-        protected int initX = 450;
-        protected int initY = 350;
-
         protected int rectW = 100;
         protected int rectH = 100;
 

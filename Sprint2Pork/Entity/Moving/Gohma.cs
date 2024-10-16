@@ -6,8 +6,7 @@ namespace Sprint2Pork.Entity.Moving
     public class Gohma : Enemy
     {
 
-        public Gohma()
-        {
+        public Gohma(int initX, int initY){
             sourceRects = new List<Rectangle>() {
                 new Rectangle(120, 80, 60, 30),
                 new Rectangle(180, 80, 60, 30),

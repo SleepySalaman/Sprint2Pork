@@ -15,10 +15,12 @@ namespace Sprint2Pork.Entity.Moving
 
         private int direction = 0;
 
+        private int x;
+        private int y;
+
         private bool moving = false;
 
-        public Manhandla()
-        {
+        public Manhandla(int initX, int initY){
             sourceRects = new List<Rectangle>() {
                 new Rectangle(0, 199, 60, 50),
                 new Rectangle(60, 200, 60, 50),
@@ -30,6 +32,9 @@ namespace Sprint2Pork.Entity.Moving
                 new Rectangle(120, 255, 60, 50),
                 new Rectangle(180, 255, 60, 50)
             };
+
+            x = initX;
+            y = initY;
 
             totalFrames = sourceRects.Count;
 
@@ -70,8 +75,8 @@ namespace Sprint2Pork.Entity.Moving
                     }
                 }
             }
-            destinationRect.X = initX + moveX;
-            destinationRect.Y = initY + moveY;
+            destinationRect.X = x + moveX;
+            destinationRect.Y = y + moveY;
         }
 
     }

@@ -6,8 +6,7 @@ namespace Sprint2Pork.Entity.Moving
     public class Wizard : Enemy
     {
 
-        public Wizard()
-        {
+        public Wizard(int initX, int initY){
             sourceRects = new List<Rectangle>() {
                 new Rectangle(0, 0, 16, 16)
             };

@@ -5,6 +5,7 @@ namespace Sprint2Pork.Entity.Moving
 {
     public class Fireball : Entity
     {
+        private int startX, startY;
 
         private int fireballID;
 
@@ -16,14 +17,16 @@ namespace Sprint2Pork.Entity.Moving
 
         private int maxX = -50;
 
-        public Fireball(int id, int x)
-        {
+        public Fireball(int id, int x, int initX, int initY){
             sourceRects = new List<Rectangle>() {
                 new Rectangle(101, 14, 8, 10),
                 new Rectangle(110, 14, 8, 10),
                 new Rectangle(119, 14, 8, 10),
                 new Rectangle(128, 14, 8, 10)
             };
+
+            startX = initX;
+            startY = initY;
 
             totalFrames = sourceRects.Count;
             fireballID = id;
@@ -44,8 +47,8 @@ namespace Sprint2Pork.Entity.Moving
             {
                 changeY++;
             }
-            destinationRect.X = initX + changeX + relX + modX;
-            destinationRect.Y = initY + changeY;
+            destinationRect.X = startX + changeX + relX + modX;
+            destinationRect.Y = startY + changeY;
         }
     }
 }

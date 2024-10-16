@@ -6,6 +6,7 @@ namespace Sprint2Pork.Entity.Moving
 {
     public class Dodongo : Enemy
     {
+        private int x, y;
 
         private int moveX = 0;
         private int moveY = 0;
@@ -24,9 +25,11 @@ namespace Sprint2Pork.Entity.Moving
         private List<Rectangle> damagedLeftRects;
         private List<Rectangle> downRects;
 
-        public Dodongo()
-        {
+        public Dodongo(int initX, int initY){
             sourceRects = new List<Rectangle>();
+
+            x = initX;
+            y = initY;
 
             upRects = new List<Rectangle>() {
                 new Rectangle(60, 80, 24, 32),
@@ -114,8 +117,8 @@ namespace Sprint2Pork.Entity.Moving
                     }
                 }
             }
-            destinationRect.X = initX + moveX;
-            destinationRect.Y = initY + moveY;
+            destinationRect.X = x + moveX;
+            destinationRect.Y = y + moveY;
         }
     }
 }
