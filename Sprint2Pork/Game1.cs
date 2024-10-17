@@ -44,6 +44,7 @@ namespace Sprint2Pork
         private int currentItemIndex = 0;
 
         private EnemyManager enemyManager;
+        private UpdateEnemySprite enemyUpdater;
 
         private int currentEnemyNum = 0;
         private int numEnemies = 12;
@@ -111,6 +112,7 @@ namespace Sprint2Pork
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             enemySprite = new Aquamentus(enemyInitX, enemyInitY);
+            enemyUpdater = new UpdateEnemySprite(enemyInitX, enemyInitY);
             enemyManager = new EnemyManager(enemySprite.getX(), enemyInitX, enemyInitY);
 
             LoadTextures.loadAllTextures(allTextures, Content);
@@ -267,6 +269,7 @@ namespace Sprint2Pork
 
             enemySprite = new Aquamentus(enemyInitX, enemyInitY);
             enemyManager = new EnemyManager(enemySprite.getX(), enemyInitX, enemyInitY);
+            enemyUpdater = new UpdateEnemySprite(enemyInitX, enemyInitY);
             currentEnemyNum = 0;
 
             link = new Link(viewport.Width, viewport.Height);
@@ -289,7 +292,7 @@ namespace Sprint2Pork
             spriteBatch.Begin();
             GraphicsDevice.Clear(Color.DodgerBlue);
 
-            drawCurrentEnemy();
+            enemyUpdater.drawCurrentEnemy(enemySprite, spriteBatch, allTextures, currentEnemyNum);
             textSprite.Draw(spriteBatch, allTextures[0]);
 
             blocks[CurrentBlockIndex].Draw(spriteBatch);
@@ -321,45 +324,15 @@ namespace Sprint2Pork
         public void cycleEnemies()
         {
             currentEnemyNum = (currentEnemyNum + 1) % numEnemies;
-            setEnemySprite();
+            enemyUpdater.setEnemySprite(currentEnemyNum, ref enemySprite, ref enemyManager);
         }
 
         public void cycleEnemiesBackwards()
         {
             currentEnemyNum = (currentEnemyNum - 1 + numEnemies) % numEnemies;
-            setEnemySprite();
+            enemyUpdater.setEnemySprite(currentEnemyNum, ref enemySprite, ref enemyManager);
         }
 
-        public void setEnemySprite()
-        {
-            switch (currentEnemyNum)
-            {
-                case 0: enemySprite = new Aquamentus(enemyInitX, enemyInitY); enemyManager = new EnemyManager(enemySprite.getX(), enemyInitX, enemyInitY); break;
-                case 1: enemySprite = new Dodongo(enemyInitX, enemyInitY); enemyManager.clearFireballs(); break;
-                case 2: enemySprite = new Manhandla(enemyInitX, enemyInitY); break;
-                case 3: enemySprite = new Gleeok(enemyInitX, enemyInitY); break;
-                case 4: enemySprite = new Digdogger(enemyInitX, enemyInitY); break;
-                case 5: enemySprite = new Gohma(enemyInitX, enemyInitY); break;
-                case 6: enemySprite = new Ganon(enemyInitX, enemyInitY); break;
-                case 7: enemySprite = new Gel(enemyInitX, enemyInitY); break;
-                case 8: enemySprite = new Bat(enemyInitX, enemyInitY); break;
-                case 9: enemySprite = new Goriya(enemyInitX, enemyInitY); break;
-                case 10: enemySprite = new Wizard(enemyInitX, enemyInitY); break;
-                case 11: enemySprite = new Stalfos(enemyInitX, enemyInitY); enemyManager.clearFireballs(); break;
-            }
-        }
-
-        public void drawCurrentEnemy()
-        {
-            if (currentEnemyNum < 7)
-            {
-                enemySprite.Draw(spriteBatch, allTextures[2]);
-            }
-            else
-            {
-                enemySprite.Draw(spriteBatch, allTextures[currentEnemyNum - 4]);
-            }
-        }
         public void GetDevRoom()
         {
             SwitchRoom("room1");
