@@ -36,6 +36,7 @@ namespace Sprint2Pork
         private List<Block> blocks;
         private List<GroundItem> groundItems;
         private List<IEnemy> enemies;
+        private List<EnemyManager> fireballManagers;
         private int enemyInitX = 450;
         private int enemyInitY = 350;
         private int currentBlockIndex = 0;
@@ -81,6 +82,7 @@ namespace Sprint2Pork
             blocks = new List<Block>();
             groundItems = new List<GroundItem>();
             enemies = new List<IEnemy>();
+            fireballManagers = new List<EnemyManager>();
             blockPosition = new Vector2(200, 200);
 
             controllerList = new List<IController>();
@@ -128,8 +130,8 @@ namespace Sprint2Pork
             Texture2D groundItemTexture = allTextures[9];
             Texture2D enemyTexture = allTextures[2];
 
-            CSVLevelLoader.LoadObjectsFromCSV("room1.csv", blockTexture, groundItemTexture, enemyTexture, out var room1Blocks, out var room1Items, out var room1Enemies);
-            CSVLevelLoader.LoadObjectsFromCSV("room2.csv", blockTexture, groundItemTexture, enemyTexture, out var room2Blocks, out var room2Items, out var room2Enemies);
+            CSVLevelLoader.LoadObjectsFromCSV("room1.csv", blockTexture, groundItemTexture, enemyTexture, out var room1Blocks, out var room1Items, out var room1Enemies, out var fireballManagers);
+            CSVLevelLoader.LoadObjectsFromCSV("room2.csv", blockTexture, groundItemTexture, enemyTexture, out var room2Blocks, out var room2Items, out var room2Enemies, out var fireballManagers2);
 
             rooms["room1"] = (new List<Block>(room1Blocks), new List<GroundItem>(room1Items), new List<IEnemy>(room1Enemies));
             rooms["room2"] = (new List<Block>(room2Blocks), new List<GroundItem>(room2Items), new List<IEnemy>(room2Enemies));
@@ -157,12 +159,14 @@ namespace Sprint2Pork
 
         private void UpdateEnemies(GameTime gameTime)
         {
-            foreach (var enemy in enemies)
-            {
+            foreach (var enemy in enemies) {
                 enemy.Update();
                 enemy.Move();
                 enemy.updateFromCollision(collisionHandler.collides(link.getRect(), enemy.getRect()), Color.Red);
-                link.TakeDamage();
+                // if enemy collides with link, make link take damage
+            }
+            foreach (var fireball in fireballManagers) {
+                fireball.Update(gameTime, 0);
             }
 
             enemySprite.Update();
@@ -321,7 +325,11 @@ namespace Sprint2Pork
 
             foreach (var enemy in enemies)
             {
-                enemy.Draw(spriteBatch, allTextures[10]);
+                enemy.Draw(spriteBatch, allTextures[2]);
+            }
+            foreach (var fireball in fireballManagers)
+            {
+                fireball.Draw(spriteBatch, allTextures[1]);
             }
 
             spriteBatch.End();

@@ -11,12 +11,12 @@ namespace Sprint2Pork.rooms
 {
     public class CSVLevelLoader
     {
-        public static void LoadObjectsFromCSV(string fileName, Texture2D blockTexture, Texture2D itemTexture, Texture2D enemyTexture,
-                                              out List<Block> blocks, out List<GroundItem> groundItems, out List<IEnemy> enemies)
+        public static void LoadObjectsFromCSV(string fileName, Texture2D blockTexture, Texture2D itemTexture, Texture2D enemyTexture, out List<Block> blocks, out List<GroundItem> groundItems, out List<IEnemy> enemies, out List<EnemyManager> fireballs)
         {
             blocks = new List<Block>();
             groundItems = new List<GroundItem>();
             enemies = new List<IEnemy>();
+            fireballs = new List<EnemyManager>();
 
             int tileSize = 16;
             int row = 0;
@@ -116,7 +116,8 @@ namespace Sprint2Pork.rooms
 
                             // Enemies
                             case 30:
-                                //enemies.Add(new Aquamentus(enemyTexture, position));
+                                enemies.Add(new Aquamentus((int)position.X, (int)position.Y));
+                                fireballs.Add(new EnemyManager(0, (int)position.X, (int)position.Y));
                                 break;
                                 // Add more cases for other enemy types as needed
                         }

@@ -29,6 +29,11 @@ namespace Sprint2Pork.Entity.Moving
 
             fireballs = new List<Fireball>();
 
+            for (int i = 0; i < fireballCount; i++)
+            {
+                fireballs.Add(new Fireball(i, fireballDistance * i, initX, initY));
+            }
+
             totalFrames = sourceRects.Count;
 
             destinationRect = new Rectangle(initX, initY, rectW, rectH);
