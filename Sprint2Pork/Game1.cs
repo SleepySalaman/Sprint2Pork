@@ -26,6 +26,7 @@ namespace Sprint2Pork
 
         private int[] spritePos = new int[2] { 0, 0 };
         private bool moving = false;
+        private Texture2D backgroundTexture;
 
         private double switchCooldown = 0.1;
         private double timeSinceLastSwitch = 0;
@@ -118,6 +119,7 @@ namespace Sprint2Pork
             LoadTextures.loadAllTextures(allTextures, Content);
 
             font = Content.Load<SpriteFont>("File");
+            backgroundTexture = Content.Load<Texture2D>("Background");
             textSprite = new TextSprite(200, 100, font);
 
             GenerateBlocks.fillBlockList(blocks, allTextures[8], blockPosition);
@@ -290,8 +292,14 @@ namespace Sprint2Pork
         protected override void Draw(GameTime gameTime)
         {
             spriteBatch.Begin();
-            GraphicsDevice.Clear(Color.DodgerBlue);
 
+            // Clear the screen with a solid color (optional)
+            GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            // Draw the background texture covering the entire screen
+            spriteBatch.Draw(backgroundTexture, new Rectangle(0, 0, viewport.Width, viewport.Height), Color.White);
+
+            // Other drawing logic...
             enemyUpdater.drawCurrentEnemy(enemySprite, spriteBatch, allTextures, currentEnemyNum);
             textSprite.Draw(spriteBatch, allTextures[0]);
 
@@ -318,8 +326,8 @@ namespace Sprint2Pork
 
             spriteBatch.End();
             base.Draw(gameTime);
-
         }
+
 
         public void cycleEnemies()
         {
