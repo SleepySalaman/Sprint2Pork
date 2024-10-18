@@ -18,7 +18,7 @@ namespace Sprint2Pork.Blocks
             SourceRect = sourceRect;
         }
 
-        public void Draw(SpriteBatch spriteBatch, float scale = 2.7f)
+        public void Draw(SpriteBatch spriteBatch, float scale = 2.4f)
         {
             // Use the scaling factor in the Draw call
             spriteBatch.Draw(Texture, Position, SourceRect, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);

@@ -18,7 +18,7 @@ namespace Sprint2Pork.rooms
             enemies = new List<IEnemy>();
             fireballs = new List<EnemyManager>();
 
-            int tileSize = 16;
+            int tileSize = 40;
             int row = 0;
 
             string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "rooms", "levels", fileName);
