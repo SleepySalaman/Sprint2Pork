@@ -336,13 +336,10 @@ namespace Sprint2Pork
         {
             spriteBatch.Begin();
 
-            // Clear the screen with a solid color (optional)
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // Draw the background texture covering the entire screen
             spriteBatch.Draw(backgroundTexture, new Rectangle(0, 0, viewport.Width, viewport.Height), Color.White);
 
-            // Other drawing logic...
             enemyUpdater.drawCurrentEnemy(enemySprite, spriteBatch, allTextures, currentEnemyNum);
             textSprite.Draw(spriteBatch, allTextures[0]);
 
@@ -401,34 +398,12 @@ namespace Sprint2Pork
             }
         }
 
-        /*public void SwitchToNextRoom() {
-            roomChanger.SwitchToNextRoom(currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
+        public void SwitchToNextRoom() {
+            roomChanger.SwitchToNextRoom(ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
         }
 
         public void SwitchToPreviousRoom() {
-            roomChanger.SwitchToPreviousRoom(currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
-        }*/
-
-        public void SwitchToNextRoom()
-        {
-            var roomNames = new List<string>(rooms.Keys);
-            int currentIndex = roomNames.IndexOf(currentRoom);
-            int nextIndex = (currentIndex + 1) % roomNames.Count;
-            SwitchRoom(roomNames[nextIndex]);
-        }
-
-        public void SwitchToPreviousRoom()
-        {
-            var roomNames = new List<string>(rooms.Keys);
-            int currentIndex = roomNames.IndexOf(currentRoom);
-            int previousIndex = (currentIndex - 1 + roomNames.Count) % roomNames.Count;
-            SwitchRoom(roomNames[previousIndex]);
-        }
-
-        public void SwitchRoom(string newRoom)
-        {
-            currentRoom = newRoom;
-            (blocks, groundItems, enemies, fireballManagers) = rooms[currentRoom];
+            roomChanger.SwitchToPreviousRoom(ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
         }
     }
 }
