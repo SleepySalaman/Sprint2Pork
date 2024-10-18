@@ -52,6 +52,7 @@ namespace Sprint2Pork
         private int numEnemies = 12;
 
         private Collision collisionHandler;
+        private RoomChange roomChanger;
 
         private Link link;
         public Viewport viewport;
@@ -88,6 +89,7 @@ namespace Sprint2Pork
             controllerList = new List<IController>();
             csvLevelLoader = new CSVLevelLoader();
             collisionHandler = new Collision();
+            roomChanger = new RoomChange();
             LoadGroundItems();
 
             rooms = new Dictionary<string, (List<Block> blocks, List<GroundItem> groundItems, List<IEnemy> enemies, List<EnemyManager> fireballs)>();
@@ -243,13 +245,13 @@ namespace Sprint2Pork
         {
             if (currentRoom == "room1" && link.X > GraphicsDevice.Viewport.Width)
             {
-                SwitchRoom("room2");
+                roomChanger.SwitchRoom("room2", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
                 link.X = 0;
             }
             // Check if Link has moved off the left side of the screen
             else if (currentRoom == "room2" && link.X <= 0)
             {
-                SwitchRoom("room1");
+                roomChanger.SwitchRoom("room1", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
                 link.X = GraphicsDevice.Viewport.Width - 1; // Reset Link's position to the right side of the screen
             }
         }
@@ -376,7 +378,7 @@ namespace Sprint2Pork
 
         public void GetDevRoom()
         {
-            SwitchRoom("room1");
+            roomChanger.SwitchRoom("room1", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
             link = new Link(viewport.Width, viewport.Height);
             foreach (IController controller in controllerList)
             {
@@ -386,6 +388,15 @@ namespace Sprint2Pork
                 }
             }
         }
+
+        /*public void SwitchToNextRoom() {
+            roomChanger.SwitchToNextRoom(currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
+        }
+
+        public void SwitchToPreviousRoom() {
+            roomChanger.SwitchToPreviousRoom(currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
+        }*/
+
         public void SwitchToNextRoom()
         {
             var roomNames = new List<string>(rooms.Keys);

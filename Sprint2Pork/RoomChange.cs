@@ -1,0 +1,45 @@
+﻿using System;
+using System.Collections.Generic;
+using Sprint2Pork.Blocks;
+using Sprint2Pork.Entity.Moving;
+using Sprint2Pork.GroundItems;
+using Sprint2Pork.Items;
+using Sprint2Pork.rooms;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Sprint2Pork {
+    public class RoomChange {
+
+        public RoomChange() {
+            
+        }
+
+        public void SwitchToNextRoom(string currentRoom, ref List<Block> blocks, ref List<GroundItem> groundItems,
+            ref List<IEnemy> enemies, ref List<EnemyManager> fireballManagers, 
+            Dictionary <string, (List<Block>, List<GroundItem>, List<IEnemy>, List<EnemyManager>)> rooms) {
+            var roomNames = new List<string>(rooms.Keys);
+            int currentIndex = roomNames.IndexOf(currentRoom);
+            int nextIndex = (currentIndex + 1) % roomNames.Count;
+            SwitchRoom(roomNames[nextIndex], ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
+        }
+
+        public void SwitchToPreviousRoom(string currentRoom, ref List<Block> blocks, ref List<GroundItem> groundItems,
+            ref List<IEnemy> enemies, ref List<EnemyManager> fireballManagers,
+            Dictionary<string, (List<Block>, List<GroundItem>, List<IEnemy>, List<EnemyManager>)> rooms) {
+            var roomNames = new List<string>(rooms.Keys);
+            int currentIndex = roomNames.IndexOf(currentRoom);
+            int previousIndex = (currentIndex - 1 + roomNames.Count) % roomNames.Count;
+            SwitchRoom(roomNames[previousIndex], ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
+        }
+
+        public void SwitchRoom(string newRoom, ref string currentRoom, ref List<Block> blocks, ref List<GroundItem> groundItems,
+            ref List<IEnemy> enemies, ref List<EnemyManager> fireballManagers, 
+            Dictionary<string, (List<Block>, List<GroundItem>, List<IEnemy>, List<EnemyManager>)> rooms) {
+            currentRoom = newRoom;
+            (blocks, groundItems, enemies, fireballManagers) = rooms[currentRoom];
+        }
+
+    }
+}
