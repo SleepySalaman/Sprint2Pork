@@ -8,7 +8,8 @@ namespace Sprint2Pork.Blocks
         public Texture2D Texture { get; set; }
         public Vector2 Position { get; set; }
         public Rectangle SourceRect { get; set; }
-        public Rectangle BoundingBox => new Rectangle((int)Position.X, (int)Position.Y, SourceRect.Width, SourceRect.Height);
+        private float scale = 1.875f;
+        public Rectangle BoundingBox => new Rectangle((int)Position.X, (int)Position.Y, (int)(SourceRect.Width * scale), (int)(SourceRect.Height * scale));
 
 
         public Block(Texture2D texture, Vector2 position, Rectangle sourceRect)
