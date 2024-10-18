@@ -86,7 +86,7 @@ namespace Sprint2Pork
 
         public void BeIdle()
         {
-            link.actionState = new IdleActionState(link);
+            //link.actionState = new IdleActionState(link);
         }
 
         public void BeMoving()

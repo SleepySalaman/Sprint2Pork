@@ -49,10 +49,37 @@ namespace Sprint2Pork
             this.damageEffectCounter = 0;
             this.isTakingDamage = false;
         }
-        public void LookLeft() => directionState.LookLeft();
-        public void LookRight() => directionState.LookRight();
-        public void LookUp() => directionState.LookUp();
-        public void LookDown() => directionState.LookDown();
+        public void LookLeft()
+        {
+            if (!isTakingDamage)
+            {
+                directionState.LookLeft();
+            }
+        }
+
+        public void LookRight()
+        {
+            if (!isTakingDamage)
+            {
+                directionState.LookRight();
+            }
+        }
+
+        public void LookUp()
+        {
+            if (!isTakingDamage)
+            {
+                directionState.LookUp();
+            }
+        }
+
+        public void LookDown()
+        {
+            if (!isTakingDamage)
+            {
+                directionState.LookDown();
+            }
+        }
 
         public void BeIdle() => actionState.BeIdle();
         public void BeMoving() => actionState.BeMoving();
@@ -142,15 +169,6 @@ namespace Sprint2Pork
         {
             isTakingDamage = true;
             bool flash = (damageEffectCounter % 2 == 0) ? true : false;
-            //for (int i = 0; i < 80; i++)
-                //{
-                //    if (i % 10 == 0) 
-                //    {
-                //        actionState = new DamagedActionState(this, flash);
-                //        flash = !flash;
-                //    }
-                //    this.Move(true);
-                //}
             actionState = new DamagedActionState(this, flash);
             this.Move(true);
 
@@ -159,10 +177,8 @@ namespace Sprint2Pork
             {
                 isTakingDamage = false;
                 damageEffectCounter = 0;
-                this.BeIdle();
+                actionState = new IdleActionState(this);
             }
-            //isTakingDamage = false;
-            //this.BeIdle();
             return isTakingDamage;
         }
 

@@ -57,6 +57,7 @@ public class KeyboardController : IController
 
     private void HandleMovement(KeyboardState ks)
     {
+
         if (ks.IsKeyDown(Keys.Left) || ks.IsKeyDown(Keys.A))
         {
             link.LookLeft();
@@ -81,6 +82,7 @@ public class KeyboardController : IController
         {
             link.BeIdle();
         }
+    
     }
 
     private void HandleItemUse(KeyboardState ks, ILinkItems linkItem)
