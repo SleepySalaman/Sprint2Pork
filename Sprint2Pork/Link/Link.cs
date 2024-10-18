@@ -9,28 +9,27 @@ namespace Sprint2Pork
         public ILinkDirectionState directionState;
         public ILinkActionState actionState;
         public ILinkItems linkItem;
-        //private Viewport viewport;
-        public int x;
-        public int y;
-        public int offsetX;
-        public int offsetY;
+
+        public int X;
+        public int Y;
+        public int OffsetX;
+        public int OffsetY;
+
         private int screenWidth;
         private int screenHeight;
         public ISprite linkSprite;
         public ISprite linkItemSprite;
 
-        private bool moving;
-        public bool frozen;
-        public bool damage;
-        public int linkCount;
-
+        private bool isMoving;
+        public bool IsFrozen;
+        public bool IsDamaged;
         private int damageEffectCounter;
         private bool isTakingDamage;
         private const int flashRate = 5;
 
-
         int attackFrameCount;
-        public bool itemInUse;
+        public bool ItemInUse;
+        public int linkCount;
 
         public Link(int width, int height)
         {
@@ -38,111 +37,73 @@ namespace Sprint2Pork
             screenHeight = height;
             directionState = new DownFacingLinkState(this);
             actionState = new IdleActionState(this);
-            itemInUse = false;
-            x = 115;
-            y = 115;
-            offsetX = 0;
-            offsetY = 0;
+            ItemInUse = false;
+            X = 115;
+            Y = 115;
+            OffsetX = 0;
+            OffsetY = 0;
             attackFrameCount = 0;
-            frozen = false;
+            IsFrozen = false;
 
             // Initialize damage effect fields
             this.damageEffectCounter = 0;
             this.isTakingDamage = false;
         }
+        public void LookLeft() => directionState.LookLeft();
+        public void LookRight() => directionState.LookRight();
+        public void LookUp() => directionState.LookUp();
+        public void LookDown() => directionState.LookDown();
 
-        public void LookLeft()
-        {
-            directionState.LookLeft();
-        }
-
-        public void LookRight()
-        {
-            directionState.LookRight();
-        }
-
-        public void LookUp()
-        {
-            directionState.LookUp();
-        }
-
-        public void LookDown()
-        {
-            directionState.LookDown();
-        }
-
-        public void BeIdle()
-        {
-            actionState.BeIdle();
-        }
-
-        public void BeMoving()
-        {
-            actionState.BeMoving();
-        }
-
-        public void BeAttacking()
-        {
-            actionState.BeAttacking();
-        }
-
-        public void TakeDamage()
-        {
-            actionState.TakeDamage();
-        }
+        public void BeIdle() => actionState.BeIdle();
+        public void BeMoving() => actionState.BeMoving();
+        public void BeAttacking() => actionState.BeAttacking();
+        public void TakeDamage() => actionState.TakeDamage();
 
         public void loseItem()
         {
-            itemInUse = false;
+            ItemInUse = false;
             linkItem = new NoItem();
         }
 
-        // METHOD BODIES
         public void Draw(SpriteBatch sb, Texture2D texture, Texture2D itemTexture)
         {
             linkSprite.Draw(sb, texture);
-            if (itemInUse)
+            if (ItemInUse)
             {
                 linkItemSprite.Draw(sb, itemTexture);
             }
         }
 
-        public void Idle()
-        {
-            moving = false;
-        }
+        public void Idle() => isMoving = false;
 
         public void Move(bool reverse)
         {
-            int stepLength = 4;
-            if (reverse)
-            {
-                stepLength = -8;
-            }
+            int stepLength = reverse ? -8 : 4;
+
             switch (directionState)
             {
                 case LeftFacingLinkState:
-                    if (x > 0)
+                    if (X > 0)
                     {
-                        this.x = this.x - stepLength;
+                        this.X -= stepLength;
                     }
                     break;
                 case RightFacingLinkState:
-                    if (x < screenWidth)
+                    if (X < screenWidth)
                     {
-                        this.x = this.x + stepLength;
+                        this.X += stepLength;
                     }
                     break;
                 case UpFacingLinkState:
-                    if (y > 0)
+                    if (Y > 0)
                     {
-                        this.y = this.y - stepLength;
+                        this.Y -= stepLength;
                     }
                     break;
                 case DownFacingLinkState:
-                    if (y < screenHeight)
+                    if (Y < screenHeight)
                     {
-                        this.y = this.y + stepLength;
+                        this.Y += stepLength;
                     }
                     break;
             }
@@ -150,48 +111,31 @@ namespace Sprint2Pork
 
         public void Attack()
         {
-            //actionState = new AttackingActionState(this);
-            frozen = true;
+            IsFrozen = true;
             attackFrameCount++;
+
             if (attackFrameCount > 40)
             {
                 attackFrameCount = 0;
-                frozen = false;
+                IsFrozen = false;
                 this.BeIdle();
             }
         }
 
         public void UseItem(int index)
         {
-            itemInUse = true;
-            if (index == 0)
+            ItemInUse = true;
+            linkItem = index switch
             {
-                linkItem = new Sword(this);
-            }
-            else if (index == 1)
-            {
-                linkItem = new Arrow(this);
-            }
-            else if (index == 2)
-            {
-                linkItem = new Boomerang(this);
-            }
-            else if (index == 3)
-            {
-                linkItem = new Bomb(this);
-            }
-            else if (index == 4)
-            {
-                linkItem = new WoodArrow(this);
-            }
-            else if (index == 5)
-            {
-                linkItem = new BlueBoomer(this);
-            }
-            else if (index == 6)
-            {
-                linkItem = new Fire(this);
-            }
+                0 => new Sword(this),
+                1 => new Arrow(this),
+                2 => new Boomerang(this),
+                3 => new Bomb(this),
+                4 => new WoodArrow(this),
+                5 => new BlueBoomer(this),
+                6 => new Fire(this),
+                _ => linkItem
+            };
         }
 
         public bool BeDamaged()
@@ -222,27 +166,22 @@ namespace Sprint2Pork
 
         public void UpdateItem()
         {
-            itemInUse = true;
+            ItemInUse = true;
             linkCount++;
 
             if (linkCount > 20)
             {
                 linkCount = 0;
-                itemInUse = false;
-                offsetY = 0;
-                offsetX = 0;
+                ItemInUse = false;
+                OffsetY = 0;
+                OffsetX = 0;
                 loseItem();
             }
         }
 
-        public Rectangle getRect()
-        {
-            return linkSprite.getRect();
-        }
+        public Rectangle GetRect() => linkSprite.GetRect();
 
-        public Rectangle getItemRect()
-        {
-            return linkItemSprite.getRect();
-        }
+        public Rectangle GetItemRect() => linkItemSprite.GetRect();
+
     }
 }

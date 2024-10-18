@@ -35,7 +35,7 @@ public class TextSprite : ISprite
         //sb.DrawString(font, "Sprites from: Files Section of Carmen Canvas Page", new Vector2(200, 280), Color.Purple);
     }
 
-    Rectangle ISprite.getRect()
+    Rectangle ISprite.GetRect()
     {
         return new Rectangle(0, 0, 0, 0);
     }

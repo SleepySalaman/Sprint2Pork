@@ -81,7 +81,7 @@ namespace Sprint2Pork
                     break;
             }
 
-            link.linkSprite = new MovingAnimatedSprite(link.x, link.y, rects, flipped, 8, "Damaged");
+            link.linkSprite = new MovingAnimatedSprite(link.X, link.Y, rects, flipped, 8, "Damaged");
         }
 
         public void BeIdle()

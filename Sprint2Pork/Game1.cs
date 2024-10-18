@@ -129,7 +129,11 @@ namespace Sprint2Pork
             Texture2D blockTexture = allTextures[8];
             Texture2D groundItemTexture = allTextures[9];
             Texture2D enemyTexture = allTextures[2];
+            LoadRooms(blockTexture, groundItemTexture, enemyTexture);
+        }
 
+        private void LoadRooms(Texture2D blockTexture, Texture2D groundItemTexture, Texture2D enemyTexture)
+        {
             CSVLevelLoader.LoadObjectsFromCSV("room1.csv", blockTexture, groundItemTexture, enemyTexture, out var room1Blocks, out var room1Items, out var room1Enemies, out var fireballManagerRoom1);
             CSVLevelLoader.LoadObjectsFromCSV("room2.csv", blockTexture, groundItemTexture, enemyTexture, out var room2Blocks, out var room2Items, out var room2Enemies, out var fireballManagersRoom2);
 
@@ -141,8 +145,8 @@ namespace Sprint2Pork
 
         protected override void Update(GameTime gameTime)
         {
-            int linkPreviousX = link.x;
-            int linkPreviousY = link.y;
+            int linkPreviousX = link.X;
+            int linkPreviousY = link.Y;
 
             timeSinceLastSwitch += gameTime.ElapsedGameTime.TotalSeconds;
             timeSinceSwitchedEnemy += gameTime.ElapsedGameTime.TotalSeconds;
@@ -162,8 +166,12 @@ namespace Sprint2Pork
             foreach (var enemy in enemies) {
                 enemy.Update();
                 enemy.Move();
-                enemy.updateFromCollision(collisionHandler.collides(link.getRect(), enemy.getRect()), Color.Red);
-                // if enemy collides with link, make link take damage
+                bool collidesWithLink = collisionHandler.Collides(link.GetRect(), enemy.getRect());
+                enemy.updateFromCollision(collidesWithLink, Color.Red);
+                if (collidesWithLink)
+                {
+                    link.TakeDamage();
+                }
             }
             foreach (var fireball in fireballManagers) {
                 fireball.Update(gameTime, 0);
@@ -181,7 +189,7 @@ namespace Sprint2Pork
         {
             if (link.linkItemSprite != null)
             {
-                enemySprite.updateFromCollision(collisionHandler.collides(link.linkItemSprite.getRect(), enemySprite.getRect()), Color.Red);
+                enemySprite.updateFromCollision(collisionHandler.Collides(link.linkItemSprite.GetRect(), enemySprite.getRect()), Color.Red);
             }
             else
             {
@@ -189,8 +197,8 @@ namespace Sprint2Pork
             }
 
             link.actionState.Update();
-            link.linkSprite.Update(link.x, link.y);
-            if (link.itemInUse)
+            link.linkSprite.Update(link.X, link.Y);
+            if (link.ItemInUse)
             {
                 link.linkItem.Update(link);
             }
@@ -202,10 +210,10 @@ namespace Sprint2Pork
         {
             foreach (Block block in blocks)
             {
-                if (collisionHandler.collides(link.getRect(), block.getBoundingBox()))
+                if (collisionHandler.Collides(link.GetRect(), block.getBoundingBox()))
                 {
-                    link.x = linkPreviousX;
-                    link.y = linkPreviousY;
+                    link.X = linkPreviousX;
+                    link.Y = linkPreviousY;
                     break;
                 }
             }
@@ -213,24 +221,36 @@ namespace Sprint2Pork
 
         private void UpdateGroundItems()
         {
+            var itemsToRemove = new List<GroundItem>();
+
             foreach (var item in groundItems)
             {
                 item.Update(item.destinationRect.X, item.destinationRect.Y);
+                if (collisionHandler.Collides(link.GetRect(), item.GetRect()))
+                {
+                    item.PerformAction();
+                    itemsToRemove.Add(item);
+                }
+            }
+
+            foreach (var item in itemsToRemove)
+            {
+                groundItems.Remove(item);
             }
         }
 
         private void CheckRoomChange()
         {
-            if (currentRoom == "room1" && link.x > GraphicsDevice.Viewport.Width)
+            if (currentRoom == "room1" && link.X > GraphicsDevice.Viewport.Width)
             {
                 SwitchRoom("room2");
-                link.x = 0;
+                link.X = 0;
             }
             // Check if Link has moved off the left side of the screen
-            else if (currentRoom == "room2" && link.x <= 0)
+            else if (currentRoom == "room2" && link.X <= 0)
             {
                 SwitchRoom("room1");
-                link.x = GraphicsDevice.Viewport.Width - 1; // Reset Link's position to the right side of the screen
+                link.X = GraphicsDevice.Viewport.Width - 1; // Reset Link's position to the right side of the screen
             }
         }
 
@@ -283,6 +303,12 @@ namespace Sprint2Pork
             currentRoom = "room1";
             (blocks, groundItems, enemies, fireballManagers) = rooms[currentRoom];
 
+            Texture2D blockTexture = allTextures[8];
+            Texture2D groundItemTexture = allTextures[9];
+            Texture2D enemyTexture = allTextures[2];
+
+            LoadRooms(blockTexture, groundItemTexture, enemyTexture);
+
             foreach (IController controller in controllerList)
             {
                 if (controller is KeyboardController keyboardController)
@@ -290,7 +316,6 @@ namespace Sprint2Pork
                     keyboardController.UpdateLink(link);
                 }
             }
-
         }
 
         protected override void Draw(GameTime gameTime)

@@ -44,7 +44,7 @@ namespace Sprint2Pork.Items
 
         public abstract void PerformAction();
 
-        public Rectangle getRect()
+        public Rectangle GetRect()
         {
             return destinationRect;
         }

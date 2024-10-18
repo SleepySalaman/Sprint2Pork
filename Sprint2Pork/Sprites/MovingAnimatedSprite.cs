@@ -86,7 +86,7 @@ public class MovingAnimatedSprite : ISprite
         }
     }
 
-    Rectangle ISprite.getRect()
+    Rectangle ISprite.GetRect()
     {
         return destinationRect;
     }

@@ -44,7 +44,7 @@ public class NonMovingNonAnimatedSprite : ISprite
         }
     }
 
-    Rectangle ISprite.getRect()
+    Rectangle ISprite.GetRect()
     {
         return destinationRect;
     }
