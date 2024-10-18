@@ -42,7 +42,7 @@
 
         public void TakeDamage()
         {
-            link.actionState = new DamagedActionState(link, 10);
+            link.actionState = new DamagedActionState(link, false);
         }
 
         public void Update()

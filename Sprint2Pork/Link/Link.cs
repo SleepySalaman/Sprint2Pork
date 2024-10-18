@@ -141,26 +141,28 @@ namespace Sprint2Pork
         public bool BeDamaged()
         {
             isTakingDamage = true;
-            if (damageEffectCounter % flashRate == 0)
-            {
-                if ((damageEffectCounter / flashRate) % 2 == 0)
-                {
-                    this.TakeDamage();
-                }
-                else
-                {
-                    this.BeIdle();
-                }
-                this.Move(true);
-            }
+            bool flash = (damageEffectCounter % 2 == 0) ? true : false;
+            //for (int i = 0; i < 80; i++)
+                //{
+                //    if (i % 10 == 0) 
+                //    {
+                //        actionState = new DamagedActionState(this, flash);
+                //        flash = !flash;
+                //    }
+                //    this.Move(true);
+                //}
+            actionState = new DamagedActionState(this, flash);
+            this.Move(true);
 
             damageEffectCounter++;
             if (damageEffectCounter >= flashRate * 10)
             {
                 isTakingDamage = false;
                 damageEffectCounter = 0;
+                this.BeIdle();
             }
-
+            //isTakingDamage = false;
+            //this.BeIdle();
             return isTakingDamage;
         }
 
