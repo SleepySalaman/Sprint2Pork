@@ -229,7 +229,7 @@ namespace Sprint2Pork
             foreach (var item in groundItems)
             {
                 item.Update(item.destinationRect.X, item.destinationRect.Y);
-                if (collisionHandler.Collides(link.GetRect(), item.GetRect()))
+                if (collisionHandler.CollidesWithGroundItem(link.GetRect(), item.GetRect()))
                 {
                     item.PerformAction();
                     itemsToRemove.Add(item);

@@ -17,5 +17,14 @@ namespace Sprint2Pork
                 rect1.Y + rect1.Height > rect2.Y &&
                 rect1.Y < rect2.Y + rect2.Height);
         }
+
+        public bool CollidesWithGroundItem(Rectangle linkRect, Rectangle groundItemRect)
+        {
+            int groundItemCenterX = groundItemRect.X + groundItemRect.Width / 2;
+            int groundItemCenterY = groundItemRect.Y + groundItemRect.Height / 2;
+
+            return (linkRect.X < groundItemCenterX && linkRect.X + linkRect.Width > groundItemCenterX &&
+                    linkRect.Y < groundItemCenterY && linkRect.Y + linkRect.Height > groundItemCenterY);
+        }
     }
 }
