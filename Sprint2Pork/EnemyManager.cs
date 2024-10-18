@@ -85,5 +85,10 @@ namespace Sprint2Pork
             fireballs.Clear();
         }
 
+        public List<Fireball> getFireballs()
+        {
+            return fireballs;
+        }
+
     }
 }

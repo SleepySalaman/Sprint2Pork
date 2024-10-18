@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sprint2Pork.Blocks;
+using Sprint2Pork.Entity;
 using Sprint2Pork.Entity.Moving;
 using Sprint2Pork.GroundItems;
 using Sprint2Pork.Items;
@@ -169,6 +170,7 @@ namespace Sprint2Pork
                 enemy.Update();
                 enemy.Move();
                 bool collidesWithLink = collisionHandler.Collides(link.GetRect(), enemy.getRect());
+                
                 enemy.updateFromCollision(collidesWithLink, Color.Red);
                 if (collidesWithLink)
                 {
@@ -178,6 +180,15 @@ namespace Sprint2Pork
             }
             foreach (var fireball in fireballManagers) {
                 fireball.Update(gameTime, 0);
+            }
+            List<Fireball> fireballs = enemyManager.getFireballs();
+            foreach (var fireball in fireballs)
+            {
+                bool collides = collisionHandler.Collides(link.GetRect(), fireball.getRect());
+                if (collides)
+                {
+                    link.TakeDamage();
+                }
             }
 
             enemySprite.Update();
