@@ -307,8 +307,8 @@ namespace Sprint2Pork
             enemyUpdater.drawCurrentEnemy(enemySprite, spriteBatch, allTextures, currentEnemyNum);
             textSprite.Draw(spriteBatch, allTextures[0]);
 
-            blocks[CurrentBlockIndex].Draw(spriteBatch);
-            items[currentItemIndex].Draw(spriteBatch, allTextures[9]);
+            //blocks[CurrentBlockIndex].Draw(spriteBatch);
+            //items[currentItemIndex].Draw(spriteBatch, allTextures[9]);
 
             link.Draw(spriteBatch, allTextures[0], allTextures[10]);
             enemyManager.Draw(spriteBatch, allTextures[1]);
@@ -352,9 +352,14 @@ namespace Sprint2Pork
         public void GetDevRoom()
         {
             SwitchRoom("room1");
-            link.x = 50;
-            link.y = 50;
-            link.LookDown();
+            link = new Link(viewport.Width, viewport.Height);
+            foreach (IController controller in controllerList)
+            {
+                if (controller is KeyboardController keyboardController)
+                {
+                    keyboardController.UpdateLink(link);
+                }
+            }
         }
         public void SwitchToNextRoom()
         {
