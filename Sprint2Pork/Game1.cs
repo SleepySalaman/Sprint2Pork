@@ -172,6 +172,7 @@ namespace Sprint2Pork
                 enemy.updateFromCollision(collidesWithLink, Color.Red);
                 if (collidesWithLink)
                 {
+                    
                     link.TakeDamage();
                 }
             }

@@ -12,12 +12,12 @@ namespace Sprint2Pork
 
 
 
-        public DamagedActionState(Link link, int damageDuration)
+        public DamagedActionState(Link link, bool isFlashing)
         {
             this.link = link;
-            this.damageDuration = damageDuration;
+            //this.damageDuration = damageDuration;
             this.frameCounter = 0;
-            this.isFlashing = false;
+            this.isFlashing = isFlashing;
             SetFlashingSprite();
 
 
@@ -91,12 +91,12 @@ namespace Sprint2Pork
 
         public void BeMoving()
         {
-            link.actionState = new MovingActionState(link);
+            //link.actionState = new MovingActionState(link);
         }
 
         public void BeAttacking()
         {
-            link.actionState = new AttackingActionState(link);
+            //link.actionState = new AttackingActionState(link);
         }
 
         public void TakeDamage()
@@ -106,18 +106,19 @@ namespace Sprint2Pork
 
         public void Update()
         {
-            frameCounter++;
+            link.BeDamaged();
+            //frameCounter++;
 
-            if (frameCounter % 10 != 0)
-            {
-                isFlashing = !isFlashing;
-                SetFlashingSprite();
-            }
+            //if (frameCounter % 10 != 0)
+            //{
+            //    isFlashing = !isFlashing;
+            //    SetFlashingSprite();
+            //}
 
-            if (frameCounter >= damageDuration)
-            {
-                BeIdle();
-            }
+            //if (frameCounter >= damageDuration)
+            //{
+            //    BeIdle();
+            //}
         }
     }
 }
