@@ -127,11 +127,6 @@ public class KeyboardController : IController
         {
             link.BeAttacking();
         }
-
-        if (IsKeyPressed(ks, Keys.E))
-        {
-            isTakingDamage = true;
-        }
     }
 
     private void HandleGameControls(KeyboardState ks)
