@@ -109,7 +109,7 @@ namespace Sprint2Pork
             LoadTextures.loadAllTextures(allTextures, Content);
 
             font = Content.Load<SpriteFont>("File");
-            backgroundTexture = Content.Load<Texture2D>("Background");
+            backgroundTexture = Content.Load<Texture2D>("Room1");
             textSprite = new TextSprite(200, 100, font);
 
             GenerateBlocks.fillBlockList(blocks, allTextures[8], blockPosition);
