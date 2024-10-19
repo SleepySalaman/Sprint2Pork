@@ -114,10 +114,8 @@ namespace Sprint2Pork
 
             GenerateBlocks.fillBlockList(blocks, allTextures[8], blockPosition);
 
-            Texture2D blockTexture = allTextures[8];
-            Texture2D groundItemTexture = allTextures[9];
-            Texture2D enemyTexture = allTextures[2];
-            LoadRooms(blockTexture, groundItemTexture, enemyTexture);
+            //blockTexture, groundItemTexture, enemyTexture
+            LoadRooms(allTextures[8], allTextures[9], allTextures[2]);
         }
 
         private void LoadRooms(Texture2D blockTexture, Texture2D groundItemTexture, Texture2D enemyTexture)
