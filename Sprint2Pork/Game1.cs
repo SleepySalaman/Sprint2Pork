@@ -149,30 +149,8 @@ namespace Sprint2Pork
 
         private void UpdateEnemies(GameTime gameTime)
         {
-            foreach (var enemy in enemies) {
-                enemy.Update();
-                enemy.Move();
-                bool collidesWithLink = Collision.Collides(link.GetRect(), enemy.getRect());
-                
-                enemy.updateFromCollision(collidesWithLink, Color.Red);
-                if (collidesWithLink)
-                {
-                    
-                    link.TakeDamage();
-                }
-            }
-            foreach (var fireball in fireballManagers) {
-                fireball.Update(gameTime, 0);
-            }
-            List<Fireball> fireballs = enemyManager.getFireballs();
-            foreach (var fireball in fireballs)
-            {
-                bool collides = Collision.Collides(link.GetRect(), fireball.getRect());
-                if (collides)
-                {
-                    link.TakeDamage();
-                }
-            }
+            EnemyUpdater.updateEnemies(ref link, enemies);
+            EnemyUpdater.updateFireballs(enemyManager, ref link, ref fireballManagers, gameTime);
 
             enemySprite.Update();
             enemySprite.Move();
@@ -184,19 +162,15 @@ namespace Sprint2Pork
 
         private void UpdateLink(int linkPreviousX, int linkPreviousY)
         {
-            if (link.linkItemSprite != null)
-            {
+            if (link.linkItemSprite != null){
                 enemySprite.updateFromCollision(Collision.Collides(link.linkItemSprite.GetRect(), enemySprite.getRect()), Color.Red);
-            }
-            else
-            {
+            }  else {
                 enemySprite.updateFromCollision(false, Color.White);
             }
 
             link.actionState.Update();
             link.linkSprite.Update(link.X, link.Y);
-            if (link.ItemInUse)
-            {
+            if (link.ItemInUse){
                 link.linkItem.Update(link);
             }
 
