@@ -54,6 +54,7 @@ namespace Sprint2Pork
 
         private Collision collisionHandler;
         private RoomChange roomChanger;
+        private Drawing drawManager;
 
         private Link link;
         public Viewport viewport;
@@ -91,6 +92,7 @@ namespace Sprint2Pork
             csvLevelLoader = new CSVLevelLoader();
             collisionHandler = new Collision();
             roomChanger = new RoomChange();
+            drawManager = new Drawing();
             LoadGroundItems();
 
             rooms = new Dictionary<string, (List<Block> blocks, List<GroundItem> groundItems, List<IEnemy> enemies, List<EnemyManager> fireballs)>();
@@ -340,33 +342,13 @@ namespace Sprint2Pork
 
             spriteBatch.Draw(backgroundTexture, new Rectangle(0, 0, viewport.Width, viewport.Height), Color.White);
 
-            enemyUpdater.drawCurrentEnemy(enemySprite, spriteBatch, allTextures, currentEnemyNum);
-            textSprite.Draw(spriteBatch, allTextures[0]);
-
             //blocks[CurrentBlockIndex].Draw(spriteBatch);
             //items[currentItemIndex].Draw(spriteBatch, allTextures[9]);
 
             link.Draw(spriteBatch, allTextures[0], allTextures[10]);
-            enemyManager.Draw(spriteBatch, allTextures[1]);
 
-            foreach (Block block in blocks)
-            {
-                block.Draw(spriteBatch);
-            }
-
-            foreach (var item in groundItems)
-            {
-                item.Draw(spriteBatch, allTextures[9]);
-            }
-
-            foreach (var enemy in enemies)
-            {
-                enemy.Draw(spriteBatch, allTextures[2]);
-            }
-            foreach (var fireball in fireballManagers)
-            {
-                fireball.Draw(spriteBatch, allTextures[1]);
-            }
+            drawManager.DrawCyclingEnemy(enemyUpdater, enemyManager, spriteBatch, allTextures, enemySprite, currentEnemyNum, textSprite);
+            drawManager.DrawGeneratedObjects(spriteBatch, blocks, groundItems, enemies, fireballManagers, allTextures);
 
             spriteBatch.End();
             base.Draw(gameTime);
