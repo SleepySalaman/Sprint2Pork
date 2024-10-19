@@ -39,7 +39,7 @@ namespace Sprint2Pork
             actionState = new IdleActionState(this);
             ItemInUse = false;
             X = 115;
-            Y = 200;
+            Y = 115;
             OffsetX = 0;
             OffsetY = 0;
             attackFrameCount = 0;
