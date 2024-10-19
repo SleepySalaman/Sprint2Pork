@@ -5,12 +5,7 @@ namespace Sprint2Pork
     public class Collision
     {
 
-        public Collision()
-        {
-
-        }
-
-        public bool Collides(Rectangle rect1, Rectangle rect2)
+        public static bool Collides(Rectangle rect1, Rectangle rect2)
         {
             return (rect1.X + rect1.Width > rect2.X &&
                 rect1.X < rect2.X + rect2.Width &&
@@ -18,7 +13,7 @@ namespace Sprint2Pork
                 rect1.Y < rect2.Y + rect2.Height);
         }
 
-        public bool CollidesWithGroundItem(Rectangle linkRect, Rectangle groundItemRect)
+        public static bool CollidesWithGroundItem(Rectangle linkRect, Rectangle groundItemRect)
         {
             int groundItemCenterX = groundItemRect.X + groundItemRect.Width / 2;
             int groundItemCenterY = groundItemRect.Y + groundItemRect.Height / 2;

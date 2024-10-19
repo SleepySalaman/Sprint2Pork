@@ -29,17 +29,14 @@ namespace Sprint2Pork
         private bool moving = false;
         private Texture2D backgroundTexture;
 
-        private double switchCooldown = 0.1;
         private double timeSinceLastSwitch = 0;
-        private double switchEnemyCooldown = 0.3;
         private double timeSinceSwitchedEnemy = 0;
-        private CSVLevelLoader csvLevelLoader;
         private List<Block> blocks;
         private List<GroundItem> groundItems;
         private List<IEnemy> enemies;
         private List<EnemyManager> fireballManagers;
-        private int enemyInitX = 450;
-        private int enemyInitY = 350;
+        private Vector2 enemyInitPos;
+
         private int currentBlockIndex = 0;
         private Vector2 blockPosition;
 
@@ -51,10 +48,6 @@ namespace Sprint2Pork
 
         private int currentEnemyNum = 0;
         private int numEnemies = 12;
-
-        private Collision collisionHandler;
-        private RoomChange roomChanger;
-        private Drawing drawManager;
 
         private Link link;
         public Viewport viewport;
@@ -87,15 +80,13 @@ namespace Sprint2Pork
             enemies = new List<IEnemy>();
             fireballManagers = new List<EnemyManager>();
             blockPosition = new Vector2(200, 200);
+            enemyInitPos = new Vector2(450, 350);
 
             controllerList = new List<IController>();
-            csvLevelLoader = new CSVLevelLoader();
-            collisionHandler = new Collision();
-            roomChanger = new RoomChange();
-            drawManager = new Drawing();
             LoadGroundItems();
 
-            rooms = new Dictionary<string, (List<Block> blocks, List<GroundItem> groundItems, List<IEnemy> enemies, List<EnemyManager> fireballs)>();
+            rooms = new Dictionary<string, (List<Block> blocks, List<GroundItem> groundItems,
+                List<IEnemy> enemies, List<EnemyManager> fireballs)>();
         }
 
         private void LoadGroundItems()
@@ -105,23 +96,15 @@ namespace Sprint2Pork
             items = itemController.createGroundItems();
         }
 
-        protected override void Initialize()
-        {
-            viewport = graphics.GraphicsDevice.Viewport;
-            link = new Link(viewport.Width, viewport.Height);
-
-            controllerList.Add(new KeyboardController(this, link, blocks));
-            controllerList.Add(new MouseController(this)); 
-
+        protected override void Initialize(){
+            InitializeHandler.baseInitialize(ref viewport, graphics, ref link, ref controllerList, ref blocks, this);
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-            enemySprite = new Aquamentus(enemyInitX, enemyInitY);
-            enemyUpdater = new UpdateEnemySprite(enemyInitX, enemyInitY);
-            enemyManager = new EnemyManager(enemySprite.getX(), enemyInitX, enemyInitY);
+            InitializeHandler.loadEnemyContent(ref spriteBatch, ref enemySprite, ref enemyUpdater, ref enemyManager, 
+                GraphicsDevice, (int)enemyInitPos.X, (int)enemyInitPos.Y);
 
             LoadTextures.loadAllTextures(allTextures, Content);
 
@@ -171,7 +154,7 @@ namespace Sprint2Pork
             foreach (var enemy in enemies) {
                 enemy.Update();
                 enemy.Move();
-                bool collidesWithLink = collisionHandler.Collides(link.GetRect(), enemy.getRect());
+                bool collidesWithLink = Collision.Collides(link.GetRect(), enemy.getRect());
                 
                 enemy.updateFromCollision(collidesWithLink, Color.Red);
                 if (collidesWithLink)
@@ -186,7 +169,7 @@ namespace Sprint2Pork
             List<Fireball> fireballs = enemyManager.getFireballs();
             foreach (var fireball in fireballs)
             {
-                bool collides = collisionHandler.Collides(link.GetRect(), fireball.getRect());
+                bool collides = Collision.Collides(link.GetRect(), fireball.getRect());
                 if (collides)
                 {
                     link.TakeDamage();
@@ -205,7 +188,7 @@ namespace Sprint2Pork
         {
             if (link.linkItemSprite != null)
             {
-                enemySprite.updateFromCollision(collisionHandler.Collides(link.linkItemSprite.GetRect(), enemySprite.getRect()), Color.Red);
+                enemySprite.updateFromCollision(Collision.Collides(link.linkItemSprite.GetRect(), enemySprite.getRect()), Color.Red);
             }
             else
             {
@@ -226,7 +209,7 @@ namespace Sprint2Pork
         {
             foreach (Block block in blocks)
             {
-                if (collisionHandler.Collides(link.GetRect(), block.getBoundingBox()))
+                if (Collision.Collides(link.GetRect(), block.getBoundingBox()))
                 {
                     link.X = linkPreviousX;
                     link.Y = linkPreviousY;
@@ -242,7 +225,7 @@ namespace Sprint2Pork
             foreach (var item in groundItems)
             {
                 item.Update(item.destinationRect.X, item.destinationRect.Y);
-                if (collisionHandler.CollidesWithGroundItem(link.GetRect(), item.GetRect()))
+                if (Collision.CollidesWithGroundItem(link.GetRect(), item.GetRect()))
                 {
                     item.PerformAction();
                     itemsToRemove.Add(item);
@@ -259,13 +242,13 @@ namespace Sprint2Pork
         {
             if (currentRoom == "room1" && link.X > GraphicsDevice.Viewport.Width)
             {
-                roomChanger.SwitchRoom("room2", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
+                RoomChange.SwitchRoom("room2", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
                 link.X = 0;
             }
-            // Check if Link has moved off the left side of the screen
+
             else if (currentRoom == "room2" && link.X <= 0)
             {
-                roomChanger.SwitchRoom("room1", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
+                RoomChange.SwitchRoom("room1", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
                 link.X = GraphicsDevice.Viewport.Width - 1; // Reset Link's position to the right side of the screen
             }
         }
@@ -309,9 +292,9 @@ namespace Sprint2Pork
             spritePos[1] = 50;
             moving = false;
 
-            enemySprite = new Aquamentus(enemyInitX, enemyInitY);
-            enemyManager = new EnemyManager(enemySprite.getX(), enemyInitX, enemyInitY);
-            enemyUpdater = new UpdateEnemySprite(enemyInitX, enemyInitY);
+            enemySprite = new Aquamentus((int)enemyInitPos.X, (int)enemyInitPos.Y);
+            enemyManager = new EnemyManager(enemySprite.getX(), (int)enemyInitPos.X, (int)enemyInitPos.Y);
+            enemyUpdater = new UpdateEnemySprite((int)enemyInitPos.X, (int)enemyInitPos.Y);
             currentEnemyNum = 0;
 
             link = new Link(viewport.Width, viewport.Height);
@@ -347,8 +330,8 @@ namespace Sprint2Pork
 
             link.Draw(spriteBatch, allTextures[0], allTextures[10]);
 
-            drawManager.DrawCyclingEnemy(enemyUpdater, enemyManager, spriteBatch, allTextures, enemySprite, currentEnemyNum, textSprite);
-            drawManager.DrawGeneratedObjects(spriteBatch, blocks, groundItems, enemies, fireballManagers, allTextures);
+            Drawing.DrawCyclingEnemy(enemyUpdater, enemyManager, spriteBatch, allTextures, enemySprite, currentEnemyNum, textSprite);
+            Drawing.DrawGeneratedObjects(spriteBatch, blocks, groundItems, enemies, fireballManagers, allTextures);
 
             spriteBatch.End();
             base.Draw(gameTime);
@@ -369,7 +352,7 @@ namespace Sprint2Pork
 
         public void GetDevRoom()
         {
-            roomChanger.SwitchRoom("room1", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
+            RoomChange.SwitchRoom("room1", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
             link = new Link(viewport.Width, viewport.Height);
             foreach (IController controller in controllerList)
             {
@@ -381,11 +364,11 @@ namespace Sprint2Pork
         }
 
         public void SwitchToNextRoom() {
-            roomChanger.SwitchToNextRoom(ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
+            RoomChange.SwitchToNextRoom(ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
         }
 
         public void SwitchToPreviousRoom() {
-            roomChanger.SwitchToPreviousRoom(ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
+            RoomChange.SwitchToPreviousRoom(ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
         }
     }
 }

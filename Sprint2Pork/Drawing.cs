@@ -11,18 +11,14 @@ using System.Threading.Tasks;
 namespace Sprint2Pork {
     public class Drawing {
 
-        public Drawing() {
-
-        }
-
-        public void DrawCyclingEnemy(UpdateEnemySprite enemyUpdater, EnemyManager enemyManager, SpriteBatch spriteBatch, List<Texture2D> allTextures,
+        public static void DrawCyclingEnemy(UpdateEnemySprite enemyUpdater, EnemyManager enemyManager, SpriteBatch spriteBatch, List<Texture2D> allTextures,
             IEnemy enemySprite, int currentEnemyNum, ISprite textSprite) {
             enemyUpdater.drawCurrentEnemy(enemySprite, spriteBatch, allTextures, currentEnemyNum);
             textSprite.Draw(spriteBatch, allTextures[0]);
             enemyManager.Draw(spriteBatch, allTextures[1]);
         }
 
-        public void DrawGeneratedObjects(SpriteBatch spriteBatch, List<Block> blocks, List<GroundItem> groundItems,
+        public static void DrawGeneratedObjects(SpriteBatch spriteBatch, List<Block> blocks, List<GroundItem> groundItems,
             List<IEnemy> enemies, List<EnemyManager> fireballManagers, List<Texture2D> allTextures) {
             foreach (Block block in blocks) {
                 block.Draw(spriteBatch);

@@ -12,11 +12,7 @@ using System.Threading.Tasks;
 namespace Sprint2Pork {
     public class RoomChange {
 
-        public RoomChange() {
-            
-        }
-
-        public void SwitchToNextRoom(ref string currentRoom, ref List<Block> blocks, ref List<GroundItem> groundItems,
+        public static void SwitchToNextRoom(ref string currentRoom, ref List<Block> blocks, ref List<GroundItem> groundItems,
             ref List<IEnemy> enemies, ref List<EnemyManager> fireballManagers, 
             Dictionary <string, (List<Block>, List<GroundItem>, List<IEnemy>, List<EnemyManager>)> rooms) {
             var roomNames = new List<string>(rooms.Keys);
@@ -25,7 +21,7 @@ namespace Sprint2Pork {
             SwitchRoom(roomNames[nextIndex], ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
         }
 
-        public void SwitchToPreviousRoom(ref string currentRoom, ref List<Block> blocks, ref List<GroundItem> groundItems,
+        public static void SwitchToPreviousRoom(ref string currentRoom, ref List<Block> blocks, ref List<GroundItem> groundItems,
             ref List<IEnemy> enemies, ref List<EnemyManager> fireballManagers,
             Dictionary<string, (List<Block>, List<GroundItem>, List<IEnemy>, List<EnemyManager>)> rooms) {
             var roomNames = new List<string>(rooms.Keys);
@@ -34,7 +30,7 @@ namespace Sprint2Pork {
             SwitchRoom(roomNames[previousIndex], ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
         }
 
-        public void SwitchRoom(string newRoom, ref string currentRoom, ref List<Block> blocks, ref List<GroundItem> groundItems,
+        public static void SwitchRoom(string newRoom, ref string currentRoom, ref List<Block> blocks, ref List<GroundItem> groundItems,
             ref List<IEnemy> enemies, ref List<EnemyManager> fireballManagers, 
             Dictionary<string, (List<Block>, List<GroundItem>, List<IEnemy>, List<EnemyManager>)> rooms) {
             currentRoom = newRoom;
