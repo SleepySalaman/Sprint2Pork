@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Sprint2Pork.Blocks;
 using System;
 using System.Collections.Generic;
 
@@ -67,8 +68,10 @@ namespace Sprint2Pork.Entity.Moving
             destinationRect = new Rectangle(initX, initY, 100, 100);
         }
 
-        public override void Move()
+        public override void Move(List<Block> blocks)
         {
+            previousX = x + moveX;
+            previousY = y + moveY;
             if (!moving)
             {
                 moving = true;
@@ -89,19 +92,13 @@ namespace Sprint2Pork.Entity.Moving
                         break;
                 }
                 totalFrames = sourceRects.Count;
-            }
-            else
-            {
+            } else {
                 movedAmount++;
-                if (movedAmount > moveDistance)
-                {
+                if (movedAmount > moveDistance){
                     moving = false;
                     movedAmount = 0;
-                }
-                else
-                {
-                    switch (direction)
-                    {
+                } else { 
+                    switch (direction){
                         case 1: //right
                             moveX++;
                             break;
@@ -119,6 +116,14 @@ namespace Sprint2Pork.Entity.Moving
             }
             destinationRect.X = x + moveX;
             destinationRect.Y = y + moveY;
+            /*foreach(Block b in blocks) {
+                if(Collision.Collides(destinationRect, b.getBoundingBox())) {
+                    movedAmount = 0;
+                    moving = false;
+                    destinationRect.X = previousX;
+                    destinationRect.Y = previousY;
+                }
+            }*/
         }
     }
 }

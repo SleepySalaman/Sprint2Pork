@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Sprint2Pork.Blocks;
 using System;
 using System.Collections.Generic;
 
@@ -35,7 +36,7 @@ namespace Sprint2Pork.Entity.Moving
             destinationRect = new Rectangle(initX, initY, rectW / 2, rectH / 2);
         }
 
-        public override void Move()
+        public override void Move(List<Block> blocks)
         {
             if (!moving)
             {

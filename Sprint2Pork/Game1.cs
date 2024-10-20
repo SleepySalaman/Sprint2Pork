@@ -149,11 +149,11 @@ namespace Sprint2Pork
 
         private void UpdateEnemies(GameTime gameTime)
         {
-            EnemyUpdater.updateEnemies(ref link, enemies);
+            EnemyUpdater.updateEnemies(ref link, enemies, blocks);
             EnemyUpdater.updateFireballs(enemyManager, ref link, ref fireballManagers, gameTime);
 
             enemySprite.Update();
-            enemySprite.Move();
+            enemySprite.Move(blocks);
             if (currentEnemyNum == 0)
             {
                 enemyManager.Update(gameTime, enemySprite.getX());

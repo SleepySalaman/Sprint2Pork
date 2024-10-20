@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprint2Pork.Blocks;
 using System.Collections.Generic;
 
 namespace Sprint2Pork.Entity.Moving
@@ -15,6 +16,9 @@ namespace Sprint2Pork.Entity.Moving
 
         protected int rectW = 100;
         protected int rectH = 100;
+
+        protected int previousX = 0;
+        protected int previousY = 0;
 
         protected int relativeX = 0;
 
@@ -37,7 +41,7 @@ namespace Sprint2Pork.Entity.Moving
             }
         }
 
-        public abstract void Move();
+        public abstract void Move(List<Block> blocks);
 
         public void Draw(SpriteBatch sb, Texture2D txt)
         {

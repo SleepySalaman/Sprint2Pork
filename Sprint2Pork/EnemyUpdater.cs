@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Sprint2Pork.Blocks;
 using Sprint2Pork.Entity.Moving;
 using System;
 using System.Collections.Generic;
@@ -9,10 +10,10 @@ using System.Threading.Tasks;
 namespace Sprint2Pork {
     public class EnemyUpdater {
 
-        public static void updateEnemies(ref Link link, List<IEnemy> enemies) {
+        public static void updateEnemies(ref Link link, List<IEnemy> enemies, List<Block> blocks) {
             foreach (var enemy in enemies) {
                 enemy.Update();
-                enemy.Move();
+                enemy.Move(blocks);
                 bool collidesWithLink = Collision.Collides(link.GetRect(), enemy.getRect());
 
                 enemy.updateFromCollision(collidesWithLink, Color.Red);
