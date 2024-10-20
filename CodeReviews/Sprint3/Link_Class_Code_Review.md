@@ -1,21 +1,19 @@
-# Sprint 3
-## Eli Paulman's Code Review (Link.cs written by Eli Click) Date: 10/20
+## Code Review by Eli Paulman
+Date: 10/20
 
-Readability
-The Link class is generally well-structured with clear naming conventions and 
-good use of encapsulation through interfaces like ILinkDirectionState and 
-ILinkActionState. However, readability can be improved by adding comments to 
-explain non-trivial logic, especially in more complex methods such as Move() 
-and BeDamaged(). Replacing "magic numbers" like 40 in the Attack() method 
-with named constants will make the code easier to understand. Additionally, 
-simplifying boolean logic in methods like BeDamaged() and reducing repetitive 
-logic across methods like LookLeft and LookRight would enhance clarity.
+Sprint Number: 3
 
-Maintainability
-To improve maintainability, several public fields (such as X, Y, OffsetX, and OffsetY) 
-should be changed to private and exposed through properties to better encapsulate data. 
-The repeated code in direction handling (e.g., LookLeft, LookRight) could be refactored 
-to reduce duplication. To support future expansion, refactoring the UseItem() 
-method using a design pattern like Factory would make it more scalable. 
-Finally, splitting the responsibilities in methods like BeDamaged() into 
-smaller, focused methods would make the code easier to maintain and extend.
+File Reviewed: Link.cs
+
+Author of File: Eli Click
+
+Time Spent: 15 minutes
+
+# Readability Review
+The Link class exhibits a good structure overall, with clear naming conventions and effective use of interfaces like ILinkDirectionState and ILinkActionState, enhancing readability. However, there are areas where readability could be improved. For example, adding comments to clarify non-trivial logic in methods like Move() and BeDamaged() would make the code easier to follow. The use of "magic numbers" like 40 in the Attack() method should be replaced with named constants for better clarity. Additionally, simplifying the boolean logic in BeDamaged() and reducing repetitive code in methods like LookLeft and LookRight would enhance overall readability and reduce cognitive load.
+
+# Code Quality Review
+To enhance maintainability, public fields such as X, Y, OffsetX, and OffsetY should be converted to private and exposed through properties to properly encapsulate data and prevent direct manipulation. There is repeated code for handling directions (e.g., in LookLeft, LookRight) that could be refactored to minimize duplication and improve code structure. The UseItem() method, while functional, could be made more scalable by refactoring it to use a design pattern like Factory, allowing for easier expansion of items in the future. Finally, methods like BeDamaged() could benefit from being broken down into smaller, more focused methods to better adhere to the single responsibility principle, making the code easier to maintain and extend in future sprints.
+
+# Hypothetical Change:
+If we wanted to add a feature where Link could use multiple items simultaneously, the current implementation of UseItem() would need significant refactoring. The current code structure does not easily support multiple items, as linkItem can only hold one item at a time. Refactoring UseItem() to store and manage a list of active items, alongside changes in the rendering logic, would allow the game to support this feature more seamlessly.
