@@ -131,7 +131,7 @@ namespace Sprint2Pork
 
         protected override void Update(GameTime gameTime)
         {
-            int linkPreviousX = link.X;
+            int linkPreviousX = link.GetX();
             int linkPreviousY = link.Y;
 
             timeSinceLastSwitch += gameTime.ElapsedGameTime.TotalSeconds;
@@ -169,7 +169,7 @@ namespace Sprint2Pork
             }
 
             link.actionState.Update();
-            link.linkSprite.Update(link.X, link.Y);
+            link.linkSprite.Update(link.GetX(), link.Y);
             if (link.ItemInUse){
                 link.linkItem.Update(link);
             }
@@ -183,7 +183,7 @@ namespace Sprint2Pork
             {
                 if (Collision.Collides(link.GetRect(), block.getBoundingBox()))
                 {
-                    link.X = linkPreviousX;
+                    link.SetX(linkPreviousX);
                     link.Y = linkPreviousY;
                     break;
                 }
@@ -212,16 +212,16 @@ namespace Sprint2Pork
 
         private void CheckRoomChange()
         {
-            if (currentRoom == "room1" && link.X > GraphicsDevice.Viewport.Width)
+            if (currentRoom == "room1" && link.GetX() > GraphicsDevice.Viewport.Width)
             {
                 RoomChange.SwitchRoom("room2", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
-                link.X = 0;
+                link.SetX(0);
             }
 
-            else if (currentRoom == "room2" && link.X <= 0)
+            else if (currentRoom == "room2" && link.GetX() <= 0)
             {
                 RoomChange.SwitchRoom("room1", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
-                link.X = GraphicsDevice.Viewport.Width - 1; // Reset Link's position to the right side of the screen
+                link.SetX(GraphicsDevice.Viewport.Width - 1); // Reset Link's position to the right side of the screen
             }
         }
 

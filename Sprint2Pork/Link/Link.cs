@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Sprint2Pork
 {
@@ -10,7 +11,7 @@ namespace Sprint2Pork
         public ILinkActionState actionState;
         public ILinkItems linkItem;
 
-        public int X;
+        private int X;
         public int Y;
         public int OffsetX;
         public int OffsetY;
@@ -49,6 +50,10 @@ namespace Sprint2Pork
             this.damageEffectCounter = 0;
             this.isTakingDamage = false;
         }
+
+        public int GetX() => this.X;
+
+        public void SetX(int newX) => this.X = newX;
         public void LookLeft()
         {
             if (!isTakingDamage)
