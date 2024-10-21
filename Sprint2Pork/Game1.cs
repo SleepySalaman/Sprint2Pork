@@ -151,7 +151,7 @@ namespace Sprint2Pork
             EnemyUpdater.updateFireballs(enemyManager, ref link, ref fireballManagers, gameTime);
 
             enemySprite.Update();
-            enemySprite.Move();
+            enemySprite.Move(blocks);
             if (currentEnemyNum == 0)
             {
                 enemyManager.Update(gameTime, enemySprite.getX());

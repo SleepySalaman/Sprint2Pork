@@ -42,7 +42,7 @@ namespace Sprint2Pork.Entity.Moving
             }
         }
 
-        public abstract void Move();
+        public abstract void Move(List<Block> blocks);
 
         public void Draw(SpriteBatch sb, Texture2D txt)
         {

@@ -68,16 +68,11 @@ namespace Sprint2Pork.Entity.Moving
             destinationRect = new Rectangle(initX, initY, 100, 100);
         }
 
-        public override void Move()
-        {
-            //previousX = x + moveX;
-            //previousY = y + moveY;
-            if (!moving)
-            {
+        public override void Move(List<Block> blocks){
+            if (!moving){
                 moving = true;
                 direction = new Random().Next(1, 5);
-                switch (direction)
-                {
+                switch (direction){
                     case 1: //right
                         sourceRects = rightRects;
                         break;
@@ -116,26 +111,28 @@ namespace Sprint2Pork.Entity.Moving
             }
             destinationRect.X = x + moveX;
             destinationRect.Y = y + moveY;
-            if(Collision.CollidesWithOutside(destinationRect, roomBoundingBox)) {
-                movedAmount = 0;
-                moving = false;
-                switch (direction) {
-                    case 1:
-                        moveX -= 2;
-                        destinationRect.X -= 2;
-                        break;
-                    case 2:
-                        moveX += 2;
-                        destinationRect.X += 2;
-                        break;
-                    case 3:
-                        moveY += 2;
-                        destinationRect.Y += 2;
-                        break;
-                    case 4:
-                        moveY -= 2;
-                        destinationRect.Y -= 2;
-                        break;
+            foreach(Block b in blocks) {
+               if(Collision.Collides(destinationRect, b.getBoundingBox())) {
+                    movedAmount = 0;
+                    moving = false;
+                    switch (direction) {
+                        case 1:
+                            moveX -= 2;
+                            destinationRect.X -= 2;
+                            break;
+                        case 2:
+                            moveX += 2;
+                            destinationRect.X += 2;
+                            break;
+                        case 3:
+                            moveY += 2;
+                            destinationRect.Y += 2;
+                            break;
+                        case 4:
+                            moveY -= 2;
+                            destinationRect.Y -= 2;
+                            break;
+                    }
                 }
             }
         }
