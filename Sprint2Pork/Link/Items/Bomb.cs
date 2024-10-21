@@ -13,30 +13,30 @@ namespace Sprint2Pork
             {
                 case LeftFacingLinkState:
                     direction = 0;
-                    link.OffsetX = -30;
-                    link.OffsetY = 2;
+                    link.OffsetXSet(-30);
+                    link.OffsetYSet(2);
                     rect = new Rectangle(127, 29, 9, 16); //136 45
                     break;
                 case RightFacingLinkState:
                     direction = 1;
-                    link.OffsetX = 45;
-                    link.OffsetY = 2;
+                    link.OffsetXSet(45);
+                    link.OffsetYSet(2);
                     rect = new Rectangle(127, 29, 9, 16);
                     break;
                 case DownFacingLinkState:
                     direction = 2;
-                    link.OffsetX = 10;
-                    link.OffsetY = 30;
+                    link.OffsetXSet(10);
+                    link.OffsetYSet(30);
                     rect = new Rectangle(127, 29, 9, 16);
                     break;
                 case UpFacingLinkState:
                     direction = 3;
-                    link.OffsetX = 10;
-                    link.OffsetY = -48;
+                    link.OffsetXSet(10);
+                    link.OffsetYSet(-48);
                     rect = new Rectangle(127, 29, 9, 16);
                     break;
             }
-            link.linkItemSprite = new MovingNonAnimatedSprite(link.GetX() + link.OffsetX, link.GetY() + link.OffsetY, rect, directionStr);
+            link.linkItemSprite = new MovingNonAnimatedSprite(link.GetX() + link.OffsetXGet(), link.GetY() + link.OffsetYGet(), rect, directionStr);
         }
 
         public void Update(Link link)
@@ -44,16 +44,16 @@ namespace Sprint2Pork
             switch (direction)
             {
                 case 1:
-                    link.OffsetX = -10;
+                    link.OffsetXSet(-10);
                     break;
                 case 2:
-                    link.OffsetX = 10;
+                    link.OffsetXSet(10);
                     break;
                 case 3:
-                    link.OffsetY = 10;
+                    link.OffsetYSet(10);
                     break;
                 case 4:
-                    link.OffsetY = -10;
+                    link.OffsetYSet(-10);
                     break;
             }
 
@@ -63,18 +63,18 @@ namespace Sprint2Pork
                 rect = new Rectangle(153, 29, 17, 28);
                 if (link.directionState is RightFacingLinkState)
                 {
-                    link.OffsetX += 87;
+                    link.OffsetXChange(87);
                 }
                 else if (link.directionState is UpFacingLinkState)
                 {
-                    link.OffsetY -= 87;
-                    link.OffsetX -= 25;
+                    link.OffsetYChange(-87);
+                    link.OffsetXChange(-25);
                 }
                 else if (link.directionState is LeftFacingLinkState)
                 {
-                    link.OffsetX -= 15;
+                    link.OffsetXChange(-15);
                 }
-                link.linkItemSprite = new MovingNonAnimatedSprite(link.GetX() + link.OffsetX, link.GetY() + link.OffsetY, rect, directionStr);
+                link.linkItemSprite = new MovingNonAnimatedSprite(link.GetX() + link.OffsetXGet(), link.GetY() + link.OffsetYGet(), rect, directionStr);
             }
             link.UpdateItem();
         }

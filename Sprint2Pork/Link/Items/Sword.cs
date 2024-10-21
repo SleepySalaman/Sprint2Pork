@@ -41,26 +41,26 @@ namespace Sprint2Pork
                     rect = new Rectangle(34, 0, 8, 16);
                     break;
             }
-            link.linkItemSprite = new MovingNonAnimatedSprite(link.GetX() + link.OffsetX + startX, link.GetY() + link.OffsetY + startY, rect, directionStr);
+            link.linkItemSprite = new MovingNonAnimatedSprite(link.GetX() + link.OffsetXGet() + startX, link.GetY() + link.OffsetYGet() + startY, rect, directionStr);
         }
 
         public void Update(Link link)
         {
             if (direction == 0)
             {
-                link.OffsetX -= (link.linkCount <= 10) ? 7 : -7;
+                link.OffsetXChange((link.linkCount <= 10) ? -7 : 7);
             }
             else if (direction == 1)
             {
-                link.OffsetX += (link.linkCount <= 10) ? 7 : -7;
+                link.OffsetXChange((link.linkCount <= 10) ? 7 : -7);
             }
             else if (direction == 2)
             {
-                link.OffsetY += (link.linkCount <= 10) ? 7 : -7;
+                link.OffsetYChange((link.linkCount <= 10) ? 7 : -7);
             }
             else if (direction == 3)
             {
-                link.OffsetY -= (link.linkCount <= 10) ? 7 : -7;
+                link.OffsetYChange((link.linkCount <= 10) ? -7 : 7);
             }
             link.UpdateItem();
             link.UpdateItem();

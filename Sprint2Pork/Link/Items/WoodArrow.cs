@@ -43,26 +43,26 @@ namespace Sprint2Pork
                     rect = new Rectangle(1, 29, 6, 18);
                     break;
             }
-            link.linkItemSprite = new MovingNonAnimatedSprite(link.GetX() + link.OffsetX + startX, link.GetY() + link.OffsetY + startY, rect, directionStr);
+            link.linkItemSprite = new MovingNonAnimatedSprite(link.GetX() + link.OffsetXGet() + startX, link.GetY() + link.OffsetYGet() + startY, rect, directionStr);
         }
 
         public void Update(Link link)
         {
             if (direction == 0)
             {
-                link.OffsetX -= 7;
+                link.OffsetXChange(-7);
             }
             else if (direction == 1)
             {
-                link.OffsetX += 7;
+                link.OffsetXChange(7);
             }
             else if (direction == 2)
             {
-                link.OffsetY += 7;
+                link.OffsetYChange(7);
             }
             else if (direction == 3)
             {
-                link.OffsetY -= 7;
+                link.OffsetYChange(-7);
             }
 
             //Explosion
@@ -71,24 +71,24 @@ namespace Sprint2Pork
                 rect = new Rectangle(51, 34, 10, 9); // 170 47
                 if (link.directionState is RightFacingLinkState)
                 {
-                    link.OffsetX += 87;
-                    link.OffsetY += 17;
+                    link.OffsetXChange(87);
+                    link.OffsetYChange(17);
                 }
                 else if (link.directionState is UpFacingLinkState)
                 {
-                    link.OffsetX += 25;
-                    link.OffsetY -= 15;
+                    link.OffsetXChange(25);
+                    link.OffsetYChange(-15);
                 }
                 else if (link.directionState is LeftFacingLinkState)
                 {
-                    link.OffsetY += 50;
+                    link.OffsetYChange(50);
                 }
                 else if (link.directionState is DownFacingLinkState)
                 {
-                    link.OffsetX += 50;
-                    link.OffsetY += 100;
+                    link.OffsetXChange(50);
+                    link.OffsetYChange(100);
                 }
-                link.linkItemSprite = new MovingNonAnimatedSprite(link.GetX() + link.OffsetX, link.GetY() + link.OffsetY, rect, directionStr);
+                link.linkItemSprite = new MovingNonAnimatedSprite(link.GetX() + link.OffsetXGet(), link.GetY() + link.OffsetYGet(), rect, directionStr);
             }
 
             link.UpdateItem();

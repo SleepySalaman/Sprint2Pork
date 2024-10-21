@@ -13,8 +13,8 @@ namespace Sprint2Pork
 
         private int X;
         private int Y;
-        public int OffsetX;
-        public int OffsetY;
+        private int OffsetX;
+        private int OffsetY;
 
         private int screenWidth;
         private int screenHeight;
@@ -56,6 +56,13 @@ namespace Sprint2Pork
 
         public int GetY() => this.Y;
         public void SetY(int newY) => this.Y = newY;
+
+        public int OffsetXGet() => this.OffsetX;
+        public void OffsetXSet(int newX) => this.OffsetX = newX;
+        public void OffsetXChange(int change) => this.OffsetX = this.OffsetX + change;
+        public int OffsetYGet() => this.OffsetY;
+        public void OffsetYSet(int newY) => this.OffsetY = newY;
+        public void OffsetYChange(int change) => this.OffsetY = this.OffsetY + change;
         public void LookLeft()
         {
             if (!isTakingDamage)
