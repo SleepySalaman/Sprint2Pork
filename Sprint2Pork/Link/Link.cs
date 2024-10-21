@@ -22,8 +22,8 @@ namespace Sprint2Pork
         public ISprite linkItemSprite;
 
         private bool isMoving;
-        public bool IsFrozen;
-        public bool IsDamaged;
+        private bool IsFrozen;
+        private bool IsDamaged;
         private int damageEffectCounter;
         private bool isTakingDamage;
         private const int flashRate = 5;
