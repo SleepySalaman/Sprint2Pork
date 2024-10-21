@@ -169,8 +169,8 @@ namespace Sprint2Pork
             }
 
             link.actionState.Update();
-            link.linkSprite.Update(link.GetX(), link.GetY());
-            if (link.ItemInUse){
+            link.LinkSpriteUpdate();
+            if (link.IsLinkUsingItem()){
                 link.linkItem.Update(link);
             }
 

@@ -18,7 +18,7 @@ namespace Sprint2Pork
 
         private int screenWidth;
         private int screenHeight;
-        public ISprite linkSprite;
+        private ISprite linkSprite;
         public ISprite linkItemSprite;
 
         private bool isMoving;
@@ -29,7 +29,7 @@ namespace Sprint2Pork
         private const int flashRate = 5;
 
         int attackFrameCount;
-        public bool ItemInUse;
+        private bool ItemInUse;
         private int linkCount;
 
         public Link(int width, int height)
@@ -66,6 +66,11 @@ namespace Sprint2Pork
         
         public int LinkCountGet() => this.linkCount;
         public void LinkCountSet(int count) => this.linkCount = count;
+
+        public bool IsLinkUsingItem() => this.ItemInUse;
+
+        public void LinkSpriteUpdate() => this.linkSprite.Update(X, Y);
+        public void LinkSpriteSet(ISprite sprite) => this.linkSprite = sprite;
 
         public void LookLeft()
         {
