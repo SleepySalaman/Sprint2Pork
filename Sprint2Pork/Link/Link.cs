@@ -123,7 +123,7 @@ namespace Sprint2Pork
             linkSprite.Draw(sb, texture);
             if (ItemInUse)
             {
-                linkItemSprite.Draw(sb, itemTexture);
+                linkItem.Draw(sb, itemTexture);
             }
         }
 

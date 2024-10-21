@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Sprint2Pork
 {
@@ -9,6 +10,7 @@ namespace Sprint2Pork
         string directionStr;
         int startX = 0;
         int startY = 0;
+        private ISprite sprite;
         public WoodArrow(Link link)
         {
             directionStr = "Down";
@@ -92,6 +94,10 @@ namespace Sprint2Pork
             }
 
             link.UpdateItem();
+        }
+        public void Draw(SpriteBatch sb, Texture2D texture)
+        {
+            sprite.Draw(sb, texture);
         }
     }
 }

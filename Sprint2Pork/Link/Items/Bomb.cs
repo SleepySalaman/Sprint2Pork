@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Sprint2Pork
 {
@@ -7,6 +8,7 @@ namespace Sprint2Pork
         public int direction = 0;
         Rectangle rect = new Rectangle();
         string directionStr = "Down";
+        private ISprite sprite;
         public Bomb(Link link)
         {
             switch (link.directionState)
@@ -77,6 +79,11 @@ namespace Sprint2Pork
                 link.LinkItemSpriteSet(new MovingNonAnimatedSprite(link.GetX() + link.OffsetXGet(), link.GetY() + link.OffsetYGet(), rect, directionStr));
             }
             link.UpdateItem();
+
+        }
+        public void Draw(SpriteBatch sb, Texture2D texture)
+        {
+            sprite.Draw(sb, texture);
         }
 
     }

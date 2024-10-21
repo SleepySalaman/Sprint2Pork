@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
 namespace Sprint2Pork
@@ -8,6 +9,7 @@ namespace Sprint2Pork
         public int direction = 0;
         int startX = 0;
         int startY = 0;
+        private ISprite sprite;
 
         string directionStr = "Down";
         List<Rectangle> sourceRects = new List<Rectangle>();
@@ -46,7 +48,7 @@ namespace Sprint2Pork
                     directionStr = "Left";
                     break;
             }
-            link.LinkItemSpriteSet(new MovingNonAnimatedSprite(startX, startY, sourceRects[0], directionStr));
+            sprite = new MovingNonAnimatedSprite(startX, startY, sourceRects[0], directionStr);
         }
 
         public void Update(Link link)
@@ -68,8 +70,13 @@ namespace Sprint2Pork
                 link.OffsetYChange((link.LinkCountGet() <= 10) ? -7 : 7);
             }
 
-            link.LinkItemSpriteSet(new MovingNonAnimatedSprite(link.GetX() + link.OffsetXGet() + startX, link.GetY() + link.OffsetYGet() + startY, sourceRects[(link.LinkCountGet() % 3)], directionStr));
+            sprite = new MovingNonAnimatedSprite(startX + link.OffsetXGet(), startY + link.OffsetYGet(), sourceRects[(link.LinkCountGet() % 3)], directionStr);
             link.UpdateItem();
+        }
+
+        public void Draw(SpriteBatch sb, Texture2D texture)
+        {
+            sprite.Draw(sb, texture);
         }
     }
 }

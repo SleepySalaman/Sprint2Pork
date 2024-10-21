@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
@@ -11,6 +12,7 @@ namespace Sprint2Pork
         int startY = 0;
         List<Rectangle> sourceRects = new List<Rectangle>();
         String directionStr;
+        private ISprite sprite;
 
         public BlueBoomer(Link link)
         {
@@ -70,6 +72,10 @@ namespace Sprint2Pork
 
             link.LinkItemSpriteSet(new MovingNonAnimatedSprite(link.GetX() + link.OffsetXGet() + startX, link.GetY() + link.OffsetYGet() + startY, sourceRects[(link.LinkCountGet() % 3)], directionStr));
             link.UpdateItem();
+        }
+        public void Draw(SpriteBatch sb, Texture2D texture)
+        {
+            sprite.Draw(sb, texture);
         }
 
     }
