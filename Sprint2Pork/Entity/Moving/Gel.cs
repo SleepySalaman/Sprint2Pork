@@ -68,6 +68,30 @@ namespace Sprint2Pork.Entity.Moving
             }
             destinationRect.X = startX + moveX;
             destinationRect.Y = startY + moveY;
+            foreach (Block b in blocks) {
+                if (Collision.Collides(destinationRect, b.getBoundingBox())) {
+                    movedAmount = 0;
+                    moving = false;
+                    switch (direction) {
+                        case 1:
+                            moveX -= 2;
+                            destinationRect.X -= 2;
+                            break;
+                        case 2:
+                            moveX += 2;
+                            destinationRect.X += 2;
+                            break;
+                        case 3:
+                            moveY += 2;
+                            destinationRect.Y += 2;
+                            break;
+                        case 4:
+                            moveY -= 2;
+                            destinationRect.Y -= 2;
+                            break;
+                    }
+                }
+            }
         }
 
     }
