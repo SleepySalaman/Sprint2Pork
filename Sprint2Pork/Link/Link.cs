@@ -26,7 +26,7 @@ namespace Sprint2Pork
         private bool IsDamaged;
         private int damageEffectCounter;
         private bool isTakingDamage;
-        private const int flashRate = 5;
+        private const int flashRate = 1;
 
         int attackFrameCount;
         private bool ItemInUse;

@@ -212,16 +212,16 @@ namespace Sprint2Pork
 
         private void CheckRoomChange()
         {
-            if (currentRoom == "room1" && link.GetX() > GraphicsDevice.Viewport.Width)
+            if (currentRoom == "room1" && link.GetX() > GraphicsDevice.Viewport.Width - 100)
             {
                 RoomChange.SwitchRoom("room2", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
-                link.SetX(0);
+                link.SetX(100);
             }
 
-            else if (currentRoom == "room2" && link.GetX() <= 0)
+            else if (currentRoom == "room2" && link.GetX() <= 100)
             {
                 RoomChange.SwitchRoom("room1", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
-                link.SetX(GraphicsDevice.Viewport.Width - 1); // Reset Link's position to the right side of the screen
+                link.SetX(GraphicsDevice.Viewport.Width - 101);
             }
         }
 
