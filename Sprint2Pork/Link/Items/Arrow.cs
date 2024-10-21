@@ -42,7 +42,7 @@ namespace Sprint2Pork
                     rect = new Rectangle(27, 30, 7, 18);
                     break;
             }
-            link.linkItemSprite = new MovingNonAnimatedSprite(link.GetX() + link.OffsetXGet() + startX, link.GetY() + link.OffsetXGet() + startY, rect, directionStr);
+            link.LinkItemSpriteSet(new MovingNonAnimatedSprite(link.GetX() + link.OffsetXGet() + startX, link.GetY() + link.OffsetXGet() + startY, rect, directionStr));
         }
 
         public void Update(Link link)
@@ -92,7 +92,7 @@ namespace Sprint2Pork
                     link.OffsetXChange(50);
                     link.OffsetYChange(100);
                 }
-                link.linkItemSprite = new MovingNonAnimatedSprite(link.GetX() + link.OffsetXGet(), link.GetY() + link.OffsetYGet(), rect, directionStr);
+                link.LinkItemSpriteSet(new MovingNonAnimatedSprite(link.GetX() + link.OffsetXGet(), link.GetY() + link.OffsetYGet(), rect, directionStr));
             }
 
             link.UpdateItem();

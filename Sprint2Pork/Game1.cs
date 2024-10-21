@@ -162,8 +162,10 @@ namespace Sprint2Pork
 
         private void UpdateLink(int linkPreviousX, int linkPreviousY)
         {
-            if (link.linkItemSprite != null){
-                enemySprite.updateFromCollision(Collision.Collides(link.linkItemSprite.GetRect(), enemySprite.getRect()), Color.Red);
+            ISprite itemSprite = link.LinkItemSpriteGet();
+            if (itemSprite != null){
+                enemySprite.updateFromCollision(Collision.Collides(itemSprite.GetRect(), enemySprite.getRect()), Color.Red);
+                link.LinkItemSpriteSet(itemSprite);
             }  else {
                 enemySprite.updateFromCollision(false, Color.White);
             }

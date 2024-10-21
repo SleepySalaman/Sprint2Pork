@@ -19,7 +19,7 @@ namespace Sprint2Pork
         private int screenWidth;
         private int screenHeight;
         private ISprite linkSprite;
-        public ISprite linkItemSprite;
+        private ISprite linkItemSprite;
 
         private bool isMoving;
         private bool IsFrozen;
@@ -71,6 +71,9 @@ namespace Sprint2Pork
 
         public void LinkSpriteUpdate() => this.linkSprite.Update(X, Y);
         public void LinkSpriteSet(ISprite sprite) => this.linkSprite = sprite;
+
+        public void LinkItemSpriteSet(ISprite sprite) => this.linkItemSprite = sprite;
+        public ISprite LinkItemSpriteGet() => this.linkItemSprite;
 
         public void LookLeft()
         {

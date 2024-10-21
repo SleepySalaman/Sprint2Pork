@@ -38,7 +38,7 @@ namespace Sprint2Pork
                     rect = new Rectangle(188, 30, 19, 18);
                     break;
             }
-            link.linkItemSprite = new MovingNonAnimatedSprite(link.GetX() + link.OffsetXGet() + startX, link.GetY() + link.OffsetYGet() + startY, rect, directionStr);
+            link.LinkItemSpriteSet(new MovingNonAnimatedSprite(link.GetX() + link.OffsetXGet() + startX, link.GetY() + link.OffsetYGet() + startY, rect, directionStr));
         }
 
         public void Update(Link link)
