@@ -30,7 +30,7 @@ namespace Sprint2Pork
                     flipped = false;
                     break;
             }
-            link.linkSprite = new NonMovingNonAnimatedSprite(link.GetX(), link.Y, rect, flipped);
+            link.linkSprite = new NonMovingNonAnimatedSprite(link.GetX(), link.GetY(), rect, flipped);
 
         }
 

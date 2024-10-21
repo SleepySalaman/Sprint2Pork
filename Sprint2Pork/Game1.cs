@@ -132,7 +132,7 @@ namespace Sprint2Pork
         protected override void Update(GameTime gameTime)
         {
             int linkPreviousX = link.GetX();
-            int linkPreviousY = link.Y;
+            int linkPreviousY = link.GetY();
 
             timeSinceLastSwitch += gameTime.ElapsedGameTime.TotalSeconds;
             timeSinceSwitchedEnemy += gameTime.ElapsedGameTime.TotalSeconds;
@@ -169,7 +169,7 @@ namespace Sprint2Pork
             }
 
             link.actionState.Update();
-            link.linkSprite.Update(link.GetX(), link.Y);
+            link.linkSprite.Update(link.GetX(), link.GetY());
             if (link.ItemInUse){
                 link.linkItem.Update(link);
             }
@@ -184,7 +184,7 @@ namespace Sprint2Pork
                 if (Collision.Collides(link.GetRect(), block.getBoundingBox()))
                 {
                     link.SetX(linkPreviousX);
-                    link.Y = linkPreviousY;
+                    link.SetY(linkPreviousY);
                     break;
                 }
             }

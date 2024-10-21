@@ -12,7 +12,7 @@ namespace Sprint2Pork
         public ILinkItems linkItem;
 
         private int X;
-        public int Y;
+        private int Y;
         public int OffsetX;
         public int OffsetY;
 
@@ -52,8 +52,10 @@ namespace Sprint2Pork
         }
 
         public int GetX() => this.X;
-
         public void SetX(int newX) => this.X = newX;
+
+        public int GetY() => this.Y;
+        public void SetY(int newY) => this.Y = newY;
         public void LookLeft()
         {
             if (!isTakingDamage)
