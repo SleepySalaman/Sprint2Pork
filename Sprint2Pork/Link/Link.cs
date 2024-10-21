@@ -10,7 +10,7 @@ namespace Sprint2Pork
         public ILinkDirectionState directionState;
         public ILinkActionState actionState;
         public ILinkItems linkItem;
-
+        private ILinkDirectionState frozenDirectionState;
         private int X;
         private int Y;
         private int OffsetX;
@@ -77,7 +77,7 @@ namespace Sprint2Pork
 
         public void LookLeft()
         {
-            if (!isTakingDamage)
+            if (!isTakingDamage && !ItemInUse)  // Prevent direction change when item is in use
             {
                 directionState.LookLeft();
             }
@@ -85,7 +85,7 @@ namespace Sprint2Pork
 
         public void LookRight()
         {
-            if (!isTakingDamage)
+            if (!isTakingDamage && !ItemInUse)
             {
                 directionState.LookRight();
             }
@@ -93,7 +93,7 @@ namespace Sprint2Pork
 
         public void LookUp()
         {
-            if (!isTakingDamage)
+            if (!isTakingDamage && !ItemInUse)
             {
                 directionState.LookUp();
             }
@@ -101,11 +101,12 @@ namespace Sprint2Pork
 
         public void LookDown()
         {
-            if (!isTakingDamage)
+            if (!isTakingDamage && !ItemInUse)
             {
                 directionState.LookDown();
             }
         }
+
 
         public void BeIdle() => actionState.BeIdle();
         public void BeMoving() => actionState.BeMoving();
@@ -116,7 +117,9 @@ namespace Sprint2Pork
         {
             ItemInUse = false;
             linkItem = new NoItem();
+            frozenDirectionState = null;
         }
+
 
         public void Draw(SpriteBatch sb, Texture2D texture, Texture2D itemTexture)
         {
@@ -131,6 +134,11 @@ namespace Sprint2Pork
 
         public void Move(bool reverse)
         {
+            if (ItemInUse)  // Keep using the frozen direction when item is in use
+            {
+                directionState = frozenDirectionState;
+            }
+
             int stepLength = reverse ? -8 : 4;
 
             switch (directionState)
@@ -162,6 +170,7 @@ namespace Sprint2Pork
             }
         }
 
+
         public void Attack()
         {
             IsFrozen = true;
@@ -178,11 +187,12 @@ namespace Sprint2Pork
         public void UseItem(int index)
         {
             ItemInUse = true;
+            frozenDirectionState = directionState; 
             linkItem = index switch
             {
                 0 => new Sword(this),
                 1 => new Arrow(this),
-                2 => new Boomerang(this.directionState, this.X, this.Y, this),
+                2 => new Boomerang(frozenDirectionState, this.X, this.Y, this),
                 3 => new Bomb(this),
                 4 => new WoodArrow(this),
                 5 => new BlueBoomer(this),
@@ -190,6 +200,8 @@ namespace Sprint2Pork
                 _ => linkItem
             };
         }
+
+
 
         public bool BeDamaged()
         {
