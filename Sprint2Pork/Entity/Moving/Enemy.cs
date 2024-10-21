@@ -12,7 +12,7 @@ namespace Sprint2Pork.Entity.Moving
         protected int currentFrame = 0;
 
         protected int count = 0;
-        protected int maxCount = 30;
+        protected int maxCount = 6;
 
         protected int rectW = 100;
         protected int rectH = 100;
@@ -42,7 +42,7 @@ namespace Sprint2Pork.Entity.Moving
             }
         }
 
-        public abstract void Move();
+        public abstract void Move(List<Block> blocks);
 
         public void Draw(SpriteBatch sb, Texture2D txt)
         {
