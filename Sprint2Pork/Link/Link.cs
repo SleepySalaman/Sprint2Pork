@@ -30,7 +30,7 @@ namespace Sprint2Pork
 
         int attackFrameCount;
         public bool ItemInUse;
-        public int linkCount;
+        private int linkCount;
 
         public Link(int width, int height)
         {
@@ -63,6 +63,10 @@ namespace Sprint2Pork
         public int OffsetYGet() => this.OffsetY;
         public void OffsetYSet(int newY) => this.OffsetY = newY;
         public void OffsetYChange(int change) => this.OffsetY = this.OffsetY + change;
+        
+        public int LinkCountGet() => this.linkCount;
+        public void LinkCountSet(int count) => this.linkCount = count;
+
         public void LookLeft()
         {
             if (!isTakingDamage)
