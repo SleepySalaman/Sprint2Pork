@@ -182,7 +182,7 @@ namespace Sprint2Pork
             {
                 0 => new Sword(this),
                 1 => new Arrow(this),
-                2 => new Boomerang(this),
+                2 => new Boomerang(this.directionState, this.X, this.Y, this),
                 3 => new Bomb(this),
                 4 => new WoodArrow(this),
                 5 => new BlueBoomer(this),

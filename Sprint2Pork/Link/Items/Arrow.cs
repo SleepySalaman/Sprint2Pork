@@ -6,67 +6,63 @@ namespace Sprint2Pork
     {
         public int direction = 0;
         Rectangle rect = new Rectangle();
-        string directionStr = "Down";
+        string directionStr;
         int startX = 0;
         int startY = 0;
         public Arrow(Link link)
         {
+            directionStr = "Down";
             switch (link.directionState)
             {
                 case LeftFacingLinkState:
                     direction = 0;
                     directionStr = "Right";
-                    startX = -30;
-                    startY = 40;
+                    startX = -35;
+                    startY = 35;
                     rect = new Rectangle(27, 30, 7, 18); // 34 48
                     break;
                 case RightFacingLinkState:
                     direction = 1;
                     directionStr = "Left";
                     startX = 80;
-                    startY = 20;
-                    rect = new Rectangle(27, 30, 7, 18);
+                    startY = 15;
+                    rect = new Rectangle(27, 30, 7, 18); // 34 48
                     break;
                 case DownFacingLinkState:
                     direction = 2;
                     directionStr = "Up";
                     startX = 35;
-                    startY = 80;
-                    rect = new Rectangle(27, 30, 7, 18);
+                    startY = 85;
+                    rect = new Rectangle(27, 30, 7, 18); // 34 48
                     break;
                 case UpFacingLinkState:
                     direction = 3;
                     directionStr = "Down";
                     startX = 10;
                     startY = -40;
-                    rect = new Rectangle(27, 30, 7, 18);
+                    rect = new Rectangle(27, 30, 7, 18); // 34 48
                     break;
             }
-            link.LinkItemSpriteSet(new MovingNonAnimatedSprite(link.GetX() + link.OffsetXGet() + startX, link.GetY() + link.OffsetXGet() + startY, rect, directionStr));
+            link.LinkItemSpriteSet(new MovingNonAnimatedSprite(link.GetX() + link.OffsetXGet() + startX, link.GetY() + link.OffsetYGet() + startY, rect, directionStr));
         }
 
         public void Update(Link link)
         {
-            int offset;
             if (direction == 0)
             {
-                offset = link.OffsetXGet();
-                link.OffsetXSet(offset - 12);
+                link.OffsetXChange(-12);
             }
             else if (direction == 1)
             {
-                offset = link.OffsetXGet();
-                link.OffsetXSet(offset + 12);
+                link.OffsetXChange(12);
             }
             else if (direction == 2)
             {
-                offset = link.OffsetYGet();
-                link.OffsetYSet(offset + 12);
+                link.OffsetYChange(12);
             }
             else if (direction == 3)
             {
-                offset = link.OffsetYGet();
-                link.OffsetYSet(offset - 12);
+                link.OffsetYChange(-12);
             }
 
             //Explosion

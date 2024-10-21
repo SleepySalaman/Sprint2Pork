@@ -11,40 +11,42 @@ namespace Sprint2Pork
 
         string directionStr = "Down";
         List<Rectangle> sourceRects = new List<Rectangle>();
-        public Boomerang(Link link)
+        public Boomerang(ILinkDirectionState state, int X, int Y, Link link)
         {
             sourceRects.Add(new Rectangle(62, 32, 8, 11));
             sourceRects.Add(new Rectangle(70, 32, 10, 11));
             sourceRects.Add(new Rectangle(78, 36, 11, 6));
 
-            switch (link.directionState)
+            startX += X;
+            startY += Y;
+            switch (state)
             {
                 case LeftFacingLinkState:
                     direction = 0;
                     directionStr = "Down";
-                    startX = -15;
-                    startY = 10;
+                    startX += -15;
+                    startY += 10;
                     break;
                 case RightFacingLinkState:
                     direction = 1;
                     directionStr = "Up";
-                    startX = 85;
-                    startY = 50;
+                    startX += 85;
+                    startY += 50;
                     break;
                 case DownFacingLinkState:
-                    startX = 15;
-                    startY = 65;
+                    startX += 15;
+                    startY += 65;
                     direction = 2;
                     directionStr = "Right";
                     break;
                 case UpFacingLinkState:
                     direction = 3;
-                    startX = 45;
-                    startY = -15;
+                    startX += 45;
+                    startY += -15;
                     directionStr = "Left";
                     break;
             }
-            link.LinkItemSpriteSet(new MovingNonAnimatedSprite(link.GetX() + link.OffsetXGet() + startX, link.GetY() + link.OffsetYGet() + startY, sourceRects[0], directionStr));
+            link.LinkItemSpriteSet(new MovingNonAnimatedSprite(startX, startY, sourceRects[0], directionStr));
         }
 
         public void Update(Link link)
