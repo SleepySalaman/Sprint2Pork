@@ -7,7 +7,7 @@ namespace Sprint2Pork.Entity.Moving
     public interface IEnemy : IEntity
     {
 
-        void Move(List<Block> blocks);
+        void Move();
         int getX();
 
         Rectangle getRect();

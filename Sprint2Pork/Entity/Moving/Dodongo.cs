@@ -68,7 +68,7 @@ namespace Sprint2Pork.Entity.Moving
             destinationRect = new Rectangle(initX, initY, 100, 100);
         }
 
-        public override void Move(List<Block> blocks)
+        public override void Move()
         {
             previousX = x + moveX;
             previousY = y + moveY;

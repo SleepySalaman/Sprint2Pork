@@ -40,7 +40,7 @@ namespace Sprint2Pork.Entity.Moving
             destinationRect = new Rectangle(initX, initY, rectW, rectH);
         }
 
-        public override void Move(List<Block> blocks)
+        public override void Move()
         {
             moveCount++;
             if (moveCount > moveMaxCount)

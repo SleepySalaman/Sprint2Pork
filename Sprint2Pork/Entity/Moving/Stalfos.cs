@@ -36,7 +36,7 @@ namespace Sprint2Pork.Entity.Moving
             destinationRect = new Rectangle(initX, initY, rectW / 2, rectH / 2);
         }
 
-        public override void Move(List<Block> blocks)
+        public override void Move()
         {
             if (!moving)
             {

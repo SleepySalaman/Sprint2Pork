@@ -27,6 +27,7 @@ namespace Sprint2Pork.Entity.Moving
 
         protected Color color = Color.White;
 
+        protected Rectangle roomBoundingBox = new Rectangle(0, 0, 100, 100);
         public void Update()
         {
             count++;
@@ -41,7 +42,7 @@ namespace Sprint2Pork.Entity.Moving
             }
         }
 
-        public abstract void Move(List<Block> blocks);
+        public abstract void Move();
 
         public void Draw(SpriteBatch sb, Texture2D txt)
         {
