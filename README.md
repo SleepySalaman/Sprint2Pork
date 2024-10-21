@@ -1,6 +1,7 @@
 # Legends of Zelda
 
 # Sprint 3
+[Task Tracking for Sprint 3](https://trello.com/invite/b/66fae6fd379bde94d2f5e768/ATTIa0fd6912f9f0526385ba2eec584d400304A3007A/sprint-3)
 
 ## Description
 This project is a game that allows users to control a character, switch weapons, and interact with enemies using keyboard inputs. The game includes visual assets from **Zelda enemy sprites** and incorporates multiple states (damage, block, item, and enemy states) that the user can control in real-time.
