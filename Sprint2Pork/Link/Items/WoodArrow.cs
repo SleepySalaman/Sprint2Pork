@@ -88,7 +88,7 @@ namespace Sprint2Pork
                     link.OffsetXChange(50);
                     link.OffsetYChange(100);
                 }
-                link.LinkItemSpriteSet(new MovingNonAnimatedSprite(link.GetX() + link.OffsetXGet(), link.GetY() + link.OffsetYGet(), rect, directionStr)d);
+                link.LinkItemSpriteSet(new MovingNonAnimatedSprite(link.GetX() + link.OffsetXGet(), link.GetY() + link.OffsetYGet(), rect, directionStr));
             }
 
             link.UpdateItem();
