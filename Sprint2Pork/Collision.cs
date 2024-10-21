@@ -21,5 +21,10 @@ namespace Sprint2Pork
             return (linkRect.X < groundItemCenterX && linkRect.X + linkRect.Width > groundItemCenterX &&
                     linkRect.Y < groundItemCenterY && linkRect.Y + linkRect.Height > groundItemCenterY);
         }
+
+        public static bool CollidesWithOutside(Rectangle innerRect, Rectangle outerRect) {
+            return !(innerRect.X > outerRect.X && innerRect.X + innerRect.Width < outerRect.X + outerRect.Width
+                && innerRect.Y > outerRect.Y && innerRect.Y + innerRect.Height < outerRect.Y + outerRect.Height);
+        }
     }
 }

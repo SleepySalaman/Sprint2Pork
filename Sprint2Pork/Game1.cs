@@ -35,10 +35,10 @@ namespace Sprint2Pork
         private List<GroundItem> groundItems;
         private List<IEnemy> enemies;
         private List<EnemyManager> fireballManagers;
-        private Vector2 enemyInitPos;
+        private Vector2 enemyInitPos = new Vector2(450, 350);
 
         private int currentBlockIndex = 0;
-        private Vector2 blockPosition;
+        private Vector2 blockPosition = new Vector2(200, 200);
 
         private List<GroundItem> items;
         private int currentItemIndex = 0;
@@ -79,8 +79,6 @@ namespace Sprint2Pork
             groundItems = new List<GroundItem>();
             enemies = new List<IEnemy>();
             fireballManagers = new List<EnemyManager>();
-            blockPosition = new Vector2(200, 200);
-            enemyInitPos = new Vector2(450, 350);
 
             controllerList = new List<IController>();
             LoadGroundItems();
