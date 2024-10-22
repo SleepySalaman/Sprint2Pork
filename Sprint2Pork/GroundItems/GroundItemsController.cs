@@ -41,7 +41,7 @@ namespace Sprint2Pork.GroundItems
                 new Meat(400, 200, itemFrames[7]),
                 new Clock(400, 200, itemFrames[8]),
                 new Potion(400, 200, itemFrames[9]),
-                new Scroll(400, 200, itemFrames[10]),
+                new MapItem(400, 200, itemFrames[10]),
                 new Heart(400, 200, itemFrames[11])
             };
             return items;

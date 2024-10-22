@@ -108,7 +108,7 @@ namespace Sprint2Pork.rooms
                                 groundItems.Add(new Potion((int)position.X, (int)position.Y, new List<Rectangle> { new Rectangle(80, 0, 8, 16), new Rectangle(80, 16, 8, 16) }));
                                 break;
                             case 21:
-                                groundItems.Add(new Scroll((int)position.X, (int)position.Y, new List<Rectangle> { new Rectangle(88, 0, 8, 16), new Rectangle(88, 16, 8, 16) }));
+                                groundItems.Add(new MapItem((int)position.X, (int)position.Y, new List<Rectangle> { new Rectangle(88, 0, 8, 16), new Rectangle(88, 16, 8, 16) }));
                                 break;
                             case 22:
                                 groundItems.Add(new Heart((int)position.X, (int)position.Y, new List<Rectangle> { new Rectangle(24, 0, 16, 16), new Rectangle(24, 16, 8, 16) }));
