@@ -1,0 +1,30 @@
+Eli Click
+10/21/2024
+Sprint 3
+
+Reviewing: Enemy.cs
+Author: Shivam Engineer
+
+Minutes for Review: 15-20
+Comments:
+ - The file is well-organized and segmented, with related variables/methods grouped together in a logical way. It is easy to scroll through and search, if necessary.
+ - Variable purposes are almost all understandable by their names, with some outliers that are more difficult to visualize but are still named accordingly. For example, many of the variable names reference Rectangles, X and Y coords, and frames, which all make sense for particular enemies. The "relativeX" variable appears to have some importance to the class, at is it returned in the getX() method, but the purpose of this variable in the method instead of previousX, which also has a previousY counterpart.
+ - There are no comments in the code, but that generally doesn't decrease the readability since the class itself is so compact. Adding it could possibly alleviate confusion about what methods may do, but generally the structure of the code defines the purposes well enough as is.
+
+--------------------------------------------------
+
+Eli Click
+10/21/2024
+Sprint 3
+
+Filename: Enemy.cs
+Author: Shivam Engineer
+
+Comments:
+ - Variable and method names all appear clear as to their general functionality.
+ - Methods are short and concise, achieving all necessary features without overpopulating the class. There is an Update() and Draw(), and only a few more additional methods applied to each enemy.
+ - The logic in the method bodies is clear and concise, each's purpose is apparent.
+ - The implementation of the abstract method Move() is interesting but makes sense since each of the enemies in the game needs its own movement pattern. Would be interested to see how each implementation is coded on each of the enemies.
+
+Hypothetical:
+Suppose that after reviewing this file, we determined that as additional work on our project we were to add more enemies than originally planned and used this existing class as their basis. This implementation would support this change well for multiple reasons. First, it has little dependencies to other classes, which makes it a good basis as we continue to expand. Secondly, it is concise and easy to understand, which makes the process of adapting new enemies to it very easy. Finally, its completeness would mean that outside of the movement method and sprite creation, the steps of adding new enemies would be straightforward and quick. While Shivam's file has minor changes that could be made, as a whole it is written incredibly well.
