@@ -14,5 +14,7 @@ namespace Sprint2Pork.Entity.Moving
 
         void updateFromCollision(bool collides, Color c);
 
+        int getTextureIndex();
+
     }
 }

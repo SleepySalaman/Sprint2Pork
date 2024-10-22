@@ -50,6 +50,10 @@ namespace Sprint2Pork
             this.isTakingDamage = false;
         }
 
+        /*
+         * Section for set/get methods for Link's private variables
+         */
+
         public int GetX() => this.X;
         public void SetX(int newX) => this.X = newX;
 
@@ -59,6 +63,7 @@ namespace Sprint2Pork
         public int OffsetXGet() => this.OffsetX;
         public void OffsetXSet(int newX) => this.OffsetX = newX;
         public void OffsetXChange(int change) => this.OffsetX = this.OffsetX + change;
+
         public int OffsetYGet() => this.OffsetY;
         public void OffsetYSet(int newY) => this.OffsetY = newY;
         public void OffsetYChange(int change) => this.OffsetY = this.OffsetY + change;
@@ -72,6 +77,10 @@ namespace Sprint2Pork
         public void LinkSpriteSet(ISprite sprite) => this.linkSprite = sprite;
 
         public ILinkItems LinkItemSpriteGet() => this.linkItem;
+
+        /*
+         * Section for non-set/get methods
+         */
 
         public void LookLeft()
         {

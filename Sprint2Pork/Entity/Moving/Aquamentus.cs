@@ -61,5 +61,8 @@ namespace Sprint2Pork.Entity.Moving
             }
             destinationRect.X = x + relativeX;
         }
+
+        public override int getTextureIndex() { return 2; }
+
     }
 }

@@ -71,5 +71,7 @@ namespace Sprint2Pork.Entity.Moving
             }
         }
 
+        public abstract int getTextureIndex();
+
     }
 }
