@@ -168,6 +168,16 @@ namespace Sprint2Pork
                 enemySprite.updateFromCollision(false, Color.White);
             }
 
+            foreach(Enemy e in enemies) {
+                if(Collision.Collides(e.getRect(), link.GetRect())) {
+                    link.BeDamaged();
+                }
+            }
+
+            if(Collision.Collides(enemySprite.getRect(), link.GetRect())) {
+                link.BeDamaged();
+            }
+
             link.actionState.Update();
             link.LinkSpriteUpdate();
             if (link.IsLinkUsingItem()){
