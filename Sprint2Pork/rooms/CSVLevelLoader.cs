@@ -120,8 +120,8 @@ namespace Sprint2Pork.rooms
                                 fireballs.Add(new EnemyManager(0, (int)position.X, (int)position.Y));
                                 break;
                             case 31:
-                                // wrong sprite sheet being used
-                                //enemies.Add(new Bat((int)position.X, (int)position.Y));
+                                // wrong sprite sheet being used  allTextures[4]
+                                enemies.Add(new Bat((int)position.X, (int)position.Y));
                                 break;
                             case 32:
                                 enemies.Add(new Digdogger((int)position.X, (int)position.Y));
@@ -133,8 +133,8 @@ namespace Sprint2Pork.rooms
                                 enemies.Add(new Ganon((int)position.X, (int)position.Y));
                                 break;
                             case 35:
-                                // wrong sprite sheet being used
-                                //enemies.Add(new Gel((int)position.X, (int)position.Y));
+                                // wrong sprite sheet being used  allTextures[3]
+                                enemies.Add(new Gel((int)position.X, (int)position.Y));
                                 break;
                             case 36:
                                 enemies.Add(new Gleeok((int)position.X, (int)position.Y));
@@ -143,19 +143,19 @@ namespace Sprint2Pork.rooms
                                 enemies.Add(new Gohma((int)position.X, (int)position.Y));
                                 break;
                             case 38:
-                                // wrong sprite sheet being used
-                                //enemies.Add(new Goriya((int)position.X, (int)position.Y));
+                                // wrong sprite sheet being used   allTextures[5]
+                                enemies.Add(new Goriya((int)position.X, (int)position.Y));
                                 break;
                             case 39:
                                 enemies.Add(new Manhandla((int)position.X, (int)position.Y));
                                 break;
                             case 40:
-                                // wrong sprite sheet being used
-                                //enemies.Add(new Stalfos((int)position.X, (int)position.Y));
+                                // wrong sprite sheet being used    allTextures[7]
+                                enemies.Add(new Stalfos((int)position.X, (int)position.Y));
                                 break;
                             case 41:
-                                // wrong sprite sheet being used
-                                //enemies.Add(new Wizard((int)position.X, (int)position.Y));
+                                // wrong sprite sheet being used    allTextures[6]
+                                enemies.Add(new Wizard((int)position.X, (int)position.Y));
                                 break;
                         }
                     }

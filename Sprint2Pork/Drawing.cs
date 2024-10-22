@@ -29,7 +29,7 @@ namespace Sprint2Pork {
             }
 
             foreach (var enemy in enemies) {
-                enemy.Draw(spriteBatch, allTextures[2]);
+                enemy.Draw(spriteBatch, allTextures[enemy.getTextureIndex()]);
             }
             foreach (var fireball in fireballManagers) {
                 fireball.Draw(spriteBatch, allTextures[1]);

@@ -29,5 +29,7 @@ namespace Sprint2Pork.Entity.Moving
 
         }
 
+        public override int getTextureIndex() { return 2; }
+
     }
 }
