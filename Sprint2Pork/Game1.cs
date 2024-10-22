@@ -160,10 +160,9 @@ namespace Sprint2Pork
 
         private void UpdateLink(int linkPreviousX, int linkPreviousY)
         {
-            ISprite itemSprite = link.LinkItemSpriteGet();
-            if (itemSprite != null){
+            ILinkItems itemSprite = link.LinkItemSpriteGet();
+            if (!(itemSprite is NoItem)){
                 enemySprite.updateFromCollision(Collision.Collides(itemSprite.GetRect(), enemySprite.getRect()), Color.Red);
-                link.LinkItemSpriteSet(itemSprite);
             }  else {
                 enemySprite.updateFromCollision(false, Color.White);
             }

@@ -9,11 +9,13 @@ namespace Sprint2Pork
         Rectangle rect = new Rectangle();
         int startX = 0;
         int startY = 0;
-        private ISprite sprite;
-        public Fire(Link link)
+        string directionStr;
+        public ISprite sprite;
+        public Fire(ILinkDirectionState state, int X, int Y)
         {
-            string directionStr = "Down";
-            switch (link.directionState)
+            
+            directionStr = "Down";
+            switch (state)
             {
                 case LeftFacingLinkState:
                     direction = 0;
@@ -40,7 +42,9 @@ namespace Sprint2Pork
                     rect = new Rectangle(188, 30, 19, 18);
                     break;
             }
-            link.LinkItemSpriteSet(new MovingNonAnimatedSprite(link.GetX() + link.OffsetXGet() + startX, link.GetY() + link.OffsetYGet() + startY, rect, directionStr));
+            startX += X;
+            startY += Y;
+            sprite = new MovingNonAnimatedSprite(startX, startY, rect, directionStr);
         }
 
         public void Update(Link link)
@@ -62,6 +66,7 @@ namespace Sprint2Pork
                 link.OffsetYChange(-12);
             }
             link.UpdateItem();
+            sprite = new MovingNonAnimatedSprite(link.OffsetXGet() + startX, link.OffsetYGet() + startY, rect, directionStr);
         }
         public void Draw(SpriteBatch sb, Texture2D texture)
         {

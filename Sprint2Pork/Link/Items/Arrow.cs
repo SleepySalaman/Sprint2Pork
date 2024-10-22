@@ -10,11 +10,11 @@ namespace Sprint2Pork
         string directionStr;
         int startX = 0;
         int startY = 0;
-        private ISprite sprite;
-        public Arrow(Link link)
+        public ISprite sprite;
+        public Arrow(ILinkDirectionState state, int X, int Y)
         {
             directionStr = "Down";
-            switch (link.directionState)
+            switch (state)
             {
                 case LeftFacingLinkState:
                     direction = 0;
@@ -45,7 +45,9 @@ namespace Sprint2Pork
                     rect = new Rectangle(27, 30, 7, 18); // 34 48
                     break;
             }
-            link.LinkItemSpriteSet(new MovingNonAnimatedSprite(link.GetX() + link.OffsetXGet() + startX, link.GetY() + link.OffsetYGet() + startY, rect, directionStr));
+            startX += X;
+            startY += Y;
+            sprite = new MovingNonAnimatedSprite(startX, startY, rect, directionStr);
         }
 
         public void Update(Link link)
@@ -90,7 +92,7 @@ namespace Sprint2Pork
                     link.OffsetXChange(50);
                     link.OffsetYChange(100);
                 }
-                link.LinkItemSpriteSet(new MovingNonAnimatedSprite(link.GetX() + link.OffsetXGet(), link.GetY() + link.OffsetYGet(), rect, directionStr));
+                sprite = new MovingNonAnimatedSprite(link.GetX() + link.OffsetXGet(), link.GetY() + link.OffsetYGet(), rect, directionStr);
             }
 
             link.UpdateItem();

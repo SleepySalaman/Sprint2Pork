@@ -13,7 +13,7 @@ namespace Sprint2Pork
 
         string directionStr = "Down";
         List<Rectangle> sourceRects = new List<Rectangle>();
-        public Boomerang(ILinkDirectionState state, int X, int Y, Link link)
+        public Boomerang(ILinkDirectionState state, int X, int Y)
         {
             sourceRects.Add(new Rectangle(62, 32, 8, 11));
             sourceRects.Add(new Rectangle(70, 32, 10, 11));

@@ -10,46 +10,49 @@ namespace Sprint2Pork
         string directionStr;
         int startX = 0;
         int startY = 0;
-        private ISprite sprite;
-        public WoodArrow(Link link)
+        public ISprite sprite;
+        public WoodArrow(ILinkDirectionState state, int X, int Y)
         {
+            startX += X;
+            startY += Y;
             directionStr = "Down";
-            switch (link.directionState)
+            switch (state)
             {
                 case LeftFacingLinkState:
                     direction = 0;
                     directionStr = "Right";
-                    startX = -35;
-                    startY = 35;
+                    startX += -35;
+                    startY += 35;
                     rect = new Rectangle(1, 29, 6, 18); // 7 47
                     break;
                 case RightFacingLinkState:
                     direction = 1;
                     directionStr = "Left";
-                    startX = 80;
-                    startY = 15;
+                    startX += 80;
+                    startY += 15;
                     rect = new Rectangle(1, 29, 6, 18);
                     break;
                 case DownFacingLinkState:
                     direction = 2;
                     directionStr = "Up";
-                    startX = 35;
-                    startY = 85;
+                    startX += 35;
+                    startY += 85;
                     rect = new Rectangle(1, 29, 6, 18);
                     break;
                 case UpFacingLinkState:
                     direction = 3;
                     directionStr = "Down";
-                    startX = 10;
-                    startY = -40;
+                    startX += 10;
+                    startY += -40;
                     rect = new Rectangle(1, 29, 6, 18);
                     break;
             }
-            link.LinkItemSpriteSet(new MovingNonAnimatedSprite(link.GetX() + link.OffsetXGet() + startX, link.GetY() + link.OffsetYGet() + startY, rect, directionStr));
+            sprite = new MovingNonAnimatedSprite(startX, startY, rect, directionStr);
         }
 
         public void Update(Link link)
         {
+            
             if (direction == 0)
             {
                 link.OffsetXChange(-7);
@@ -66,6 +69,7 @@ namespace Sprint2Pork
             {
                 link.OffsetYChange(-7);
             }
+            sprite = new MovingNonAnimatedSprite(link.OffsetXGet() + startX, link.OffsetYGet() + startY, rect, directionStr);
 
             //Explosion
             if (link.LinkCountGet() >= 19)
@@ -90,7 +94,7 @@ namespace Sprint2Pork
                     link.OffsetXChange(50);
                     link.OffsetYChange(100);
                 }
-                link.LinkItemSpriteSet(new MovingNonAnimatedSprite(link.GetX() + link.OffsetXGet(), link.GetY() + link.OffsetYGet(), rect, directionStr));
+                sprite = new MovingNonAnimatedSprite(link.OffsetXGet() + startX, link.OffsetYGet() + startY, rect, directionStr);
             }
 
             link.UpdateItem();

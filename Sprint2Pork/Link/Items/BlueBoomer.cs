@@ -12,16 +12,16 @@ namespace Sprint2Pork
         int startY = 0;
         List<Rectangle> sourceRects = new List<Rectangle>();
         String directionStr;
-        private ISprite sprite;
+        public ISprite sprite;
 
-        public BlueBoomer(Link link)
+        public BlueBoomer(ILinkDirectionState state, int X, int Y)
         {
             string directionStr = "Down";
             sourceRects.Add(new Rectangle(89, 33, 8, 11));
             sourceRects.Add(new Rectangle(97, 33, 10, 10));
             sourceRects.Add(new Rectangle(106, 35, 10, 7)); //116, 42
 
-            switch (link.directionState)
+            switch (state)
             {
                 case LeftFacingLinkState:
                     direction = 0;
@@ -48,7 +48,8 @@ namespace Sprint2Pork
                     directionStr = "Left";
                     break;
             }
-            link.LinkItemSpriteSet(new MovingNonAnimatedSprite(link.GetX() + link.OffsetXGet() + startX, link.GetY() + link.OffsetYGet() + startY, sourceRects[(link.LinkCountGet() % 3)], directionStr));
+
+            sprite = new MovingNonAnimatedSprite(startX,startY, sourceRects[(0)], directionStr);
         }
 
         public void Update(Link link)
@@ -70,7 +71,7 @@ namespace Sprint2Pork
                 link.OffsetYChange((link.LinkCountGet() <= 10) ? -12 : 12);
             }
 
-            link.LinkItemSpriteSet(new MovingNonAnimatedSprite(link.GetX() + link.OffsetXGet() + startX, link.GetY() + link.OffsetYGet() + startY, sourceRects[(link.LinkCountGet() % 3)], directionStr));
+            sprite = new MovingNonAnimatedSprite(link.GetX() + link.OffsetXGet() + startX, link.GetY() + link.OffsetYGet() + startY, sourceRects[(link.LinkCountGet() % 3)], directionStr);
             link.UpdateItem();
         }
         public void Draw(SpriteBatch sb, Texture2D texture)

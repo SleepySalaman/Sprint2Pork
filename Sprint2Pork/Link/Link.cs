@@ -19,7 +19,6 @@ namespace Sprint2Pork
         private int screenWidth;
         private int screenHeight;
         private ISprite linkSprite;
-        private ISprite linkItemSprite;
 
         private bool isMoving;
         private bool IsFrozen;
@@ -72,8 +71,7 @@ namespace Sprint2Pork
         public void LinkSpriteUpdate() => this.linkSprite.Update(X, Y);
         public void LinkSpriteSet(ISprite sprite) => this.linkSprite = sprite;
 
-        public void LinkItemSpriteSet(ISprite sprite) => this.linkItemSprite = sprite;
-        public ISprite LinkItemSpriteGet() => this.linkItemSprite;
+        public ILinkItems LinkItemSpriteGet() => this.linkItem;
 
         public void LookLeft()
         {
@@ -190,18 +188,16 @@ namespace Sprint2Pork
             frozenDirectionState = directionState; 
             linkItem = index switch
             {
-                0 => new Sword(this),
-                1 => new Arrow(this),
-                2 => new Boomerang(frozenDirectionState, this.X, this.Y, this),
-                3 => new Bomb(this),
-                4 => new WoodArrow(this),
-                5 => new BlueBoomer(this),
-                6 => new Fire(this),
+                0 => new Sword(frozenDirectionState, this.X, this.Y),
+                1 => new Arrow(frozenDirectionState, this.X, this.Y),
+                2 => new Boomerang(frozenDirectionState, this.X, this.Y),
+                3 => new Bomb(frozenDirectionState, this.X, this.Y),
+                4 => new WoodArrow(frozenDirectionState, this.X, this.Y),
+                5 => new BlueBoomer(frozenDirectionState, this.X, this.Y),
+                6 => new Fire(frozenDirectionState, this.X, this.Y),
                 _ => linkItem
             };
         }
-
-
 
         public bool BeDamaged()
         {
@@ -237,7 +233,6 @@ namespace Sprint2Pork
 
         public Rectangle GetRect() => linkSprite.GetRect();
 
-        public Rectangle GetItemRect() => linkItemSprite.GetRect();
 
     }
 }

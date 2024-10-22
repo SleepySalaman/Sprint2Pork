@@ -8,37 +8,41 @@ namespace Sprint2Pork
         public int direction = 0;
         Rectangle rect = new Rectangle();
         string directionStr = "Down";
-        private ISprite sprite;
-        public Bomb(Link link)
+        public ISprite sprite;
+        int startX = 0;
+        int startY = 0;
+        public Bomb(ILinkDirectionState state, int X, int Y)
         {
-            switch (link.directionState)
+            startX += X;
+            startY += Y;
+            switch (state)
             {
                 case LeftFacingLinkState:
                     direction = 0;
-                    link.OffsetXSet(-30);
-                    link.OffsetYSet(2);
+                    startX += -30;
+                    startY += 2;
                     rect = new Rectangle(127, 29, 9, 16); //136 45
                     break;
                 case RightFacingLinkState:
                     direction = 1;
-                    link.OffsetXSet(45);
-                    link.OffsetYSet(2);
+                    startX += 45;
+                    startY += 2;
                     rect = new Rectangle(127, 29, 9, 16);
                     break;
                 case DownFacingLinkState:
                     direction = 2;
-                    link.OffsetXSet(10);
-                    link.OffsetYSet(30);
+                    startX += 10;
+                    startY += 30;
                     rect = new Rectangle(127, 29, 9, 16);
                     break;
                 case UpFacingLinkState:
                     direction = 3;
-                    link.OffsetXSet(10);
-                    link.OffsetYSet(-48);
+                    startX += 10;
+                    startY += -48;
                     rect = new Rectangle(127, 29, 9, 16);
                     break;
             }
-            link.LinkItemSpriteSet(new MovingNonAnimatedSprite(link.GetX() + link.OffsetXGet(), link.GetY() + link.OffsetYGet(), rect, directionStr));
+            sprite = new MovingNonAnimatedSprite(startX, startY, rect, directionStr);
         }
 
         public void Update(Link link)
@@ -76,7 +80,7 @@ namespace Sprint2Pork
                 {
                     link.OffsetXChange(-15);
                 }
-                link.LinkItemSpriteSet(new MovingNonAnimatedSprite(link.GetX() + link.OffsetXGet(), link.GetY() + link.OffsetYGet(), rect, directionStr));
+                sprite = new MovingNonAnimatedSprite(link.GetX() + link.OffsetXGet(), link.GetY() + link.OffsetYGet(), rect, directionStr);
             }
             link.UpdateItem();
 

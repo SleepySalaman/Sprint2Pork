@@ -4,7 +4,7 @@ namespace Sprint2Pork
 {
     internal class NoItem : ILinkItems
     {
-        private ISprite sprite;
+        public ISprite sprite;
 
         public void Update(Link link)
         {
@@ -12,7 +12,7 @@ namespace Sprint2Pork
         }
         public void Draw(SpriteBatch sb, Texture2D texture)
         {
-            sprite.Draw(sb, texture);
+            return;
         }
     }
 }
