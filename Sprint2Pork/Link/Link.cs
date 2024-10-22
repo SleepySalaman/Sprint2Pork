@@ -37,6 +37,7 @@ namespace Sprint2Pork
             screenHeight = height;
             directionState = new DownFacingLinkState(this);
             actionState = new IdleActionState(this);
+            linkItem = new NoItem();
             ItemInUse = false;
             X = 115;
             Y = 180;

@@ -68,6 +68,7 @@ namespace Sprint2Pork
             {
                 link.OffsetYChange(-12);
             }
+            sprite = new MovingNonAnimatedSprite(startX + link.OffsetXGet(), startY + link.OffsetYGet(), rect, directionStr);
 
             //Explosion
             if (link.LinkCountGet() >= 19)
@@ -92,7 +93,7 @@ namespace Sprint2Pork
                     link.OffsetXChange(50);
                     link.OffsetYChange(100);
                 }
-                sprite = new MovingNonAnimatedSprite(link.GetX() + link.OffsetXGet(), link.GetY() + link.OffsetYGet(), rect, directionStr);
+                sprite = new MovingNonAnimatedSprite(startX + link.OffsetXGet(), startY + link.OffsetYGet(), rect, directionStr);
             }
 
             link.UpdateItem();
@@ -102,6 +103,8 @@ namespace Sprint2Pork
         {
             sprite.Draw(sb, texture);
         }
+        public void SpriteSet(ISprite sprite) => this.sprite = sprite;
+        public ISprite SpriteGet() => this.sprite;
     }
   
 }

@@ -14,5 +14,7 @@ namespace Sprint2Pork
         {
             return;
         }
+        public void SpriteSet(ISprite sprite) => this.sprite = sprite;
+        public ISprite SpriteGet() => this.sprite;
     }
 }
