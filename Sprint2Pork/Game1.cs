@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Sprint2Pork.Blocks;
 using Sprint2Pork.Entity;
@@ -56,6 +57,9 @@ namespace Sprint2Pork
         private string currentRoom;
         private Dictionary<string, (List<Block>, List<GroundItem>, List<IEnemy>, List<EnemyManager>)> rooms;
 
+        // SFX
+        private SoundManager soundManager;
+
         public int CurrentBlockIndex
         {
             get => currentBlockIndex;
@@ -95,7 +99,7 @@ namespace Sprint2Pork
         }
 
         protected override void Initialize(){
-            InitializeHandler.baseInitialize(ref viewport, graphics, ref link, ref controllerList, ref blocks, this);
+            InitializeHandler.baseInitialize(ref viewport, graphics, ref link, ref controllerList, ref blocks, this, soundManager);
             base.Initialize();
         }
 
@@ -111,6 +115,10 @@ namespace Sprint2Pork
             textSprite = new TextSprite(200, 100, font);
 
             GenerateBlocks.fillBlockList(blocks, allTextures[8], blockPosition);
+
+            //Loading Sounds
+            soundManager = new SoundManager();
+            soundManager.LoadAllSounds(Content);
 
             //blockTexture, groundItemTexture, enemyTexture
             LoadRooms(allTextures[8], allTextures[9], allTextures[2]);
@@ -280,7 +288,7 @@ namespace Sprint2Pork
             enemyUpdater = new UpdateEnemySprite((int)enemyInitPos.X, (int)enemyInitPos.Y);
             currentEnemyNum = 0;
 
-            link = new Link(viewport.Width, viewport.Height);
+            link = new Link(viewport.Width, viewport.Height, soundManager);
 
             currentRoom = "room1";
             (blocks, groundItems, enemies, fireballManagers) = rooms[currentRoom];
@@ -336,7 +344,7 @@ namespace Sprint2Pork
         public void GetDevRoom()
         {
             RoomChange.SwitchRoom("room1", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
-            link = new Link(viewport.Width, viewport.Height);
+            link = new Link(viewport.Width, viewport.Height, soundManager);
             foreach (IController controller in controllerList)
             {
                 if (controller is KeyboardController keyboardController)

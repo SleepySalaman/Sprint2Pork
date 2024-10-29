@@ -31,7 +31,9 @@ namespace Sprint2Pork
         private bool ItemInUse;
         private int linkCount;
 
-        public Link(int width, int height)
+        private SoundManager soundManager;
+
+        public Link(int width, int height, SoundManager soundManager)
         {
             screenWidth = width;
             screenHeight = height;
@@ -49,6 +51,8 @@ namespace Sprint2Pork
             // Initialize damage effect fields
             this.damageEffectCounter = 0;
             this.isTakingDamage = false;
+
+            this.soundManager = soundManager;
         }
 
         /*
