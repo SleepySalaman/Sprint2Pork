@@ -200,6 +200,18 @@
 /processorParam:TextureFormat=Color
 /build:Room1.jpg
 
+#begin Room1Alone.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Room1Alone.png
+
 #begin Room2.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -277,4 +289,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:zeldaenemies.png
+
+#begin ZeldaHUD.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ZeldaHUD.jpg
 

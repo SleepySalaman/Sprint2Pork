@@ -29,6 +29,8 @@ namespace Sprint2Pork
         private int[] spritePos = new int[2] { 0, 0 };
         private bool moving = false;
         private Texture2D backgroundTexture;
+        private Texture2D hudTexture;
+        private Texture2D roomTexture;
 
         private double timeSinceLastSwitch = 0;
         private double timeSinceSwitchedEnemy = 0;
@@ -119,6 +121,8 @@ namespace Sprint2Pork
             font = Content.Load<SpriteFont>("File");
             // Loading the background/room
             backgroundTexture = Content.Load<Texture2D>("Room1");
+            hudTexture = Content.Load<Texture2D>("ZeldaHUD");
+            roomTexture = Content.Load<Texture2D>("Room1Alone");
             textSprite = new TextSprite(200, 100, font);
 
             GenerateBlocks.fillBlockList(blocks, allTextures[8], blockPosition);
@@ -347,7 +351,9 @@ namespace Sprint2Pork
             GraphicsDevice.Clear(Color.Black);
 
             // Drawing the background/room
-            spriteBatch.Draw(backgroundTexture, new Rectangle(0, 0, viewport.Width, viewport.Height), Color.White);
+            //spriteBatch.Draw(backgroundTexture, new Rectangle(0, 0, viewport.Width, viewport.Height), Color.White);
+            spriteBatch.Draw(hudTexture, new Rectangle(0, 0, viewport.Width, 89), Color.White);
+            spriteBatch.Draw(roomTexture, new Rectangle(0, 90, viewport.Width, viewport.Height-90), Color.White);
 
             //blocks[CurrentBlockIndex].Draw(spriteBatch);
             //items[currentItemIndex].Draw(spriteBatch, allTextures[9]);
