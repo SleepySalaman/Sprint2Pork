@@ -243,6 +243,7 @@ namespace Sprint2Pork
             bool flash = (damageEffectCounter % 2 == 0) ? true : false;
             actionState = new DamagedActionState(this, flash);
             this.Move(true);
+            this.PlaySound("sfxPlayerHurt");
 
             damageEffectCounter++;
             if (damageEffectCounter >= flashRate * 10)

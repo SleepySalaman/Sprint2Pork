@@ -22,6 +22,7 @@ namespace Sprint2Pork
         public void LoadAllSounds(ContentManager content)
         {
             soundEffects.Add(content.Load<SoundEffect>("sfxSwordZap"));
+            soundEffects.Add(content.Load<SoundEffect>("sfxPlayerHurt"));
             //delays.Add("sfxSwordZap", 0.67f);
         }
 
