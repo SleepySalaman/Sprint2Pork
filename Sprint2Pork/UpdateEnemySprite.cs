@@ -16,9 +16,9 @@ namespace Sprint2Pork {
             this.enemyInitY = enemyInitY;
         }
 
-        public void setEnemySprite(int currentEnemyNum, ref IEnemy enemySprite, ref EnemyManager enemyManager) {
+        public void setEnemySprite(int currentEnemyNum, ref IEnemy enemySprite, ref EnemyManager enemyManager, SoundManager soundManager) {
             switch (currentEnemyNum) {
-                case 0: enemySprite = new Aquamentus(enemyInitX, enemyInitY); enemyManager = new EnemyManager(enemySprite.getX(), enemyInitX, enemyInitY); break;
+                case 0: enemySprite = new Aquamentus(enemyInitX, enemyInitY); enemyManager = new EnemyManager(enemySprite.getX(), enemyInitX, enemyInitY, soundManager); break;
                 case 1: enemySprite = new Dodongo(enemyInitX, enemyInitY); enemyManager.clearFireballs(); break;
                 case 2: enemySprite = new Manhandla(enemyInitX, enemyInitY); break;
                 case 3: enemySprite = new Gleeok(enemyInitX, enemyInitY); break;

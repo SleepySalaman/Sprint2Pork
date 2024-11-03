@@ -79,12 +79,12 @@ namespace Sprint2Pork
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
+            soundManager = new SoundManager();
             allTextures = new List<Texture2D>();
             blocks = new List<Block>();
             groundItems = new List<GroundItem>();
             enemies = new List<IEnemy>();
             fireballManagers = new List<EnemyManager>();
-            soundManager = new SoundManager();
 
             controllerList = new List<IController>();
             LoadGroundItems();
@@ -107,8 +107,12 @@ namespace Sprint2Pork
 
         protected override void LoadContent()
         {
+
+            //Loading Sounds
+            soundManager.LoadAllSounds(Content);
+
             InitializeHandler.loadEnemyContent(ref spriteBatch, ref enemySprite, ref enemyUpdater, ref enemyManager, 
-                GraphicsDevice, (int)enemyInitPos.X, (int)enemyInitPos.Y);
+                GraphicsDevice, (int)enemyInitPos.X, (int)enemyInitPos.Y, this.soundManager);
 
             LoadTextures.loadAllTextures(allTextures, Content);
 
@@ -119,18 +123,15 @@ namespace Sprint2Pork
 
             GenerateBlocks.fillBlockList(blocks, allTextures[8], blockPosition);
 
-            //Loading Sounds
-            soundManager.LoadAllSounds(Content);
-
             //blockTexture, groundItemTexture, enemyTexture
             LoadRooms(allTextures[8], allTextures[9], allTextures[2]);
         }
 
         private void LoadRooms(Texture2D blockTexture, Texture2D groundItemTexture, Texture2D enemyTexture)
         {
-            CSVLevelLoader.LoadObjectsFromCSV("room1.csv", blockTexture, groundItemTexture, enemyTexture, out var room1Blocks, out var room1Items, out var room1Enemies, out var fireballManagerRoom1);
-            CSVLevelLoader.LoadObjectsFromCSV("room2.csv", blockTexture, groundItemTexture, enemyTexture, out var room2Blocks, out var room2Items, out var room2Enemies, out var fireballManagersRoom2);
-            CSVLevelLoader.LoadObjectsFromCSV("room3.csv", blockTexture, groundItemTexture, enemyTexture, out var room3Blocks, out var room3Items, out var room3Enemies, out var fireballManagersRoom3);
+            CSVLevelLoader.LoadObjectsFromCSV("room1.csv", blockTexture, groundItemTexture, enemyTexture, out var room1Blocks, out var room1Items, out var room1Enemies, out var fireballManagerRoom1, this.soundManager);
+            CSVLevelLoader.LoadObjectsFromCSV("room2.csv", blockTexture, groundItemTexture, enemyTexture, out var room2Blocks, out var room2Items, out var room2Enemies, out var fireballManagersRoom2, this.soundManager);
+            CSVLevelLoader.LoadObjectsFromCSV("room3.csv", blockTexture, groundItemTexture, enemyTexture, out var room3Blocks, out var room3Items, out var room3Enemies, out var fireballManagersRoom3, this.soundManager);
 
             rooms["room1"] = (new List<Block>(room1Blocks), new List<GroundItem>(room1Items), new List<IEnemy>(room1Enemies), new List<EnemyManager>(fireballManagerRoom1));
             rooms["room2"] = (new List<Block>(room2Blocks), new List<GroundItem>(room2Items), new List<IEnemy>(room2Enemies), new List<EnemyManager>(fireballManagersRoom2));
@@ -305,7 +306,7 @@ namespace Sprint2Pork
             moving = false;
 
             enemySprite = new Aquamentus((int)enemyInitPos.X, (int)enemyInitPos.Y);
-            enemyManager = new EnemyManager(enemySprite.getX(), (int)enemyInitPos.X, (int)enemyInitPos.Y);
+            enemyManager = new EnemyManager(enemySprite.getX(), (int)enemyInitPos.X, (int)enemyInitPos.Y, this.soundManager);
             enemyUpdater = new UpdateEnemySprite((int)enemyInitPos.X, (int)enemyInitPos.Y);
             currentEnemyNum = 0;
 
@@ -330,6 +331,11 @@ namespace Sprint2Pork
                 }
             }
         }
+
+        //public SoundManager RequestSoundManager()
+        //{
+        //    return this.soundManager;
+        //}
 
         protected override void Draw(GameTime gameTime)
         {
@@ -356,13 +362,13 @@ namespace Sprint2Pork
         public void cycleEnemies()
         {
             currentEnemyNum = (currentEnemyNum + 1) % numEnemies;
-            enemyUpdater.setEnemySprite(currentEnemyNum, ref enemySprite, ref enemyManager);
+            enemyUpdater.setEnemySprite(currentEnemyNum, ref enemySprite, ref enemyManager, this.soundManager);
         }
 
         public void cycleEnemiesBackwards()
         {
             currentEnemyNum = (currentEnemyNum - 1 + numEnemies) % numEnemies;
-            enemyUpdater.setEnemySprite(currentEnemyNum, ref enemySprite, ref enemyManager);
+            enemyUpdater.setEnemySprite(currentEnemyNum, ref enemySprite, ref enemyManager, this.soundManager);
         }
 
         public void GetDevRoom()

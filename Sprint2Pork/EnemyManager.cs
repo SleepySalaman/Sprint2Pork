@@ -18,11 +18,14 @@ namespace Sprint2Pork
         private double timeSinceAttacked = 0.0;
         private double timeBetweenAttacks = 1.0;
 
-        public EnemyManager(int x, int initX, int initY)
+        private SoundManager soundManager;
+
+        public EnemyManager(int x, int initX, int initY, SoundManager smparam)
         {
             fireballs = new List<Fireball>();
             startX = initX;
             startY = initY;
+            this.soundManager = smparam;
             generateFireballs(x);
         }
 
@@ -74,6 +77,7 @@ namespace Sprint2Pork
 
         public void generateFireballs(int x)
         {
+            soundManager.PlaySound("sfxFlamesShot");
             for (int i = 0; i < 3; i++)
             {
                 fireballs.Add(new Fireball(i, x, startX, startY));

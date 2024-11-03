@@ -11,7 +11,7 @@ namespace Sprint2Pork.rooms
 {
     public class CSVLevelLoader
     {
-        public static void LoadObjectsFromCSV(string fileName, Texture2D blockTexture, Texture2D itemTexture, Texture2D enemyTexture, out List<Block> blocks, out List<GroundItem> groundItems, out List<IEnemy> enemies, out List<EnemyManager> fireballs)
+        public static void LoadObjectsFromCSV(string fileName, Texture2D blockTexture, Texture2D itemTexture, Texture2D enemyTexture, out List<Block> blocks, out List<GroundItem> groundItems, out List<IEnemy> enemies, out List<EnemyManager> fireballs, SoundManager soundManager)
         {
             blocks = new List<Block>();
             groundItems = new List<GroundItem>();
@@ -117,7 +117,7 @@ namespace Sprint2Pork.rooms
                             // Enemies
                             case 30:
                                 enemies.Add(new Aquamentus((int)position.X, (int)position.Y));
-                                fireballs.Add(new EnemyManager(0, (int)position.X, (int)position.Y));
+                                fireballs.Add(new EnemyManager(0, (int)position.X, (int)position.Y, soundManager));
                                 break;
                             case 31:
                                 // wrong sprite sheet being used  allTextures[4]

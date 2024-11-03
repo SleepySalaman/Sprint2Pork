@@ -200,6 +200,12 @@
 /processorParam:TextureFormat=Color
 /build:Room1.jpg
 
+#begin sfxFlamesShot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sfxFlamesShot.wav
+
 #begin sfxPlayerHurt.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
