@@ -31,6 +31,7 @@ namespace Sprint2Pork
         private Texture2D backgroundTexture;
         private Texture2D hudTexture;
         private Texture2D roomTexture;
+        private Texture2D nextRoomTexture;
 
         private double timeSinceLastSwitch = 0;
         private double timeSinceSwitchedEnemy = 0;
@@ -63,6 +64,17 @@ namespace Sprint2Pork
         // SFX
         private SoundManager soundManager;
 
+        // Game States
+        private Game1State gameState;
+        private Game1StateManager gameStateManager;
+        private float transitionDuration = 1.0f;
+        private float transitionTimer = 0f;
+        private Rectangle oldRoomRectangle;
+        private Rectangle oldRoomRectangleSaved;
+        private Rectangle nextRoomRectangle;
+        private Rectangle nextRoomRectangleSaved;
+        private Vector2 transitionDirection;
+
         public int CurrentBlockIndex
         {
             get => currentBlockIndex;
@@ -93,6 +105,9 @@ namespace Sprint2Pork
 
             rooms = new Dictionary<string, (List<Block> blocks, List<GroundItem> groundItems,
                 List<IEnemy> enemies, List<EnemyManager> fireballs)>();
+
+            gameState = Game1State.Playing;
+            gameStateManager = new Game1StateManager(gameState);
         }
 
         private void LoadGroundItems()
@@ -146,21 +161,47 @@ namespace Sprint2Pork
 
         protected override void Update(GameTime gameTime)
         {
-            int linkPreviousX = link.GetX();
-            int linkPreviousY = link.GetY();
+            if (gameState == Game1State.Playing)
+            {
+                int linkPreviousX = link.GetX();
+                int linkPreviousY = link.GetY();
 
-            timeSinceLastSwitch += gameTime.ElapsedGameTime.TotalSeconds;
-            timeSinceSwitchedEnemy += gameTime.ElapsedGameTime.TotalSeconds;
+                timeSinceLastSwitch += gameTime.ElapsedGameTime.TotalSeconds;
+                timeSinceSwitchedEnemy += gameTime.ElapsedGameTime.TotalSeconds;
 
-            // Here is the logic that will need to be moved into a StateManager class; put into a switch
-            UpdateControllers();
-            UpdateGroundItems();
-            UpdateEnemies(gameTime);
-            UpdateLink(linkPreviousX, linkPreviousY);
+                // Here is the logic that will need to be moved into a StateManager class; put into a switch
+                UpdateControllers();
+                UpdateGroundItems();
+                UpdateEnemies(gameTime);
+                UpdateLink(linkPreviousX, linkPreviousY);
 
-            CheckRoomChange();
+                CheckRoomChange(gameState);
 
-            base.Update(gameTime);
+                base.Update(gameTime);
+            } else if (gameState == Game1State.Transitioning)
+            {
+                HandleTransition(gameTime);
+            }
+            
+        }
+
+        private void HandleTransition(GameTime gameTime)
+        {
+            transitionTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            int transitionConstant = (int)(transitionTimer * 880.0f);
+
+            oldRoomRectangle = new Rectangle(oldRoomRectangleSaved.X - ((int)transitionDirection.X * transitionConstant), oldRoomRectangle.Y - ((int)transitionDirection.Y * transitionConstant), oldRoomRectangle.Width, oldRoomRectangle.Height);
+            nextRoomRectangle = new Rectangle(nextRoomRectangleSaved.X - ((int)transitionDirection.X * transitionConstant), nextRoomRectangle.Y - ((int)transitionDirection.Y * transitionConstant), nextRoomRectangle.Width, nextRoomRectangle.Height);
+
+            if (transitionTimer >= transitionDuration || (0 > ((int)transitionDirection.X * nextRoomRectangle.X)))
+            {
+                transitionTimer = 0f;
+                gameState = Game1State.Playing;
+                roomTexture = nextRoomTexture;
+                RoomChange.SwitchRoom(nextRoom, ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
+                currentRoom = nextRoom;
+
+            }
         }
 
         private void UpdateEnemies(GameTime gameTime)
@@ -239,38 +280,71 @@ namespace Sprint2Pork
             }
         }
 
-        private void CheckRoomChange()
+        private void CheckRoomChange(Game1State gameState)
         {
             if (currentRoom == "room1" && link.GetX() > GraphicsDevice.Viewport.Width - 100)
             {
                 nextRoom = "room2";
-                RoomChange.SwitchRoom("room2", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
-                roomTexture = Content.Load<Texture2D>("Room2Alone");
+                nextRoomTexture = Content.Load<Texture2D>("Room2Alone");
                 link.SetX(100);
+
+                transitionDirection = new Vector2(1, 0);
+                SetRectangles();
+                this.gameState = Game1State.Transitioning;
+
+
+                //RoomChange.SwitchRoom("room2", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
+
+
+                //currentRoom = "room2";
+
             }
 
-            else if (currentRoom == "room2" && link.GetX() <= 100)
+            else if (currentRoom == "room2" && link.GetX() < 100)
             {
                 nextRoom = "room1";
-                RoomChange.SwitchRoom("room1", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
-                roomTexture = Content.Load<Texture2D>("Room1Alone");
+                nextRoomTexture = Content.Load<Texture2D>("Room1Alone");
+
+
+                //RoomChange.SwitchRoom("room1", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
+                transitionDirection = new Vector2(-1, 0);
+                SetRectangles();
                 link.SetX(GraphicsDevice.Viewport.Width - 101);
+                currentRoom = nextRoom;
+                this.gameState = Game1State.Transitioning;
             }
 
             else if (currentRoom == "room2" && link.GetY() <= 100)
             {
                 nextRoom = "room3";
-                RoomChange.SwitchRoom("room3", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
+                //RoomChange.SwitchRoom("room3", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
+                transitionDirection = new Vector2(0, 1);
+                SetRectangles();
                 link.SetY(GraphicsDevice.Viewport.Height - 101);
+                currentRoom = nextRoom;
+                this.gameState = Game1State.Transitioning;
             }
 
             else if (currentRoom == "room3" && link.GetY() > GraphicsDevice.Viewport.Height - 30)
             {
                 nextRoom = "room2";
-                RoomChange.SwitchRoom("room2", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
-                roomTexture = Content.Load<Texture2D>("Room2Alone");
+                nextRoomTexture = Content.Load<Texture2D>("Room2Alone");
+                transitionDirection = new Vector2(0, -1);
+                SetRectangles();
+                //RoomChange.SwitchRoom("room2", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
+
                 link.SetY(101);
+                currentRoom = nextRoom;
+                this.gameState = Game1State.Transitioning;
             }
+        }
+
+        private void SetRectangles()
+        {
+            oldRoomRectangle = new Rectangle(0, 90, viewport.Width, viewport.Height - 90);
+            oldRoomRectangleSaved = oldRoomRectangle;
+            nextRoomRectangle = new Rectangle(((int)transitionDirection.X * viewport.Width), 90 + ((int)transitionDirection.Y * viewport.Height), viewport.Width, viewport.Height - 90);
+            nextRoomRectangleSaved = nextRoomRectangle;
         }
 
         private void UpdateControllers()
@@ -353,15 +427,23 @@ namespace Sprint2Pork
             // Drawing the background/room
             //spriteBatch.Draw(backgroundTexture, new Rectangle(0, 0, viewport.Width, viewport.Height), Color.White);
             spriteBatch.Draw(hudTexture, new Rectangle(0, 0, viewport.Width, 89), Color.White);
-            spriteBatch.Draw(roomTexture, new Rectangle(0, 90, viewport.Width, viewport.Height-90), Color.White);
+            if (gameState == Game1State.Playing)
+            {
+                spriteBatch.Draw(roomTexture, new Rectangle(0, 90, viewport.Width, viewport.Height - 90), Color.White);
 
-            //blocks[CurrentBlockIndex].Draw(spriteBatch);
-            //items[currentItemIndex].Draw(spriteBatch, allTextures[9]);
+                //blocks[CurrentBlockIndex].Draw(spriteBatch);
+                //items[currentItemIndex].Draw(spriteBatch, allTextures[9]);
 
-            link.Draw(spriteBatch, allTextures[0], allTextures[10]);
+                link.Draw(spriteBatch, allTextures[0], allTextures[10]);
 
-            Drawing.DrawCyclingEnemy(enemyUpdater, enemyManager, spriteBatch, allTextures, enemySprite, currentEnemyNum, textSprite);
-            Drawing.DrawGeneratedObjects(spriteBatch, blocks, groundItems, enemies, fireballManagers, allTextures);
+                Drawing.DrawCyclingEnemy(enemyUpdater, enemyManager, spriteBatch, allTextures, enemySprite, currentEnemyNum, textSprite);
+                Drawing.DrawGeneratedObjects(spriteBatch, blocks, groundItems, enemies, fireballManagers, allTextures);
+            } else if (gameState == Game1State.Transitioning)
+            {
+                spriteBatch.Draw(roomTexture, oldRoomRectangle, Color.White);
+                spriteBatch.Draw(nextRoomTexture, nextRoomRectangle, Color.White);
+            }
+            
 
             spriteBatch.End();
             base.Draw(gameTime);
