@@ -55,6 +55,7 @@ namespace Sprint2Pork
 
         public bool menu = false;
         private string currentRoom;
+        private string nextRoom;
         private Dictionary<string, (List<Block>, List<GroundItem>, List<IEnemy>, List<EnemyManager>)> rooms;
 
         // SFX
@@ -235,24 +236,28 @@ namespace Sprint2Pork
         {
             if (currentRoom == "room1" && link.GetX() > GraphicsDevice.Viewport.Width - 100)
             {
+                nextRoom = "room2";
                 RoomChange.SwitchRoom("room2", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
                 link.SetX(100);
             }
 
             else if (currentRoom == "room2" && link.GetX() <= 100)
             {
+                nextRoom = "room1";
                 RoomChange.SwitchRoom("room1", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
                 link.SetX(GraphicsDevice.Viewport.Width - 101);
             }
 
             else if (currentRoom == "room2" && link.GetY() <= 100)
             {
+                nextRoom = "room3";
                 RoomChange.SwitchRoom("room3", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
                 link.SetY(GraphicsDevice.Viewport.Height - 101);
             }
 
             else if (currentRoom == "room3" && link.GetY() > GraphicsDevice.Viewport.Height - 30)
             {
+                nextRoom = "room2";
                 RoomChange.SwitchRoom("room2", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
                 link.SetY(101);
             }
