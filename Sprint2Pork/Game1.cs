@@ -128,9 +128,11 @@ namespace Sprint2Pork
         {
             CSVLevelLoader.LoadObjectsFromCSV("room1.csv", blockTexture, groundItemTexture, enemyTexture, out var room1Blocks, out var room1Items, out var room1Enemies, out var fireballManagerRoom1);
             CSVLevelLoader.LoadObjectsFromCSV("room2.csv", blockTexture, groundItemTexture, enemyTexture, out var room2Blocks, out var room2Items, out var room2Enemies, out var fireballManagersRoom2);
+            CSVLevelLoader.LoadObjectsFromCSV("room3.csv", blockTexture, groundItemTexture, enemyTexture, out var room3Blocks, out var room3Items, out var room3Enemies, out var fireballManagersRoom3);
 
             rooms["room1"] = (new List<Block>(room1Blocks), new List<GroundItem>(room1Items), new List<IEnemy>(room1Enemies), new List<EnemyManager>(fireballManagerRoom1));
             rooms["room2"] = (new List<Block>(room2Blocks), new List<GroundItem>(room2Items), new List<IEnemy>(room2Enemies), new List<EnemyManager>(fireballManagersRoom2));
+            rooms["room3"] = (new List<Block>(room3Blocks), new List<GroundItem>(room3Items), new List<IEnemy>(room3Enemies), new List<EnemyManager>(fireballManagersRoom3));
             currentRoom = "room1";
             (blocks, groundItems, enemies, fireballManagers) = rooms[currentRoom];
         }
@@ -241,6 +243,18 @@ namespace Sprint2Pork
             {
                 RoomChange.SwitchRoom("room1", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
                 link.SetX(GraphicsDevice.Viewport.Width - 101);
+            }
+
+            else if (currentRoom == "room2" && link.GetY() <= 100)
+            {
+                RoomChange.SwitchRoom("room3", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
+                link.SetY(GraphicsDevice.Viewport.Height - 101);
+            }
+
+            else if (currentRoom == "room3" && link.GetY() > GraphicsDevice.Viewport.Height - 30)
+            {
+                RoomChange.SwitchRoom("room2", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
+                link.SetY(101);
             }
         }
 
