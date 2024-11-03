@@ -147,6 +147,7 @@ namespace Sprint2Pork
             timeSinceLastSwitch += gameTime.ElapsedGameTime.TotalSeconds;
             timeSinceSwitchedEnemy += gameTime.ElapsedGameTime.TotalSeconds;
 
+            // Here is the logic that will need to be moved into a StateManager class; put into a switch
             UpdateControllers();
             UpdateGroundItems();
             UpdateEnemies(gameTime);
