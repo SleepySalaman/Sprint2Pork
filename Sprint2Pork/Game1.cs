@@ -112,6 +112,7 @@ namespace Sprint2Pork
             LoadTextures.loadAllTextures(allTextures, Content);
 
             font = Content.Load<SpriteFont>("File");
+            // Loading the background/room
             backgroundTexture = Content.Load<Texture2D>("Room1");
             textSprite = new TextSprite(200, 100, font);
 
@@ -333,6 +334,7 @@ namespace Sprint2Pork
 
             GraphicsDevice.Clear(Color.Black);
 
+            // Drawing the background/room
             spriteBatch.Draw(backgroundTexture, new Rectangle(0, 0, viewport.Width, viewport.Height), Color.White);
 
             //blocks[CurrentBlockIndex].Draw(spriteBatch);
