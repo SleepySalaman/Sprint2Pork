@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System.Reflection.Metadata.Ecma335;
 
@@ -33,7 +34,7 @@ namespace Sprint2Pork
 
         private SoundManager soundManager;
 
-        public Link(int width, int height, SoundManager soundManager)
+        public Link(int width, int height, SoundManager paramSoundManager)
         {
             screenWidth = width;
             screenHeight = height;
@@ -52,7 +53,7 @@ namespace Sprint2Pork
             this.damageEffectCounter = 0;
             this.isTakingDamage = false;
 
-            this.soundManager = soundManager;
+            this.soundManager = paramSoundManager;
         }
 
         /*
@@ -86,6 +87,12 @@ namespace Sprint2Pork
         /*
          * Section for non-set/get methods
          */
+
+        public void PlaySound(string soundName)
+        {
+            SoundEffect sound = soundManager.getSound(soundName);
+            sound.Play((float)0.1, 0, 0);
+        }
 
         public void LookLeft()
         {

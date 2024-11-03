@@ -84,6 +84,7 @@ namespace Sprint2Pork
             groundItems = new List<GroundItem>();
             enemies = new List<IEnemy>();
             fireballManagers = new List<EnemyManager>();
+            soundManager = new SoundManager();
 
             controllerList = new List<IController>();
             LoadGroundItems();
@@ -119,7 +120,6 @@ namespace Sprint2Pork
             GenerateBlocks.fillBlockList(blocks, allTextures[8], blockPosition);
 
             //Loading Sounds
-            soundManager = new SoundManager();
             soundManager.LoadAllSounds(Content);
 
             //blockTexture, groundItemTexture, enemyTexture
@@ -309,6 +309,8 @@ namespace Sprint2Pork
             enemyUpdater = new UpdateEnemySprite((int)enemyInitPos.X, (int)enemyInitPos.Y);
             currentEnemyNum = 0;
 
+            soundManager = new SoundManager();
+            soundManager.LoadAllSounds(Content);
             link = new Link(viewport.Width, viewport.Height, soundManager);
 
             currentRoom = "room1";
