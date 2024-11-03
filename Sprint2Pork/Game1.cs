@@ -245,7 +245,7 @@ namespace Sprint2Pork
             {
                 nextRoom = "room2";
                 RoomChange.SwitchRoom("room2", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
-                backgroundTexture = Content.Load<Texture2D>("Room2");
+                roomTexture = Content.Load<Texture2D>("Room2Alone");
                 link.SetX(100);
             }
 
@@ -253,7 +253,7 @@ namespace Sprint2Pork
             {
                 nextRoom = "room1";
                 RoomChange.SwitchRoom("room1", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
-                backgroundTexture = Content.Load<Texture2D>("Room1");
+                roomTexture = Content.Load<Texture2D>("Room1Alone");
                 link.SetX(GraphicsDevice.Viewport.Width - 101);
             }
 
@@ -268,7 +268,7 @@ namespace Sprint2Pork
             {
                 nextRoom = "room2";
                 RoomChange.SwitchRoom("room2", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
-                backgroundTexture = Content.Load<Texture2D>("Room2");
+                roomTexture = Content.Load<Texture2D>("Room2Alone");
                 link.SetY(101);
             }
         }
