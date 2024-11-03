@@ -16,7 +16,7 @@ namespace Sprint2Pork
 
             //spriteFactory = new LinkAttackingSpriteFactory();
             spriteFactory.SetLinkAttackSprite(link);
-            link.PlaySound("sfxSwordZap");
+            //link.PlaySound("sfxSwordZap");
         }
 
         public void BeIdle()

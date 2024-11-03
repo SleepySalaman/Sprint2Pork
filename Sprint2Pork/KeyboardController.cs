@@ -120,6 +120,7 @@ public class KeyboardController : IController
         else if (IsKeyPressed(ks, Keys.Z) || IsKeyPressed(ks, Keys.N) || linkItem is Sword)
         {
             link.BeAttacking();
+            link.PlaySound("sfxSwordZap");
             link.UseItem(0);
         }
 

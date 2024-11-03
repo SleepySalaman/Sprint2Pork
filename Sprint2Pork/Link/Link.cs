@@ -33,6 +33,8 @@ namespace Sprint2Pork
         private int linkCount;
 
         private SoundManager soundManager;
+        private SoundEffectInstance soundInstance;
+        private bool playingFlag;
 
         public Link(int width, int height, SoundManager paramSoundManager)
         {
@@ -54,6 +56,7 @@ namespace Sprint2Pork
             this.isTakingDamage = false;
 
             this.soundManager = paramSoundManager;
+            this.playingFlag = false;
         }
 
         /*
@@ -90,8 +93,22 @@ namespace Sprint2Pork
 
         public void PlaySound(string soundName)
         {
-            SoundEffect sound = soundManager.getSound(soundName);
-            sound.Play((float)0.1, 0, 0);
+            if (!playingFlag)
+            {
+                SoundEffect sound = soundManager.getSound(soundName);
+                soundInstance = sound.CreateInstance();
+                soundInstance.Volume = 0.1f;
+                soundInstance.Play();
+                playingFlag = true;
+            } else
+            {
+                if (soundInstance.State != SoundState.Playing)
+                {
+                    playingFlag = false;
+                }
+            }
+            
+           
         }
 
         public void LookLeft()
