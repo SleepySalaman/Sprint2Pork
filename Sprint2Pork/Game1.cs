@@ -152,10 +152,12 @@ namespace Sprint2Pork
             CSVLevelLoader.LoadObjectsFromCSV("room1.csv", blockTexture, groundItemTexture, enemyTexture, out var room1Blocks, out var room1Items, out var room1Enemies, out var fireballManagerRoom1, this.soundManager);
             CSVLevelLoader.LoadObjectsFromCSV("room2.csv", blockTexture, groundItemTexture, enemyTexture, out var room2Blocks, out var room2Items, out var room2Enemies, out var fireballManagersRoom2, this.soundManager);
             CSVLevelLoader.LoadObjectsFromCSV("room3.csv", blockTexture, groundItemTexture, enemyTexture, out var room3Blocks, out var room3Items, out var room3Enemies, out var fireballManagersRoom3, this.soundManager);
+            CSVLevelLoader.LoadObjectsFromCSV("room4.csv", blockTexture, groundItemTexture, enemyTexture, out var room4Blocks, out var room4Items, out var room4Enemies, out var fireballManagersRoom4, this.soundManager);
 
             rooms["room1"] = (new List<Block>(room1Blocks), new List<GroundItem>(room1Items), new List<IEnemy>(room1Enemies), new List<EnemyManager>(fireballManagerRoom1));
             rooms["room2"] = (new List<Block>(room2Blocks), new List<GroundItem>(room2Items), new List<IEnemy>(room2Enemies), new List<EnemyManager>(fireballManagersRoom2));
             rooms["room3"] = (new List<Block>(room3Blocks), new List<GroundItem>(room3Items), new List<IEnemy>(room3Enemies), new List<EnemyManager>(fireballManagersRoom3));
+            rooms["room4"] = (new List<Block>(room4Blocks), new List<GroundItem>(room4Items), new List<IEnemy>(room4Enemies), new List<EnemyManager>(fireballManagersRoom4));
             currentRoom = "room1";
             (blocks, groundItems, enemies, fireballManagers) = rooms[currentRoom];
         }
@@ -301,10 +303,42 @@ namespace Sprint2Pork
 
             }
 
+            else if (currentRoom == "room2" && link.GetX() > GraphicsDevice.Viewport.Width - 100)
+            {
+                nextRoom = "room4";
+                nextRoomTexture = Content.Load<Texture2D>("Room4");
+                link.SetX(100);
+
+                transitionDirection = new Vector2(1, 0);
+                SetRectangles();
+                this.gameState = Game1State.Transitioning;
+
+
+                //RoomChange.SwitchRoom("room2", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
+
+
+                //currentRoom = "room2";
+
+            }
+
             else if (currentRoom == "room2" && link.GetX() < 100)
             {
                 nextRoom = "room1";
                 nextRoomTexture = Content.Load<Texture2D>("Room1Alone");
+
+
+                //RoomChange.SwitchRoom("room1", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
+                transitionDirection = new Vector2(-1, 0);
+                SetRectangles();
+                link.SetX(GraphicsDevice.Viewport.Width - 101);
+                currentRoom = nextRoom;
+                this.gameState = Game1State.Transitioning;
+            }
+
+            else if (currentRoom == "room4" && link.GetX() < 100)
+            {
+                nextRoom = "room2";
+                nextRoomTexture = Content.Load<Texture2D>("Room2Alone");
 
 
                 //RoomChange.SwitchRoom("room1", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
