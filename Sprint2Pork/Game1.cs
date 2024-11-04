@@ -32,6 +32,7 @@ namespace Sprint2Pork
         private Texture2D hudTexture;
         private Texture2D roomTexture;
         private Texture2D nextRoomTexture;
+        private Texture2D lifeTexture;
 
         private double timeSinceLastSwitch = 0;
         private double timeSinceSwitchedEnemy = 0;
@@ -59,6 +60,7 @@ namespace Sprint2Pork
         public bool menu = false;
         private string currentRoom;
         private string nextRoom;
+        private int lifeCount;
         private Dictionary<string, (List<Block>, List<GroundItem>, List<IEnemy>, List<EnemyManager>)> rooms;
 
         // SFX
@@ -73,6 +75,9 @@ namespace Sprint2Pork
         private Rectangle oldRoomRectangleSaved;
         private Rectangle nextRoomRectangle;
         private Rectangle nextRoomRectangleSaved;
+        private Rectangle fullLife;
+        private Rectangle halfLife;
+        private Rectangle nullLife;
         private Vector2 transitionDirection;
 
         public int CurrentBlockIndex
@@ -138,6 +143,7 @@ namespace Sprint2Pork
             backgroundTexture = Content.Load<Texture2D>("Room1");
             hudTexture = Content.Load<Texture2D>("ZeldaHUD");
             roomTexture = Content.Load<Texture2D>("Room1Alone");
+            lifeTexture = Content.Load<Texture2D>("Zelda_Lives");
             textSprite = new TextSprite(200, 100, font);
 
             GenerateBlocks.fillBlockList(blocks, allTextures[8], blockPosition);
