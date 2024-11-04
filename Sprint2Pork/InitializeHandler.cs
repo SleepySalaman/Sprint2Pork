@@ -20,13 +20,11 @@ namespace Sprint2Pork {
             controllerList.Add(new MouseController(game));
         }
 
-        public static void loadEnemyContent(ref SpriteBatch spriteBatch, ref IEnemy enemySprite, ref UpdateEnemySprite enemyUpdater,
+        public static void loadEnemyContent(ref SpriteBatch spriteBatch, ref UpdateEnemySprite enemyUpdater,
             ref EnemyManager enemyManager, GraphicsDevice GraphicsDevice, int enemyInitX,
             int enemyInitY, SoundManager soundManager) {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            enemySprite = new Aquamentus(enemyInitX, enemyInitY);
             enemyUpdater = new UpdateEnemySprite(enemyInitX, enemyInitY);
-            enemyManager = new EnemyManager(enemySprite.getX(), enemyInitX, enemyInitY, soundManager);
         }
 
     }

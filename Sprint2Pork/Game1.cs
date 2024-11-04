@@ -20,7 +20,6 @@ namespace Sprint2Pork
         private List<IController> controllerList;
 
         private ISprite textSprite;
-        private IEnemy enemySprite;
 
         //character, fb, enemy, gel, bat, goriya, wizard, stalfos, blocks, ItemsAndWeapons, ItemsAndWeaponsExpanded
         private List<Texture2D> allTextures;
@@ -129,7 +128,7 @@ namespace Sprint2Pork
             //Loading Sounds
             soundManager.LoadAllSounds(Content);
 
-            InitializeHandler.loadEnemyContent(ref spriteBatch, ref enemySprite, ref enemyUpdater, ref enemyManager, 
+            InitializeHandler.loadEnemyContent(ref spriteBatch, ref enemyUpdater, ref enemyManager, 
                 GraphicsDevice, (int)enemyInitPos.X, (int)enemyInitPos.Y, this.soundManager);
 
             LoadTextures.loadAllTextures(allTextures, Content);
@@ -238,13 +237,6 @@ namespace Sprint2Pork
         {
             EnemyUpdater.updateEnemies(ref link, enemies, blocks);
             EnemyUpdater.updateFireballs(enemyManager, ref link, ref fireballManagers, gameTime);
-
-            enemySprite.Update();
-            enemySprite.Move(blocks);
-            if (currentEnemyNum == 0)
-            {
-                enemyManager.Update(gameTime, enemySprite.getX());
-            }
         }
 
         private void UpdateLink(int linkPreviousX, int linkPreviousY)
@@ -252,20 +244,13 @@ namespace Sprint2Pork
             ISprite itemSprite = link.linkItem.SpriteGet();
             if (itemSprite != null)
             {
-                enemySprite.updateFromCollision(Collision.Collides(itemSprite.GetRect(), enemySprite.getRect()), Color.Red);
                 link.linkItem.SpriteSet(itemSprite);
-            }  else {
-                enemySprite.updateFromCollision(false, Color.White);
             }
 
             foreach(Enemy e in enemies) {
                 if(Collision.Collides(e.getRect(), link.GetRect())) {
                     link.BeDamaged();
                 }
-            }
-
-            if(Collision.Collides(enemySprite.getRect(), link.GetRect())) {
-                link.BeDamaged();
             }
 
             link.actionState.Update();
@@ -551,8 +536,6 @@ namespace Sprint2Pork
             spritePos[1] = 50;
             moving = false;
 
-            enemySprite = new Aquamentus((int)enemyInitPos.X, (int)enemyInitPos.Y);
-            enemyManager = new EnemyManager(enemySprite.getX(), (int)enemyInitPos.X, (int)enemyInitPos.Y, this.soundManager);
             enemyUpdater = new UpdateEnemySprite((int)enemyInitPos.X, (int)enemyInitPos.Y);
             currentEnemyNum = 0;
 
@@ -601,7 +584,6 @@ namespace Sprint2Pork
 
                 link.Draw(spriteBatch, allTextures[0], allTextures[10]);
 
-                Drawing.DrawCyclingEnemy(enemyUpdater, enemyManager, spriteBatch, allTextures, enemySprite, currentEnemyNum, textSprite);
                 Drawing.DrawGeneratedObjects(spriteBatch, blocks, groundItems, enemies, fireballManagers, allTextures);
             } else if (gameState == Game1State.Transitioning)
             {
@@ -618,13 +600,11 @@ namespace Sprint2Pork
         public void cycleEnemies()
         {
             currentEnemyNum = (currentEnemyNum + 1) % numEnemies;
-            enemyUpdater.setEnemySprite(currentEnemyNum, ref enemySprite, ref enemyManager, this.soundManager);
         }
 
         public void cycleEnemiesBackwards()
         {
             currentEnemyNum = (currentEnemyNum - 1 + numEnemies) % numEnemies;
-            enemyUpdater.setEnemySprite(currentEnemyNum, ref enemySprite, ref enemyManager, this.soundManager);
         }
 
         public void GetDevRoom()

@@ -29,13 +29,6 @@ namespace Sprint2Pork {
             foreach (var fireball in fireballManagers) {
                 fireball.Update(gameTime, 0);
             }
-            List<Fireball> fireballs = enemyManager.getFireballs();
-            foreach (var fireball in fireballs) {
-                bool collides = Collision.Collides(link.GetRect(), fireball.getRect());
-                if (collides) {
-                    link.TakeDamage();
-                }
-            }
         }
 
     }
