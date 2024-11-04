@@ -153,11 +153,13 @@ namespace Sprint2Pork
             CSVLevelLoader.LoadObjectsFromCSV("room2.csv", blockTexture, groundItemTexture, enemyTexture, out var room2Blocks, out var room2Items, out var room2Enemies, out var fireballManagersRoom2, this.soundManager);
             CSVLevelLoader.LoadObjectsFromCSV("room3.csv", blockTexture, groundItemTexture, enemyTexture, out var room3Blocks, out var room3Items, out var room3Enemies, out var fireballManagersRoom3, this.soundManager);
             CSVLevelLoader.LoadObjectsFromCSV("room4.csv", blockTexture, groundItemTexture, enemyTexture, out var room4Blocks, out var room4Items, out var room4Enemies, out var fireballManagersRoom4, this.soundManager);
+            CSVLevelLoader.LoadObjectsFromCSV("room5.csv", blockTexture, groundItemTexture, enemyTexture, out var room5Blocks, out var room5Items, out var room5Enemies, out var fireballManagersRoom5, this.soundManager);
 
             rooms["room1"] = (new List<Block>(room1Blocks), new List<GroundItem>(room1Items), new List<IEnemy>(room1Enemies), new List<EnemyManager>(fireballManagerRoom1));
             rooms["room2"] = (new List<Block>(room2Blocks), new List<GroundItem>(room2Items), new List<IEnemy>(room2Enemies), new List<EnemyManager>(fireballManagersRoom2));
             rooms["room3"] = (new List<Block>(room3Blocks), new List<GroundItem>(room3Items), new List<IEnemy>(room3Enemies), new List<EnemyManager>(fireballManagersRoom3));
             rooms["room4"] = (new List<Block>(room4Blocks), new List<GroundItem>(room4Items), new List<IEnemy>(room4Enemies), new List<EnemyManager>(fireballManagersRoom4));
+            rooms["room5"] = (new List<Block>(room5Blocks), new List<GroundItem>(room5Items), new List<IEnemy>(room5Enemies), new List<EnemyManager>(fireballManagersRoom5));
             currentRoom = "room1";
             (blocks, groundItems, enemies, fireballManagers) = rooms[currentRoom];
         }
@@ -196,7 +198,7 @@ namespace Sprint2Pork
             oldRoomRectangle = new Rectangle(oldRoomRectangleSaved.X - ((int)transitionDirection.X * transitionConstant), oldRoomRectangle.Y - ((int)transitionDirection.Y * transitionConstant), oldRoomRectangle.Width, oldRoomRectangle.Height);
             nextRoomRectangle = new Rectangle(nextRoomRectangleSaved.X - ((int)transitionDirection.X * transitionConstant), nextRoomRectangle.Y - ((int)transitionDirection.Y * transitionConstant), nextRoomRectangle.Width, nextRoomRectangle.Height);
 
-            if (transitionTimer >= transitionDuration || ((0 >= ((int)transitionDirection.X * nextRoomRectangle.X)) && (0 >= ((int)transitionDirection.Y * nextRoomRectangle.Y) - (int)transitionDirection.Y*89)))
+            if (transitionTimer >= transitionDuration || ((0 >= ((int)transitionDirection.X * nextRoomRectangle.X)) && (0 >= ((int)transitionDirection.Y * nextRoomRectangle.Y) - (int)transitionDirection.Y*85)))
             {
                 transitionTimer = 0f;
                 gameState = Game1State.Playing;
@@ -303,10 +305,42 @@ namespace Sprint2Pork
 
             }
 
+            else if (currentRoom == "room1" && link.GetX() < 100)
+            {
+                nextRoom = "room5";
+                nextRoomTexture = Content.Load<Texture2D>("Background");
+
+
+                //RoomChange.SwitchRoom("room1", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
+                transitionDirection = new Vector2(-1, 0);
+                SetRectangles();
+                link.SetX(GraphicsDevice.Viewport.Width - 101);
+                currentRoom = nextRoom;
+                this.gameState = Game1State.Transitioning;
+            }
+
             else if (currentRoom == "room2" && link.GetX() > GraphicsDevice.Viewport.Width - 100)
             {
                 nextRoom = "room4";
                 nextRoomTexture = Content.Load<Texture2D>("Room4");
+                link.SetX(100);
+
+                transitionDirection = new Vector2(1, 0);
+                SetRectangles();
+                this.gameState = Game1State.Transitioning;
+
+
+                //RoomChange.SwitchRoom("room2", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
+
+
+                //currentRoom = "room2";
+
+            }
+
+            else if (currentRoom == "room5" && link.GetX() > GraphicsDevice.Viewport.Width - 100)
+            {
+                nextRoom = "room1";
+                nextRoomTexture = Content.Load<Texture2D>("Room1Alone");
                 link.SetX(100);
 
                 transitionDirection = new Vector2(1, 0);
@@ -377,9 +411,9 @@ namespace Sprint2Pork
 
         private void SetRectangles()
         {
-            oldRoomRectangle = new Rectangle(0, 90, viewport.Width, viewport.Height - 90);
+            oldRoomRectangle = new Rectangle(0, 85, viewport.Width, viewport.Height - 85);
             oldRoomRectangleSaved = oldRoomRectangle;
-            nextRoomRectangle = new Rectangle(((int)transitionDirection.X * viewport.Width), 90 + ((int)transitionDirection.Y * viewport.Height), viewport.Width, viewport.Height - 90);
+            nextRoomRectangle = new Rectangle(((int)transitionDirection.X * viewport.Width), 85 + ((int)transitionDirection.Y * viewport.Height), viewport.Width, viewport.Height - 85);
             nextRoomRectangleSaved = nextRoomRectangle;
         }
 
@@ -465,7 +499,7 @@ namespace Sprint2Pork
             spriteBatch.Draw(hudTexture, new Rectangle(0, 0, viewport.Width, 89), Color.White);
             if (gameState == Game1State.Playing)
             {
-                spriteBatch.Draw(roomTexture, new Rectangle(0, 90, viewport.Width, viewport.Height - 90), Color.White);
+                spriteBatch.Draw(roomTexture, new Rectangle(0, 85, viewport.Width, viewport.Height - 85), Color.White);
 
                 //blocks[CurrentBlockIndex].Draw(spriteBatch);
                 //items[currentItemIndex].Draw(spriteBatch, allTextures[9]);
