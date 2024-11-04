@@ -88,6 +88,7 @@ namespace Sprint2Pork.rooms
                                 break;
                             case 14:
                                 groundItems.Add(new Key((int)position.X, (int)position.Y, new List<Rectangle> { new Rectangle(248, 0, 8, 16), new Rectangle(240, 0, 8, 16) }));
+                                //soundManager.PlaySound("sfxKeyAppears");
                                 break;
                             case 15:
                                 groundItems.Add(new Candle((int)position.X, (int)position.Y, new List<Rectangle> { new Rectangle(160, 0, 8, 16), new Rectangle(160, 16, 8, 16) }));

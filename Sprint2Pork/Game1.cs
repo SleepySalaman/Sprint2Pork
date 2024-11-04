@@ -183,6 +183,8 @@ namespace Sprint2Pork
                 timeSinceLastSwitch += gameTime.ElapsedGameTime.TotalSeconds;
                 timeSinceSwitchedEnemy += gameTime.ElapsedGameTime.TotalSeconds;
 
+
+
                 // Here is the logic that will need to be moved into a StateManager class; put into a switch
                 UpdateControllers();
                 UpdateGroundItems();
@@ -197,6 +199,19 @@ namespace Sprint2Pork
                 HandleTransition(gameTime);
             }
             
+        }
+
+        private void CheckForKey()
+        {
+            List<GroundItem> items = rooms[currentRoom].Item2;
+            foreach (var item in items)
+            {
+                if (item.GetType() == typeof(Key))
+                {
+                    // TODO: Troubleshoot why it only plays every other time?
+                    soundManager.PlaySound("sfxKeyAppears");
+                }
+            }
         }
 
         private void HandleTransition(GameTime gameTime)
@@ -214,6 +229,7 @@ namespace Sprint2Pork
                 roomTexture = nextRoomTexture;
                 RoomChange.SwitchRoom(nextRoom, ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
                 currentRoom = nextRoom;
+                CheckForKey();
 
             }
         }
