@@ -157,6 +157,7 @@ namespace Sprint2Pork
             CSVLevelLoader.LoadObjectsFromCSV("room6.csv", blockTexture, groundItemTexture, enemyTexture, out var room6Blocks, out var room6Items, out var room6Enemies, out var fireballManagersRoom6, this.soundManager);
             CSVLevelLoader.LoadObjectsFromCSV("room7.csv", blockTexture, groundItemTexture, enemyTexture, out var room7Blocks, out var room7Items, out var room7Enemies, out var fireballManagersRoom7, this.soundManager);
             CSVLevelLoader.LoadObjectsFromCSV("room8.csv", blockTexture, groundItemTexture, enemyTexture, out var room8Blocks, out var room8Items, out var room8Enemies, out var fireballManagersRoom8, this.soundManager);
+            CSVLevelLoader.LoadObjectsFromCSV("room9.csv", blockTexture, groundItemTexture, enemyTexture, out var room9Blocks, out var room9Items, out var room9Enemies, out var fireballManagersRoom9, this.soundManager);
 
             rooms["room1"] = (new List<Block>(room1Blocks), new List<GroundItem>(room1Items), new List<IEnemy>(room1Enemies), new List<EnemyManager>(fireballManagerRoom1));
             rooms["room2"] = (new List<Block>(room2Blocks), new List<GroundItem>(room2Items), new List<IEnemy>(room2Enemies), new List<EnemyManager>(fireballManagersRoom2));
@@ -166,7 +167,7 @@ namespace Sprint2Pork
             rooms["room6"] = (new List<Block>(room6Blocks), new List<GroundItem>(room6Items), new List<IEnemy>(room6Enemies), new List<EnemyManager>(fireballManagersRoom6));
             rooms["room7"] = (new List<Block>(room7Blocks), new List<GroundItem>(room7Items), new List<IEnemy>(room7Enemies), new List<EnemyManager>(fireballManagersRoom7));
             rooms["room8"] = (new List<Block>(room8Blocks), new List<GroundItem>(room8Items), new List<IEnemy>(room8Enemies), new List<EnemyManager>(fireballManagersRoom8));
-
+            rooms["room9"] = (new List<Block>(room9Blocks), new List<GroundItem>(room9Items), new List<IEnemy>(room9Enemies), new List<EnemyManager>(fireballManagersRoom9));
 
             currentRoom = "room1";
             (blocks, groundItems, enemies, fireballManagers) = rooms[currentRoom];
@@ -459,6 +460,30 @@ namespace Sprint2Pork
 
                 transitionDirection = new Vector2(1, 0);
                 SetRectangles();
+                this.gameState = Game1State.Transitioning;
+            }
+            else if (currentRoom == "room8" && link.GetY() < 100)
+            {
+                nextRoom = "room9";
+                nextRoomTexture = Content.Load<Texture2D>("Background");
+                //RoomChange.SwitchRoom("room3", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
+                transitionDirection = new Vector2(0, -1);
+                SetRectangles();
+                link.SetY(GraphicsDevice.Viewport.Height - 99);
+                currentRoom = nextRoom;
+                this.gameState = Game1State.Transitioning;
+            }
+
+            else if (currentRoom == "room9" && link.GetY() > GraphicsDevice.Viewport.Height - 30)
+            {
+                nextRoom = "room8";
+                nextRoomTexture = Content.Load<Texture2D>("Background");
+                transitionDirection = new Vector2(0, 1);
+                SetRectangles();
+                //RoomChange.SwitchRoom("room2", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
+
+                link.SetY(101);
+                currentRoom = nextRoom;
                 this.gameState = Game1State.Transitioning;
             }
         }
