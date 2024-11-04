@@ -15,9 +15,8 @@ Rooms are loaded from room csv files where 0 represents empty space and positive
 - **WASD** or **Arrow Keys**: Move the character
 - **1,2,3,4,5,6**: Switch between weapons
 - **E**: Enter damage state
-- **T, Y**: Switch block states
-- **U, I**: Switch item states
-- **O, P**: Switch enemy states
+- **O**: Toggle end game screen (can reset with r or press o again to start over)
+- **P**: Toggle pause screen
 - **Left/Right Mouse**: Switch room states
 - **Q**: Quit game
 - **R**: Reset (reset the game state)
