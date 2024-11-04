@@ -28,6 +28,8 @@ namespace Sprint2Pork
             soundEffects.Add(content.Load<SoundEffect>("sfxPlayerHurt"));
             soundEffects.Add(content.Load<SoundEffect>("sfxFlamesShot"));
             soundEffects.Add(content.Load<SoundEffect>("sfxKeyAppears"));
+            soundEffects.Add(content.Load<SoundEffect>("sfxItemObtained"));
+            soundEffects.Add(content.Load<SoundEffect>("sfxItemReceived"));
             //delays.Add("sfxSwordZap", 0.67f);
         }
 
@@ -38,22 +40,17 @@ namespace Sprint2Pork
 
         public void PlaySound(string soundName)
         {
-            if (!playingFlag)
-            {
+ 
+            
                 SoundEffect sound = this.getSound(soundName);
                 soundInstance = sound.CreateInstance();
                 soundInstance.Volume = 0.25f;
                 soundInstance.Play();
-                playingFlag = true;
-            }
-            else
-            {
-                if (soundInstance.State != SoundState.Playing)
-                {
-                    playingFlag = false;
-                    soundInstance.Stop();
-                }
-            }
+                //playingFlag = true;
+            
+
+
+            
 
 
         }

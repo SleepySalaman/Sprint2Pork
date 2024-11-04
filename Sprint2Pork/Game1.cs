@@ -284,6 +284,13 @@ namespace Sprint2Pork
                 item.Update(item.destinationRect.X, item.destinationRect.Y);
                 if (Collision.CollidesWithGroundItem(link.GetRect(), item.GetRect()))
                 {
+                    if (item is Key)
+                    {
+                        soundManager.PlaySound("sfxItemReceived");
+                    } else
+                    {
+                        soundManager.PlaySound("sfxItemObtained");
+                    }
                     item.PerformAction();
                     itemsToRemove.Add(item);
                 }

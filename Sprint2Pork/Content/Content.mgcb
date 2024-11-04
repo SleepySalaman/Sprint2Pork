@@ -266,6 +266,18 @@
 /processorParam:Quality=Best
 /build:sfxFlamesShot.wav
 
+#begin sfxItemObtained.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sfxItemObtained.wav
+
+#begin sfxItemReceived.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sfxItemReceived.wav
+
 #begin sfxKeyAppears.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
