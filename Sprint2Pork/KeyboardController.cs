@@ -152,13 +152,13 @@ public class KeyboardController : IController
             programGame.NextItem();
         }
 
-        if (IsKeyPressed(ks, Keys.O))
-        {
-            programGame.cycleEnemiesBackwards();
-        }
         if (IsKeyPressed(ks, Keys.P))
         {
-            programGame.cycleEnemies();
+            programGame.TogglePause();
+        }
+        if (IsKeyPressed(ks, Keys.O))
+        {
+            programGame.GameOver();
         }
 
         if (ks.IsKeyDown(Keys.R))

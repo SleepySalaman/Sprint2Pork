@@ -203,7 +203,15 @@ namespace Sprint2Pork
             {
                 HandleTransition(gameTime);
             }
-            
+            else if (gameState == Game1State.Paused)
+            {
+                UpdateControllers();
+            }
+            else if (gameState == Game1State.GameOver)
+            {
+                UpdateControllers();
+            }
+
         }
 
         private void CheckForKey()
@@ -558,6 +566,7 @@ namespace Sprint2Pork
 
             currentRoom = "room1";
             (blocks, groundItems, enemies, fireballManagers) = rooms[currentRoom];
+            gameState = Game1State.Playing;
 
             Texture2D blockTexture = allTextures[8];
             Texture2D groundItemTexture = allTextures[9];
@@ -603,7 +612,15 @@ namespace Sprint2Pork
                 spriteBatch.Draw(roomTexture, oldRoomRectangle, Color.White);
                 spriteBatch.Draw(nextRoomTexture, nextRoomRectangle, Color.White);
             }
-            
+            else if (gameState == Game1State.Paused)
+            {
+                spriteBatch.DrawString(font, "Game Paused", new Vector2(100, 100), Color.White);
+            }
+            else if (gameState == Game1State.GameOver)
+            {
+                spriteBatch.DrawString(font, "Game Over", new Vector2(100, 100), Color.Red);
+            }
+
 
             spriteBatch.End();
             base.Draw(gameTime);
@@ -639,6 +656,31 @@ namespace Sprint2Pork
 
         public void SwitchToPreviousRoom() {
             RoomChange.SwitchToPreviousRoom(ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
+        }
+
+        public void TogglePause()
+        {
+            if (gameState == Game1State.Playing)
+            {
+                gameState = Game1State.Paused;
+            }
+            else if (gameState == Game1State.Paused)
+            {
+                gameState = Game1State.Playing;
+            }
+        }
+
+        public void GameOver()
+        {
+            if (gameState == Game1State.GameOver)
+            {
+                ResetGame();
+                gameState = Game1State.Playing;
+            }
+            else
+            {
+                gameState = Game1State.GameOver;
+            }
         }
     }
 }
