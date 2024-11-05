@@ -50,6 +50,15 @@ namespace Sprint2Pork
                 fireballs[i].Draw(sb, txt);
             }
         }
+        public List<Rectangle> GetFireballRects()
+        {
+            List<Rectangle> fireballRects = new List<Rectangle>();
+            foreach (var fireball in fireballs)
+            {
+                fireballRects.Add(fireball.GetRect());
+            }
+            return fireballRects;
+        }
 
         private void switchModes(GameTime gameTime, int x)
         {

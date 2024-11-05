@@ -36,6 +36,11 @@ namespace Sprint2Pork.Entity.Moving
             destinationRect = new Rectangle(initX + relX + modX, initY, 20, 20);
         }
 
+        public Rectangle GetRect()
+        {
+            return new Rectangle(destinationRect.X, destinationRect.Y, sourceRects[0].Width, sourceRects[0].Height);
+        }
+
         public void Move()
         {
             changeX--;

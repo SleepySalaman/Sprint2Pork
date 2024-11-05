@@ -24,10 +24,17 @@ namespace Sprint2Pork {
             }
         }
 
-        public static void updateFireballs(EnemyManager enemyManager, ref Link link, ref List<EnemyManager> fireballManagers,
+        public static void UpdateFireballs(EnemyManager enemyManager, ref Link link, ref List<EnemyManager> fireballManagers,
             GameTime gameTime) {
-            foreach (var fireball in fireballManagers) {
+            foreach (var fireball in fireballManagers)
+            {
                 fireball.Update(gameTime, 0);
+                foreach (var fireballRect in fireball.GetFireballRects()){
+                    if (Collision.Collides(link.GetRect(), fireballRect))
+                    {
+                        link.TakeDamage();
+                    }
+                }
             }
         }
 
