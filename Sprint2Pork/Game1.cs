@@ -76,9 +76,6 @@ namespace Sprint2Pork
         private Rectangle oldRoomRectangleSaved;
         private Rectangle nextRoomRectangle;
         private Rectangle nextRoomRectangleSaved;
-        private Rectangle fullLife;
-        private Rectangle halfLife;
-        private Rectangle nullLife;
         private Vector2 transitionDirection;
         private Texture2D startScreenTexture;
 
