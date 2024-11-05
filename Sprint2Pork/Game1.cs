@@ -68,7 +68,7 @@ namespace Sprint2Pork
         private SoundManager soundManager;
 
         // Game States
-        private Game1State gameState;
+        public Game1State gameState { get; private set; }
         private Game1StateManager gameStateManager;
         private float transitionDuration = 1.0f;
         private float transitionTimer = 0f;
@@ -80,6 +80,7 @@ namespace Sprint2Pork
         private Rectangle halfLife;
         private Rectangle nullLife;
         private Vector2 transitionDirection;
+        private Texture2D startScreenTexture;
 
         public int CurrentBlockIndex
         {
@@ -90,7 +91,6 @@ namespace Sprint2Pork
                 UpdateCurrentBlock();
             }
         }
-
 
         public Game1()
         {
@@ -112,9 +112,10 @@ namespace Sprint2Pork
             rooms = new Dictionary<string, (List<Block> blocks, List<GroundItem> groundItems,
                 List<IEnemy> enemies, List<EnemyManager> fireballs)>();
 
-            gameState = Game1State.Playing;
+            gameState = Game1State.StartScreen; // Change initial state to StartScreen
             gameStateManager = new Game1StateManager(gameState);
         }
+
 
         private void LoadGroundItems()
         {
@@ -130,13 +131,15 @@ namespace Sprint2Pork
 
         protected override void LoadContent()
         {
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+            startScreenTexture = Content.Load<Texture2D>("StartScreen"); // Load start screen texture
 
             //Loading Sounds
             soundManager.LoadAllSounds(Content);
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(Content.Load<Song>("backgroundMusic"));
 
-            InitializeHandler.loadEnemyContent(ref spriteBatch, ref enemyUpdater, ref enemyManager, 
+            InitializeHandler.loadEnemyContent(ref spriteBatch, ref enemyUpdater, ref enemyManager,
                 GraphicsDevice, (int)enemyInitPos.X, (int)enemyInitPos.Y, this.soundManager);
 
             LoadTextures.loadAllTextures(allTextures, Content);
@@ -151,7 +154,6 @@ namespace Sprint2Pork
 
             GenerateBlocks.fillBlockList(blocks, allTextures[8], blockPosition);
 
-            //blockTexture, groundItemTexture, enemyTexture
             LoadRooms(allTextures[8], allTextures[9], allTextures[2]);
         }
 
@@ -183,7 +185,11 @@ namespace Sprint2Pork
 
         protected override void Update(GameTime gameTime)
         {
-            if (gameState == Game1State.Playing)
+            if (gameState == Game1State.StartScreen)
+            {
+                UpdateControllers(); // Only update controllers to check for start input
+            }
+            else if (gameState == Game1State.Playing)
             {
                 int linkPreviousX = link.GetX();
                 int linkPreviousY = link.GetY();
@@ -191,9 +197,6 @@ namespace Sprint2Pork
                 timeSinceLastSwitch += gameTime.ElapsedGameTime.TotalSeconds;
                 timeSinceSwitchedEnemy += gameTime.ElapsedGameTime.TotalSeconds;
 
-
-
-                // Here is the logic that will need to be moved into a StateManager class; put into a switch
                 UpdateControllers();
                 UpdateGroundItems();
                 UpdateEnemies(gameTime);
@@ -202,7 +205,8 @@ namespace Sprint2Pork
                 CheckRoomChange(gameState);
 
                 base.Update(gameTime);
-            } else if (gameState == Game1State.Transitioning)
+            }
+            else if (gameState == Game1State.Transitioning)
             {
                 HandleTransition(gameTime);
             }
@@ -214,7 +218,6 @@ namespace Sprint2Pork
             {
                 UpdateControllers();
             }
-
         }
 
         private void CheckForKey()
@@ -523,7 +526,8 @@ namespace Sprint2Pork
 
         private void UpdateControllers()
         {
-            foreach (IController controller in controllerList)
+            List<IController> tempControllerList = new List<IController>(controllerList);
+            foreach (IController controller in tempControllerList)
             {
                 controller.Update();
             }
@@ -586,50 +590,57 @@ namespace Sprint2Pork
             }
         }
 
-        //public SoundManager RequestSoundManager()
-        //{
-        //    return this.soundManager;
-        //}
-
         protected override void Draw(GameTime gameTime)
         {
             spriteBatch.Begin();
 
             GraphicsDevice.Clear(Color.Black);
 
-            // Drawing the background/room
-            //spriteBatch.Draw(backgroundTexture, new Rectangle(0, 0, viewport.Width, viewport.Height), Color.White);
-            spriteBatch.Draw(hudTexture, new Rectangle(0, 0, viewport.Width, 89), Color.White);
-            spriteBatch.Draw(lifeTexture, new Rectangle(540, 20, 125, 75), Color.White);
-            if (gameState == Game1State.Playing)
+            if (gameState == Game1State.StartScreen)
             {
-                spriteBatch.Draw(roomTexture, new Rectangle(0, 85, viewport.Width, viewport.Height - 85), Color.White);
-
-                //blocks[CurrentBlockIndex].Draw(spriteBatch);
-                //items[currentItemIndex].Draw(spriteBatch, allTextures[9]);
-
-                link.Draw(spriteBatch, allTextures[0], allTextures[10]);
-
-                Drawing.DrawGeneratedObjects(spriteBatch, blocks, groundItems, enemies, fireballManagers, allTextures);
-            } else if (gameState == Game1State.Transitioning)
-            {
-                spriteBatch.Draw(roomTexture, oldRoomRectangle, Color.White);
-                spriteBatch.Draw(nextRoomTexture, nextRoomRectangle, Color.White);
+                // Draw the start screen texture to fill the entire viewport
+                spriteBatch.Draw(
+                    startScreenTexture,
+                    new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height),
+                    Color.White
+                );
             }
-            else if (gameState == Game1State.Paused)
+            else
             {
-                spriteBatch.DrawString(font, "Game Paused", new Vector2(100, 100), Color.White);
-            }
-            else if (gameState == Game1State.GameOver)
-            {
-                spriteBatch.DrawString(font, "Game Over", new Vector2(100, 100), Color.Red);
-            }
+                spriteBatch.Draw(hudTexture, new Rectangle(0, 0, viewport.Width, 89), Color.White);
 
+                if (gameState == Game1State.Playing)
+                {
+                    spriteBatch.Draw(roomTexture, new Rectangle(0, 85, viewport.Width, viewport.Height - 85), Color.White);
+                    link.Draw(spriteBatch, allTextures[0], allTextures[10]);
+                    Drawing.DrawGeneratedObjects(spriteBatch, blocks, groundItems, enemies, fireballManagers, allTextures);
+                }
+                else if (gameState == Game1State.Transitioning)
+                {
+                    spriteBatch.Draw(roomTexture, oldRoomRectangle, Color.White);
+                    spriteBatch.Draw(nextRoomTexture, nextRoomRectangle, Color.White);
+                }
+                else if (gameState == Game1State.Paused)
+                {
+                    spriteBatch.DrawString(font, "Game Paused", new Vector2(100, 100), Color.White);
+                }
+                else if (gameState == Game1State.GameOver)
+                {
+                    spriteBatch.DrawString(font, "Game Over", new Vector2(100, 100), Color.Red);
+                }
+            }
 
             spriteBatch.End();
             base.Draw(gameTime);
         }
-
+        public void StartGame()
+        {
+            if (gameState == Game1State.StartScreen)
+            {
+                gameState = Game1State.Playing;
+                Initialize();
+            }
+        }
 
         public void cycleEnemies()
         {

@@ -9,6 +9,7 @@ namespace Sprint2Pork
 {
     public enum Game1State
     {
+        StartScreen,
         Title,
         Playing,
         Paused,

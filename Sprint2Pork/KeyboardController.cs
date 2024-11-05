@@ -38,26 +38,48 @@ public class KeyboardController : IController
     void IController.Update()
     {
         KeyboardState ks = Keyboard.GetState();
-        ILinkItems linkItem = link.linkItem;
 
-        if (isTakingDamage)
+        // Handle start screen input
+        if (programGame.gameState == Game1State.StartScreen)
         {
-            isTakingDamage = link.BeDamaged();
+            HandleStartScreen(ks);
         }
         else
         {
-            HandleMovement(ks);
-            HandleItemUse(ks, linkItem);
-            HandleGameControls(ks);
+            ILinkItems linkItem = link.linkItem;
+
+            if (isTakingDamage)
+            {
+                isTakingDamage = link.BeDamaged();
+            }
+            else
+            {
+                HandleMovement(ks);
+                HandleItemUse(ks, linkItem);
+                HandleGameControls(ks);
+            }
         }
 
         previousKeyboardState = ks;
     }
 
+    private void HandleStartScreen(KeyboardState ks)
+    {
+        // Press Enter or Space to start the game
+        if (IsKeyPressed(ks, Keys.Enter) || IsKeyPressed(ks, Keys.Space))
+        {
+            programGame.StartGame();
+        }
+
+        // Allow quitting from start screen
+        if (IsKeyPressed(ks, Keys.Q))
+        {
+            programGame.Exit();
+        }
+    }
 
     private void HandleMovement(KeyboardState ks)
     {
-
         if (ks.IsKeyDown(Keys.Left) || ks.IsKeyDown(Keys.A))
         {
             link.LookLeft();
@@ -82,7 +104,6 @@ public class KeyboardController : IController
         {
             link.BeIdle();
         }
-    
     }
 
     private void HandleItemUse(KeyboardState ks, ILinkItems linkItem)
