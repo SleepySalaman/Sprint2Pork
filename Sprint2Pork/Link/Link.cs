@@ -95,7 +95,7 @@ namespace Sprint2Pork
         {
             if (!playingFlag)
             {
-                SoundEffect sound = soundManager.getSound(soundName);
+                SoundEffect sound = soundManager.GetSound(soundName);
                 soundInstance = sound.CreateInstance();
                 soundInstance.Volume = 0.1f;
                 soundInstance.Play();

@@ -143,6 +143,11 @@ public class KeyboardController : IController
             UpdateCurrentBlock();
         }
 
+        if (IsKeyPressed(ks, Keys.M))
+        {
+            programGame.ToggleBackgroundMusic();
+        }
+
         if (IsKeyPressed(ks, Keys.U))
         {
             programGame.PreviousItem();

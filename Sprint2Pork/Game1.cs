@@ -9,6 +9,7 @@ using Sprint2Pork.Items;
 using Sprint2Pork.rooms;
 using System.Collections.Generic;
 using System;
+using Microsoft.Xna.Framework.Media;
 
 namespace Sprint2Pork
 {
@@ -132,6 +133,8 @@ namespace Sprint2Pork
 
             //Loading Sounds
             soundManager.LoadAllSounds(Content);
+            MediaPlayer.IsRepeating = true;
+            MediaPlayer.Play(Content.Load<Song>("backgroundMusic"));
 
             InitializeHandler.loadEnemyContent(ref spriteBatch, ref enemyUpdater, ref enemyManager, 
                 GraphicsDevice, (int)enemyInitPos.X, (int)enemyInitPos.Y, this.soundManager);
@@ -680,6 +683,17 @@ namespace Sprint2Pork
             else
             {
                 gameState = Game1State.GameOver;
+            }
+        }
+        public void ToggleBackgroundMusic()
+        {
+            if (MediaPlayer.State == MediaState.Playing)
+            {
+                MediaPlayer.Pause();
+            }
+            else
+            {
+                MediaPlayer.Resume();
             }
         }
     }

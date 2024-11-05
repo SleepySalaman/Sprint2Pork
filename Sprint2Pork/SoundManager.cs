@@ -33,7 +33,7 @@ namespace Sprint2Pork
             //delays.Add("sfxSwordZap", 0.67f);
         }
 
-        public SoundEffect getSound(string sound)
+        public SoundEffect GetSound(string sound)
         {
             return soundEffects.Find(x => x.Name == sound);
         }
@@ -42,7 +42,7 @@ namespace Sprint2Pork
         {
  
             
-                SoundEffect sound = this.getSound(soundName);
+                SoundEffect sound = this.GetSound(soundName);
                 soundInstance = sound.CreateInstance();
                 soundInstance.Volume = 0.25f;
                 soundInstance.Play();
