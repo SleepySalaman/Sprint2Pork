@@ -342,7 +342,7 @@ namespace Sprint2Pork
             else if (currentRoom == "room1" && link.GetX() < 100)
             {
                 nextRoom = "room5";
-                nextRoomTexture = Content.Load<Texture2D>("Background");
+                nextRoomTexture = Content.Load<Texture2D>("Room5");
                 transitionDirection = new Vector2(-1, 0);
                 SetRectangles();
                 link.SetX(GraphicsDevice.Viewport.Width - 101);
@@ -424,7 +424,7 @@ namespace Sprint2Pork
             else if (currentRoom == "room5" && link.GetY() > GraphicsDevice.Viewport.Height - 30)
             {
                 nextRoom = "room6";
-                nextRoomTexture = Content.Load<Texture2D>("Background");
+                nextRoomTexture = Content.Load<Texture2D>("Room6");
                 transitionDirection = new Vector2(0, 1);
                 SetRectangles();
                 //RoomChange.SwitchRoom("room2", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
@@ -436,18 +436,18 @@ namespace Sprint2Pork
             else if (currentRoom == "room6" && link.GetY() < 100)
             {
                 nextRoom = "room5";
-                nextRoomTexture = Content.Load<Texture2D>("Room2Alone");
+                nextRoomTexture = Content.Load<Texture2D>("Room5");
                 //RoomChange.SwitchRoom("room3", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
                 transitionDirection = new Vector2(0, -1);
                 SetRectangles();
-                link.SetY(GraphicsDevice.Viewport.Height - 99);
+                link.SetY(GraphicsDevice.Viewport.Height - 70);
                 currentRoom = nextRoom;
                 this.gameState = Game1State.Transitioning;
             }
             else if (currentRoom == "room6" && link.GetY() > GraphicsDevice.Viewport.Height - 30)
             {
                 nextRoom = "room7";
-                nextRoomTexture = Content.Load<Texture2D>("Background");
+                nextRoomTexture = Content.Load<Texture2D>("Room7");
                 transitionDirection = new Vector2(0, 1);
                 SetRectangles();
                 //RoomChange.SwitchRoom("room2", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
@@ -459,7 +459,7 @@ namespace Sprint2Pork
             else if (currentRoom == "room7" && link.GetY() < 100)
             {
                 nextRoom = "room6";
-                nextRoomTexture = Content.Load<Texture2D>("Room2Alone");
+                nextRoomTexture = Content.Load<Texture2D>("Room6");
                 //RoomChange.SwitchRoom("room3", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
                 transitionDirection = new Vector2(0, -1);
                 SetRectangles();
@@ -470,7 +470,7 @@ namespace Sprint2Pork
             else if (currentRoom == "room5" && link.GetX() < 100)
             {
                 nextRoom = "room8";
-                nextRoomTexture = Content.Load<Texture2D>("Background");
+                nextRoomTexture = Content.Load<Texture2D>("Room8");
                 transitionDirection = new Vector2(-1, 0);
                 SetRectangles();
                 link.SetX(GraphicsDevice.Viewport.Width - 101);
@@ -480,7 +480,7 @@ namespace Sprint2Pork
             else if (currentRoom == "room8" && link.GetX() > GraphicsDevice.Viewport.Width - 100)
             {
                 nextRoom = "room5";
-                nextRoomTexture = Content.Load<Texture2D>("Background");
+                nextRoomTexture = Content.Load<Texture2D>("Room5");
                 link.SetX(100);
 
                 transitionDirection = new Vector2(1, 0);
@@ -490,7 +490,7 @@ namespace Sprint2Pork
             else if (currentRoom == "room8" && link.GetY() < 100)
             {
                 nextRoom = "room9";
-                nextRoomTexture = Content.Load<Texture2D>("Background");
+                nextRoomTexture = Content.Load<Texture2D>("Room9");
                 //RoomChange.SwitchRoom("room3", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
                 transitionDirection = new Vector2(0, -1);
                 SetRectangles();
@@ -502,7 +502,7 @@ namespace Sprint2Pork
             else if (currentRoom == "room9" && link.GetY() > GraphicsDevice.Viewport.Height - 30)
             {
                 nextRoom = "room8";
-                nextRoomTexture = Content.Load<Texture2D>("Background");
+                nextRoomTexture = Content.Load<Texture2D>("Room8");
                 transitionDirection = new Vector2(0, 1);
                 SetRectangles();
                 //RoomChange.SwitchRoom("room2", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
