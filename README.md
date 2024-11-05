@@ -1,6 +1,6 @@
 # Legends of Zelda
 
-# Sprint 3
+# Sprint 4
 [Task Tracking for Sprint 3](https://trello.com/invite/b/66fae6fd379bde94d2f5e768/ATTIa0fd6912f9f0526385ba2eec584d400304A3007A/sprint-3)
 
 ## Description
@@ -24,14 +24,8 @@ Rooms are loaded from room csv files where 0 represents empty space and positive
 - **F**: Toggle fullscreen mode
 
 ### Known Bugs
-1. **Movement Bug While Attacking**: When the player is attacking and presses a different direction key, the attack animation may freeze or behave unexpectedly. This issue arises due to an unhandled interaction between the movement and attack state in the game engine.
-   - **Workaround**: Avoid pressing movement keys during attack sequences until this bug is resolved.
-
-2. **Occasional Lag**: Switching item states quickly can sometimes cause minor lag or delays in input responsiveness.
-
-3. **Fullscreen Issues**: On some monitors, toggling fullscreen can cause the resolution to display incorrectly, cutting off certain UI elements.
-
-4. **Trapped on Room Switch**: When manually switching rooms, it is possible for Link to be stuck in a wall in the new room. This is due to Link's position being constant on a manual room change. This is a small bug that only occurs when debugging as manual room switching will not be incorporated into the final game.
+1. **Occasional Lag**: Switching item states quickly can sometimes cause minor lag or delays in input responsiveness.
+2. **Trapped on Room Switch**: When manually switching rooms, it is possible for Link to be stuck in a wall in the new room. This is due to Link's position being constant on a manual room change. This is a small bug that only occurs when debugging as manual room switching will not be incorporated into the final game.
 
 
 ## Tools and Processes
