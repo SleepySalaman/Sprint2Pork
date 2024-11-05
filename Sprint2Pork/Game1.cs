@@ -595,6 +595,7 @@ namespace Sprint2Pork
             spriteBatch.Begin();
 
             GraphicsDevice.Clear(Color.Black);
+            
 
             if (gameState == Game1State.StartScreen)
             {
