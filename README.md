@@ -17,6 +17,7 @@ Rooms are loaded from room csv files where 0 represents empty space and positive
 - **E**: Enter damage state
 - **O**: Toggle end game screen (can reset with r or press o again to start over)
 - **P**: Toggle pause screen
+- **M**: Toggle background music
 - **Left/Right Mouse**: Switch room states
 - **Q**: Quit game
 - **R**: Reset (reset the game state)
