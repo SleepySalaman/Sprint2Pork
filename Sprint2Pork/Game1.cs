@@ -600,6 +600,7 @@ namespace Sprint2Pork
             // Drawing the background/room
             //spriteBatch.Draw(backgroundTexture, new Rectangle(0, 0, viewport.Width, viewport.Height), Color.White);
             spriteBatch.Draw(hudTexture, new Rectangle(0, 0, viewport.Width, 89), Color.White);
+            spriteBatch.Draw(lifeTexture, new Rectangle(540, 20, 125, 75), Color.White);
             if (gameState == Game1State.Playing)
             {
                 spriteBatch.Draw(roomTexture, new Rectangle(0, 85, viewport.Width, viewport.Height - 85), Color.White);
