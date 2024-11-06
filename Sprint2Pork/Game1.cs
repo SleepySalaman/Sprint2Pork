@@ -523,8 +523,7 @@ namespace Sprint2Pork
 
         private void UpdateControllers()
         {
-            List<IController> tempControllerList = new List<IController>(controllerList);
-            foreach (IController controller in tempControllerList)
+            foreach (IController controller in controllerList)
             {
                 controller.Update();
             }
