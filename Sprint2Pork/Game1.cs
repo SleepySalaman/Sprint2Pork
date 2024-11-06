@@ -636,7 +636,6 @@ namespace Sprint2Pork
             if (gameState == Game1State.StartScreen)
             {
                 gameState = Game1State.Playing;
-                Initialize();
             }
         }
 
@@ -672,6 +671,7 @@ namespace Sprint2Pork
         }
 
         public void TogglePause()
+        
         {
             if (gameState == Game1State.Playing)
             {
