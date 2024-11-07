@@ -44,9 +44,19 @@ namespace Sprint2Pork.Entity.Moving
 
         public abstract void Move(List<Block> blocks);
 
-        public void Draw(SpriteBatch sb, Texture2D txt)
+        public void Draw(SpriteBatch sb, Texture2D txt, Texture2D hitboxTxt, bool showHitbox)
         {
             sb.Draw(txt, destinationRect, sourceRects[currentFrame], color);
+            DrawHitbox(sb, hitboxTxt, showHitbox);
+        }
+
+        private void DrawHitbox(SpriteBatch sb, Texture2D hitboxTxt, bool showHitbox) {
+            if (showHitbox) {
+                sb.Draw(hitboxTxt, new Rectangle(destinationRect.X, destinationRect.Y, destinationRect.Width, 1), Color.White);
+                sb.Draw(hitboxTxt, new Rectangle(destinationRect.X + destinationRect.Width - 1, destinationRect.Y, 1, destinationRect.Height), Color.White);
+                sb.Draw(hitboxTxt, new Rectangle(destinationRect.X, destinationRect.Y + destinationRect.Height - 1, destinationRect.Width, 1), Color.White);
+                sb.Draw(hitboxTxt, new Rectangle(destinationRect.X, destinationRect.Y, 1, destinationRect.Height), Color.White);
+            }
         }
 
         public int getX()

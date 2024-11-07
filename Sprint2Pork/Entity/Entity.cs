@@ -35,7 +35,7 @@ namespace Sprint2Pork.Entity
             }
         }
 
-        public void Draw(SpriteBatch sb, Texture2D txt)
+        public void Draw(SpriteBatch sb, Texture2D txt, Texture2D hitboxTxt, bool showHitbox)
         {
             sb.Draw(txt, destinationRect, sourceRects[currentFrame], c);
         }

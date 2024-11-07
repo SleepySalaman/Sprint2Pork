@@ -33,11 +33,12 @@ namespace Sprint2Pork {
             }
         }
         
-        public void drawCurrentEnemy(IEnemy enemySprite, SpriteBatch spriteBatch, List<Texture2D> allTextures, int currentEnemyNum) {
+        public void drawCurrentEnemy(IEnemy enemySprite, SpriteBatch spriteBatch, List<Texture2D> allTextures, int currentEnemyNum,
+            Texture2D hitboxTxt, bool showHitbox) {
             if (currentEnemyNum < 7) {
-                enemySprite.Draw(spriteBatch, allTextures[2]);
+                enemySprite.Draw(spriteBatch, allTextures[2], hitboxTxt, showHitbox);
             } else {
-                enemySprite.Draw(spriteBatch, allTextures[currentEnemyNum - 4]);
+                enemySprite.Draw(spriteBatch, allTextures[currentEnemyNum - 4], hitboxTxt, showHitbox);
             }
         }
 

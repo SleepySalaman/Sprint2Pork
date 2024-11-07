@@ -43,11 +43,11 @@ namespace Sprint2Pork
             switchModes(gameTime, x);
         }
 
-        public void Draw(SpriteBatch sb, Texture2D txt)
+        public void Draw(SpriteBatch sb, Texture2D txt, Texture2D hitboxTexture, bool showHitbox)
         {
             for (int i = 0; i < fireballs.Count; i++)
             {
-                fireballs[i].Draw(sb, txt);
+                fireballs[i].Draw(sb, txt, hitboxTexture, showHitbox);
             }
         }
         public List<Rectangle> GetFireballRects()

@@ -35,6 +35,8 @@ namespace Sprint2Pork
         private Texture2D nextRoomTexture;
         private Texture2D lifeTexture;
 
+        private Texture2D hitboxTexture;
+
         private double timeSinceLastSwitch = 0;
         private double timeSinceSwitchedEnemy = 0;
         private List<Block> blocks;
@@ -58,6 +60,7 @@ namespace Sprint2Pork
         private Link link;
         public Viewport viewport;
 
+        public bool showHitboxes = true;
         public bool menu = false;
         private string currentRoom;
         private string nextRoom;
@@ -150,6 +153,9 @@ namespace Sprint2Pork
             textSprite = new TextSprite(200, 100, font);
 
             GenerateBlocks.fillBlockList(blocks, allTextures[8], blockPosition);
+
+            hitboxTexture = new Texture2D(GraphicsDevice, 1, 1);
+            hitboxTexture.SetData(new Color[] { Color.Red });
 
             LoadRooms(allTextures[8], allTextures[9], allTextures[2]);
         }
@@ -610,7 +616,7 @@ namespace Sprint2Pork
                 {
                     spriteBatch.Draw(roomTexture, new Rectangle(0, 85, viewport.Width, viewport.Height - 85), Color.White);
                     link.Draw(spriteBatch, allTextures[0], allTextures[10]);
-                    Drawing.DrawGeneratedObjects(spriteBatch, blocks, groundItems, enemies, fireballManagers, allTextures);
+                    Drawing.DrawGeneratedObjects(spriteBatch, blocks, groundItems, enemies, fireballManagers, allTextures, hitboxTexture, showHitboxes);
                 }
                 else if (gameState == Game1State.Transitioning)
                 {
