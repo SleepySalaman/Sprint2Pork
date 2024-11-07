@@ -27,7 +27,7 @@ namespace Sprint2Pork.Entity.Moving
 
         protected Color color = Color.White;
 
-        protected Rectangle roomBoundingBox = new Rectangle(120, 160, 560, 280);
+        protected Rectangle roomBoundingBox = new Rectangle(120, 165, 560, 275);
         public void Update()
         {
             count++;
