@@ -33,6 +33,7 @@ namespace Sprint2Pork.Entity.Moving
 
             relX = x;
 
+            collisionRect = new Rectangle(initX + relX + modX, initY, 20, 20);
             destinationRect = new Rectangle(initX + relX + modX, initY, 20, 20);
         }
 
@@ -54,6 +55,8 @@ namespace Sprint2Pork.Entity.Moving
             }
             destinationRect.X = startX + changeX + relX + modX;
             destinationRect.Y = startY + changeY;
+            collisionRect.X = destinationRect.X;
+            collisionRect.Y = destinationRect.Y;
         }
     }
 }

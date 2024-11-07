@@ -30,6 +30,7 @@ namespace Sprint2Pork.Entity.Moving
 
             totalFrames = sourceRects.Count;
 
+            collisionRect = new Rectangle(initX, initY, rectW / 4, rectH / 4);
             destinationRect = new Rectangle(initX, initY, rectW / 4, rectH / 4);
         }
 
@@ -115,6 +116,8 @@ namespace Sprint2Pork.Entity.Moving
                         break;
                 }
             }
+            collisionRect.X = destinationRect.X;
+            collisionRect.Y = destinationRect.Y;
         }
 
         public override int getTextureIndex() { return 4; }

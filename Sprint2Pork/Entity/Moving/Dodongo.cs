@@ -65,7 +65,8 @@ namespace Sprint2Pork.Entity.Moving
             totalFrames = sourceRects.Count;
             maxCount = 5;
 
-            destinationRect = new Rectangle(initX, initY, 100, 100);
+            collisionRect = new Rectangle(initX, initY, rectW, rectH);
+            destinationRect = new Rectangle(initX, initY, rectW, rectH);
         }
 
         public override void Move(List<Block> blocks){
@@ -157,6 +158,8 @@ namespace Sprint2Pork.Entity.Moving
                         break;
                 }
             }
+            collisionRect.X = destinationRect.X;
+            collisionRect.Y = destinationRect.Y;
         }
 
         public override int getTextureIndex() { return 2; }

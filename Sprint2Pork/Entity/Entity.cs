@@ -18,6 +18,7 @@ namespace Sprint2Pork.Entity
 
         protected List<Rectangle> sourceRects;
         protected Rectangle destinationRect;
+        protected Rectangle collisionRect;
 
         protected Color c = Color.White;
 
@@ -43,10 +44,10 @@ namespace Sprint2Pork.Entity
 
         private void DrawHitbox(SpriteBatch sb, Texture2D hitboxTxt, bool showHitbox) {
             if (showHitbox) {
-                sb.Draw(hitboxTxt, new Rectangle(destinationRect.X, destinationRect.Y, destinationRect.Width, 1), Color.White);
-                sb.Draw(hitboxTxt, new Rectangle(destinationRect.X + destinationRect.Width - 1, destinationRect.Y, 1, destinationRect.Height), Color.White);
-                sb.Draw(hitboxTxt, new Rectangle(destinationRect.X, destinationRect.Y + destinationRect.Height - 1, destinationRect.Width, 1), Color.White);
-                sb.Draw(hitboxTxt, new Rectangle(destinationRect.X, destinationRect.Y, 1, destinationRect.Height), Color.White);
+                sb.Draw(hitboxTxt, new Rectangle(collisionRect.X, collisionRect.Y, collisionRect.Width, 1), Color.White);
+                sb.Draw(hitboxTxt, new Rectangle(collisionRect.X + collisionRect.Width - 1, collisionRect.Y, 1, collisionRect.Height), Color.White);
+                sb.Draw(hitboxTxt, new Rectangle(collisionRect.X, collisionRect.Y + collisionRect.Height - 1, collisionRect.Width, 1), Color.White);
+                sb.Draw(hitboxTxt, new Rectangle(collisionRect.X, collisionRect.Y, 1, collisionRect.Height), Color.White);
             }
         }
 

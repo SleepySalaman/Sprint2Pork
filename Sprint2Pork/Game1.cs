@@ -60,7 +60,7 @@ namespace Sprint2Pork
         private Link link;
         public Viewport viewport;
 
-        public bool showHitboxes = true;
+        public bool showHitboxes = false;
         public bool menu = false;
         private string currentRoom;
         private string nextRoom;
