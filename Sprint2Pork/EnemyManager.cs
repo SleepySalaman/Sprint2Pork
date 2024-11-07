@@ -50,6 +50,7 @@ namespace Sprint2Pork
                 fireballs[i].Draw(sb, txt, hitboxTexture, showHitbox);
             }
         }
+
         public List<Rectangle> GetFireballRects()
         {
             List<Rectangle> fireballRects = new List<Rectangle>();
