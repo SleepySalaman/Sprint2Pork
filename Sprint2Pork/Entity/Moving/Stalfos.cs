@@ -96,6 +96,28 @@ namespace Sprint2Pork.Entity.Moving
                     }
                 }
             }
+            if (moving && Collision.CollidesWithOutside(destinationRect, roomBoundingBox)) {
+                movedAmount = 0;
+                moving = false;
+                switch (direction) {
+                    case 1:
+                        moveX -= 2;
+                        destinationRect.X -= 2;
+                        break;
+                    case 2:
+                        moveX += 2;
+                        destinationRect.X += 2;
+                        break;
+                    case 3:
+                        moveY += 2;
+                        destinationRect.Y += 2;
+                        break;
+                    case 4:
+                        moveY -= 2;
+                        destinationRect.Y -= 2;
+                        break;
+                }
+            }
         }
 
         public override int getTextureIndex() { return 7; }
