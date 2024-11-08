@@ -46,7 +46,7 @@ namespace Sprint2Pork
         private List<IEnemy> enemies;
         private List<EnemyManager> fireballManagers;
         private Vector2 enemyInitPos = new Vector2(GameConstants.ENEMY_INIT_X, GameConstants.ENEMY_INIT_Y);
-
+        private Texture2D winStateTexture;
         private int currentBlockIndex = 0;
         private Vector2 blockPosition = new Vector2(200, 200);
 
@@ -155,7 +155,7 @@ namespace Sprint2Pork
             textSprite = new TextSprite(200, GameConstants.TEXT_DISPLAY, font);
 
             GenerateBlocks.fillBlockList(blocks, allTextures[8], blockPosition);
-
+            winStateTexture = Content.Load<Texture2D>("WinScreen");
             hitboxTexture = new Texture2D(GraphicsDevice, 1, 1);
             hitboxTexture.SetData(new Color[] { Color.Red });
 
@@ -237,7 +237,6 @@ namespace Sprint2Pork
                 }
             }
         }
-
         private void HandleTransition(GameTime gameTime)
         {
             transitionTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -254,7 +253,6 @@ namespace Sprint2Pork
                 RoomChange.SwitchRoom(nextRoom, ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
                 currentRoom = nextRoom;
                 CheckForKey();
-
             }
         }
 
@@ -312,7 +310,12 @@ namespace Sprint2Pork
                     if (item is Key)
                     {
                         soundManager.PlaySound("sfxItemReceived");
-                    } else
+                    }
+                    else if (item is Triangle)
+                    {
+                        GameOver();
+                    }
+                    else
                     {
                         soundManager.PlaySound("sfxItemObtained");
                     }
@@ -609,6 +612,10 @@ namespace Sprint2Pork
                     new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height),
                     Color.White
                 );
+            }
+            else if (gameState == Game1State.GameOver)
+            {
+                spriteBatch.Draw(winStateTexture, new Rectangle(0, 0, viewport.Width, viewport.Height), Color.White);
             }
             else
             {
