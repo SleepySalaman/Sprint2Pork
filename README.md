@@ -22,6 +22,7 @@ Rooms are loaded from room csv files where 0 represents empty space and positive
 - **Q**: Quit game
 - **R**: Reset (reset the game state)
 - **F**: Toggle fullscreen mode
+- **H**: Toggle hitboxes
 
 ### Known Bugs
 1. **Occasional Lag**: Switching item states quickly can sometimes cause minor lag or delays in input responsiveness.
