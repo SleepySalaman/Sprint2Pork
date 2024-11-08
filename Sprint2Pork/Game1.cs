@@ -10,12 +10,14 @@ using Sprint2Pork.rooms;
 using System.Collections.Generic;
 using System;
 using Microsoft.Xna.Framework.Media;
+using Sprint2Pork.Constants;
 
 namespace Sprint2Pork
 {
     public class Game1 : Game
     {
         public GraphicsDeviceManager graphics;
+
         public bool IsFullscreen { get; set; }
         private SpriteBatch spriteBatch;
         private List<IController> controllerList;
@@ -43,7 +45,7 @@ namespace Sprint2Pork
         private List<GroundItem> groundItems;
         private List<IEnemy> enemies;
         private List<EnemyManager> fireballManagers;
-        private Vector2 enemyInitPos = new Vector2(450, 320);
+        private Vector2 enemyInitPos = new Vector2(GameConstants.ENEMY_INIT_X, GameConstants.ENEMY_INIT_Y);
 
         private int currentBlockIndex = 0;
         private Vector2 blockPosition = new Vector2(200, 200);
@@ -73,7 +75,7 @@ namespace Sprint2Pork
         // Game States
         public Game1State gameState { get; private set; }
         private Game1StateManager gameStateManager;
-        private float transitionDuration = 1.0f;
+        private float transitionDuration = GameConstants.TRANSITION_DURATION;
         private float transitionTimer = 0f;
         private Rectangle oldRoomRectangle;
         private Rectangle oldRoomRectangleSaved;
@@ -150,7 +152,7 @@ namespace Sprint2Pork
             hudTexture = Content.Load<Texture2D>("ZeldaHUD");
             roomTexture = Content.Load<Texture2D>("Room1Alone");
             lifeTexture = Content.Load<Texture2D>("Zelda_Lives");
-            textSprite = new TextSprite(200, 100, font);
+            textSprite = new TextSprite(200, GameConstants.TEXT_DISPLAY, font);
 
             GenerateBlocks.fillBlockList(blocks, allTextures[8], blockPosition);
 
@@ -239,12 +241,12 @@ namespace Sprint2Pork
         private void HandleTransition(GameTime gameTime)
         {
             transitionTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            int transitionConstant = (int)(Math.Abs(transitionDirection.X) * (transitionTimer * 880.0f)) + (int)(Math.Abs(transitionDirection.Y) * (transitionTimer * 25.0f));
+            int transitionConstant = (int)(Math.Abs(transitionDirection.X) * (transitionTimer * GameConstants.TRANSITION_SPEED)) + (int)(Math.Abs(transitionDirection.Y) * (transitionTimer * GameConstants.VERTICAL_TRANSITION_SPEED));
 
             oldRoomRectangle = new Rectangle(oldRoomRectangleSaved.X - ((int)transitionDirection.X * transitionConstant), oldRoomRectangle.Y - ((int)transitionDirection.Y * transitionConstant), oldRoomRectangle.Width, oldRoomRectangle.Height);
             nextRoomRectangle = new Rectangle(nextRoomRectangleSaved.X - ((int)transitionDirection.X * transitionConstant), nextRoomRectangle.Y - ((int)transitionDirection.Y * transitionConstant), nextRoomRectangle.Width, nextRoomRectangle.Height);
 
-            if (transitionTimer >= transitionDuration || ((0 >= ((int)transitionDirection.X * nextRoomRectangle.X)) && (0 >= ((int)transitionDirection.Y * nextRoomRectangle.Y) - (int)transitionDirection.Y*85)))
+            if (transitionTimer >= transitionDuration || ((0 >= ((int)transitionDirection.X * nextRoomRectangle.X)) && (0 >= ((int)transitionDirection.Y * nextRoomRectangle.Y) - (int)transitionDirection.Y*GameConstants.ROOM_Y_OFFSET)))
             {
                 transitionTimer = 0f;
                 gameState = Game1State.Playing;
@@ -327,11 +329,11 @@ namespace Sprint2Pork
 
         private void CheckRoomChange(Game1State gameState)
         {
-            if (currentRoom == "room1" && link.GetX() > GraphicsDevice.Viewport.Width - 100)
+            if (currentRoom == "room1" && link.GetX() > GraphicsDevice.Viewport.Width - GameConstants.ROOM_EDGE_BUFFER)
             {
                 nextRoom = "room2";
                 nextRoomTexture = Content.Load<Texture2D>("Room2Alone");
-                link.SetX(100);
+                link.SetX(GameConstants.ROOM_EDGE_BUFFER);
 
                 transitionDirection = new Vector2(1, 0);
                 SetRectangles();
@@ -345,7 +347,7 @@ namespace Sprint2Pork
 
             }
 
-            else if (currentRoom == "room1" && link.GetX() < 100)
+            else if (currentRoom == "room1" && link.GetX() < GameConstants.ROOM_EDGE_BUFFER)
             {
                 nextRoom = "room5";
                 nextRoomTexture = Content.Load<Texture2D>("Room5");
@@ -356,29 +358,29 @@ namespace Sprint2Pork
                 this.gameState = Game1State.Transitioning;
             }
 
-            else if (currentRoom == "room2" && link.GetX() > GraphicsDevice.Viewport.Width - 100)
+            else if (currentRoom == "room2" && link.GetX() > GraphicsDevice.Viewport.Width - GameConstants.ROOM_EDGE_BUFFER)
             {
                 nextRoom = "room4";
                 nextRoomTexture = Content.Load<Texture2D>("Room4");
-                link.SetX(100);
+                link.SetX(GameConstants.ROOM_EDGE_BUFFER);
 
                 transitionDirection = new Vector2(1, 0);
                 SetRectangles();
                 this.gameState = Game1State.Transitioning;
             }
 
-            else if (currentRoom == "room5" && link.GetX() > GraphicsDevice.Viewport.Width - 100)
+            else if (currentRoom == "room5" && link.GetX() > GraphicsDevice.Viewport.Width - GameConstants.ROOM_EDGE_BUFFER)
             {
                 nextRoom = "room1";
                 nextRoomTexture = Content.Load<Texture2D>("Room1Alone");
-                link.SetX(100);
+                link.SetX(GameConstants.ROOM_EDGE_BUFFER);
 
                 transitionDirection = new Vector2(1, 0);
                 SetRectangles();
                 this.gameState = Game1State.Transitioning;
             }
 
-            else if (currentRoom == "room2" && link.GetX() < 100)
+            else if (currentRoom == "room2" && link.GetX() < GameConstants.ROOM_EDGE_BUFFER)
             {
                 nextRoom = "room1";
                 nextRoomTexture = Content.Load<Texture2D>("Room1Alone");
@@ -389,7 +391,7 @@ namespace Sprint2Pork
                 this.gameState = Game1State.Transitioning;
             }
 
-            else if (currentRoom == "room4" && link.GetX() < 100)
+            else if (currentRoom == "room4" && link.GetX() < GameConstants.ROOM_EDGE_BUFFER)
             {
                 nextRoom = "room2";
                 nextRoomTexture = Content.Load<Texture2D>("Room2Alone");
@@ -403,7 +405,7 @@ namespace Sprint2Pork
                 this.gameState = Game1State.Transitioning;
             }
 
-            else if (currentRoom == "room2" && link.GetY() < 100)
+            else if (currentRoom == "room2" && link.GetY() < GameConstants.ROOM_EDGE_BUFFER)
             {
                 nextRoom = "room3";
                 nextRoomTexture = Content.Load<Texture2D>("Room3");
@@ -415,7 +417,7 @@ namespace Sprint2Pork
                 this.gameState = Game1State.Transitioning;
             }
 
-            else if (currentRoom == "room3" && link.GetY() > GraphicsDevice.Viewport.Height - 30)
+            else if (currentRoom == "room3" && link.GetY() > GraphicsDevice.Viewport.Height - GameConstants.ROOM_EDGE_THRESHOLD)
             {
                 nextRoom = "room2";
                 nextRoomTexture = Content.Load<Texture2D>("Room2Alone");
@@ -427,7 +429,7 @@ namespace Sprint2Pork
                 currentRoom = nextRoom;
                 this.gameState = Game1State.Transitioning;
             }
-            else if (currentRoom == "room5" && link.GetY() > GraphicsDevice.Viewport.Height - 30)
+            else if (currentRoom == "room5" && link.GetY() > GraphicsDevice.Viewport.Height - GameConstants.ROOM_EDGE_THRESHOLD)
             {
                 nextRoom = "room6";
                 nextRoomTexture = Content.Load<Texture2D>("Room6");
@@ -439,7 +441,7 @@ namespace Sprint2Pork
                 currentRoom = nextRoom;
                 this.gameState = Game1State.Transitioning;
             }
-            else if (currentRoom == "room6" && link.GetY() < 100)
+            else if (currentRoom == "room6" && link.GetY() < GameConstants.ROOM_EDGE_BUFFER)
             {
                 nextRoom = "room5";
                 nextRoomTexture = Content.Load<Texture2D>("Room5");
@@ -450,7 +452,7 @@ namespace Sprint2Pork
                 currentRoom = nextRoom;
                 this.gameState = Game1State.Transitioning;
             }
-            else if (currentRoom == "room6" && link.GetY() > GraphicsDevice.Viewport.Height - 30)
+            else if (currentRoom == "room6" && link.GetY() > GraphicsDevice.Viewport.Height - GameConstants.ROOM_EDGE_THRESHOLD)
             {
                 nextRoom = "room7";
                 nextRoomTexture = Content.Load<Texture2D>("Room7");
@@ -462,7 +464,7 @@ namespace Sprint2Pork
                 currentRoom = nextRoom;
                 this.gameState = Game1State.Transitioning;
             }
-            else if (currentRoom == "room7" && link.GetY() < 100)
+            else if (currentRoom == "room7" && link.GetY() < GameConstants.ROOM_EDGE_BUFFER)
             {
                 nextRoom = "room6";
                 nextRoomTexture = Content.Load<Texture2D>("Room6");
@@ -473,7 +475,7 @@ namespace Sprint2Pork
                 currentRoom = nextRoom;
                 this.gameState = Game1State.Transitioning;
             }
-            else if (currentRoom == "room5" && link.GetX() < 100)
+            else if (currentRoom == "room5" && link.GetX() < GameConstants.ROOM_EDGE_BUFFER)
             {
                 nextRoom = "room8";
                 nextRoomTexture = Content.Load<Texture2D>("Room8");
@@ -483,17 +485,17 @@ namespace Sprint2Pork
                 currentRoom = nextRoom;
                 this.gameState = Game1State.Transitioning;
             }
-            else if (currentRoom == "room8" && link.GetX() > GraphicsDevice.Viewport.Width - 100)
+            else if (currentRoom == "room8" && link.GetX() > GraphicsDevice.Viewport.Width - GameConstants.ROOM_EDGE_BUFFER)
             {
                 nextRoom = "room5";
                 nextRoomTexture = Content.Load<Texture2D>("Room5");
-                link.SetX(100);
+                link.SetX(GameConstants.ROOM_EDGE_BUFFER);
 
                 transitionDirection = new Vector2(1, 0);
                 SetRectangles();
                 this.gameState = Game1State.Transitioning;
             }
-            else if (currentRoom == "room8" && link.GetY() < 100)
+            else if (currentRoom == "room8" && link.GetY() < GameConstants.ROOM_EDGE_BUFFER)
             {
                 nextRoom = "room9";
                 nextRoomTexture = Content.Load<Texture2D>("Room9");
@@ -505,7 +507,7 @@ namespace Sprint2Pork
                 this.gameState = Game1State.Transitioning;
             }
 
-            else if (currentRoom == "room9" && link.GetY() > GraphicsDevice.Viewport.Height - 30)
+            else if (currentRoom == "room9" && link.GetY() > GraphicsDevice.Viewport.Height - GameConstants.ROOM_EDGE_THRESHOLD)
             {
                 nextRoom = "room8";
                 nextRoomTexture = Content.Load<Texture2D>("Room8");
@@ -521,9 +523,9 @@ namespace Sprint2Pork
 
         private void SetRectangles()
         {
-            oldRoomRectangle = new Rectangle(0, 85, viewport.Width, viewport.Height - 85);
+            oldRoomRectangle = new Rectangle(0, GameConstants.ROOM_Y_OFFSET, viewport.Width, viewport.Height - GameConstants.ROOM_Y_OFFSET);
             oldRoomRectangleSaved = oldRoomRectangle;
-            nextRoomRectangle = new Rectangle(((int)transitionDirection.X * viewport.Width), 85 + ((int)transitionDirection.Y * viewport.Height), viewport.Width, viewport.Height - 85);
+            nextRoomRectangle = new Rectangle(((int)transitionDirection.X * viewport.Width), GameConstants.ROOM_Y_OFFSET + ((int)transitionDirection.Y * viewport.Height), viewport.Width, viewport.Height - GameConstants.ROOM_Y_OFFSET);
             nextRoomRectangleSaved = nextRoomRectangle;
         }
 
@@ -556,14 +558,14 @@ namespace Sprint2Pork
         private void SetCurrentItem()
         {
             GroundItem currentItem = items[currentItemIndex];
-            currentItem.destinationRect = new Rectangle(400, 200, 32, 32);
+            currentItem.destinationRect = new Rectangle(400, 200, GameConstants.ITEM_SPRITE_SIZE, GameConstants.ITEM_SPRITE_SIZE);
         }
         public void ResetGame()
         {
             currentBlockIndex = 0;
             currentItemIndex = 0;
-            spritePos[0] = 50;
-            spritePos[1] = 50;
+            spritePos[0] = GameConstants.DEFAULT_SPRITE_POSITION;
+            spritePos[1] = GameConstants.DEFAULT_SPRITE_POSITION;
             moving = false;
 
             enemyUpdater = new UpdateEnemySprite((int)enemyInitPos.X, (int)enemyInitPos.Y);
@@ -610,11 +612,11 @@ namespace Sprint2Pork
             }
             else
             {
-                spriteBatch.Draw(hudTexture, new Rectangle(0, 0, viewport.Width, 89), Color.White);
+                spriteBatch.Draw(hudTexture, new Rectangle(0, 0, viewport.Width, GameConstants.HUD_HEIGHT), Color.White);
 
                 if (gameState == Game1State.Playing)
                 {
-                    spriteBatch.Draw(roomTexture, new Rectangle(0, 85, viewport.Width, viewport.Height - 85), Color.White);
+                    spriteBatch.Draw(roomTexture, new Rectangle(0, GameConstants.ROOM_Y_OFFSET, viewport.Width, viewport.Height - GameConstants.ROOM_Y_OFFSET), Color.White);
                     link.Draw(spriteBatch, allTextures[0], allTextures[10]);
                     Drawing.DrawGeneratedObjects(spriteBatch, blocks, groundItems, enemies, fireballManagers, allTextures, hitboxTexture, showHitboxes);
                 }
@@ -625,11 +627,11 @@ namespace Sprint2Pork
                 }
                 else if (gameState == Game1State.Paused)
                 {
-                    spriteBatch.DrawString(font, "Game Paused", new Vector2(100, 100), Color.White);
+                    spriteBatch.DrawString(font, "Game Paused", new Vector2(GameConstants.TEXT_DISPLAY, GameConstants.TEXT_DISPLAY), Color.White);
                 }
                 else if (gameState == Game1State.GameOver)
                 {
-                    spriteBatch.DrawString(font, "Game Over", new Vector2(100, 100), Color.Red);
+                    spriteBatch.DrawString(font, "Game Over", new Vector2(GameConstants.TEXT_DISPLAY, GameConstants.TEXT_DISPLAY), Color.Red);
                 }
             }
 
