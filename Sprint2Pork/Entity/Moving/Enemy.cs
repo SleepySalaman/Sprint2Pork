@@ -27,8 +27,12 @@ namespace Sprint2Pork.Entity.Moving
         protected Rectangle collisionRect;
 
         protected Color color = Color.White;
+        protected int health;
+
+        protected Rectangle healthSourceRect = new Rectangle(210, 260, 100, 100);
 
         protected Rectangle roomBoundingBox = new Rectangle(120, 165, 560, 275);
+
         public void Update()
         {
             count++;
@@ -45,10 +49,23 @@ namespace Sprint2Pork.Entity.Moving
 
         public abstract void Move(List<Block> blocks);
 
-        public void Draw(SpriteBatch sb, Texture2D txt, Texture2D hitboxTxt, bool showHitbox)
+        public void Draw(SpriteBatch sb, Texture2D txt, Texture2D livesTxt, Texture2D hitboxTxt, bool showHitbox)
         {
             sb.Draw(txt, destinationRect, sourceRects[currentFrame], color);
             DrawHitbox(sb, hitboxTxt, showHitbox);
+            DrawLives(sb, livesTxt);
+        }
+
+        private void DrawLives(SpriteBatch sb, Texture2D txt) {
+            for(int i = 0; i < health; i++) {
+                sb.Draw(txt, new Rectangle(collisionRect.X + (20 * i), collisionRect.Y - 20, 20, 20), healthSourceRect, Color.White);
+            }
+        }
+
+        public void TakeDamage() {
+            if(health > 0) {
+                health--;
+            }
         }
 
         private void DrawHitbox(SpriteBatch sb, Texture2D hitboxTxt, bool showHitbox) {
@@ -75,6 +92,7 @@ namespace Sprint2Pork.Entity.Moving
             if (collides)
             {
                 color = c;
+                TakeDamage();
             }
             else
             {

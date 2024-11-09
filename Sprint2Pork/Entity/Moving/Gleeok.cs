@@ -14,6 +14,8 @@ namespace Sprint2Pork.Entity.Moving
                 new Rectangle(70, 37, 34, 44)
             };
 
+            health = 2;
+
             totalFrames = sourceRects.Count;
 
             collisionRect = new Rectangle(initX, initY, rectW, rectH);

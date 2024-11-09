@@ -12,14 +12,14 @@ namespace Sprint2Pork {
     public class Drawing {
 
         public static void DrawCyclingEnemy(UpdateEnemySprite enemyUpdater, EnemyManager enemyManager, SpriteBatch spriteBatch, 
-            List<Texture2D> allTextures, IEnemy enemySprite, int currentEnemyNum, ISprite textSprite, Texture2D hitboxTxt, bool showHitbox) {
-            enemyUpdater.drawCurrentEnemy(enemySprite, spriteBatch, allTextures, currentEnemyNum, hitboxTxt, showHitbox);
+            List<Texture2D> allTextures, IEnemy enemySprite, int currentEnemyNum, ISprite textSprite, Texture2D lifeTxt, Texture2D hitboxTxt, bool showHitbox) {
+            enemyUpdater.drawCurrentEnemy(enemySprite, spriteBatch, allTextures, currentEnemyNum, lifeTxt, hitboxTxt, showHitbox);
             textSprite.Draw(spriteBatch, allTextures[0]);
             enemyManager.Draw(spriteBatch, allTextures[1], hitboxTxt, showHitbox);
         }
 
         public static void DrawGeneratedObjects(SpriteBatch spriteBatch, List<Block> blocks, List<GroundItem> groundItems,
-            List<IEnemy> enemies, List<EnemyManager> fireballManagers, List<Texture2D> allTextures, 
+            List<IEnemy> enemies, List<EnemyManager> fireballManagers, List<Texture2D> allTextures, Texture2D lifeTexture, 
             Texture2D hitboxTexture, bool showHitbox) {
             foreach (Block block in blocks) {
                 block.Draw(spriteBatch);
@@ -30,7 +30,7 @@ namespace Sprint2Pork {
             }
 
             foreach (var enemy in enemies) {
-                enemy.Draw(spriteBatch, allTextures[enemy.getTextureIndex()], hitboxTexture, showHitbox);
+                enemy.Draw(spriteBatch, allTextures[enemy.getTextureIndex()], lifeTexture, hitboxTexture, showHitbox);
             }
             foreach (var fireball in fireballManagers) {
                 fireball.Draw(spriteBatch, allTextures[1], hitboxTexture, showHitbox);

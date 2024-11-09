@@ -34,6 +34,8 @@ namespace Sprint2Pork.Entity.Moving
                 new Rectangle(180, 255, 60, 50)
             };
 
+            health = 2;
+
             x = initX;
             y = initY;
 

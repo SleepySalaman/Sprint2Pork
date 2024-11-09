@@ -47,7 +47,7 @@ namespace Sprint2Pork
         {
             for (int i = 0; i < fireballs.Count; i++)
             {
-                fireballs[i].Draw(sb, txt, hitboxTexture, showHitbox);
+                fireballs[i].Draw(sb, txt, hitboxTexture, txt, showHitbox);
             }
         }
 

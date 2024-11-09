@@ -27,6 +27,8 @@ namespace Sprint2Pork.Entity.Moving
         public Goriya(int initX, int initY){
             sourceRects = new List<Rectangle>();
 
+            health = 3;
+
             startX = initX;
             startY = initY;
 

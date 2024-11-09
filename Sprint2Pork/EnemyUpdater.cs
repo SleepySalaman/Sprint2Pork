@@ -15,7 +15,7 @@ namespace Sprint2Pork {
                 enemy.Update();
                 enemy.Move(blocks);
                 bool collidesWithLink = Collision.Collides(link.GetRect(), enemy.getRect());
-
+                
                 enemy.updateFromCollision(collidesWithLink, Color.Red);
                 if (collidesWithLink) {
                     link.TakeDamage();

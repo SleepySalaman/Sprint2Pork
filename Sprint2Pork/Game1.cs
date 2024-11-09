@@ -638,7 +638,8 @@ namespace Sprint2Pork
                 {
                     spriteBatch.Draw(roomTexture, new Rectangle(0, GameConstants.ROOM_Y_OFFSET, viewport.Width, viewport.Height - GameConstants.ROOM_Y_OFFSET), Color.White);
                     link.Draw(spriteBatch, allTextures[0], allTextures[10]);
-                    Drawing.DrawGeneratedObjects(spriteBatch, blocks, groundItems, enemies, fireballManagers, allTextures, hitboxTexture, showHitboxes);
+                    Drawing.DrawGeneratedObjects(spriteBatch, blocks, groundItems, enemies, fireballManagers, allTextures, lifeTexture,
+                        hitboxTexture, showHitboxes);
                 }
                 else if (gameState == Game1State.Transitioning)
                 {

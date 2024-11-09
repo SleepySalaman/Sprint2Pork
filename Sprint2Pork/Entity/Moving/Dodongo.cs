@@ -32,6 +32,8 @@ namespace Sprint2Pork.Entity.Moving
             x = initX;
             y = initY;
 
+            health = 4;
+
             upRects = new List<Rectangle>() {
                 new Rectangle(60, 80, 24, 32),
                 new Rectangle(60, 110, 24, 32)

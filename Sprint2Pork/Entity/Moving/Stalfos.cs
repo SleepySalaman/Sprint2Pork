@@ -27,6 +27,8 @@ namespace Sprint2Pork.Entity.Moving
                new Rectangle(13, 0, 15, 16)
             };
 
+            health = 2;
+
             totalFrames = sourceRects.Count;
             maxCount = 7;
 

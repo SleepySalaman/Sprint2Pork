@@ -28,6 +28,8 @@ namespace Sprint2Pork.Entity.Moving
 
             x = initX;
 
+            health = 4;
+
             fireballs = new List<Fireball>();
 
             for (int i = 0; i < fireballCount; i++)
