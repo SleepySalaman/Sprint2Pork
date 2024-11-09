@@ -18,14 +18,13 @@ namespace Sprint2Pork {
 
                 enemy.updateFromCollision(collidesWithLink, Color.Red);
                 if (collidesWithLink) {
-
                     link.TakeDamage();
                 }
             }
         }
 
         public static void UpdateFireballs(EnemyManager enemyManager, ref Link link, ref List<EnemyManager> fireballManagers,
-            GameTime gameTime) {
+            GameTime gameTime, ref LinkHealth health) {
             foreach (var fireball in fireballManagers)
             {
                 fireball.Update(gameTime, 0);
@@ -33,6 +32,7 @@ namespace Sprint2Pork {
                     if (Collision.Collides(link.GetRect(), fireballRect))
                     {
                         link.TakeDamage();
+                        health.takeDamage();
                     }
                 }
             }

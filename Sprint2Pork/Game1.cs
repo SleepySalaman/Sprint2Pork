@@ -67,6 +67,7 @@ namespace Sprint2Pork
         private string currentRoom;
         private string nextRoom;
         private int lifeCount;
+        private LinkHealth healthCount = new LinkHealth();
         private Dictionary<string, (List<Block>, List<GroundItem>, List<IEnemy>, List<EnemyManager>)> rooms;
 
         // SFX
@@ -158,6 +159,8 @@ namespace Sprint2Pork
             winStateTexture = Content.Load<Texture2D>("WinScreen");
             hitboxTexture = new Texture2D(GraphicsDevice, 1, 1);
             hitboxTexture.SetData(new Color[] { Color.Red });
+
+            //lifeDestinationRect = new Rectangle((viewport.Width * 13) / 21, GameConstants.HUD_HEIGHT / 3, 50, 50);
 
             LoadRooms(allTextures[8], allTextures[9], allTextures[2]);
         }
@@ -259,7 +262,10 @@ namespace Sprint2Pork
         private void UpdateEnemies(GameTime gameTime)
         {
             EnemyUpdater.updateEnemies(ref link, enemies, blocks);
-            EnemyUpdater.UpdateFireballs(enemyManager, ref link, ref fireballManagers, gameTime);
+            EnemyUpdater.UpdateFireballs(enemyManager, ref link, ref fireballManagers, gameTime, ref healthCount);
+            if (!healthCount.linkAlive()) {
+                GameOver();
+            }
         }
 
         private void UpdateLink(int linkPreviousX, int linkPreviousY)
@@ -273,6 +279,10 @@ namespace Sprint2Pork
             foreach(Enemy e in enemies) {
                 if(Collision.Collides(e.getRect(), link.GetRect())) {
                     link.BeDamaged();
+                    healthCount.takeDamage();
+                    if (!healthCount.linkAlive()) {
+                        GameOver();
+                    }
                 }
             }
 
@@ -582,6 +592,8 @@ namespace Sprint2Pork
             (blocks, groundItems, enemies, fireballManagers) = rooms[currentRoom];
             gameState = Game1State.Playing;
 
+            healthCount = new LinkHealth();
+
             Texture2D blockTexture = allTextures[8];
             Texture2D groundItemTexture = allTextures[9];
             Texture2D enemyTexture = allTextures[2];
@@ -620,6 +632,7 @@ namespace Sprint2Pork
             else
             {
                 spriteBatch.Draw(hudTexture, new Rectangle(0, 0, viewport.Width, GameConstants.HUD_HEIGHT), Color.White);
+                healthCount.drawLives(spriteBatch, lifeTexture, viewport);
 
                 if (gameState == Game1State.Playing)
                 {
