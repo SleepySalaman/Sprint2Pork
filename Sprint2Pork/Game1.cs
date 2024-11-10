@@ -264,7 +264,7 @@ namespace Sprint2Pork
             EnemyUpdater.updateEnemies(ref link, enemies, blocks);
             EnemyUpdater.UpdateFireballs(enemyManager, ref link, ref fireballManagers, gameTime, ref healthCount);
             if (!healthCount.linkAlive()) {
-                GameOver();
+                StartGame();
             }
         }
 
@@ -281,7 +281,7 @@ namespace Sprint2Pork
                     link.BeDamaged();
                     healthCount.takeDamage();
                     if (!healthCount.linkAlive()) {
-                        GameOver();
+                        StartGame();
                     }
                 }
             }
@@ -664,6 +664,10 @@ namespace Sprint2Pork
             if (gameState == Game1State.StartScreen)
             {
                 gameState = Game1State.Playing;
+            }
+            else
+            {
+                gameState = Game1State.StartScreen;
             }
         }
 
