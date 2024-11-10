@@ -264,7 +264,7 @@ namespace Sprint2Pork
             EnemyUpdater.updateEnemies(ref link, enemies, blocks);
             EnemyUpdater.UpdateFireballs(enemyManager, ref link, ref fireballManagers, gameTime, ref healthCount);
             if (!healthCount.linkAlive()) {
-                StartGame();
+                GameOver();
             }
         }
 
@@ -281,7 +281,7 @@ namespace Sprint2Pork
                     link.BeDamaged();
                     healthCount.takeDamage();
                     if (!healthCount.linkAlive()) {
-                        StartGame();
+                        GameOver();
                     }
                 }
             }
@@ -351,15 +351,7 @@ namespace Sprint2Pork
                 transitionDirection = new Vector2(1, 0);
                 SetRectangles();
                 this.gameState = Game1State.Transitioning;
-
-
-                //RoomChange.SwitchRoom("room2", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
-
-
-                //currentRoom = "room2";
-
             }
-
             else if (currentRoom == "room1" && link.GetX() < GameConstants.ROOM_EDGE_BUFFER)
             {
                 nextRoom = "room5";
@@ -370,7 +362,6 @@ namespace Sprint2Pork
                 currentRoom = nextRoom;
                 this.gameState = Game1State.Transitioning;
             }
-
             else if (currentRoom == "room2" && link.GetX() > GraphicsDevice.Viewport.Width - GameConstants.ROOM_EDGE_BUFFER)
             {
                 nextRoom = "room4";
@@ -381,7 +372,6 @@ namespace Sprint2Pork
                 SetRectangles();
                 this.gameState = Game1State.Transitioning;
             }
-
             else if (currentRoom == "room5" && link.GetX() > GraphicsDevice.Viewport.Width - GameConstants.ROOM_EDGE_BUFFER)
             {
                 nextRoom = "room1";
@@ -392,7 +382,6 @@ namespace Sprint2Pork
                 SetRectangles();
                 this.gameState = Game1State.Transitioning;
             }
-
             else if (currentRoom == "room2" && link.GetX() < GameConstants.ROOM_EDGE_BUFFER)
             {
                 nextRoom = "room1";
@@ -403,41 +392,32 @@ namespace Sprint2Pork
                 currentRoom = nextRoom;
                 this.gameState = Game1State.Transitioning;
             }
-
             else if (currentRoom == "room4" && link.GetX() < GameConstants.ROOM_EDGE_BUFFER)
             {
                 nextRoom = "room2";
                 nextRoomTexture = Content.Load<Texture2D>("Room2Alone");
-
-
-                //RoomChange.SwitchRoom("room1", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
                 transitionDirection = new Vector2(-1, 0);
                 SetRectangles();
                 link.SetX(GraphicsDevice.Viewport.Width - 101);
                 currentRoom = nextRoom;
                 this.gameState = Game1State.Transitioning;
             }
-
             else if (currentRoom == "room2" && link.GetY() < GameConstants.ROOM_EDGE_BUFFER)
             {
                 nextRoom = "room3";
                 nextRoomTexture = Content.Load<Texture2D>("Room3");
-                //RoomChange.SwitchRoom("room3", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
                 transitionDirection = new Vector2(0, -1);
                 SetRectangles();
                 link.SetY(GraphicsDevice.Viewport.Height - 99);
                 currentRoom = nextRoom;
                 this.gameState = Game1State.Transitioning;
             }
-
             else if (currentRoom == "room3" && link.GetY() > GraphicsDevice.Viewport.Height - GameConstants.ROOM_EDGE_THRESHOLD)
             {
                 nextRoom = "room2";
                 nextRoomTexture = Content.Load<Texture2D>("Room2Alone");
                 transitionDirection = new Vector2(0, 1);
                 SetRectangles();
-                //RoomChange.SwitchRoom("room2", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
-
                 link.SetY(101);
                 currentRoom = nextRoom;
                 this.gameState = Game1State.Transitioning;
@@ -448,8 +428,6 @@ namespace Sprint2Pork
                 nextRoomTexture = Content.Load<Texture2D>("Room6");
                 transitionDirection = new Vector2(0, 1);
                 SetRectangles();
-                //RoomChange.SwitchRoom("room2", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
-
                 link.SetY(101);
                 currentRoom = nextRoom;
                 this.gameState = Game1State.Transitioning;
@@ -458,7 +436,6 @@ namespace Sprint2Pork
             {
                 nextRoom = "room5";
                 nextRoomTexture = Content.Load<Texture2D>("Room5");
-                //RoomChange.SwitchRoom("room3", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
                 transitionDirection = new Vector2(0, -1);
                 SetRectangles();
                 link.SetY(GraphicsDevice.Viewport.Height - 70);
@@ -471,8 +448,6 @@ namespace Sprint2Pork
                 nextRoomTexture = Content.Load<Texture2D>("Room7");
                 transitionDirection = new Vector2(0, 1);
                 SetRectangles();
-                //RoomChange.SwitchRoom("room2", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
-
                 link.SetY(101);
                 currentRoom = nextRoom;
                 this.gameState = Game1State.Transitioning;
@@ -481,7 +456,6 @@ namespace Sprint2Pork
             {
                 nextRoom = "room6";
                 nextRoomTexture = Content.Load<Texture2D>("Room6");
-                //RoomChange.SwitchRoom("room3", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
                 transitionDirection = new Vector2(0, -1);
                 SetRectangles();
                 link.SetY(GraphicsDevice.Viewport.Height - 99);
@@ -503,7 +477,6 @@ namespace Sprint2Pork
                 nextRoom = "room5";
                 nextRoomTexture = Content.Load<Texture2D>("Room5");
                 link.SetX(GameConstants.ROOM_EDGE_BUFFER);
-
                 transitionDirection = new Vector2(1, 0);
                 SetRectangles();
                 this.gameState = Game1State.Transitioning;
@@ -512,7 +485,6 @@ namespace Sprint2Pork
             {
                 nextRoom = "room9";
                 nextRoomTexture = Content.Load<Texture2D>("Room9");
-                //RoomChange.SwitchRoom("room3", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
                 transitionDirection = new Vector2(0, -1);
                 SetRectangles();
                 link.SetY(GraphicsDevice.Viewport.Height - 99);
@@ -526,8 +498,6 @@ namespace Sprint2Pork
                 nextRoomTexture = Content.Load<Texture2D>("Room8");
                 transitionDirection = new Vector2(0, 1);
                 SetRectangles();
-                //RoomChange.SwitchRoom("room2", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
-
                 link.SetY(101);
                 currentRoom = nextRoom;
                 this.gameState = Game1State.Transitioning;
@@ -588,7 +558,7 @@ namespace Sprint2Pork
             soundManager.LoadAllSounds(Content);
             link = new Link(viewport.Width, viewport.Height, soundManager);
 
-            currentRoom = "room1";
+            currentRoom = "room2";
             (blocks, groundItems, enemies, fireballManagers) = rooms[currentRoom];
             gameState = Game1State.Playing;
 
@@ -669,16 +639,6 @@ namespace Sprint2Pork
             {
                 gameState = Game1State.StartScreen;
             }
-        }
-
-        public void cycleEnemies()
-        {
-            currentEnemyNum = (currentEnemyNum + 1) % numEnemies;
-        }
-
-        public void cycleEnemiesBackwards()
-        {
-            currentEnemyNum = (currentEnemyNum - 1 + numEnemies) % numEnemies;
         }
 
         public void GetDevRoom()
