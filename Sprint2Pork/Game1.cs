@@ -36,6 +36,7 @@ namespace Sprint2Pork
         private Texture2D roomTexture;
         private Texture2D nextRoomTexture;
         private Texture2D lifeTexture;
+        private Texture2D pauseOverlayTexture;
 
         private Texture2D hitboxTexture;
 
@@ -140,7 +141,10 @@ namespace Sprint2Pork
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            startScreenTexture = Content.Load<Texture2D>("StartScreen"); // Load start screen texture
+            startScreenTexture = Content.Load<Texture2D>("StartScreen");
+
+            pauseOverlayTexture = new Texture2D(GraphicsDevice, 1, 1);
+            pauseOverlayTexture.SetData(new[] { new Color(0, 0, 0, 0.5f) });
 
             //Loading Sounds
             soundManager.LoadAllSounds(Content);
@@ -629,7 +633,13 @@ namespace Sprint2Pork
                 }
                 else if (gameState == Game1State.Paused)
                 {
-                    spriteBatch.DrawString(font, "Game Paused", new Vector2(GameConstants.TEXT_DISPLAY, GameConstants.TEXT_DISPLAY), Color.White);
+                    spriteBatch.Draw(pauseOverlayTexture, new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), Color.White);
+
+                    string pauseMessage = "Game Paused";
+                    Vector2 textSize = font.MeasureString(pauseMessage);
+                    Vector2 textPosition = new Vector2((GraphicsDevice.Viewport.Width - textSize.X) / 2, (GraphicsDevice.Viewport.Height - textSize.Y) / 2);
+                    spriteBatch.DrawString(font, pauseMessage, textPosition, Color.White);
+                
                     hud.Draw(spriteBatch);
                 }
                 else if (gameState == Game1State.GameOver)
