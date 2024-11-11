@@ -60,6 +60,9 @@ namespace Sprint2Pork
         private int numEnemies = 12;
 
         private Link link;
+        private HUD hud;
+        private Inventory inventory;
+
         public Viewport viewport;
 
         public bool showHitboxes = false;
@@ -128,7 +131,9 @@ namespace Sprint2Pork
         }
 
         protected override void Initialize(){
-            InitializeHandler.baseInitialize(ref viewport, graphics, ref link, ref controllerList, ref blocks, this, soundManager);
+            inventory = new Inventory();
+            InitializeHandler.baseInitialize(ref viewport, graphics, ref link, ref controllerList, ref blocks, this, soundManager, inventory);
+            hud = new HUD(inventory, font);
             base.Initialize();
         }
 
@@ -154,6 +159,8 @@ namespace Sprint2Pork
             roomTexture = Content.Load<Texture2D>("Room1Alone");
             lifeTexture = Content.Load<Texture2D>("Zelda_Lives");
             textSprite = new TextSprite(200, GameConstants.TEXT_DISPLAY, font);
+
+            hud = new HUD(inventory, font);
 
             GenerateBlocks.fillBlockList(blocks, allTextures[8], blockPosition);
             winStateTexture = Content.Load<Texture2D>("WinScreen");
@@ -331,6 +338,7 @@ namespace Sprint2Pork
                     }
                     item.PerformAction();
                     itemsToRemove.Add(item);
+                    link.CollectItem(item);
                 }
             }
 
@@ -556,7 +564,8 @@ namespace Sprint2Pork
 
             soundManager = new SoundManager();
             soundManager.LoadAllSounds(Content);
-            link = new Link(viewport.Width, viewport.Height, soundManager);
+            inventory.Reset();
+            link = new Link(viewport.Width, viewport.Height, soundManager, inventory);
 
             currentRoom = "room2";
             (blocks, groundItems, enemies, fireballManagers) = rooms[currentRoom];
@@ -625,8 +634,10 @@ namespace Sprint2Pork
                     spriteBatch.DrawString(font, "Game Over", new Vector2(GameConstants.TEXT_DISPLAY, GameConstants.TEXT_DISPLAY), Color.Red);
                 }
             }
+            hud.Draw(spriteBatch);
 
             spriteBatch.End();
+
             base.Draw(gameTime);
         }
         public void StartGame()
@@ -644,7 +655,7 @@ namespace Sprint2Pork
         public void GetDevRoom()
         {
             RoomChange.SwitchRoom("room1", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
-            link = new Link(viewport.Width, viewport.Height, soundManager);
+            link = new Link(viewport.Width, viewport.Height, soundManager, inventory);
             foreach (IController controller in controllerList)
             {
                 if (controller is KeyboardController keyboardController)

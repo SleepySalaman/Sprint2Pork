@@ -1,7 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using System.Reflection.Metadata.Ecma335;
+using Sprint2Pork.Items;
+
 
 namespace Sprint2Pork
 {
@@ -35,8 +36,9 @@ namespace Sprint2Pork
         private SoundManager soundManager;
         private SoundEffectInstance soundInstance;
         private bool playingFlag;
+        private Inventory inventory;
 
-        public Link(int width, int height, SoundManager paramSoundManager)
+        public Link(int width, int height, SoundManager paramSoundManager, Inventory inventory)
         {
             screenWidth = width;
             screenHeight = height;
@@ -50,6 +52,7 @@ namespace Sprint2Pork
             OffsetY = 0;
             attackFrameCount = 0;
             IsFrozen = false;
+            this.inventory = inventory;
 
             // Initialize damage effect fields
             this.damageEffectCounter = 0;
@@ -272,6 +275,10 @@ namespace Sprint2Pork
 
         public Rectangle GetRect() => linkSprite.GetRect();
 
-
+        public void CollectItem(GroundItem itemName)
+        {
+            inventory.AddItem(itemName);
+            itemName.PerformAction();
+        }
     }
 }

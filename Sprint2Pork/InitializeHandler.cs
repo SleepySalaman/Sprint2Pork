@@ -12,9 +12,9 @@ namespace Sprint2Pork {
     public class InitializeHandler {
 
         public static void baseInitialize(ref Viewport viewport, GraphicsDeviceManager graphics, ref Link link,
-            ref List<IController> controllerList, ref List<Block> blocks, Game1 game, SoundManager soundManager) {
+            ref List<IController> controllerList, ref List<Block> blocks, Game1 game, SoundManager soundManager, Inventory inventory) {
             viewport = graphics.GraphicsDevice.Viewport;
-            link = new Link(viewport.Width, viewport.Height, soundManager);
+            link = new Link(viewport.Width, viewport.Height, soundManager, inventory);
 
             controllerList.Add(new KeyboardController(game, link, blocks));
             controllerList.Add(new MouseController(game));

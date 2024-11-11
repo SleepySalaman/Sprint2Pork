@@ -24,7 +24,8 @@ namespace Sprint2Pork.GroundItems
                 new List<Rectangle> { new Rectangle(58, 0, 10, 19) },
                 new List<Rectangle> { new Rectangle(80, 0, 8, 16), new Rectangle(80, 16, 8, 16) },
                 new List<Rectangle> { new Rectangle(88, 0, 8, 16), new Rectangle(88, 16, 8, 16) },
-                new List<Rectangle> { new Rectangle(24, 0, 16, 16), new Rectangle(24, 16, 8, 16) }
+                new List<Rectangle> { new Rectangle(24, 0, 16, 16), new Rectangle(24, 16, 8, 16) },
+                new List<Rectangle> { new Rectangle(134, 0, 10, 16), new Rectangle(24, 16, 8, 16) },
             };
         }
 
@@ -42,7 +43,8 @@ namespace Sprint2Pork.GroundItems
                 new Clock(400, 200, itemFrames[8]),
                 new Potion(400, 200, itemFrames[9]),
                 new MapItem(400, 200, itemFrames[10]),
-                new Heart(400, 200, itemFrames[11])
+                new Heart(400, 200, itemFrames[11]),
+                new GroundBomb(400, 200, itemFrames[12]),
             };
             return items;
         }
