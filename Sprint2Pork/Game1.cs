@@ -296,7 +296,7 @@ namespace Sprint2Pork
                     healthCount.takeDamage();
                     if (!healthCount.linkAlive())
                     {
-                        GameOver();
+                        ResetGame();
                     }
                 }
             }
@@ -309,6 +309,10 @@ namespace Sprint2Pork
             }
 
             HandleBlockCollision(linkPreviousX, linkPreviousY);
+
+            if (!healthCount.linkAlive()) {
+                ResetGame();
+            }
         }
 
         private void HandleBlockCollision(int linkPreviousX, int linkPreviousY)
