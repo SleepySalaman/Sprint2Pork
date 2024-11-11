@@ -619,22 +619,24 @@ namespace Sprint2Pork
                     link.Draw(spriteBatch, allTextures[0], allTextures[10]);
                     Drawing.DrawGeneratedObjects(spriteBatch, blocks, groundItems, enemies, fireballManagers, allTextures, lifeTexture,
                         hitboxTexture, showHitboxes);
+                    hud.Draw(spriteBatch);
                 }
                 else if (gameState == Game1State.Transitioning)
                 {
                     spriteBatch.Draw(roomTexture, oldRoomRectangle, Color.White);
                     spriteBatch.Draw(nextRoomTexture, nextRoomRectangle, Color.White);
+                    hud.Draw(spriteBatch);
                 }
                 else if (gameState == Game1State.Paused)
                 {
                     spriteBatch.DrawString(font, "Game Paused", new Vector2(GameConstants.TEXT_DISPLAY, GameConstants.TEXT_DISPLAY), Color.White);
+                    hud.Draw(spriteBatch);
                 }
                 else if (gameState == Game1State.GameOver)
                 {
                     spriteBatch.DrawString(font, "Game Over", new Vector2(GameConstants.TEXT_DISPLAY, GameConstants.TEXT_DISPLAY), Color.Red);
                 }
             }
-            hud.Draw(spriteBatch);
 
             spriteBatch.End();
 
