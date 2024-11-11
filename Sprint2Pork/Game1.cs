@@ -340,6 +340,13 @@ namespace Sprint2Pork
                     else if (item is Triangle)
                     {
                         GameOver();
+                    }else if (item is Potion)
+                    {
+                        healthCount.healFullHeart();
+                    }
+                    else if (item is Heart)
+                    {
+                        healthCount.healHalfHeart();
                     }
                     else
                     {

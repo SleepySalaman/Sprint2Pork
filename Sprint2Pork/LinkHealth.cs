@@ -35,7 +35,24 @@ namespace Sprint2Pork
                     new Rectangle(210 + (100 * linkHealth[i]), 260, 100, 100), Color.White);
             }
         }
-
+        public void healFullHeart()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                linkHealth[i] = 0;
+            }
+        }
+        public void healHalfHeart()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                if (linkHealth[i] > 0)
+                {
+                    linkHealth[i]--;
+                    return;
+                }
+            }
+        }
         public bool linkAlive()
         {
             return linkHealth[0] != 2;
