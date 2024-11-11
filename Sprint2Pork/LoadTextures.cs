@@ -7,7 +7,8 @@ namespace Sprint2Pork
     public class LoadTextures
     {
 
-        public static void loadAllTextures(List<Texture2D> allTextures, ContentManager Content){
+        public static void loadAllTextures(List<Texture2D> allTextures, ContentManager Content)
+        {
             allTextures.Add(Content.Load<Texture2D>("LinkMovingWithDamage")); //character
             allTextures.Add(Content.Load<Texture2D>("zeldabosses")); //fireball
             allTextures.Add(Content.Load<Texture2D>("zeldaenemies")); //enemies

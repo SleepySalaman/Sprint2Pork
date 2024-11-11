@@ -55,40 +55,40 @@ namespace Sprint2Pork
             this.inventory = inventory;
 
             // Initialize damage effect fields
-            this.damageEffectCounter = 0;
-            this.isTakingDamage = false;
+            damageEffectCounter = 0;
+            isTakingDamage = false;
 
-            this.soundManager = paramSoundManager;
-            this.playingFlag = false;
+            soundManager = paramSoundManager;
+            playingFlag = false;
         }
 
         /*
          * Section for set/get methods for Link's private variables
          */
 
-        public int GetX() => this.X;
-        public void SetX(int newX) => this.X = newX;
+        public int GetX() => X;
+        public void SetX(int newX) => X = newX;
 
-        public int GetY() => this.Y;
-        public void SetY(int newY) => this.Y = newY;
+        public int GetY() => Y;
+        public void SetY(int newY) => Y = newY;
 
-        public int OffsetXGet() => this.OffsetX;
-        public void OffsetXSet(int newX) => this.OffsetX = newX;
-        public void OffsetXChange(int change) => this.OffsetX = this.OffsetX + change;
+        public int OffsetXGet() => OffsetX;
+        public void OffsetXSet(int newX) => OffsetX = newX;
+        public void OffsetXChange(int change) => OffsetX = OffsetX + change;
 
-        public int OffsetYGet() => this.OffsetY;
-        public void OffsetYSet(int newY) => this.OffsetY = newY;
-        public void OffsetYChange(int change) => this.OffsetY = this.OffsetY + change;
-        
-        public int LinkCountGet() => this.linkCount;
-        public void LinkCountSet(int count) => this.linkCount = count;
+        public int OffsetYGet() => OffsetY;
+        public void OffsetYSet(int newY) => OffsetY = newY;
+        public void OffsetYChange(int change) => OffsetY = OffsetY + change;
 
-        public bool IsLinkUsingItem() => this.ItemInUse;
+        public int LinkCountGet() => linkCount;
+        public void LinkCountSet(int count) => linkCount = count;
 
-        public void LinkSpriteUpdate() => this.linkSprite.Update(X, Y);
-        public void LinkSpriteSet(ISprite sprite) => this.linkSprite = sprite;
+        public bool IsLinkUsingItem() => ItemInUse;
 
-        public ILinkItems LinkItemSpriteGet() => this.linkItem;
+        public void LinkSpriteUpdate() => linkSprite.Update(X, Y);
+        public void LinkSpriteSet(ISprite sprite) => linkSprite = sprite;
+
+        public ILinkItems LinkItemSpriteGet() => linkItem;
 
         /*
          * Section for non-set/get methods
@@ -103,15 +103,16 @@ namespace Sprint2Pork
                 soundInstance.Volume = 0.1f;
                 soundInstance.Play();
                 playingFlag = true;
-            } else
+            }
+            else
             {
                 if (soundInstance.State != SoundState.Playing)
                 {
                     playingFlag = false;
                 }
             }
-            
-           
+
+
         }
 
         public void LookLeft()
@@ -185,25 +186,25 @@ namespace Sprint2Pork
                 case LeftFacingLinkState:
                     if (X > 0)
                     {
-                        this.X -= stepLength;
+                        X -= stepLength;
                     }
                     break;
                 case RightFacingLinkState:
                     if (X < screenWidth)
                     {
-                        this.X += stepLength;
+                        X += stepLength;
                     }
                     break;
                 case UpFacingLinkState:
                     if (Y > 0)
                     {
-                        this.Y -= stepLength;
+                        Y -= stepLength;
                     }
                     break;
                 case DownFacingLinkState:
                     if (Y < screenHeight)
                     {
-                        this.Y += stepLength;
+                        Y += stepLength;
                     }
                     break;
             }
@@ -219,23 +220,23 @@ namespace Sprint2Pork
             {
                 attackFrameCount = 0;
                 IsFrozen = false;
-                this.BeIdle();
+                BeIdle();
             }
         }
 
         public void UseItem(int index)
         {
             ItemInUse = true;
-            frozenDirectionState = directionState; 
+            frozenDirectionState = directionState;
             linkItem = index switch
             {
-                0 => new Sword(frozenDirectionState, this.X, this.Y),
-                1 => new Arrow(frozenDirectionState, this.X, this.Y),
-                2 => new Boomerang(frozenDirectionState, this.X, this.Y),
-                3 => new Bomb(frozenDirectionState, this.X, this.Y),
-                4 => new WoodArrow(frozenDirectionState, this.X, this.Y),
-                5 => new BlueBoomer(frozenDirectionState, this.X, this.Y),
-                6 => new Fire(frozenDirectionState, this.X, this.Y),
+                0 => new Sword(frozenDirectionState, X, Y),
+                1 => new Arrow(frozenDirectionState, X, Y),
+                2 => new Boomerang(frozenDirectionState, X, Y),
+                3 => new Bomb(frozenDirectionState, X, Y),
+                4 => new WoodArrow(frozenDirectionState, X, Y),
+                5 => new BlueBoomer(frozenDirectionState, X, Y),
+                6 => new Fire(frozenDirectionState, X, Y),
                 _ => linkItem
             };
         }
@@ -245,8 +246,8 @@ namespace Sprint2Pork
             isTakingDamage = true;
             bool flash = (damageEffectCounter % 2 == 0) ? true : false;
             actionState = new DamagedActionState(this, flash);
-            this.Move(true);
-            this.PlaySound("sfxPlayerHurt");
+            Move(true);
+            PlaySound("sfxPlayerHurt");
 
             damageEffectCounter++;
             if (damageEffectCounter >= flashRate * 10)

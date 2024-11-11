@@ -26,7 +26,8 @@ namespace Sprint2Pork.Entity.Moving
         private List<Rectangle> damagedLeftRects;
         private List<Rectangle> downRects;
 
-        public Dodongo(int initX, int initY){
+        public Dodongo(int initX, int initY)
+        {
             sourceRects = new List<Rectangle>();
 
             x = initX;
@@ -71,11 +72,14 @@ namespace Sprint2Pork.Entity.Moving
             destinationRect = new Rectangle(initX, initY, rectW, rectH);
         }
 
-        public override void Move(List<Block> blocks){
-            if (!moving){
+        public override void Move(List<Block> blocks)
+        {
+            if (!moving)
+            {
                 moving = true;
                 direction = new Random().Next(1, 5);
-                switch (direction){
+                switch (direction)
+                {
                     case 1: //right
                         sourceRects = rightRects;
                         break;
@@ -90,13 +94,19 @@ namespace Sprint2Pork.Entity.Moving
                         break;
                 }
                 totalFrames = sourceRects.Count;
-            } else {
+            }
+            else
+            {
                 movedAmount++;
-                if (movedAmount > moveDistance){
+                if (movedAmount > moveDistance)
+                {
                     moving = false;
                     movedAmount = 0;
-                } else { 
-                    switch (direction){
+                }
+                else
+                {
+                    switch (direction)
+                    {
                         case 1: //right
                             moveX++;
                             break;
@@ -114,11 +124,14 @@ namespace Sprint2Pork.Entity.Moving
             }
             destinationRect.X = x + moveX;
             destinationRect.Y = y + moveY;
-            foreach(Block b in blocks) {
-               if(Collision.Collides(destinationRect, b.getBoundingBox())) {
+            foreach (Block b in blocks)
+            {
+                if (Collision.Collides(destinationRect, b.getBoundingBox()))
+                {
                     movedAmount = 0;
                     moving = false;
-                    switch (direction) {
+                    switch (direction)
+                    {
                         case 1:
                             moveX -= 2;
                             destinationRect.X -= 2;
@@ -138,10 +151,12 @@ namespace Sprint2Pork.Entity.Moving
                     }
                 }
             }
-            if (moving && Collision.CollidesWithOutside(destinationRect, roomBoundingBox)) {
+            if (moving && Collision.CollidesWithOutside(destinationRect, roomBoundingBox))
+            {
                 movedAmount = 0;
                 moving = false;
-                switch (direction) {
+                switch (direction)
+                {
                     case 1:
                         moveX -= 2;
                         destinationRect.X -= 2;

@@ -49,7 +49,7 @@ namespace Sprint2Pork
                     break;
             }
 
-            sprite = new MovingNonAnimatedSprite(startX,startY, sourceRects[(0)], directionStr);
+            sprite = new MovingNonAnimatedSprite(startX, startY, sourceRects[(0)], directionStr);
         }
 
         public void Update(Link link)
@@ -79,7 +79,7 @@ namespace Sprint2Pork
             sprite.Draw(sb, texture);
         }
         public void SpriteSet(ISprite sprite) => this.sprite = sprite;
-        public ISprite SpriteGet() => this.sprite;
+        public ISprite SpriteGet() => sprite;
 
     }
 }

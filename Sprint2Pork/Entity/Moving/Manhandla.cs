@@ -21,7 +21,8 @@ namespace Sprint2Pork.Entity.Moving
 
         private bool moving = false;
 
-        public Manhandla(int initX, int initY){
+        public Manhandla(int initX, int initY)
+        {
             sourceRects = new List<Rectangle>() {
                 new Rectangle(0, 199, 60, 50),
                 new Rectangle(60, 200, 60, 50),
@@ -81,11 +82,14 @@ namespace Sprint2Pork.Entity.Moving
             }
             destinationRect.X = x + moveX;
             destinationRect.Y = y + moveY;
-            foreach (Block b in blocks) {
-                if (Collision.Collides(destinationRect, b.getBoundingBox())) {
+            foreach (Block b in blocks)
+            {
+                if (Collision.Collides(destinationRect, b.getBoundingBox()))
+                {
                     movedAmount = 0;
                     moving = false;
-                    switch (direction) {
+                    switch (direction)
+                    {
                         case 1:
                             moveX -= 2;
                             destinationRect.X -= 2;

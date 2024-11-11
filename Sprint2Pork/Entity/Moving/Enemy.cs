@@ -56,20 +56,26 @@ namespace Sprint2Pork.Entity.Moving
             DrawLives(sb, livesTxt);
         }
 
-        private void DrawLives(SpriteBatch sb, Texture2D txt) {
-            for(int i = 0; i < health; i++) {
+        private void DrawLives(SpriteBatch sb, Texture2D txt)
+        {
+            for (int i = 0; i < health; i++)
+            {
                 sb.Draw(txt, new Rectangle(collisionRect.X + (20 * i), collisionRect.Y - 20, 20, 20), healthSourceRect, Color.White);
             }
         }
 
-        public void TakeDamage() {
-            if(health > 0) {
+        public void TakeDamage()
+        {
+            if (health > 0)
+            {
                 health--;
             }
         }
 
-        private void DrawHitbox(SpriteBatch sb, Texture2D hitboxTxt, bool showHitbox) {
-            if (showHitbox) {
+        private void DrawHitbox(SpriteBatch sb, Texture2D hitboxTxt, bool showHitbox)
+        {
+            if (showHitbox)
+            {
                 sb.Draw(hitboxTxt, new Rectangle(collisionRect.X, collisionRect.Y, collisionRect.Width, 1), Color.White);
                 sb.Draw(hitboxTxt, new Rectangle(collisionRect.X + collisionRect.Width - 1, collisionRect.Y, 1, collisionRect.Height), Color.White);
                 sb.Draw(hitboxTxt, new Rectangle(collisionRect.X, collisionRect.Y + collisionRect.Height - 1, collisionRect.Width, 1), Color.White);

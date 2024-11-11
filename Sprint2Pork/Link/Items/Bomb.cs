@@ -90,6 +90,6 @@ namespace Sprint2Pork
             sprite.Draw(sb, texture);
         }
         public void SpriteSet(ISprite sprite) => this.sprite = sprite;
-        public ISprite SpriteGet() => this.sprite;
+        public ISprite SpriteGet() => sprite;
     }
 }

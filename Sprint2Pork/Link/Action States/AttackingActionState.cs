@@ -1,8 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using System.Collections.Generic;
-
-namespace Sprint2Pork
+﻿namespace Sprint2Pork
 {
     public class AttackingActionState : ILinkActionState
     {

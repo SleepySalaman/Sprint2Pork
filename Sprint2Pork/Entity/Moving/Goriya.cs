@@ -24,7 +24,8 @@ namespace Sprint2Pork.Entity.Moving
         private List<Rectangle> leftRects;
         private List<Rectangle> rightRects;
 
-        public Goriya(int initX, int initY){
+        public Goriya(int initX, int initY)
+        {
             sourceRects = new List<Rectangle>();
 
             health = 3;
@@ -111,11 +112,14 @@ namespace Sprint2Pork.Entity.Moving
             }
             destinationRect.X = startX + moveX;
             destinationRect.Y = startY + moveY;
-            foreach (Block b in blocks) {
-                if (Collision.Collides(destinationRect, b.getBoundingBox())) {
+            foreach (Block b in blocks)
+            {
+                if (Collision.Collides(destinationRect, b.getBoundingBox()))
+                {
                     movedAmount = 0;
                     moving = false;
-                    switch (direction) {
+                    switch (direction)
+                    {
                         case 1:
                             moveX -= 2;
                             destinationRect.X -= 2;
@@ -135,10 +139,12 @@ namespace Sprint2Pork.Entity.Moving
                     }
                 }
             }
-            if (moving && Collision.CollidesWithOutside(destinationRect, roomBoundingBox)) {
+            if (moving && Collision.CollidesWithOutside(destinationRect, roomBoundingBox))
+            {
                 movedAmount = 0;
                 moving = false;
-                switch (direction) {
+                switch (direction)
+                {
                     case 1:
                         moveX -= 2;
                         destinationRect.X -= 2;

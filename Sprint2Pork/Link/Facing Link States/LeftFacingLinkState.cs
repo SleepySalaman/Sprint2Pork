@@ -33,7 +33,7 @@ namespace Sprint2Pork
         }
 
         public void LookUp()
-        {   
+        {
             link.directionState = new UpFacingLinkState(link);
         }
 

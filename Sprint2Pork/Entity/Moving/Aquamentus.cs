@@ -20,7 +20,8 @@ namespace Sprint2Pork.Entity.Moving
 
         private bool movingRight = true;
 
-        public Aquamentus(int initX, int initY){
+        public Aquamentus(int initX, int initY)
+        {
             sourceRects = new List<Rectangle>() {
                 new Rectangle(36, 0, 36, 36),
                 new Rectangle(84, 0, 36, 36)

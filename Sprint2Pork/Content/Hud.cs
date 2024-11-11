@@ -24,6 +24,6 @@ namespace Sprint2Pork
 
             // Draw Bomb count
             spriteBatch.DrawString(font, $"{inventory.GetItemCount("GroundBomb")}", new Vector2(335, 60), Color.White);
-           }
+        }
     }
 }

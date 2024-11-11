@@ -205,7 +205,8 @@ public class KeyboardController : IController
         {
             programGame.GetDevRoom();
         }
-        if(IsKeyPressed(ks, Keys.H)) {
+        if (IsKeyPressed(ks, Keys.H))
+        {
             programGame.showHitboxes = !programGame.showHitboxes;
         }
     }

@@ -52,7 +52,7 @@ namespace Sprint2Pork
 
         public void Update(Link link)
         {
-            
+
             if (direction == 0)
             {
                 link.OffsetXChange(-7);
@@ -104,6 +104,6 @@ namespace Sprint2Pork
             sprite.Draw(sb, texture);
         }
         public void SpriteSet(ISprite sprite) => this.sprite = sprite;
-        public ISprite SpriteGet() => this.sprite;
+        public ISprite SpriteGet() => sprite;
     }
 }

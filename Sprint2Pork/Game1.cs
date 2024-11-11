@@ -1,16 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 using Sprint2Pork.Blocks;
-using Sprint2Pork.Entity;
+using Sprint2Pork.Constants;
 using Sprint2Pork.Entity.Moving;
 using Sprint2Pork.GroundItems;
 using Sprint2Pork.Items;
 using Sprint2Pork.rooms;
-using System.Collections.Generic;
 using System;
-using Microsoft.Xna.Framework.Media;
-using Sprint2Pork.Constants;
+using System.Collections.Generic;
 
 namespace Sprint2Pork
 {
@@ -131,7 +129,8 @@ namespace Sprint2Pork
             items = itemController.createGroundItems();
         }
 
-        protected override void Initialize(){
+        protected override void Initialize()
+        {
             inventory = new Inventory();
             InitializeHandler.baseInitialize(ref viewport, graphics, ref link, ref controllerList, ref blocks, this, soundManager, inventory);
             hud = new HUD(inventory, font);
@@ -152,7 +151,7 @@ namespace Sprint2Pork
             MediaPlayer.Play(Content.Load<Song>("backgroundMusic"));
 
             InitializeHandler.loadEnemyContent(ref spriteBatch, ref enemyUpdater, ref enemyManager,
-                GraphicsDevice, (int)enemyInitPos.X, (int)enemyInitPos.Y, this.soundManager);
+                GraphicsDevice, (int)enemyInitPos.X, (int)enemyInitPos.Y, soundManager);
 
             LoadTextures.loadAllTextures(allTextures, Content);
 
@@ -178,15 +177,15 @@ namespace Sprint2Pork
 
         private void LoadRooms(Texture2D blockTexture, Texture2D groundItemTexture, Texture2D enemyTexture)
         {
-            CSVLevelLoader.LoadObjectsFromCSV("room1.csv", blockTexture, groundItemTexture, enemyTexture, out var room1Blocks, out var room1Items, out var room1Enemies, out var fireballManagerRoom1, this.soundManager);
-            CSVLevelLoader.LoadObjectsFromCSV("room2.csv", blockTexture, groundItemTexture, enemyTexture, out var room2Blocks, out var room2Items, out var room2Enemies, out var fireballManagersRoom2, this.soundManager);
-            CSVLevelLoader.LoadObjectsFromCSV("room3.csv", blockTexture, groundItemTexture, enemyTexture, out var room3Blocks, out var room3Items, out var room3Enemies, out var fireballManagersRoom3, this.soundManager);
-            CSVLevelLoader.LoadObjectsFromCSV("room4.csv", blockTexture, groundItemTexture, enemyTexture, out var room4Blocks, out var room4Items, out var room4Enemies, out var fireballManagersRoom4, this.soundManager);
-            CSVLevelLoader.LoadObjectsFromCSV("room5.csv", blockTexture, groundItemTexture, enemyTexture, out var room5Blocks, out var room5Items, out var room5Enemies, out var fireballManagersRoom5, this.soundManager);
-            CSVLevelLoader.LoadObjectsFromCSV("room6.csv", blockTexture, groundItemTexture, enemyTexture, out var room6Blocks, out var room6Items, out var room6Enemies, out var fireballManagersRoom6, this.soundManager);
-            CSVLevelLoader.LoadObjectsFromCSV("room7.csv", blockTexture, groundItemTexture, enemyTexture, out var room7Blocks, out var room7Items, out var room7Enemies, out var fireballManagersRoom7, this.soundManager);
-            CSVLevelLoader.LoadObjectsFromCSV("room8.csv", blockTexture, groundItemTexture, enemyTexture, out var room8Blocks, out var room8Items, out var room8Enemies, out var fireballManagersRoom8, this.soundManager);
-            CSVLevelLoader.LoadObjectsFromCSV("room9.csv", blockTexture, groundItemTexture, enemyTexture, out var room9Blocks, out var room9Items, out var room9Enemies, out var fireballManagersRoom9, this.soundManager);
+            CSVLevelLoader.LoadObjectsFromCSV("room1.csv", blockTexture, groundItemTexture, enemyTexture, out var room1Blocks, out var room1Items, out var room1Enemies, out var fireballManagerRoom1, soundManager);
+            CSVLevelLoader.LoadObjectsFromCSV("room2.csv", blockTexture, groundItemTexture, enemyTexture, out var room2Blocks, out var room2Items, out var room2Enemies, out var fireballManagersRoom2, soundManager);
+            CSVLevelLoader.LoadObjectsFromCSV("room3.csv", blockTexture, groundItemTexture, enemyTexture, out var room3Blocks, out var room3Items, out var room3Enemies, out var fireballManagersRoom3, soundManager);
+            CSVLevelLoader.LoadObjectsFromCSV("room4.csv", blockTexture, groundItemTexture, enemyTexture, out var room4Blocks, out var room4Items, out var room4Enemies, out var fireballManagersRoom4, soundManager);
+            CSVLevelLoader.LoadObjectsFromCSV("room5.csv", blockTexture, groundItemTexture, enemyTexture, out var room5Blocks, out var room5Items, out var room5Enemies, out var fireballManagersRoom5, soundManager);
+            CSVLevelLoader.LoadObjectsFromCSV("room6.csv", blockTexture, groundItemTexture, enemyTexture, out var room6Blocks, out var room6Items, out var room6Enemies, out var fireballManagersRoom6, soundManager);
+            CSVLevelLoader.LoadObjectsFromCSV("room7.csv", blockTexture, groundItemTexture, enemyTexture, out var room7Blocks, out var room7Items, out var room7Enemies, out var fireballManagersRoom7, soundManager);
+            CSVLevelLoader.LoadObjectsFromCSV("room8.csv", blockTexture, groundItemTexture, enemyTexture, out var room8Blocks, out var room8Items, out var room8Enemies, out var fireballManagersRoom8, soundManager);
+            CSVLevelLoader.LoadObjectsFromCSV("room9.csv", blockTexture, groundItemTexture, enemyTexture, out var room9Blocks, out var room9Items, out var room9Enemies, out var fireballManagersRoom9, soundManager);
 
             rooms["room1"] = (new List<Block>(room1Blocks), new List<GroundItem>(room1Items), new List<IEnemy>(room1Enemies), new List<EnemyManager>(fireballManagerRoom1));
             rooms["room2"] = (new List<Block>(room2Blocks), new List<GroundItem>(room2Items), new List<IEnemy>(room2Enemies), new List<EnemyManager>(fireballManagersRoom2));
@@ -259,7 +258,7 @@ namespace Sprint2Pork
             oldRoomRectangle = new Rectangle(oldRoomRectangleSaved.X - ((int)transitionDirection.X * transitionConstant), oldRoomRectangle.Y - ((int)transitionDirection.Y * transitionConstant), oldRoomRectangle.Width, oldRoomRectangle.Height);
             nextRoomRectangle = new Rectangle(nextRoomRectangleSaved.X - ((int)transitionDirection.X * transitionConstant), nextRoomRectangle.Y - ((int)transitionDirection.Y * transitionConstant), nextRoomRectangle.Width, nextRoomRectangle.Height);
 
-            if (transitionTimer >= transitionDuration || ((0 >= ((int)transitionDirection.X * nextRoomRectangle.X)) && (0 >= ((int)transitionDirection.Y * nextRoomRectangle.Y) - (int)transitionDirection.Y*GameConstants.ROOM_Y_OFFSET)))
+            if (transitionTimer >= transitionDuration || ((0 >= ((int)transitionDirection.X * nextRoomRectangle.X)) && (0 >= ((int)transitionDirection.Y * nextRoomRectangle.Y) - (int)transitionDirection.Y * GameConstants.ROOM_Y_OFFSET)))
             {
                 transitionTimer = 0f;
                 gameState = Game1State.Playing;
@@ -274,7 +273,8 @@ namespace Sprint2Pork
         {
             EnemyUpdater.updateEnemies(ref link, enemies, blocks);
             EnemyUpdater.UpdateFireballs(enemyManager, ref link, ref fireballManagers, gameTime, ref healthCount);
-            if (!healthCount.linkAlive()) {
+            if (!healthCount.linkAlive())
+            {
                 GameOver();
             }
         }
@@ -287,11 +287,14 @@ namespace Sprint2Pork
                 link.linkItem.SpriteSet(itemSprite);
             }
 
-            foreach(Enemy e in enemies) {
-                if(Collision.Collides(e.getRect(), link.GetRect())) {
+            foreach (Enemy e in enemies)
+            {
+                if (Collision.Collides(e.getRect(), link.GetRect()))
+                {
                     link.BeDamaged();
                     healthCount.takeDamage();
-                    if (!healthCount.linkAlive()) {
+                    if (!healthCount.linkAlive())
+                    {
                         GameOver();
                     }
                 }
@@ -299,7 +302,8 @@ namespace Sprint2Pork
 
             link.actionState.Update();
             link.LinkSpriteUpdate();
-            if (link.IsLinkUsingItem()){
+            if (link.IsLinkUsingItem())
+            {
                 link.linkItem.Update(link);
             }
 
@@ -564,7 +568,6 @@ namespace Sprint2Pork
             moving = false;
 
             enemyUpdater = new UpdateEnemySprite((int)enemyInitPos.X, (int)enemyInitPos.Y);
-            currentEnemyNum = 0;
 
             soundManager = new SoundManager();
             soundManager.LoadAllSounds(Content);
@@ -597,7 +600,7 @@ namespace Sprint2Pork
             spriteBatch.Begin();
 
             GraphicsDevice.Clear(Color.Black);
-            
+
 
             if (gameState == Game1State.StartScreen)
             {
@@ -639,7 +642,7 @@ namespace Sprint2Pork
                     Vector2 textSize = font.MeasureString(pauseMessage);
                     Vector2 textPosition = new Vector2((GraphicsDevice.Viewport.Width - textSize.X) / 2, (GraphicsDevice.Viewport.Height - textSize.Y) / 2);
                     spriteBatch.DrawString(font, pauseMessage, textPosition, Color.White);
-                
+
                     hud.Draw(spriteBatch);
                 }
                 else if (gameState == Game1State.GameOver)
@@ -677,16 +680,18 @@ namespace Sprint2Pork
             }
         }
 
-        public void SwitchToNextRoom() {
+        public void SwitchToNextRoom()
+        {
             RoomChange.SwitchToNextRoom(ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
         }
 
-        public void SwitchToPreviousRoom() {
+        public void SwitchToPreviousRoom()
+        {
             RoomChange.SwitchToPreviousRoom(ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
         }
 
         public void TogglePause()
-        
+
         {
             if (gameState == Game1State.Playing)
             {
