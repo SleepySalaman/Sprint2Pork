@@ -1,10 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sprint2Pork
 {
@@ -21,7 +17,7 @@ namespace Sprint2Pork
             playingFlag = false;
             //delays = new Dictionary<string, float>();
         }
-        
+
         public void LoadAllSounds(ContentManager content)
         {
             soundEffects.Add(content.Load<SoundEffect>("sfxSwordZap"));
@@ -40,17 +36,17 @@ namespace Sprint2Pork
 
         public void PlaySound(string soundName)
         {
- 
-            
-                SoundEffect sound = this.GetSound(soundName);
-                soundInstance = sound.CreateInstance();
-                soundInstance.Volume = 0.25f;
-                soundInstance.Play();
-                //playingFlag = true;
-            
 
 
-            
+            SoundEffect sound = GetSound(soundName);
+            soundInstance = sound.CreateInstance();
+            soundInstance.Volume = 0.25f;
+            soundInstance.Play();
+            //playingFlag = true;
+
+
+
+
 
 
         }

@@ -19,7 +19,8 @@ namespace Sprint2Pork.Entity.Moving
 
         private bool moving = false;
 
-        public Bat(int initX, int initY){
+        public Bat(int initX, int initY)
+        {
             sourceRects = new List<Rectangle>() {
                 new Rectangle(0, 1, 16, 8),
                 new Rectangle(28, 1, 10, 9)
@@ -72,11 +73,14 @@ namespace Sprint2Pork.Entity.Moving
             }
             destinationRect.X = x + moveX;
             destinationRect.Y = y + moveY;
-            foreach (Block b in blocks) {
-                if (Collision.Collides(destinationRect, b.getBoundingBox())) {
+            foreach (Block b in blocks)
+            {
+                if (Collision.Collides(destinationRect, b.getBoundingBox()))
+                {
                     movedAmount = 0;
                     moving = false;
-                    switch (direction) {
+                    switch (direction)
+                    {
                         case 1:
                             moveX -= 2;
                             destinationRect.X -= 2;
@@ -96,10 +100,12 @@ namespace Sprint2Pork.Entity.Moving
                     }
                 }
             }
-            if(moving && Collision.CollidesWithOutside(destinationRect, roomBoundingBox)) {
+            if (moving && Collision.CollidesWithOutside(destinationRect, roomBoundingBox))
+            {
                 movedAmount = 0;
                 moving = false;
-                switch (direction) {
+                switch (direction)
+                {
                     case 1:
                         moveX -= 2;
                         destinationRect.X -= 2;

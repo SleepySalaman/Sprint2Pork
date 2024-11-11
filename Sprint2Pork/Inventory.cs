@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Sprint2Pork.Items;
+﻿using Sprint2Pork.Items;
+using System.Collections.Generic;
 
 namespace Sprint2Pork
 {

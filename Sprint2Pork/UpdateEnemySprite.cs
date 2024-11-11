@@ -1,23 +1,24 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Sprint2Pork.Entity.Moving;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Sprint2Pork {
-    public class UpdateEnemySprite {
+namespace Sprint2Pork
+{
+    public class UpdateEnemySprite
+    {
 
         private int enemyInitX, enemyInitY;
 
-        public UpdateEnemySprite(int enemyInitX, int enemyInitY) {
+        public UpdateEnemySprite(int enemyInitX, int enemyInitY)
+        {
             this.enemyInitX = enemyInitX;
             this.enemyInitY = enemyInitY;
         }
 
-        public void setEnemySprite(int currentEnemyNum, ref IEnemy enemySprite, ref EnemyManager enemyManager, SoundManager soundManager) {
-            switch (currentEnemyNum) {
+        public void setEnemySprite(int currentEnemyNum, ref IEnemy enemySprite, ref EnemyManager enemyManager, SoundManager soundManager)
+        {
+            switch (currentEnemyNum)
+            {
                 case 0: enemySprite = new Aquamentus(enemyInitX, enemyInitY); enemyManager = new EnemyManager(enemySprite.getX(), enemyInitX, enemyInitY, soundManager); break;
                 case 1: enemySprite = new Dodongo(enemyInitX, enemyInitY); enemyManager.clearFireballs(); break;
                 case 2: enemySprite = new Manhandla(enemyInitX, enemyInitY); break;
@@ -32,12 +33,16 @@ namespace Sprint2Pork {
                 case 11: enemySprite = new Stalfos(enemyInitX, enemyInitY); enemyManager.clearFireballs(); break;
             }
         }
-        
+
         public void drawCurrentEnemy(IEnemy enemySprite, SpriteBatch spriteBatch, List<Texture2D> allTextures, int currentEnemyNum,
-            Texture2D lifeTxt, Texture2D hitboxTxt, bool showHitbox) {
-            if (currentEnemyNum < 7) {
+            Texture2D lifeTxt, Texture2D hitboxTxt, bool showHitbox)
+        {
+            if (currentEnemyNum < 7)
+            {
                 enemySprite.Draw(spriteBatch, allTextures[2], lifeTxt, hitboxTxt, showHitbox);
-            } else {
+            }
+            else
+            {
                 enemySprite.Draw(spriteBatch, allTextures[currentEnemyNum - 4], lifeTxt, hitboxTxt, showHitbox);
             }
         }

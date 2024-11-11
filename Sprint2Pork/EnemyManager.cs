@@ -25,7 +25,7 @@ namespace Sprint2Pork
             fireballs = new List<Fireball>();
             startX = initX;
             startY = initY;
-            this.soundManager = smparam;
+            soundManager = smparam;
             generateFireballs(x);
         }
 

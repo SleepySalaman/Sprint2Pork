@@ -1,9 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sprint2Pork
 {
@@ -82,7 +78,8 @@ namespace Sprint2Pork
             downRects.Add(new Rectangle(0, 16, 16, 16));
         }
 
-        public void SetLinkAttackSprite(Link link) { 
+        public void SetLinkAttackSprite(Link link)
+        {
             switch (link.directionState)
             {
                 // TODO: Update rects to be correct attack animations for each direction
@@ -90,20 +87,20 @@ namespace Sprint2Pork
                     link.LinkSpriteSet(new MovingAnimatedSprite(link.GetX(), link.GetY(), leftRects, true, 5, "Left")); // non-moving?
                     break;
                 case RightFacingLinkState:
-                    
+
                     link.LinkSpriteSet(new MovingAnimatedSprite(link.GetX(), link.GetY(), rightRects, false, 5, "Right")); // non-moving?
                     break;
                 case UpFacingLinkState:
-                    
+
                     link.LinkSpriteSet(new MovingAnimatedSprite(link.GetX(), link.GetY(), upRects, false, 5, "Up")); // non-moving?
                     break;
                 case DownFacingLinkState:
-                    
+
                     link.LinkSpriteSet(new MovingAnimatedSprite(link.GetX(), link.GetY(), downRects, false, 5, "Down")); // non-moving?
                     break;
             }
         }
 
     }
-    }
+}
 

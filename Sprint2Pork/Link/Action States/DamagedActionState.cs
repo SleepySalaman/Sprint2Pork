@@ -16,7 +16,7 @@ namespace Sprint2Pork
         {
             this.link = link;
             //this.damageDuration = damageDuration;
-            this.frameCounter = 0;
+            frameCounter = 0;
             this.isFlashing = isFlashing;
             SetFlashingSprite();
 

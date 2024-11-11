@@ -42,8 +42,10 @@ namespace Sprint2Pork.Entity
             DrawHitbox(sb, hitboxTxt, showHitbox);
         }
 
-        private void DrawHitbox(SpriteBatch sb, Texture2D hitboxTxt, bool showHitbox) {
-            if (showHitbox) {
+        private void DrawHitbox(SpriteBatch sb, Texture2D hitboxTxt, bool showHitbox)
+        {
+            if (showHitbox)
+            {
                 sb.Draw(hitboxTxt, new Rectangle(collisionRect.X, collisionRect.Y, collisionRect.Width, 1), Color.White);
                 sb.Draw(hitboxTxt, new Rectangle(collisionRect.X + collisionRect.Width - 1, collisionRect.Y, 1, collisionRect.Height), Color.White);
                 sb.Draw(hitboxTxt, new Rectangle(collisionRect.X, collisionRect.Y + collisionRect.Height - 1, collisionRect.Width, 1), Color.White);
