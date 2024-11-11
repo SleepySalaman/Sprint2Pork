@@ -6,7 +6,7 @@ namespace Sprint2Pork.Blocks
     public class Block9 : Block
     {
         public Block9(Texture2D texture, Vector2 position)
-: base(texture, position, new Rectangle(128, 0, 16, 16))
+: base(texture, position, new Rectangle(128, 0, 16, 17))
         {
         }
     }

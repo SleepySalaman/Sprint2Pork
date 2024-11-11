@@ -6,7 +6,7 @@ namespace Sprint2Pork.Blocks
     public class StairBlock : Block
     {
         public StairBlock(Texture2D texture, Vector2 position)
-            : base(texture, position, new Rectangle(112, 0, 16, 16))
+            : base(texture, position, new Rectangle(112, 0, 16, 17))
         {
         }
     }

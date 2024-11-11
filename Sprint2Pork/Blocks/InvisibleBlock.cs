@@ -6,7 +6,7 @@ namespace Sprint2Pork.Blocks
     public class InvisibleBlock : Block
     {
         public InvisibleBlock(Texture2D texture, Vector2 position)
-            : base(texture, position, new Rectangle(144, 17, 16, 16))
+            : base(texture, position, new Rectangle(144, 17, 16, 17))
         {
         }
     }
