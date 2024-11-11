@@ -10,16 +10,28 @@ using System.Threading.Tasks;
 namespace Sprint2Pork {
     public class EnemyUpdater {
 
-        public static void updateEnemies(ref Link link, List<IEnemy> enemies, List<Block> blocks) {
-            foreach (var enemy in enemies) {
+        public static void updateEnemies(ref Link link, List<IEnemy> enemies, List<Block> blocks)
+        {
+            var enemiesToRemove = new List<IEnemy>();
+            foreach (var enemy in enemies)
+            {
                 enemy.Update();
                 enemy.Move(blocks);
                 bool collidesWithLink = Collision.Collides(link.GetRect(), enemy.getRect());
-                
+
                 enemy.updateFromCollision(collidesWithLink, Color.Red);
-                if (collidesWithLink) {
+                if (enemy.getHealth() <= 0)
+                {
+                    enemiesToRemove.Add(enemy);
+                }
+                if (collidesWithLink)
+                {
                     link.TakeDamage();
                 }
+            }
+            foreach (var enemy in enemiesToRemove)
+            {
+                enemies.Remove(enemy);
             }
         }
 

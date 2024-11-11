@@ -16,5 +16,7 @@ namespace Sprint2Pork.Entity.Moving
 
         int getTextureIndex();
 
+        int getHealth();
+
     }
 }

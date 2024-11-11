@@ -100,6 +100,11 @@ namespace Sprint2Pork.Entity.Moving
             }
         }
 
+        public int getHealth()
+        {
+            return health;
+        }
+
         public abstract int getTextureIndex();
 
     }
