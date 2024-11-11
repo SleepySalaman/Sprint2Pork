@@ -32,7 +32,7 @@ namespace Sprint2Pork.rooms
                     int cellValue;
                     if (int.TryParse(cells[col], out cellValue))
                     {
-                        Vector2 position = new Vector2(col * tileSize, row * tileSize);
+                        Vector2 position = new Vector2(col * tileSize, row * tileSize * 1.01f);
 
                         switch (cellValue)
                         {
