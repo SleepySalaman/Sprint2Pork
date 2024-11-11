@@ -18,14 +18,17 @@ namespace Sprint2Pork
         private double timeSinceAttacked = 0.0;
         private double timeBetweenAttacks = 1.0;
 
+        private int managerID;
+
         private SoundManager soundManager;
 
-        public EnemyManager(int x, int initX, int initY, SoundManager smparam)
+        public EnemyManager(int x, int initX, int initY, SoundManager smparam, int id)
         {
             fireballs = new List<Fireball>();
             startX = initX;
             startY = initY;
             soundManager = smparam;
+            managerID = id;
             generateFireballs(x);
         }
 
@@ -102,6 +105,10 @@ namespace Sprint2Pork
         public List<Fireball> getFireballs()
         {
             return fireballs;
+        }
+
+        public int getID() {
+            return managerID;
         }
 
     }

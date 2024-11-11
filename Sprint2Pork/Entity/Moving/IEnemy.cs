@@ -18,5 +18,7 @@ namespace Sprint2Pork.Entity.Moving
 
         int getHealth();
 
+        int getFireballID();
+
     }
 }

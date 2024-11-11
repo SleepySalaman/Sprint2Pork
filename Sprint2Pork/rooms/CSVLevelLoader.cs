@@ -18,6 +18,8 @@ namespace Sprint2Pork.rooms
             enemies = new List<IEnemy>();
             fireballs = new List<EnemyManager>();
 
+            int fireballIDCount = 1;
+
             int tileSize = 40;
             int row = 0;
 
@@ -120,8 +122,9 @@ namespace Sprint2Pork.rooms
 
                             // Enemies
                             case 30:
-                                enemies.Add(new Aquamentus((int)position.X, (int)position.Y));
-                                fireballs.Add(new EnemyManager(0, (int)position.X, (int)position.Y, soundManager));
+                                enemies.Add(new Aquamentus((int)position.X, (int)position.Y, fireballIDCount));
+                                fireballs.Add(new EnemyManager(0, (int)position.X, (int)position.Y, soundManager, fireballIDCount));
+                                fireballIDCount++;
                                 break;
                             case 31:
                                 // wrong sprite sheet being used  allTextures[4]

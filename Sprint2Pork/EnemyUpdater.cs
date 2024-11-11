@@ -8,9 +8,10 @@ namespace Sprint2Pork
     public class EnemyUpdater
     {
 
-        public static void updateEnemies(ref Link link, List<IEnemy> enemies, List<Block> blocks)
+        public static void updateEnemies(ref Link link, List<IEnemy> enemies, List<Block> blocks, List<EnemyManager> fireballManagers)
         {
             var enemiesToRemove = new List<IEnemy>();
+            var fireballsToRemove = new List<EnemyManager>();
             foreach (var enemy in enemies)
             {
                 enemy.Update();
@@ -20,7 +21,15 @@ namespace Sprint2Pork
                 enemy.updateFromCollision(collidesWithLink, Color.Red);
                 if (enemy.getHealth() <= 0)
                 {
+                    int id = enemy.getFireballID();
                     enemiesToRemove.Add(enemy);
+                    if(id != 0) {
+                        foreach (var manager in fireballManagers) {
+                            if (manager.getID() == id) {
+                                fireballsToRemove.Add(manager);
+                            }
+                        }
+                    }
                 }
                 if (collidesWithLink)
                 {
@@ -30,6 +39,9 @@ namespace Sprint2Pork
             foreach (var enemy in enemiesToRemove)
             {
                 enemies.Remove(enemy);
+            }
+            foreach (var manager in fireballsToRemove) {
+                fireballManagers.Remove(manager);
             }
         }
 

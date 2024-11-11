@@ -20,7 +20,7 @@ namespace Sprint2Pork.Entity.Moving
 
         private bool movingRight = true;
 
-        public Aquamentus(int initX, int initY)
+        public Aquamentus(int initX, int initY, int id)
         {
             sourceRects = new List<Rectangle>() {
                 new Rectangle(36, 0, 36, 36),
@@ -29,14 +29,9 @@ namespace Sprint2Pork.Entity.Moving
 
             x = initX;
 
+            fireballID = id;
+
             health = 4;
-
-            fireballs = new List<Fireball>();
-
-            for (int i = 0; i < fireballCount; i++)
-            {
-                fireballs.Add(new Fireball(i, fireballDistance * i, initX, initY));
-            }
 
             totalFrames = sourceRects.Count;
 

@@ -20,6 +20,8 @@ namespace Sprint2Pork.Entity.Moving
         protected int previousX = 0;
         protected int previousY = 0;
 
+        protected int fireballID = 0;
+
         protected int relativeX = 0;
 
         protected List<Rectangle> sourceRects;
@@ -112,6 +114,10 @@ namespace Sprint2Pork.Entity.Moving
         }
 
         public abstract int getTextureIndex();
+
+        public int getFireballID() {
+            return fireballID;
+        }
 
     }
 }
