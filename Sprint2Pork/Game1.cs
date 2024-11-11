@@ -71,7 +71,7 @@ namespace Sprint2Pork
         private int lifeCount;
         private LinkHealth healthCount = new LinkHealth();
         private Dictionary<string, (List<Block>, List<GroundItem>, List<IEnemy>, List<EnemyManager>)> rooms;
-
+        private Paused pausedScreen;
         // SFX
         private SoundManager soundManager;
 
@@ -103,7 +103,7 @@ namespace Sprint2Pork
             IsFullscreen = false;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-
+            
             soundManager = new SoundManager();
             allTextures = new List<Texture2D>();
             blocks = new List<Block>();
@@ -134,6 +134,7 @@ namespace Sprint2Pork
             inventory = new Inventory();
             InitializeHandler.baseInitialize(ref viewport, graphics, ref link, ref controllerList, ref blocks, this, soundManager, inventory);
             hud = new HUD(inventory, font);
+            pausedScreen = new Paused(inventory);
             base.Initialize();
         }
 
@@ -164,7 +165,7 @@ namespace Sprint2Pork
             textSprite = new TextSprite(200, GameConstants.TEXT_DISPLAY, font);
 
             hud = new HUD(inventory, font);
-
+            pausedScreen = new Paused(inventory);
             GenerateBlocks.fillBlockList(blocks, allTextures[8], blockPosition);
             winStateTexture = Content.Load<Texture2D>("WinScreen");
             hitboxTexture = new Texture2D(GraphicsDevice, 1, 1);
@@ -636,14 +637,14 @@ namespace Sprint2Pork
                 }
                 else if (gameState == Game1State.Paused)
                 {
-                    spriteBatch.Draw(pauseOverlayTexture, new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), Color.White);
+                    spriteBatch.Draw(roomTexture, new Rectangle(0, GameConstants.ROOM_Y_OFFSET, viewport.Width, viewport.Height - GameConstants.ROOM_Y_OFFSET), Color.White);
+                    link.Draw(spriteBatch, allTextures[0], allTextures[10]);
+                    Drawing.DrawGeneratedObjects(spriteBatch, blocks, groundItems, enemies, fireballManagers, allTextures, lifeTexture, hitboxTexture, showHitboxes);
 
-                    string pauseMessage = "Game Paused";
-                    Vector2 textSize = font.MeasureString(pauseMessage);
-                    Vector2 textPosition = new Vector2((GraphicsDevice.Viewport.Width - textSize.X) / 2, (GraphicsDevice.Viewport.Height - textSize.Y) / 2);
-                    spriteBatch.DrawString(font, pauseMessage, textPosition, Color.White);
+                    spriteBatch.Draw(pauseOverlayTexture, new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), new Color(0, 0, 0, 400));
 
-                    hud.Draw(spriteBatch);
+                    pausedScreen.DrawPausedScreen(spriteBatch, font, viewport, allTextures[9]);
+
                 }
                 else if (gameState == Game1State.GameOver)
                 {
