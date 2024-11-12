@@ -13,8 +13,9 @@ Rooms are loaded from room csv files where 0 represents empty space and positive
 
 ## Controls
 - **WASD** or **Arrow Keys**: Move the character
-- **1,2,3,4,5,6**: Switch between weapons
-- **E**: Enter damage state
+- **1,2,3,4,5,6**: Use respective weapons (this is essentially just for debugging and allows you to use any weapon at any time)
+- **E**: Cycle weapon in B slot
+- **B**: Use weapon in B slot
 - **O**: Toggle end game screen (can reset with r or press o again to start over)
 - **P**: Toggle pause screen
 - **M**: Toggle background music
