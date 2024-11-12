@@ -13,7 +13,17 @@ namespace Sprint2Pork
             {
                 { "Rupee", 0 },
                 { "Key", 0 },
-                { "GroundBomb", 0 }
+                { "GroundBomb", 0 },
+                {"Triangle", 0 },
+                {"Compass", 0 },
+                {"Candle", 0 },
+                {"GroundArrow", 0 },
+                {"Gypsie", 0 },
+                {"Meat", 0 },
+                {"Clock", 0 },
+                {"Potion", 0 },
+                {"MapItem", 0 },
+                {"Heart", 0 }
             };
         }
 
