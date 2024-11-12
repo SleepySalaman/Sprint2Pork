@@ -9,7 +9,8 @@ namespace Sprint2Pork
         Playing,
         Paused,
         Transitioning,
-        GameOver
+        GameOver,
+        Inventory
     }
     public class Game1StateManager
     {

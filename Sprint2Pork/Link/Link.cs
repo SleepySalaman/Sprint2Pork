@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Sprint2Pork.Items;
+using System;
+using System.Collections.Generic;
 
 
 namespace Sprint2Pork
@@ -37,6 +39,12 @@ namespace Sprint2Pork
         private SoundEffectInstance soundInstance;
         private bool playingFlag;
         private Inventory inventory;
+        private List<String> items;
+        private int currentItemIndex;
+        public event Action SlotBChanged;
+
+        public String SlotA { get; private set; }
+        public String SlotB { get; private set; }
 
         public Link(int width, int height, SoundManager paramSoundManager, Inventory inventory)
         {
@@ -60,6 +68,13 @@ namespace Sprint2Pork
 
             soundManager = paramSoundManager;
             playingFlag = false;
+
+            items = new List<String>
+            {
+                "Sword", "Arrow", "Boomerang", "GroundBomb", "WoodArrow", "BlueBoomer", "Fire",
+            };
+            SlotA = "Sword";
+            SlotB = items[currentItemIndex];
         }
 
         /*
@@ -93,6 +108,30 @@ namespace Sprint2Pork
         /*
          * Section for non-set/get methods
          */
+
+        public void NextItem()
+        {
+            currentItemIndex = (currentItemIndex + 1) % items.Count;
+            SlotB = items[currentItemIndex];
+            SlotBChanged?.Invoke();
+        }
+
+        public void PreviousItem()
+        {
+            currentItemIndex = (currentItemIndex - 1 + items.Count) % items.Count;
+            SlotB = items[currentItemIndex];
+            SlotBChanged?.Invoke();
+
+        }
+
+        public void UseItemB()
+        {
+            int itemIndex = items.IndexOf(SlotB);
+            if (itemIndex != -1)
+            {
+                UseItem(itemIndex);
+            }
+        }
 
         public void PlaySound(string soundName)
         {

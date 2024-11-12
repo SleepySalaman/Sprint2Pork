@@ -145,9 +145,28 @@ public class KeyboardController : IController
             link.UseItem(0);
         }
 
+        // Uses sword (or Item A)
         if (ks.IsKeyDown(Keys.Z) || ks.IsKeyDown(Keys.N))
         {
             link.BeAttacking();
+        }
+
+        // Uses item B
+        if (IsKeyPressed(ks, Keys.X))
+        {
+            link.UseItemB();
+        }
+
+        // Cycle to the next item for slot B
+        if (IsKeyPressed(ks, Keys.J))
+        {
+            link.NextItem();
+        }
+
+        // Cycle to the previous item for slot B
+        if (IsKeyPressed(ks, Keys.K))
+        {
+            link.PreviousItem();
         }
     }
 
@@ -185,6 +204,10 @@ public class KeyboardController : IController
         if (IsKeyPressed(ks, Keys.O))
         {
             programGame.GameOver();
+        }
+        if (IsKeyPressed(ks, Keys.O))
+        {
+            programGame.ToggleInventory();
         }
 
         if (ks.IsKeyDown(Keys.R))

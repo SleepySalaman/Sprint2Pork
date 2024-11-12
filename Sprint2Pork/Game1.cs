@@ -130,7 +130,7 @@ namespace Sprint2Pork
         {
             inventory = new Inventory();
             InitializeHandler.BaseInitialize(ref viewport, graphics, ref link, ref controllerList, ref blocks, this, soundManager, inventory);
-            hud = new HUD(inventory, font);
+            hud = new HUD(inventory, font, link);
             pausedScreen = new Paused(inventory);
             minimap = new Minimap(GraphicsDevice, link);
             base.Initialize();
@@ -162,7 +162,7 @@ namespace Sprint2Pork
             lifeTexture = Content.Load<Texture2D>("Zelda_Lives");
             textSprite = new TextSprite(200, GameConstants.TEXT_DISPLAY, font);
 
-            hud = new HUD(inventory, font);
+            hud = new HUD(inventory, font, link);
             pausedScreen = new Paused(inventory);
             GenerateBlocks.fillBlockList(blocks, allTextures[8], blockPosition);
             winStateTexture = Content.Load<Texture2D>("WinScreen");
@@ -591,6 +591,7 @@ namespace Sprint2Pork
             soundManager.LoadAllSounds(Content);
             inventory.Reset();
             link = new Link(viewport.Width, viewport.Height, soundManager, inventory);
+            hud.SubscribeToLinkEvents(link);
 
             currentRoom = "room2";
             (blocks, groundItems, enemies, fireballManagers) = rooms[currentRoom];
@@ -642,9 +643,8 @@ namespace Sprint2Pork
                     link.Draw(spriteBatch, allTextures[0], allTextures[10]);
                     Drawing.DrawGeneratedObjects(spriteBatch, blocks, groundItems, enemies, fireballManagers, allTextures, lifeTexture,
                         hitboxTexture, showHitboxes);
-                    hud.Draw(spriteBatch);
-                    minimap.Draw(spriteBatch, blocks, groundItems, enemies,
-                        new Rectangle(120, 15, 140, 5), 0.15f);
+                    hud.Draw(spriteBatch, allTextures[9]);
+                    minimap.Draw(spriteBatch, blocks, groundItems, enemies, new Rectangle(120, 15, 140, 5), 0.15f);
 
                 }
                 else if (gameState == Game1State.Transitioning)
@@ -717,6 +717,19 @@ namespace Sprint2Pork
                 gameState = Game1State.Paused;
             }
             else if (gameState == Game1State.Paused)
+            {
+                gameState = Game1State.Playing;
+            }
+        }
+
+        public void ToggleInventory()
+
+        {
+            if (gameState == Game1State.Playing)
+            {
+                gameState = Game1State.Inventory;
+            }
+            else if (gameState == Game1State.Inventory)
             {
                 gameState = Game1State.Playing;
             }
