@@ -691,8 +691,8 @@ namespace Sprint2Pork
         }
         private void DrawInventoryItems(float scale = 4.0f)
         {
-            int startX = 100;
-            int startY = 100;
+            int startX = 400;
+            int startY = 220;
             int itemSize = 64;
             int padding = 10;
             int itemsPerRow = 4;
@@ -715,6 +715,8 @@ namespace Sprint2Pork
                     DrawSelectionBox(selectionBox);
                 }
             }
+            minimap.Draw(spriteBatch, blocks, groundItems, enemies, new Rectangle(50, 200, 200, 200), 0.3f);
+
         }
         private void DrawSelectionBox(Rectangle rectangle)
         {
