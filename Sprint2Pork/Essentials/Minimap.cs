@@ -8,12 +8,6 @@ using Microsoft.Xna.Framework;
 
 public class Minimap
 {
-    private const int MINIMAP_WIDTH = 5;
-    private const int MINIMAP_HEIGHT = 5;
-    private const int MINIMAP_X = 140;
-    private const int MINIMAP_Y = 5;
-    private const float SCALE_FACTOR = 0.20f;
-
     private Link link;
     private Texture2D minimapBackground;
     private Texture2D blockIndicator;
@@ -41,21 +35,19 @@ public class Minimap
         linkIndicator.SetData(new[] { Color.Green });
     }
 
-    public void Draw(SpriteBatch spriteBatch, List<Block> blocks, List<GroundItem> items, List<IEnemy> enemies)
+    public void Draw(SpriteBatch spriteBatch, List<Block> blocks, List<GroundItem> items, List<IEnemy> enemies, Rectangle bounds, float scale)
     {
-        // Draw background
-        spriteBatch.Draw(minimapBackground, new Rectangle(MINIMAP_X, MINIMAP_Y, MINIMAP_WIDTH, MINIMAP_HEIGHT), Color.White * 0.7f);
+        spriteBatch.Draw(minimapBackground, bounds, Color.White * 0.15f);
 
-        // Draw visible blocks
         foreach (Block block in blocks)
         {
-            if (!(block is InvisibleBlock))  // Skip invisible blocks
+            if (!(block is InvisibleBlock))
             {
                 Rectangle blockRect = block.getBoundingBox();
-                float scaledX = MINIMAP_X + (blockRect.X * SCALE_FACTOR);
-                float scaledY = MINIMAP_Y + (blockRect.Y * SCALE_FACTOR);
-                float scaledWidth = blockRect.Width * SCALE_FACTOR;
-                float scaledHeight = blockRect.Height * SCALE_FACTOR;
+                float scaledX = bounds.X + (blockRect.X * scale);
+                float scaledY = bounds.Y + (blockRect.Y * scale);
+                float scaledWidth = blockRect.Width * scale;
+                float scaledHeight = blockRect.Height * scale;
 
                 spriteBatch.Draw(blockIndicator,
                     new Rectangle((int)scaledX, (int)scaledY, (int)scaledWidth, (int)scaledHeight),
@@ -63,35 +55,34 @@ public class Minimap
             }
         }
 
-        // Draw items
+        int itemSize = bounds.Width <= 100 ? 2 : 6;
         foreach (var item in items)
         {
             Rectangle itemRect = item.GetRect();
-            float scaledX = MINIMAP_X + (itemRect.X * SCALE_FACTOR);
-            float scaledY = MINIMAP_Y + (itemRect.Y * SCALE_FACTOR);
+            float scaledX = bounds.X + (itemRect.X * scale);
+            float scaledY = bounds.Y + (itemRect.Y * scale);
 
             spriteBatch.Draw(itemIndicator,
-                new Rectangle((int)scaledX, (int)scaledY, 3, 3),
+                new Rectangle((int)scaledX, (int)scaledY, itemSize, itemSize),
                 Color.White);
         }
 
-        // Draw enemies
         foreach (var enemy in enemies)
         {
             Rectangle enemyRect = enemy.GetRect();
-            float scaledX = MINIMAP_X + (enemyRect.X * SCALE_FACTOR);
-            float scaledY = MINIMAP_Y + (enemyRect.Y * SCALE_FACTOR);
+            float scaledX = bounds.X + (enemyRect.X * scale);
+            float scaledY = bounds.Y + (enemyRect.Y * scale);
 
             spriteBatch.Draw(enemyIndicator,
-                new Rectangle((int)scaledX, (int)scaledY, 3, 3),
+                new Rectangle((int)scaledX, (int)scaledY, 6, 6),
                 Color.White);
         }
 
-        // Draw Link
-        float linkScaledX = MINIMAP_X + (link.GetX() * SCALE_FACTOR);
-        float linkScaledY = MINIMAP_Y + (link.GetY() * SCALE_FACTOR);
+        float linkScaledX = bounds.X + (link.GetX() * scale);
+        float linkScaledY = bounds.Y + (link.GetY() * scale);
         spriteBatch.Draw(linkIndicator,
-            new Rectangle((int)linkScaledX, (int)linkScaledY, 4, 4),
+            new Rectangle((int)linkScaledX, (int)linkScaledY, 8, 8),
             Color.White);
     }
 }
+

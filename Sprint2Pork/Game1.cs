@@ -23,7 +23,6 @@ namespace Sprint2Pork
 
         private ISprite textSprite;
 
-        //character, fb, enemy, gel, bat, goriya, wizard, stalfos, blocks, ItemsAndWeapons, ItemsAndWeaponsExpanded
         private List<Texture2D> allTextures;
 
         private SpriteFont font;
@@ -73,10 +72,8 @@ namespace Sprint2Pork
         private LinkHealth healthCount = new LinkHealth();
         private Dictionary<string, (List<Block>, List<GroundItem>, List<IEnemy>, List<EnemyManager>)> rooms;
         private Paused pausedScreen;
-        // SFX
         private SoundManager soundManager;
 
-        // Game States
         public Game1State gameState { get; private set; }
         private Game1StateManager gameStateManager;
         private float transitionDuration = GameConstants.TRANSITION_DURATION;
@@ -118,14 +115,13 @@ namespace Sprint2Pork
             rooms = new Dictionary<string, (List<Block> blocks, List<GroundItem> groundItems,
                 List<IEnemy> enemies, List<EnemyManager> fireballs)>();
 
-            gameState = Game1State.StartScreen; // Change initial state to StartScreen
+            gameState = Game1State.StartScreen;
             gameStateManager = new Game1StateManager(gameState);
         }
 
 
         private void LoadGroundItems()
         {
-            // Load items with predefined frames
             GroundItemsController itemController = new GroundItemsController();
             items = itemController.createGroundItems();
         }
@@ -647,14 +643,14 @@ namespace Sprint2Pork
                     Drawing.DrawGeneratedObjects(spriteBatch, blocks, groundItems, enemies, fireballManagers, allTextures, lifeTexture,
                         hitboxTexture, showHitboxes);
                     hud.Draw(spriteBatch);
-                    minimap.Draw(spriteBatch, blocks, groundItems, enemies);
+                    minimap.Draw(spriteBatch, blocks, groundItems, enemies,
+                        new Rectangle(120, 15, 140, 5), 0.15f);
 
                 }
                 else if (gameState == Game1State.Transitioning)
                 {
                     spriteBatch.Draw(roomTexture, oldRoomRectangle, Color.White);
                     spriteBatch.Draw(nextRoomTexture, nextRoomRectangle, Color.White);
-                    //hud.Draw(spriteBatch);
                 }
                 else if (gameState == Game1State.Paused)
                 {
@@ -665,7 +661,8 @@ namespace Sprint2Pork
                     spriteBatch.Draw(pauseOverlayTexture, new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), new Color(0, 0, 0, 400));
 
                     pausedScreen.DrawPausedScreen(spriteBatch, font, viewport, allTextures[9]);
-
+                    minimap.Draw(spriteBatch, blocks, groundItems, enemies,
+                                new Rectangle(50, 200, 200, 200), 0.3f);
                 }
                 else if (gameState == Game1State.GameOver)
                 {

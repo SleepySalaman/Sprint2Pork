@@ -5,7 +5,7 @@ Date: 11/28
 
 File Reviewed: Inventory.cs
 
-Author: Team
+Author: Eli Paulman
 
 Time Spent: 10 minutes
 
@@ -17,7 +17,7 @@ Date: 11/28
 
 File Reviewed: LinkHealth.cs
 
-Author: Team
+Author: Shivam Engineer
 
 Time Spent: 10 minutes
 
