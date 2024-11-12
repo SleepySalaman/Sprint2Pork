@@ -724,13 +724,13 @@ namespace Sprint2Pork
             Color color = Color.Maroon;
 
             // Draw top line
-            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Top, rectangle.Width, thickness), color);
+            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Top, rectangle.Width+5, thickness), color);
             // Draw left line
             spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Top, thickness, rectangle.Height), color);
             // Draw right line
-            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Right - thickness, rectangle.Top, thickness, rectangle.Height), color);
+            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Right+5 - thickness, rectangle.Top, thickness, rectangle.Height), color);
             // Draw bottom line
-            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Bottom - thickness, rectangle.Width, thickness), color);
+            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Bottom - thickness, rectangle.Width+5, thickness), color);
         }
 
         private void DrawGameOverScreen()
