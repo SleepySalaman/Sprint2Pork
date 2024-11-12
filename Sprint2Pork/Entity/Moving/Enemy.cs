@@ -115,7 +115,7 @@ namespace Sprint2Pork.Entity.Moving
 
         public abstract int getTextureIndex();
 
-        public int getFireballID() {
+        public int GetFireballID() {
             return fireballID;
         }
 

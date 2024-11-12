@@ -29,7 +29,7 @@ namespace Sprint2Pork
             startY = initY;
             soundManager = smparam;
             managerID = id;
-            generateFireballs(x);
+            GenerateFireballs(x);
         }
 
         public void Update(GameTime gameTime, int x)
@@ -43,7 +43,7 @@ namespace Sprint2Pork
             {
                 distanceTraveled++;
             }
-            switchModes(gameTime, x);
+            SwitchModes(gameTime, x);
         }
 
         public void Draw(SpriteBatch sb, Texture2D txt, Texture2D hitboxTexture, bool showHitbox)
@@ -64,7 +64,7 @@ namespace Sprint2Pork
             return fireballRects;
         }
 
-        private void switchModes(GameTime gameTime, int x)
+        private void SwitchModes(GameTime gameTime, int x)
         {
             if (attacking)
             {
@@ -82,13 +82,13 @@ namespace Sprint2Pork
                 {
                     timeSinceAttacked = 0.0;
                     attacking = true;
-                    generateFireballs(x);
+                    GenerateFireballs(x);
                 }
 
             }
         }
 
-        public void generateFireballs(int x)
+        public void GenerateFireballs(int x)
         {
             soundManager.PlaySound("sfxFlamesShot");
             for (int i = 0; i < 3; i++)
@@ -97,12 +97,12 @@ namespace Sprint2Pork
             }
         }
 
-        public void clearFireballs()
+        public void ClearFireballs()
         {
             fireballs.Clear();
         }
 
-        public List<Fireball> getFireballs()
+        public List<Fireball> GetFireballs()
         {
             return fireballs;
         }
