@@ -1,4 +1,5 @@
 ﻿using Sprint2Pork.Items;
+using System;
 using System.Collections.Generic;
 
 namespace Sprint2Pork
@@ -33,6 +34,14 @@ namespace Sprint2Pork
             if (items.ContainsKey(itemName))
             {
                 items[itemName] += count;
+            }
+        }
+
+        public void RemoveItem(String item, int count = 1)
+        {
+            if (items.ContainsKey(item) && items[item] >= 1)
+            {
+                items[item] -= count;
             }
         }
 
