@@ -132,7 +132,7 @@ namespace Sprint2Pork
         protected override void Initialize()
         {
             inventory = new Inventory();
-            InitializeHandler.baseInitialize(ref viewport, graphics, ref link, ref controllerList, ref blocks, this, soundManager, inventory);
+            InitializeHandler.BaseInitialize(ref viewport, graphics, ref link, ref controllerList, ref blocks, this, soundManager, inventory);
             hud = new HUD(inventory, font);
             pausedScreen = new Paused(inventory);
             base.Initialize();
@@ -151,10 +151,10 @@ namespace Sprint2Pork
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(Content.Load<Song>("backgroundMusic"));
 
-            InitializeHandler.loadEnemyContent(ref spriteBatch, ref enemyUpdater, ref enemyManager,
+            InitializeHandler.LoadEnemyContent(ref spriteBatch, ref enemyUpdater, ref enemyManager,
                 GraphicsDevice, (int)enemyInitPos.X, (int)enemyInitPos.Y, soundManager);
 
-            LoadTextures.loadAllTextures(allTextures, Content);
+            LoadTextures.LoadAllTextures(allTextures, Content);
 
             font = Content.Load<SpriteFont>("File");
             // Loading the background/room
@@ -274,7 +274,7 @@ namespace Sprint2Pork
         {
             EnemyUpdater.updateEnemies(link, enemies, blocks, fireballManagers);
             EnemyUpdater.UpdateFireballs(enemyManager, ref link, ref fireballManagers, gameTime, ref healthCount);
-            if (!healthCount.linkAlive())
+            if (!healthCount.IsLinkAlive())
             {
                 GameOver();
             }
@@ -290,11 +290,11 @@ namespace Sprint2Pork
 
             foreach (Enemy e in enemies)
             {
-                if (Collision.Collides(e.getRect(), link.GetRect()))
+                if (Collision.Collides(e.GetRect(), link.GetRect()))
                 {
                     link.BeDamaged();
-                    healthCount.takeDamage();
-                    if (!healthCount.linkAlive())
+                    healthCount.TakeDamage();
+                    if (!healthCount.IsLinkAlive())
                     {
                         ResetGame();
                     }
@@ -310,7 +310,7 @@ namespace Sprint2Pork
 
             HandleBlockCollision(linkPreviousX, linkPreviousY);
 
-            if (!healthCount.linkAlive()) {
+            if (!healthCount.IsLinkAlive()) {
                 ResetGame();
             }
         }
@@ -346,11 +346,11 @@ namespace Sprint2Pork
                         GameOver();
                     }else if (item is Potion)
                     {
-                        healthCount.healFullHeart();
+                        healthCount.HealFullHeart();
                     }
                     else if (item is Heart)
                     {
-                        healthCount.healHalfHeart();
+                        healthCount.HealHalfHeart();
                     }
                     else
                     {
@@ -530,6 +530,7 @@ namespace Sprint2Pork
                 currentRoom = nextRoom;
                 this.gameState = Game1State.Transitioning;
             }
+            hud.UpdateRoomNumber(GetCurrentRoomNumber());
         }
 
         private void SetRectangles()
@@ -630,7 +631,7 @@ namespace Sprint2Pork
             else
             {
                 spriteBatch.Draw(hudTexture, new Rectangle(0, 0, viewport.Width, GameConstants.HUD_HEIGHT), Color.White);
-                healthCount.drawLives(spriteBatch, lifeTexture, viewport);
+                healthCount.DrawLives(spriteBatch, lifeTexture, viewport);
 
                 if (gameState == Game1State.Playing)
                 {
@@ -737,6 +738,14 @@ namespace Sprint2Pork
             {
                 MediaPlayer.Resume();
             }
+        }
+        private int GetCurrentRoomNumber()
+        {
+            if (int.TryParse(currentRoom.Substring(4), out int roomNumber))
+            {
+                return roomNumber;
+            }
+            return -1;
         }
     }
 }

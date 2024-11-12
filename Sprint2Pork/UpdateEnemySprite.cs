@@ -15,7 +15,7 @@ namespace Sprint2Pork
             this.enemyInitY = enemyInitY;
         }
 
-        public void drawCurrentEnemy(IEnemy enemySprite, SpriteBatch spriteBatch, List<Texture2D> allTextures, int currentEnemyNum,
+        public void DrawCurrentEnemy(IEnemy enemySprite, SpriteBatch spriteBatch, List<Texture2D> allTextures, int currentEnemyNum,
             Texture2D lifeTxt, Texture2D hitboxTxt, bool showHitbox)
         {
             if (currentEnemyNum < 7)

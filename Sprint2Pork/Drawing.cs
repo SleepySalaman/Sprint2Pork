@@ -12,7 +12,7 @@ namespace Sprint2Pork
         public static void DrawCyclingEnemy(UpdateEnemySprite enemyUpdater, EnemyManager enemyManager, SpriteBatch spriteBatch,
             List<Texture2D> allTextures, IEnemy enemySprite, int currentEnemyNum, ISprite textSprite, Texture2D lifeTxt, Texture2D hitboxTxt, bool showHitbox)
         {
-            enemyUpdater.drawCurrentEnemy(enemySprite, spriteBatch, allTextures, currentEnemyNum, lifeTxt, hitboxTxt, showHitbox);
+            enemyUpdater.DrawCurrentEnemy(enemySprite, spriteBatch, allTextures, currentEnemyNum, lifeTxt, hitboxTxt, showHitbox);
             textSprite.Draw(spriteBatch, allTextures[0]);
             enemyManager.Draw(spriteBatch, allTextures[1], hitboxTxt, showHitbox);
         }

@@ -37,7 +37,8 @@ Rooms are loaded from room csv files where 0 represents empty space and positive
 Each team member participated in code reviews, with an emphasis on readability and maintainability:
 - **Readability**: Ensured that variable and method names were clear, consistent, and well-documented.
 - **Maintainability**: Focused on adhering to SOLID principles, reducing code duplication, and making the code adaptable to future changes.
-  - Specific classes reviewed include: `PlayerController`, `EnemyManager`, and `KeyboardController`.
+  - Specific classes reviewed during the first sprint: `PlayerController`, `EnemyManager`, and `KeyboardController`.
+  - Additional code reviews can be found in the `CodeReviews` folder of the repo
 
 ## Sprint Reflection
 - **Team Performance**: Our team completed all key features, but timing was an issue. We waited until close to the deadline to implement some of the more complex features, which caused a last-minute rush.

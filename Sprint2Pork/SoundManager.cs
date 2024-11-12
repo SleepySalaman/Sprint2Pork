@@ -36,25 +36,11 @@ namespace Sprint2Pork
 
         public void PlaySound(string soundName)
         {
-
-
             SoundEffect sound = GetSound(soundName);
             soundInstance = sound.CreateInstance();
             soundInstance.Volume = 0.25f;
             soundInstance.Play();
             //playingFlag = true;
-
-
-
-
-
-
         }
-        //public float GetDelay(string sound)
-        //{
-        //    return delays.GetValueOrDefault(sound);
-        //}
-
-
     }
 }

@@ -19,15 +19,15 @@ namespace Sprint2Pork
                 bool collidesWithLink = Collision.Collides(link.GetRect(), enemy.getRect());
                 bool collidesWithLinkItem = link.linkItem.Collides(enemy.getRect());
 
-                enemy.updateFromCollision(collidesWithLink, Color.Red);
-                enemy.updateFromCollision(collidesWithLinkItem, Color.Red);
+                enemy.UpdateFromCollision(collidesWithLink, Color.Red);
+                enemy.UpdateFromCollision(collidesWithLinkItem, Color.Red);
                 if (enemy.getHealth() <= 0)
                 {
                     int id = enemy.getFireballID();
                     enemiesToRemove.Add(enemy);
                     if(id != 0) {
                         foreach (var manager in fireballManagers) {
-                            if (manager.getID() == id) {
+                            if (manager.GetID() == id) {
                                 fireballsToRemove.Add(manager);
                             }
                         }
@@ -58,7 +58,7 @@ namespace Sprint2Pork
                     if (Collision.Collides(link.GetRect(), fireballRect))
                     {
                         link.TakeDamage();
-                        health.takeDamage();
+                        health.TakeDamage();
                     }
                 }
             }

@@ -14,7 +14,7 @@ namespace Sprint2Pork
             linkHealth = new int[5] { 0, 0, 0, 0, 0 };
         }
 
-        public bool takeDamage()
+        public bool TakeDamage()
         {
             for (int i = 4; i >= 0; i--)
             {
@@ -27,7 +27,7 @@ namespace Sprint2Pork
             return true;
         }
 
-        public void drawLives(SpriteBatch sb, Texture2D txt, Viewport viewport)
+        public void DrawLives(SpriteBatch sb, Texture2D txt, Viewport viewport)
         {
             for (int i = 0; i < 5; i++)
             {
@@ -35,14 +35,14 @@ namespace Sprint2Pork
                     new Rectangle(210 + (100 * linkHealth[i]), 260, 100, 100), Color.White);
             }
         }
-        public void healFullHeart()
+        public void HealFullHeart()
         {
             for (int i = 0; i < 5; i++)
             {
                 linkHealth[i] = 0;
             }
         }
-        public void healHalfHeart()
+        public void HealHalfHeart()
         {
             for (int i = 0; i < 5; i++)
             {
@@ -53,7 +53,7 @@ namespace Sprint2Pork
                 }
             }
         }
-        public bool linkAlive()
+        public bool IsLinkAlive()
         {
             return linkHealth[0] != 2;
         }

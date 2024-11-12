@@ -10,9 +10,9 @@ namespace Sprint2Pork.Entity.Moving
         void Move(List<Block> blocks);
         int getX();
 
-        Rectangle getRect();
+        Rectangle GetRect();
 
-        void updateFromCollision(bool collides, Color c);
+        void UpdateFromCollision(bool collides, Color c);
 
         int getTextureIndex();
 

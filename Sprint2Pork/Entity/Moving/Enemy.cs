@@ -90,12 +90,12 @@ namespace Sprint2Pork.Entity.Moving
             return relativeX;
         }
 
-        public Rectangle getRect()
+        public Rectangle GetRect()
         {
             return collisionRect;
         }
 
-        void IEnemy.updateFromCollision(bool collides, Color c)
+        void IEnemy.UpdateFromCollision(bool collides, Color c)
         {
             if (collides)
             {

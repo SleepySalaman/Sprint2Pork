@@ -35,6 +35,5 @@ namespace Sprint2Pork
             currentRoom = newRoom;
             (blocks, groundItems, enemies, fireballManagers) = rooms[currentRoom];
         }
-
     }
 }
