@@ -296,7 +296,7 @@ namespace Sprint2Pork
                     healthCount.TakeDamage();
                     if (!healthCount.IsLinkAlive())
                     {
-                        ResetGame();
+                        GameOver();
                     }
                 }
             }
@@ -318,7 +318,7 @@ namespace Sprint2Pork
             HandleBlockCollision(linkPreviousX, linkPreviousY);
 
             if (!healthCount.IsLinkAlive()) {
-                ResetGame();
+                GameOver();
             }
         }
 
@@ -725,15 +725,7 @@ namespace Sprint2Pork
 
         public void GameOver()
         {
-            if (gameState == Game1State.GameOver)
-            {
-                ResetGame();
-                gameState = Game1State.Playing;
-            }
-            else
-            {
-                gameState = Game1State.GameOver;
-            }
+            gameState = Game1State.GameOver;
         }
         public void ToggleBackgroundMusic()
         {
@@ -746,6 +738,7 @@ namespace Sprint2Pork
                 MediaPlayer.Resume();
             }
         }
+
         private int GetCurrentRoomNumber()
         {
             if (int.TryParse(currentRoom.Substring(4), out int roomNumber))
