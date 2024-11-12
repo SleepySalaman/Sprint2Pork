@@ -15,6 +15,7 @@ namespace Sprint2Pork
     public class Game1 : Game
     {
         public GraphicsDeviceManager graphics;
+        private Minimap minimap;
 
         public bool IsFullscreen { get; set; }
         private SpriteBatch spriteBatch;
@@ -135,6 +136,7 @@ namespace Sprint2Pork
             InitializeHandler.BaseInitialize(ref viewport, graphics, ref link, ref controllerList, ref blocks, this, soundManager, inventory);
             hud = new HUD(inventory, font);
             pausedScreen = new Paused(inventory);
+            minimap = new Minimap(GraphicsDevice, link);
             base.Initialize();
         }
 
@@ -620,8 +622,6 @@ namespace Sprint2Pork
             spriteBatch.Begin();
 
             GraphicsDevice.Clear(Color.Black);
-
-
             if (gameState == Game1State.StartScreen)
             {
                 // Draw the start screen texture to fill the entire viewport
@@ -647,6 +647,8 @@ namespace Sprint2Pork
                     Drawing.DrawGeneratedObjects(spriteBatch, blocks, groundItems, enemies, fireballManagers, allTextures, lifeTexture,
                         hitboxTexture, showHitboxes);
                     hud.Draw(spriteBatch);
+                    minimap.Draw(spriteBatch, blocks, groundItems, enemies);
+
                 }
                 else if (gameState == Game1State.Transitioning)
                 {
