@@ -78,6 +78,8 @@ namespace Sprint2Pork
         {
             sprite.Draw(sb, texture);
         }
+
+        public (int X, int Y) getLocation(Link link) => (startX + link.OffsetXGet(), startY + link.OffsetYGet());
         public void SpriteSet(ISprite sprite) => this.sprite = sprite;
         public ISprite SpriteGet() => sprite;
     }

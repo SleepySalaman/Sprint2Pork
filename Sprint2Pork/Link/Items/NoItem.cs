@@ -14,6 +14,7 @@ namespace Sprint2Pork
         {
             return;
         }
+        public (int X, int Y) getLocation(Link link) => (0, 0);
         public void SpriteSet(ISprite sprite) => this.sprite = sprite;
         public ISprite SpriteGet() => sprite;
     }
