@@ -530,6 +530,7 @@ namespace Sprint2Pork
                 currentRoom = nextRoom;
                 this.gameState = Game1State.Transitioning;
             }
+            hud.UpdateRoomNumber(GetCurrentRoomNumber());
         }
 
         private void SetRectangles()
@@ -737,6 +738,14 @@ namespace Sprint2Pork
             {
                 MediaPlayer.Resume();
             }
+        }
+        private int GetCurrentRoomNumber()
+        {
+            if (int.TryParse(currentRoom.Substring(4), out int roomNumber))
+            {
+                return roomNumber;
+            }
+            return -1; // Return -1 if parsing fails
         }
     }
 }
