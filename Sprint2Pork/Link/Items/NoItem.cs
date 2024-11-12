@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Sprint2Pork
 {
@@ -14,7 +15,7 @@ namespace Sprint2Pork
         {
             return;
         }
-        public (int X, int Y) getLocation(Link link) => (0, 0);
+        public Rectangle getLocation() => (new Rectangle(0,0,0,0));
         public void SpriteSet(ISprite sprite) => this.sprite = sprite;
         public ISprite SpriteGet() => sprite;
     }
