@@ -652,7 +652,7 @@ namespace Sprint2Pork
                 {
                     spriteBatch.Draw(roomTexture, oldRoomRectangle, Color.White);
                     spriteBatch.Draw(nextRoomTexture, nextRoomRectangle, Color.White);
-                    hud.Draw(spriteBatch);
+                    //hud.Draw(spriteBatch);
                 }
                 else if (gameState == Game1State.Paused)
                 {
