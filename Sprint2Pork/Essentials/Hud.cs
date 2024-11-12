@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprint2Pork.Items;
 using System;
 using System.Collections.Generic;
 using System.Net.Http.Headers;
@@ -23,7 +24,7 @@ namespace Sprint2Pork
             this.slotAItem = link.SlotA;
             this.slotBItem = link.SlotB;
             this.link = link;
-            InitializeItemSourceRects();
+            InitializeHUDItemSourceRects();
 
             link.SlotBChanged += OnSlotBChanged;
         }
@@ -40,7 +41,7 @@ namespace Sprint2Pork
             link.SlotBChanged += OnSlotBChanged;
         }
 
-        private void InitializeItemSourceRects()
+        public void InitializeHUDItemSourceRects()
         {
             itemSourceRects = new Dictionary<string, Rectangle>
             {
@@ -97,7 +98,6 @@ namespace Sprint2Pork
                 spriteBatch.Draw(itemsTexture, slotBPosition, sourceRect, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
             }
         }
-
 
         public void UpdateRoomNumber(int roomNumber)
         {

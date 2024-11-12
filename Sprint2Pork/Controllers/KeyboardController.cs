@@ -194,7 +194,7 @@ public class KeyboardController : IController
         }
         if (IsKeyPressed(ks, Keys.I))
         {
-            programGame.NextItem();
+            programGame.ToggleInventory();
         }
 
         if (IsKeyPressed(ks, Keys.P))

@@ -9,6 +9,8 @@ using Sprint2Pork.Items;
 using Sprint2Pork.rooms;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace Sprint2Pork
 {
@@ -61,6 +63,7 @@ namespace Sprint2Pork
         private Link link;
         private HUD hud;
         private Inventory inventory;
+        private Dictionary<string, Rectangle> itemSourceRects;
 
         public Viewport viewport;
 
@@ -232,6 +235,10 @@ namespace Sprint2Pork
                 UpdateControllers();
             }
             else if (gameState == Game1State.GameOver)
+            {
+                UpdateControllers();
+            }
+            else if (gameState == Game1State.Inventory)
             {
                 UpdateControllers();
             }
@@ -621,16 +628,11 @@ namespace Sprint2Pork
             GraphicsDevice.Clear(Color.Black);
             if (gameState == Game1State.StartScreen)
             {
-                // Draw the start screen texture to fill the entire viewport
-                spriteBatch.Draw(
-                    startScreenTexture,
-                    new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height),
-                    Color.White
-                );
+                DrawStartScreen();
             }
             else if (gameState == Game1State.GameOver)
             {
-                spriteBatch.Draw(winStateTexture, new Rectangle(0, 0, viewport.Width, viewport.Height), Color.White);
+                DrawGameOverScreen();
             }
             else
             {
@@ -639,30 +641,20 @@ namespace Sprint2Pork
 
                 if (gameState == Game1State.Playing)
                 {
-                    spriteBatch.Draw(roomTexture, new Rectangle(0, GameConstants.ROOM_Y_OFFSET, viewport.Width, viewport.Height - GameConstants.ROOM_Y_OFFSET), Color.White);
-                    link.Draw(spriteBatch, allTextures[0], allTextures[10]);
-                    Drawing.DrawGeneratedObjects(spriteBatch, blocks, groundItems, enemies, fireballManagers, allTextures, lifeTexture,
-                        hitboxTexture, showHitboxes);
-                    hud.Draw(spriteBatch, allTextures[9]);
-                    minimap.Draw(spriteBatch, blocks, groundItems, enemies, new Rectangle(120, 15, 140, 5), 0.15f);
+                    DrawPlayingScreen();
 
                 }
                 else if (gameState == Game1State.Transitioning)
                 {
-                    spriteBatch.Draw(roomTexture, oldRoomRectangle, Color.White);
-                    spriteBatch.Draw(nextRoomTexture, nextRoomRectangle, Color.White);
+                    DrawTransitioningScreen();
                 }
                 else if (gameState == Game1State.Paused)
                 {
-                    spriteBatch.Draw(roomTexture, new Rectangle(0, GameConstants.ROOM_Y_OFFSET, viewport.Width, viewport.Height - GameConstants.ROOM_Y_OFFSET), Color.White);
-                    link.Draw(spriteBatch, allTextures[0], allTextures[10]);
-                    Drawing.DrawGeneratedObjects(spriteBatch, blocks, groundItems, enemies, fireballManagers, allTextures, lifeTexture, hitboxTexture, showHitboxes);
-
-                    spriteBatch.Draw(pauseOverlayTexture, new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), new Color(0, 0, 0, 400));
-
-                    pausedScreen.DrawPausedScreen(spriteBatch, font, viewport, allTextures[9]);
-                    minimap.Draw(spriteBatch, blocks, groundItems, enemies,
-                                new Rectangle(50, 200, 200, 200), 0.3f);
+                    DrawPausedScreen();
+                }
+                else if(gameState == Game1State.Inventory)
+                {
+                    DrawInventoryScreen();
                 }
                 else if (gameState == Game1State.GameOver)
                 {
@@ -674,6 +666,115 @@ namespace Sprint2Pork
 
             base.Draw(gameTime);
         }
+
+        private void DrawInventoryScreen()
+        {
+            // Draw the HUD and minimap
+            hud.Draw(spriteBatch, allTextures[9]);
+            minimap.Draw(spriteBatch, blocks, groundItems, enemies, new Rectangle(120, 15, 140, 5), 0.15f);
+
+            // Draw the inventory items
+            DrawInventoryItems();
+        }
+        private void InitializeItemSourceRects()
+        {
+            itemSourceRects = new Dictionary<string, Rectangle>
+            {
+                { "GroundBomb", new Rectangle(136, 0, 8, 16) },
+                { "Sword", new Rectangle(104, 16, 6, 16) },
+                { "Arrow", new Rectangle(152, 16, 8, 16) },
+                { "Boomerang", new Rectangle(128, 0, 8, 16) },
+                { "WoodArrow", new Rectangle(152, 0, 8, 16) },
+                { "BlueBoomer", new Rectangle(128, 16, 8, 16) },
+                { "Fire", new Rectangle(224, 0, 8, 16) },
+            };
+        }
+        private void DrawInventoryItems(float scale = 4.0f)
+        {
+            int startX = 100;
+            int startY = 100;
+            int itemSize = 64;
+            int padding = 10;
+            int itemsPerRow = 4;
+            InitializeItemSourceRects();
+
+            for (int i = 0; i < itemSourceRects.Count; i++)
+            {
+                var item = itemSourceRects.ElementAt(i);
+                Rectangle sourceRect = item.Value;
+                int row = i / itemsPerRow;
+                int col = i % itemsPerRow;
+                Vector2 position = new Vector2(startX + (itemSize + padding) * col, startY + (itemSize + padding) * row);
+
+                spriteBatch.Draw(allTextures[9], position, sourceRect, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+
+                // If the item is the one in SlotB, draw a selection box around it
+                if (item.Key == link.SlotB)
+                {
+                    Rectangle selectionBox = new Rectangle((int)position.X, (int)position.Y, (int)(sourceRect.Width * scale), (int)(sourceRect.Height * scale));
+                    DrawSelectionBox(selectionBox);
+                }
+            }
+        }
+        private void DrawSelectionBox(Rectangle rectangle)
+        {
+            int thickness = 1;
+            Color color = Color.Maroon;
+
+            // Draw top line
+            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Top, rectangle.Width, thickness), color);
+            // Draw left line
+            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Top, thickness, rectangle.Height), color);
+            // Draw right line
+            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Right - thickness, rectangle.Top, thickness, rectangle.Height), color);
+            // Draw bottom line
+            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Bottom - thickness, rectangle.Width, thickness), color);
+        }
+
+        private void DrawGameOverScreen()
+        {
+            spriteBatch.Draw(winStateTexture, new Rectangle(0, 0, viewport.Width, viewport.Height), Color.White);
+        }
+
+        private void DrawStartScreen()
+        {
+            // Draw the start screen texture to fill the entire viewport
+            spriteBatch.Draw(
+                startScreenTexture,
+                new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height),
+                Color.White
+            );
+        }
+
+        private void DrawPlayingScreen()
+        {
+            spriteBatch.Draw(roomTexture, new Rectangle(0, GameConstants.ROOM_Y_OFFSET, viewport.Width, viewport.Height - GameConstants.ROOM_Y_OFFSET), Color.White);
+            link.Draw(spriteBatch, allTextures[0], allTextures[10]);
+            Drawing.DrawGeneratedObjects(spriteBatch, blocks, groundItems, enemies, fireballManagers, allTextures, lifeTexture,
+                hitboxTexture, showHitboxes);
+            hud.Draw(spriteBatch, allTextures[9]);
+            minimap.Draw(spriteBatch, blocks, groundItems, enemies, new Rectangle(120, 15, 140, 5), 0.15f);
+        }
+
+        private void DrawTransitioningScreen()
+        {
+            spriteBatch.Draw(roomTexture, oldRoomRectangle, Color.White);
+            spriteBatch.Draw(nextRoomTexture, nextRoomRectangle, Color.White);
+        }
+
+        private void DrawPausedScreen()
+        {
+            spriteBatch.Draw(roomTexture, new Rectangle(0, GameConstants.ROOM_Y_OFFSET, viewport.Width, viewport.Height - GameConstants.ROOM_Y_OFFSET), Color.White);
+            link.Draw(spriteBatch, allTextures[0], allTextures[10]);
+            Drawing.DrawGeneratedObjects(spriteBatch, blocks, groundItems, enemies, fireballManagers, allTextures, lifeTexture, hitboxTexture, showHitboxes);
+
+            spriteBatch.Draw(pauseOverlayTexture, new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), new Color(0, 0, 0, 400));
+
+            pausedScreen.DrawPausedScreen(spriteBatch, font, viewport, allTextures[9]);
+            minimap.Draw(spriteBatch, blocks, groundItems, enemies,
+                        new Rectangle(50, 200, 200, 200), 0.3f);
+        }
+
         public void StartGame()
         {
             if (gameState == Game1State.StartScreen)
