@@ -69,12 +69,20 @@ namespace Sprint2Pork
             {
                 link.OffsetYChange((link.LinkCountGet() <= 10) ? -7 : 7);
             }
-            sprite = new MovingNonAnimatedSprite(startX + link.OffsetXGet(), startY + link.OffsetYGet(), rect, directionStr);
+            sprite.Update(startX + link.OffsetXGet(), startY + link.OffsetYGet());
             link.UpdateItem();
         }
         public void Draw(SpriteBatch sb, Texture2D texture)
         {
             sprite.Draw(sb, texture);
+        }
+        public bool Collides(Rectangle rect2)
+        {
+            Rectangle rect1 = sprite.GetRect();
+            return (rect1.X + rect1.Width > rect2.X &&
+                rect1.X < rect2.X + rect2.Width &&
+                rect1.Y + rect1.Height > rect2.Y &&
+                rect1.Y < rect2.Y + rect2.Height);
         }
         public Rectangle getLocation() => (sprite.GetRect());
         public void SpriteSet(ISprite sprite) => this.sprite = sprite;
