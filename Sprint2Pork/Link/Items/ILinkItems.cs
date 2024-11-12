@@ -8,7 +8,7 @@ namespace Sprint2Pork
         void Update(Link link);
         public void Draw(SpriteBatch sb, Texture2D texture);
 
-        public Rectangle getLocation();
+        public Rectangle GetLocation();
         public void SpriteSet(ISprite sprite);
         public ISprite SpriteGet();
     }

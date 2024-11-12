@@ -15,7 +15,7 @@ namespace Sprint2Pork
         {
             return;
         }
-        public Rectangle getLocation() => (new Rectangle(0,0,0,0));
+        public Rectangle GetLocation() => (new Rectangle(0,0,0,0));
         public void SpriteSet(ISprite sprite) => this.sprite = sprite;
         public ISprite SpriteGet() => sprite;
     }

@@ -87,7 +87,7 @@ namespace Sprint2Pork
 
         public void LinkSpriteUpdate() => linkSprite.Update(X, Y);
         public void LinkSpriteSet(ISprite sprite) => linkSprite = sprite;
-        public Rectangle LinkItemGetRect() => linkItem.getLocation();
+        public Rectangle LinkItemGetRect() => linkItem.GetLocation();
         public ILinkItems LinkItemSpriteGet() => linkItem;
 
         /*

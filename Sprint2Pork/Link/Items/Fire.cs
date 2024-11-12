@@ -73,7 +73,7 @@ namespace Sprint2Pork
             sprite.Draw(sb, texture);
         }
 
-        public Rectangle getLocation() => (sprite.GetRect());
+        public Rectangle GetLocation() => (sprite.GetRect());
         public void SpriteSet(ISprite sprite) => this.sprite = sprite;
         public ISprite SpriteGet() => sprite;
     }

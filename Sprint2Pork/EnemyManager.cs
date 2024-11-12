@@ -107,7 +107,7 @@ namespace Sprint2Pork
             return fireballs;
         }
 
-        public int getID() {
+        public int GetID() {
             return managerID;
         }
 
