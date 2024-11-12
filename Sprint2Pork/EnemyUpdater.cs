@@ -16,11 +16,9 @@ namespace Sprint2Pork
             {
                 enemy.Update();
                 enemy.Move(blocks);
-                bool collidesWithLink = Collision.Collides(link.GetRect(), enemy.getRect());
-                bool collidesWithLinkItem = link.linkItem.Collides(enemy.getRect());
+                bool collidesWithLink = Collision.Collides(link.GetRect(), enemy.GetRect());
 
                 enemy.UpdateFromCollision(collidesWithLink, Color.Red);
-                enemy.UpdateFromCollision(collidesWithLinkItem, Color.Red);
                 if (enemy.getHealth() <= 0)
                 {
                     int id = enemy.getFireballID();

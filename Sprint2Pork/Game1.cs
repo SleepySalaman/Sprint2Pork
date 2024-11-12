@@ -306,6 +306,13 @@ namespace Sprint2Pork
             if (link.IsLinkUsingItem())
             {
                 link.linkItem.Update(link);
+                foreach (Enemy e in enemies)
+                {
+                    if (link.linkItem.Collides(e.GetRect()))
+                    {
+                        e.TakeDamage();
+                    }
+                }
             }
 
             HandleBlockCollision(linkPreviousX, linkPreviousY);
