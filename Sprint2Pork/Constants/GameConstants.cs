@@ -19,6 +19,12 @@
         public const int ITEM_SPRITE_SIZE = 32;
         public const int ITEM_DISPLAY_X = 400;
         public const int ITEM_DISPLAY_Y = 200;
+        public const int INVENTORY_START_X = 400;
+        public const int INVENTORY_START_Y = 220;
+        public const int INVENTORY_ITEM_SIZE = 64;
+        public const int INVENTORY_PADDING = 10;
+        public const int INVENTORY_ITEMS_PER_ROW = 4;
+        public const int INVENTORY_RECTANGLE_ADJUSTMENT_SIZE = 5;
 
         // Transition Related
         public const float TRANSITION_DURATION = 1.0f;
@@ -28,5 +34,4 @@
         // Text Positions
         public const int TEXT_DISPLAY = 100;
     }
-
 }

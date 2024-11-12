@@ -691,11 +691,11 @@ namespace Sprint2Pork
         }
         private void DrawInventoryItems(float scale = 4.0f)
         {
-            int startX = 400;
-            int startY = 220;
-            int itemSize = 64;
-            int padding = 10;
-            int itemsPerRow = 4;
+            int startX = GameConstants.INVENTORY_START_X;
+            int startY = GameConstants.INVENTORY_START_Y;
+            int itemSize = GameConstants.INVENTORY_ITEM_SIZE;
+            int padding = GameConstants.INVENTORY_PADDING;
+            int itemsPerRow = GameConstants.INVENTORY_ITEMS_PER_ROW;
             InitializeItemSourceRects();
 
             for (int i = 0; i < itemSourceRects.Count; i++)
@@ -716,21 +716,21 @@ namespace Sprint2Pork
                 }
             }
             minimap.Draw(spriteBatch, blocks, groundItems, enemies, new Rectangle(50, 200, 200, 200), 0.3f);
-
         }
+
         private void DrawSelectionBox(Rectangle rectangle)
         {
             int thickness = 1;
             Color color = Color.Maroon;
 
             // Draw top line
-            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Top, rectangle.Width+5, thickness), color);
+            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Top, rectangle.Width+GameConstants.INVENTORY_RECTANGLE_ADJUSTMENT_SIZE, thickness), color);
             // Draw left line
             spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Top, thickness, rectangle.Height), color);
             // Draw right line
-            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Right+5 - thickness, rectangle.Top, thickness, rectangle.Height), color);
+            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Right+ GameConstants.INVENTORY_RECTANGLE_ADJUSTMENT_SIZE - thickness, rectangle.Top, thickness, rectangle.Height), color);
             // Draw bottom line
-            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Bottom - thickness, rectangle.Width+5, thickness), color);
+            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Bottom - thickness, rectangle.Width+ GameConstants.INVENTORY_RECTANGLE_ADJUSTMENT_SIZE, thickness), color);
         }
 
         private void DrawGameOverScreen()
