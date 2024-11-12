@@ -12,5 +12,6 @@ namespace Sprint2Pork
         public Rectangle getLocation();
         public void SpriteSet(ISprite sprite);
         public ISprite SpriteGet();
+        string GetItemName();
     }
 }

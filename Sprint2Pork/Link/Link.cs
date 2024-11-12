@@ -239,6 +239,8 @@ namespace Sprint2Pork
                 6 => new Fire(frozenDirectionState, X, Y),
                 _ => linkItem
             };
+            var itemToRemove = linkItem.GetItemName();
+            inventory.RemoveItem(itemToRemove);
         }
 
         public bool BeDamaged()
