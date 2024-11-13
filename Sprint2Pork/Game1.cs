@@ -367,6 +367,7 @@ namespace Sprint2Pork
             inventory.Reset();
             link = new Link(viewport.Width, viewport.Height, soundManager, inventory);
             hud.SubscribeToLinkEvents(link);
+            minimap = new Minimap(GraphicsDevice, link);
 
             currentRoom = "room2";
             (blocks, groundItems, enemies, fireballManagers) = rooms[currentRoom];
