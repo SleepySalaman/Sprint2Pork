@@ -287,7 +287,7 @@ namespace Sprint2Pork
             EnemyUpdater.UpdateFireballs(enemyManager, ref link, ref fireballManagers, gameTime, ref healthCount);
             if (!healthCount.IsLinkAlive())
             {
-                GameOver();
+                ResetGame();
             }
         }
 
@@ -305,10 +305,6 @@ namespace Sprint2Pork
                 {
                     link.BeDamaged();
                     healthCount.TakeDamage();
-                    if (!healthCount.IsLinkAlive())
-                    {
-                        GameOver();
-                    }
                 }
             }
 
@@ -327,10 +323,6 @@ namespace Sprint2Pork
             }
 
             HandleBlockCollision(linkPreviousX, linkPreviousY);
-
-            if (!healthCount.IsLinkAlive()) {
-                GameOver();
-            }
         }
 
         private void HandleBlockCollision(int linkPreviousX, int linkPreviousY)
