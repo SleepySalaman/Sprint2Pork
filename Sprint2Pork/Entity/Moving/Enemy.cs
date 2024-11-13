@@ -100,7 +100,6 @@ namespace Sprint2Pork.Entity.Moving
             if (collides)
             {
                 color = c;
-                TakeDamage();
             }
             else
             {

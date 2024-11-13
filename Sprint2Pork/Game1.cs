@@ -283,7 +283,7 @@ namespace Sprint2Pork
 
         private void UpdateEnemies(GameTime gameTime)
         {
-            EnemyUpdater.UpdateEnemies(link, enemies, blocks, fireballManagers);
+            EnemyUpdater.UpdateEnemies(link, enemies, blocks, fireballManagers, healthCount);
             EnemyUpdater.UpdateFireballs(enemyManager, ref link, ref fireballManagers, gameTime, ref healthCount);
             if (!healthCount.IsLinkAlive())
             {
@@ -299,15 +299,6 @@ namespace Sprint2Pork
                 link.linkItem.SpriteSet(itemSprite);
             }
 
-            foreach (Enemy e in enemies)
-            {
-                if (Collision.Collides(e.GetRect(), link.GetRect()))
-                {
-                    link.BeDamaged();
-                    healthCount.TakeDamage();
-                }
-            }
-
             link.actionState.Update();
             link.LinkSpriteUpdate();
             if (link.IsLinkUsingItem())
@@ -317,7 +308,7 @@ namespace Sprint2Pork
                 {
                     if (link.linkItem.Collides(e.GetRect()))
                     {
-                        e.TakeDamage();
+                            e.TakeDamage();
                     }
                 }
             }
