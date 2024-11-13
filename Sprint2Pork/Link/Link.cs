@@ -300,6 +300,10 @@ namespace Sprint2Pork
             return isTakingDamage;
         }
 
+        public void endItem() {
+            linkCount = 20;
+        }
+
         public void UpdateItem()
         {
             ItemInUse = true;

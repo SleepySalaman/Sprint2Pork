@@ -83,6 +83,7 @@ namespace Sprint2Pork
         private Rectangle oldRoomRectangleSaved;
         private Rectangle nextRoomRectangle;
         private Rectangle nextRoomRectangleSaved;
+        private Rectangle roomBoundingBox = new Rectangle(70, 110, 660, 800);
         private Vector2 transitionDirection;
         private Texture2D startScreenTexture;
 
@@ -270,6 +271,14 @@ namespace Sprint2Pork
                     link.SetY(linkPreviousY);
                     break;
                 }
+                if (link.linkItem.Collides(block.getBoundingBox())) {
+                    link.endItem();
+                }
+            }
+            if (link.IsLinkUsingItem()) {
+                if (Collision.CollidesWithOutside(link.linkItem.SpriteGet().GetRect(), roomBoundingBox)) {
+                    link.endItem();
+                }
             }
         }
 
@@ -382,38 +391,24 @@ namespace Sprint2Pork
             spriteBatch.Begin();
 
             GraphicsDevice.Clear(Color.Black);
-            if (gameState == Game1State.StartScreen)
-            {
+            if (gameState == Game1State.StartScreen) {
                 DrawStartScreen();
-            }
-            else if (gameState == Game1State.GameOver)
-            {
+            } else if (gameState == Game1State.GameOver) {
                 DrawGameOverScreen();
-            }
-            else
-            {
+            } else {
                 spriteBatch.Draw(hudTexture, new Rectangle(0, 0, viewport.Width, GameConstants.HUD_HEIGHT), Color.White);
                 healthCount.DrawLives(spriteBatch, lifeTexture, viewport);
 
-                if (gameState == Game1State.Playing)
-                {
+                if (gameState == Game1State.Playing) {
                     DrawPlayingScreen();
 
-                }
-                else if (gameState == Game1State.Transitioning)
-                {
+                } else if (gameState == Game1State.Transitioning) {
                     DrawTransitioningScreen();
-                }
-                else if (gameState == Game1State.Paused)
-                {
+                } else if (gameState == Game1State.Paused) {
                     DrawPausedScreen();
-                }
-                else if(gameState == Game1State.Inventory)
-                {
+                } else if (gameState == Game1State.Inventory) {
                     DrawInventoryScreen();
-                }
-                else if (gameState == Game1State.GameOver)
-                {
+                } else if (gameState == Game1State.GameOver) {
                     spriteBatch.DrawString(font, "Game Over", new Vector2(GameConstants.TEXT_DISPLAY, GameConstants.TEXT_DISPLAY), Color.Red);
                 }
             }
