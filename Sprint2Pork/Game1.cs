@@ -450,6 +450,9 @@ namespace Sprint2Pork
             int itemsPerRow = GameConstants.INVENTORY_ITEMS_PER_ROW;
             InitializeItemSourceRects();
 
+            int boxWidth = (itemSize + padding) * itemsPerRow - padding;
+            int boxHeight = (itemSize + padding) * (itemSourceRects.Count / itemsPerRow + 1) - padding;
+
             for (int i = 0; i < itemSourceRects.Count; i++)
             {
                 var item = itemSourceRects.ElementAt(i);
@@ -467,23 +470,57 @@ namespace Sprint2Pork
                     DrawSelectionBox(selectionBox);
                 }
             }
-            minimap.Draw(spriteBatch, blocks, groundItems, enemies, new Rectangle(50, 200, 200, 200), 0.3f);
+            minimap.Draw(spriteBatch, blocks, groundItems, enemies, new Rectangle(20, 140, 200, 200), 0.5f);
+            Rectangle minimapRectangle = new Rectangle(60, 210, 320, 158); 
+            DrawBlueBox(minimapRectangle);
+            DrawBlueBox(new Rectangle(startX - padding, startY - padding, boxWidth + 2*padding, boxHeight + 2*padding));
+        }
+
+
+        private void DrawBlueBox(Rectangle rectangle)
+        {
+            int thickness = 3;
+            Color color = Color.Blue;
+
+            Texture2D whiteTexture = new Texture2D(graphics.GraphicsDevice, 1, 1);
+            whiteTexture.SetData(new[] { Color.White });
+
+            // Draw top line
+            spriteBatch.Draw(whiteTexture, new Rectangle(rectangle.Left, rectangle.Top, rectangle.Width, thickness), color);
+            // Draw left line
+            spriteBatch.Draw(whiteTexture, new Rectangle(rectangle.Left, rectangle.Top, thickness, rectangle.Height), color);
+            // Draw right line
+            spriteBatch.Draw(whiteTexture, new Rectangle(rectangle.Right - thickness, rectangle.Top, thickness, rectangle.Height), color);
+            // Draw bottom line
+            spriteBatch.Draw(whiteTexture, new Rectangle(rectangle.Left, rectangle.Bottom - thickness, rectangle.Width, thickness), color);
         }
 
         private void DrawSelectionBox(Rectangle rectangle)
         {
-            int thickness = 1;
-            Color color = Color.Maroon;
+            int thickness = 3;
+            int length = 9;
+            Color color = Color.Red;
 
-            // Draw top line
-            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Top, rectangle.Width+GameConstants.INVENTORY_RECTANGLE_ADJUSTMENT_SIZE, thickness), color);
-            // Draw left line
-            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Top, thickness, rectangle.Height), color);
-            // Draw right line
-            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Right+ GameConstants.INVENTORY_RECTANGLE_ADJUSTMENT_SIZE - thickness, rectangle.Top, thickness, rectangle.Height), color);
-            // Draw bottom line
-            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Bottom - thickness, rectangle.Width+ GameConstants.INVENTORY_RECTANGLE_ADJUSTMENT_SIZE, thickness), color);
+            // Expand the rectangle by 2 pixels on each side
+            rectangle = new Rectangle(rectangle.Left - 3, rectangle.Top - 3, rectangle.Width + 6, rectangle.Height + 4);
+
+            // Top-left corner
+            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Top, length, thickness), color);
+            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Top, thickness, length), color);
+
+            // Top-right corner
+            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Right - length, rectangle.Top, length, thickness), color);
+            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Right - thickness, rectangle.Top, thickness, length), color);
+
+            // Bottom-left corner
+            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Bottom - thickness, length, thickness), color);
+            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Bottom - length, thickness, length), color);
+
+            // Bottom-right corner
+            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Right - length, rectangle.Bottom - thickness, length, thickness), color);
+            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Right - thickness, rectangle.Bottom - length, thickness, length), color);
         }
+
 
         private void DrawGameOverScreen()
         {
