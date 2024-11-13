@@ -245,7 +245,7 @@ namespace Sprint2Pork
             EnemyUpdater.UpdateFireballs(enemyManager, ref link, ref fireballManagers, gameTime, ref healthCount);
             if (!healthCount.IsLinkAlive())
             {
-                ResetGame();
+                GameOver();
             }
         }
 
@@ -592,6 +592,7 @@ namespace Sprint2Pork
         {
             gameState = Game1State.GameOver;
         }
+
         public void ToggleBackgroundMusic()
         {
             if (MediaPlayer.State == MediaState.Playing)
