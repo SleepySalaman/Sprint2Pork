@@ -95,18 +95,6 @@ namespace Sprint2Pork.Entity.Moving
             return collisionRect;
         }
 
-        void IEnemy.UpdateFromCollision(bool collides, Color c)
-        {
-            if (collides)
-            {
-                color = c;
-            }
-            else
-            {
-                color = Color.White;
-            }
-        }
-
         public int getHealth()
         {
             return health;

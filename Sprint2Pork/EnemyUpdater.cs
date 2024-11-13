@@ -11,15 +11,26 @@ namespace Sprint2Pork
         public static void UpdateEnemies(Link link, List<IEnemy> enemies, List<Block> blocks, List<EnemyManager> fireballManagers, 
             LinkHealth healthCount)
         {
+            if (link.IsLinkUsingItem()) {
+                link.linkItem.Update(link);
+            }
+
             var enemiesToRemove = new List<IEnemy>();
             var fireballsToRemove = new List<EnemyManager>();
-            foreach (var enemy in enemies)
+            foreach (Enemy enemy in enemies)
             {
                 enemy.Update();
                 enemy.Move(blocks);
                 bool collidesWithLink = Collision.Collides(link.GetRect(), enemy.GetRect());
-
-                enemy.UpdateFromCollision(collidesWithLink, Color.Red);
+                if (collidesWithLink) {
+                    link.TakeDamage();
+                    healthCount.TakeDamage();
+                }
+                if (link.IsLinkUsingItem()) {
+                    if (link.linkItem.Collides(enemy.GetRect())) {
+                        enemy.TakeDamage();
+                    }
+                }
                 if (enemy.getHealth() <= 0)
                 {
                     int id = enemy.GetFireballID();
@@ -31,11 +42,6 @@ namespace Sprint2Pork
                             }
                         }
                     }
-                }
-                if (collidesWithLink)
-                {
-                    link.TakeDamage();
-                    healthCount.TakeDamage();
                 }
             }
             foreach (var enemy in enemiesToRemove)

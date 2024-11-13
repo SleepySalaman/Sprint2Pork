@@ -12,8 +12,6 @@ namespace Sprint2Pork.Entity.Moving
 
         Rectangle GetRect();
 
-        void UpdateFromCollision(bool collides, Color c);
-
         int getTextureIndex();
 
         int getHealth();
