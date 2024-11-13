@@ -172,25 +172,9 @@ public class KeyboardController : IController
 
     private void HandleGameControls(KeyboardState ks)
     {
-        if (IsKeyPressed(ks, Keys.T))
-        {
-            currentBlockIndex = (currentBlockIndex + 1) % listOfBlocks.Count;
-            UpdateCurrentBlock();
-        }
-        else if (IsKeyPressed(ks, Keys.Y))
-        {
-            currentBlockIndex = (currentBlockIndex - 1 + listOfBlocks.Count) % listOfBlocks.Count;
-            UpdateCurrentBlock();
-        }
-
         if (IsKeyPressed(ks, Keys.M))
         {
             programGame.ToggleBackgroundMusic();
-        }
-
-        if (IsKeyPressed(ks, Keys.U))
-        {
-            programGame.PreviousItem();
         }
         if (IsKeyPressed(ks, Keys.I))
         {
@@ -232,12 +216,6 @@ public class KeyboardController : IController
         {
             programGame.showHitboxes = !programGame.showHitboxes;
         }
-    }
-
-    private void UpdateCurrentBlock()
-    {
-        programGame.CurrentBlockIndex = currentBlockIndex;
-        programGame.UpdateCurrentBlock();
     }
 
     private bool IsKeyPressed(KeyboardState ks, Keys key)

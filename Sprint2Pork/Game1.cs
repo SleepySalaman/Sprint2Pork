@@ -40,8 +40,6 @@ namespace Sprint2Pork
 
         private Texture2D hitboxTexture;
 
-        private double timeSinceLastSwitch = 0;
-        private double timeSinceSwitchedEnemy = 0;
         private List<Block> blocks;
         private List<GroundItem> groundItems;
         private List<IEnemy> enemies;
@@ -90,16 +88,6 @@ namespace Sprint2Pork
 
         private RoomManager roomManager;
 
-        public int CurrentBlockIndex
-        {
-            get => currentBlockIndex;
-            set
-            {
-                currentBlockIndex = value;
-                UpdateCurrentBlock();
-            }
-        }
-
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -125,7 +113,6 @@ namespace Sprint2Pork
 
 
         }
-
 
         private void LoadGroundItems()
         {
@@ -178,8 +165,6 @@ namespace Sprint2Pork
             hitboxTexture = new Texture2D(GraphicsDevice, 1, 1);
             hitboxTexture.SetData(new Color[] { Color.Red });
 
-            //lifeDestinationRect = new Rectangle((viewport.Width * 13) / 21, GameConstants.HUD_HEIGHT / 3, 50, 50);
-
             LoadRooms(allTextures[8], allTextures[9], allTextures[2]);
         }
 
@@ -219,9 +204,6 @@ namespace Sprint2Pork
             {
                 int linkPreviousX = link.GetX();
                 int linkPreviousY = link.GetY();
-
-                timeSinceLastSwitch += gameTime.ElapsedGameTime.TotalSeconds;
-                timeSinceSwitchedEnemy += gameTime.ElapsedGameTime.TotalSeconds;
 
                 UpdateControllers();
                 UpdateGroundItems();
@@ -383,171 +365,6 @@ namespace Sprint2Pork
             hud.UpdateRoomNumber(GetCurrentRoomNumber());
         }
 
-        //private void CheckRoomChange(Game1State gameState)
-        //{
-        //    if (currentRoom == "room1" && link.GetX() > GraphicsDevice.Viewport.Width - GameConstants.ROOM_EDGE_BUFFER)
-        //    {
-        //        nextRoom = "room2";
-        //        nextRoomTexture = Content.Load<Texture2D>("Room2");
-        //        link.SetX(GameConstants.ROOM_EDGE_BUFFER);
-
-        //        transitionDirection = new Vector2(1, 0);
-        //        SetRectangles();
-        //        this.gameState = Game1State.Transitioning;
-        //    }
-        //    else if (currentRoom == "room1" && link.GetX() < GameConstants.ROOM_EDGE_BUFFER)
-        //    {
-        //        nextRoom = "room5";
-        //        nextRoomTexture = Content.Load<Texture2D>("Room5");
-        //        transitionDirection = new Vector2(-1, 0);
-        //        SetRectangles();
-        //        link.SetX(GraphicsDevice.Viewport.Width - 101);
-        //        currentRoom = nextRoom;
-        //        this.gameState = Game1State.Transitioning;
-        //    }
-        //    else if (currentRoom == "room2" && link.GetX() > GraphicsDevice.Viewport.Width - GameConstants.ROOM_EDGE_BUFFER)
-        //    {
-        //        nextRoom = "room4";
-        //        nextRoomTexture = Content.Load<Texture2D>("Room4");
-        //        link.SetX(GameConstants.ROOM_EDGE_BUFFER);
-
-        //        transitionDirection = new Vector2(1, 0);
-        //        SetRectangles();
-        //        this.gameState = Game1State.Transitioning;
-        //    }
-        //    else if (currentRoom == "room5" && link.GetX() > GraphicsDevice.Viewport.Width - GameConstants.ROOM_EDGE_BUFFER)
-        //    {
-        //        nextRoom = "room1";
-        //        nextRoomTexture = Content.Load<Texture2D>("Room1");
-        //        link.SetX(GameConstants.ROOM_EDGE_BUFFER);
-
-        //        transitionDirection = new Vector2(1, 0);
-        //        SetRectangles();
-        //        this.gameState = Game1State.Transitioning;
-        //    }
-        //    else if (currentRoom == "room2" && link.GetX() < GameConstants.ROOM_EDGE_BUFFER)
-        //    {
-        //        nextRoom = "room1";
-        //        nextRoomTexture = Content.Load<Texture2D>("Room1");
-        //        transitionDirection = new Vector2(-1, 0);
-        //        SetRectangles();
-        //        link.SetX(GraphicsDevice.Viewport.Width - 101);
-        //        currentRoom = nextRoom;
-        //        this.gameState = Game1State.Transitioning;
-        //    }
-        //    else if (currentRoom == "room4" && link.GetX() < GameConstants.ROOM_EDGE_BUFFER)
-        //    {
-        //        nextRoom = "room2";
-        //        nextRoomTexture = Content.Load<Texture2D>("Room2");
-        //        transitionDirection = new Vector2(-1, 0);
-        //        SetRectangles();
-        //        link.SetX(GraphicsDevice.Viewport.Width - 101);
-        //        currentRoom = nextRoom;
-        //        this.gameState = Game1State.Transitioning;
-        //    }
-        //    else if (currentRoom == "room2" && link.GetY() < GameConstants.ROOM_EDGE_BUFFER)
-        //    {
-        //        nextRoom = "room3";
-        //        nextRoomTexture = Content.Load<Texture2D>("Room3");
-        //        transitionDirection = new Vector2(0, -1);
-        //        SetRectangles();
-        //        link.SetY(GraphicsDevice.Viewport.Height - 99);
-        //        currentRoom = nextRoom;
-        //        this.gameState = Game1State.Transitioning;
-        //    }
-        //    else if (currentRoom == "room3" && link.GetY() > GraphicsDevice.Viewport.Height - GameConstants.ROOM_EDGE_THRESHOLD)
-        //    {
-        //        nextRoom = "room2";
-        //        nextRoomTexture = Content.Load<Texture2D>("Room2");
-        //        transitionDirection = new Vector2(0, 1);
-        //        SetRectangles();
-        //        link.SetY(101);
-        //        currentRoom = nextRoom;
-        //        this.gameState = Game1State.Transitioning;
-        //    }
-        //    else if (currentRoom == "room5" && link.GetY() > GraphicsDevice.Viewport.Height - GameConstants.ROOM_EDGE_THRESHOLD)
-        //    {
-        //        nextRoom = "room6";
-        //        nextRoomTexture = Content.Load<Texture2D>("Room6");
-        //        transitionDirection = new Vector2(0, 1);
-        //        SetRectangles();
-        //        link.SetY(101);
-        //        currentRoom = nextRoom;
-        //        this.gameState = Game1State.Transitioning;
-        //    }
-        //    else if (currentRoom == "room6" && link.GetY() < GameConstants.ROOM_EDGE_BUFFER)
-        //    {
-        //        nextRoom = "room5";
-        //        nextRoomTexture = Content.Load<Texture2D>("Room5");
-        //        transitionDirection = new Vector2(0, -1);
-        //        SetRectangles();
-        //        link.SetY(GraphicsDevice.Viewport.Height - 70);
-        //        currentRoom = nextRoom;
-        //        this.gameState = Game1State.Transitioning;
-        //    }
-        //    else if (currentRoom == "room6" && link.GetY() > GraphicsDevice.Viewport.Height - GameConstants.ROOM_EDGE_THRESHOLD)
-        //    {
-        //        nextRoom = "room7";
-        //        nextRoomTexture = Content.Load<Texture2D>("Room7");
-        //        transitionDirection = new Vector2(0, 1);
-        //        SetRectangles();
-        //        link.SetY(101);
-        //        currentRoom = nextRoom;
-        //        this.gameState = Game1State.Transitioning;
-        //    }
-        //    else if (currentRoom == "room7" && link.GetY() < GameConstants.ROOM_EDGE_BUFFER)
-        //    {
-        //        nextRoom = "room6";
-        //        nextRoomTexture = Content.Load<Texture2D>("Room6");
-        //        transitionDirection = new Vector2(0, -1);
-        //        SetRectangles();
-        //        link.SetY(GraphicsDevice.Viewport.Height - 99);
-        //        currentRoom = nextRoom;
-        //        this.gameState = Game1State.Transitioning;
-        //    }
-        //    else if (currentRoom == "room5" && link.GetX() < GameConstants.ROOM_EDGE_BUFFER)
-        //    {
-        //        nextRoom = "room8";
-        //        nextRoomTexture = Content.Load<Texture2D>("Room8");
-        //        transitionDirection = new Vector2(-1, 0);
-        //        SetRectangles();
-        //        link.SetX(GraphicsDevice.Viewport.Width - 101);
-        //        currentRoom = nextRoom;
-        //        this.gameState = Game1State.Transitioning;
-        //    }
-        //    else if (currentRoom == "room8" && link.GetX() > GraphicsDevice.Viewport.Width - GameConstants.ROOM_EDGE_BUFFER)
-        //    {
-        //        nextRoom = "room5";
-        //        nextRoomTexture = Content.Load<Texture2D>("Room5");
-        //        link.SetX(GameConstants.ROOM_EDGE_BUFFER);
-        //        transitionDirection = new Vector2(1, 0);
-        //        SetRectangles();
-        //        this.gameState = Game1State.Transitioning;
-        //    }
-        //    else if (currentRoom == "room8" && link.GetY() < GameConstants.ROOM_EDGE_BUFFER)
-        //    {
-        //        nextRoom = "room9";
-        //        nextRoomTexture = Content.Load<Texture2D>("Room9");
-        //        transitionDirection = new Vector2(0, -1);
-        //        SetRectangles();
-        //        link.SetY(GraphicsDevice.Viewport.Height - 99);
-        //        currentRoom = nextRoom;
-        //        this.gameState = Game1State.Transitioning;
-        //    }
-
-        //    else if (currentRoom == "room9" && link.GetY() > GraphicsDevice.Viewport.Height - GameConstants.ROOM_EDGE_THRESHOLD)
-        //    {
-        //        nextRoom = "room8";
-        //        nextRoomTexture = Content.Load<Texture2D>("Room8");
-        //        transitionDirection = new Vector2(0, 1);
-        //        SetRectangles();
-        //        link.SetY(101);
-        //        currentRoom = nextRoom;
-        //        this.gameState = Game1State.Transitioning;
-        //    }
-        //    hud.UpdateRoomNumber(GetCurrentRoomNumber());
-        //}
-
         private void SetRectangles()
         {
             oldRoomRectangle = new Rectangle(0, GameConstants.ROOM_Y_OFFSET, viewport.Width, viewport.Height - GameConstants.ROOM_Y_OFFSET);
@@ -564,29 +381,6 @@ namespace Sprint2Pork
             }
         }
 
-        public void UpdateCurrentBlock()
-        {
-            currentBlockIndex = CurrentBlockIndex;
-
-        }
-
-        public void PreviousItem()
-        {
-            currentItemIndex = (currentItemIndex - 1 + items.Count) % items.Count;
-            SetCurrentItem();
-        }
-
-        public void NextItem()
-        {
-            currentItemIndex = (currentItemIndex + 1) % items.Count;
-            SetCurrentItem();
-        }
-
-        private void SetCurrentItem()
-        {
-            GroundItem currentItem = items[currentItemIndex];
-            currentItem.destinationRect = new Rectangle(400, 200, GameConstants.ITEM_SPRITE_SIZE, GameConstants.ITEM_SPRITE_SIZE);
-        }
         public void ResetGame()
         {
             currentBlockIndex = 0;
@@ -782,12 +576,9 @@ namespace Sprint2Pork
 
         public void StartGame()
         {
-            if (gameState == Game1State.StartScreen)
-            {
+            if (gameState == Game1State.StartScreen){
                 gameState = Game1State.Playing;
-            }
-            else
-            {
+            } else {
                 gameState = Game1State.StartScreen;
             }
         }
