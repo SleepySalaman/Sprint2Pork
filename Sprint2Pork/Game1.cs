@@ -558,11 +558,13 @@ namespace Sprint2Pork
         public void SwitchToNextRoom()
         {
             RoomChange.SwitchToNextRoom(ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
+            roomTexture = roomManager.GetNextRoomTexture(currentRoom);
         }
 
         public void SwitchToPreviousRoom()
         {
             RoomChange.SwitchToPreviousRoom(ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
+            roomTexture = roomManager.GetNextRoomTexture(currentRoom);
         }
 
         public void TogglePause()
