@@ -1,13 +1,13 @@
-Code Review by Eli Click
+# Code Review by Eli Click
 
-Readability:
+## Readability:
  - Date: 11/12
  - File: Minimap.cs
  - Author: Shashank Raghuraj
  - Time Spent: 15 minutes
  - Comments: The Minimap.cs class is set up conveniently and logically so that it is easy to read and follow. Despite not having comments, the code is organized in a way so that a reader can see each part of the minimap being drawn by each section of the code: background, blocks, items, enemies, and Link. Furthermore, the Draw method follows the same order of objects as the initialization method, so it is easy to tell where certain aspects of the code are being generated/drawn. The variables are appropriately named, making it easy to follow the order and logic throughout the file. While this file doesn't have any comments, its layout and design are essentially self-explanatory, and comments are not really necessary to gauge the file's behavior. Overall, this file has great readability and is one of the standouts in our code for designing with readability in mind.
 
-Quality:
+## Quality:
  - Date: 11/12
  - File: Paused.cs
  - Author: Shashank Raghuraj
