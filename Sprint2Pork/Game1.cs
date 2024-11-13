@@ -88,6 +88,8 @@ namespace Sprint2Pork
         private Vector2 transitionDirection;
         private Texture2D startScreenTexture;
 
+        private RoomManager roomManager;
+
         public int CurrentBlockIndex
         {
             get => currentBlockIndex;
@@ -120,6 +122,8 @@ namespace Sprint2Pork
 
             gameState = Game1State.StartScreen;
             gameStateManager = new Game1StateManager(gameState);
+
+
         }
 
 
@@ -136,6 +140,8 @@ namespace Sprint2Pork
             hud = new HUD(inventory, font, link);
             pausedScreen = new Paused(inventory);
             minimap = new Minimap(GraphicsDevice, link);
+            roomManager = new RoomManager(GraphicsDevice);
+            roomManager.InitializeRooms(Content);
             base.Initialize();
         }
 
@@ -161,7 +167,7 @@ namespace Sprint2Pork
             // Loading the background/room
             backgroundTexture = Content.Load<Texture2D>("Room1");
             hudTexture = Content.Load<Texture2D>("ZeldaHUD");
-            roomTexture = Content.Load<Texture2D>("Room1Alone");
+            roomTexture = Content.Load<Texture2D>("Room1");
             lifeTexture = Content.Load<Texture2D>("Zelda_Lives");
             textSprite = new TextSprite(200, GameConstants.TEXT_DISPLAY, font);
 
@@ -382,168 +388,182 @@ namespace Sprint2Pork
 
         private void CheckRoomChange(Game1State gameState)
         {
-            if (currentRoom == "room1" && link.GetX() > GraphicsDevice.Viewport.Width - GameConstants.ROOM_EDGE_BUFFER)
+            nextRoom = roomManager.GetNextRoom(currentRoom, link);
+            if (nextRoom != "none")
             {
-                nextRoom = "room2";
-                nextRoomTexture = Content.Load<Texture2D>("Room2Alone");
-                link.SetX(GameConstants.ROOM_EDGE_BUFFER);
-
-                transitionDirection = new Vector2(1, 0);
+                nextRoomTexture = roomManager.GetNextRoomTexture(nextRoom);
+                transitionDirection = roomManager.GetDirection(link);
+                roomManager.PlaceLink(link, GraphicsDevice);
                 SetRectangles();
-                this.gameState = Game1State.Transitioning;
-            }
-            else if (currentRoom == "room1" && link.GetX() < GameConstants.ROOM_EDGE_BUFFER)
-            {
-                nextRoom = "room5";
-                nextRoomTexture = Content.Load<Texture2D>("Room5");
-                transitionDirection = new Vector2(-1, 0);
-                SetRectangles();
-                link.SetX(GraphicsDevice.Viewport.Width - 101);
-                currentRoom = nextRoom;
-                this.gameState = Game1State.Transitioning;
-            }
-            else if (currentRoom == "room2" && link.GetX() > GraphicsDevice.Viewport.Width - GameConstants.ROOM_EDGE_BUFFER)
-            {
-                nextRoom = "room4";
-                nextRoomTexture = Content.Load<Texture2D>("Room4");
-                link.SetX(GameConstants.ROOM_EDGE_BUFFER);
-
-                transitionDirection = new Vector2(1, 0);
-                SetRectangles();
-                this.gameState = Game1State.Transitioning;
-            }
-            else if (currentRoom == "room5" && link.GetX() > GraphicsDevice.Viewport.Width - GameConstants.ROOM_EDGE_BUFFER)
-            {
-                nextRoom = "room1";
-                nextRoomTexture = Content.Load<Texture2D>("Room1Alone");
-                link.SetX(GameConstants.ROOM_EDGE_BUFFER);
-
-                transitionDirection = new Vector2(1, 0);
-                SetRectangles();
-                this.gameState = Game1State.Transitioning;
-            }
-            else if (currentRoom == "room2" && link.GetX() < GameConstants.ROOM_EDGE_BUFFER)
-            {
-                nextRoom = "room1";
-                nextRoomTexture = Content.Load<Texture2D>("Room1Alone");
-                transitionDirection = new Vector2(-1, 0);
-                SetRectangles();
-                link.SetX(GraphicsDevice.Viewport.Width - 101);
-                currentRoom = nextRoom;
-                this.gameState = Game1State.Transitioning;
-            }
-            else if (currentRoom == "room4" && link.GetX() < GameConstants.ROOM_EDGE_BUFFER)
-            {
-                nextRoom = "room2";
-                nextRoomTexture = Content.Load<Texture2D>("Room2Alone");
-                transitionDirection = new Vector2(-1, 0);
-                SetRectangles();
-                link.SetX(GraphicsDevice.Viewport.Width - 101);
-                currentRoom = nextRoom;
-                this.gameState = Game1State.Transitioning;
-            }
-            else if (currentRoom == "room2" && link.GetY() < GameConstants.ROOM_EDGE_BUFFER)
-            {
-                nextRoom = "room3";
-                nextRoomTexture = Content.Load<Texture2D>("Room3");
-                transitionDirection = new Vector2(0, -1);
-                SetRectangles();
-                link.SetY(GraphicsDevice.Viewport.Height - 99);
-                currentRoom = nextRoom;
-                this.gameState = Game1State.Transitioning;
-            }
-            else if (currentRoom == "room3" && link.GetY() > GraphicsDevice.Viewport.Height - GameConstants.ROOM_EDGE_THRESHOLD)
-            {
-                nextRoom = "room2";
-                nextRoomTexture = Content.Load<Texture2D>("Room2Alone");
-                transitionDirection = new Vector2(0, 1);
-                SetRectangles();
-                link.SetY(101);
-                currentRoom = nextRoom;
-                this.gameState = Game1State.Transitioning;
-            }
-            else if (currentRoom == "room5" && link.GetY() > GraphicsDevice.Viewport.Height - GameConstants.ROOM_EDGE_THRESHOLD)
-            {
-                nextRoom = "room6";
-                nextRoomTexture = Content.Load<Texture2D>("Room6");
-                transitionDirection = new Vector2(0, 1);
-                SetRectangles();
-                link.SetY(101);
-                currentRoom = nextRoom;
-                this.gameState = Game1State.Transitioning;
-            }
-            else if (currentRoom == "room6" && link.GetY() < GameConstants.ROOM_EDGE_BUFFER)
-            {
-                nextRoom = "room5";
-                nextRoomTexture = Content.Load<Texture2D>("Room5");
-                transitionDirection = new Vector2(0, -1);
-                SetRectangles();
-                link.SetY(GraphicsDevice.Viewport.Height - 70);
-                currentRoom = nextRoom;
-                this.gameState = Game1State.Transitioning;
-            }
-            else if (currentRoom == "room6" && link.GetY() > GraphicsDevice.Viewport.Height - GameConstants.ROOM_EDGE_THRESHOLD)
-            {
-                nextRoom = "room7";
-                nextRoomTexture = Content.Load<Texture2D>("Room7");
-                transitionDirection = new Vector2(0, 1);
-                SetRectangles();
-                link.SetY(101);
-                currentRoom = nextRoom;
-                this.gameState = Game1State.Transitioning;
-            }
-            else if (currentRoom == "room7" && link.GetY() < GameConstants.ROOM_EDGE_BUFFER)
-            {
-                nextRoom = "room6";
-                nextRoomTexture = Content.Load<Texture2D>("Room6");
-                transitionDirection = new Vector2(0, -1);
-                SetRectangles();
-                link.SetY(GraphicsDevice.Viewport.Height - 99);
-                currentRoom = nextRoom;
-                this.gameState = Game1State.Transitioning;
-            }
-            else if (currentRoom == "room5" && link.GetX() < GameConstants.ROOM_EDGE_BUFFER)
-            {
-                nextRoom = "room8";
-                nextRoomTexture = Content.Load<Texture2D>("Room8");
-                transitionDirection = new Vector2(-1, 0);
-                SetRectangles();
-                link.SetX(GraphicsDevice.Viewport.Width - 101);
-                currentRoom = nextRoom;
-                this.gameState = Game1State.Transitioning;
-            }
-            else if (currentRoom == "room8" && link.GetX() > GraphicsDevice.Viewport.Width - GameConstants.ROOM_EDGE_BUFFER)
-            {
-                nextRoom = "room5";
-                nextRoomTexture = Content.Load<Texture2D>("Room5");
-                link.SetX(GameConstants.ROOM_EDGE_BUFFER);
-                transitionDirection = new Vector2(1, 0);
-                SetRectangles();
-                this.gameState = Game1State.Transitioning;
-            }
-            else if (currentRoom == "room8" && link.GetY() < GameConstants.ROOM_EDGE_BUFFER)
-            {
-                nextRoom = "room9";
-                nextRoomTexture = Content.Load<Texture2D>("Room9");
-                transitionDirection = new Vector2(0, -1);
-                SetRectangles();
-                link.SetY(GraphicsDevice.Viewport.Height - 99);
-                currentRoom = nextRoom;
-                this.gameState = Game1State.Transitioning;
-            }
-
-            else if (currentRoom == "room9" && link.GetY() > GraphicsDevice.Viewport.Height - GameConstants.ROOM_EDGE_THRESHOLD)
-            {
-                nextRoom = "room8";
-                nextRoomTexture = Content.Load<Texture2D>("Room8");
-                transitionDirection = new Vector2(0, 1);
-                SetRectangles();
-                link.SetY(101);
-                currentRoom = nextRoom;
                 this.gameState = Game1State.Transitioning;
             }
             hud.UpdateRoomNumber(GetCurrentRoomNumber());
         }
+
+        //private void CheckRoomChange(Game1State gameState)
+        //{
+        //    if (currentRoom == "room1" && link.GetX() > GraphicsDevice.Viewport.Width - GameConstants.ROOM_EDGE_BUFFER)
+        //    {
+        //        nextRoom = "room2";
+        //        nextRoomTexture = Content.Load<Texture2D>("Room2");
+        //        link.SetX(GameConstants.ROOM_EDGE_BUFFER);
+
+        //        transitionDirection = new Vector2(1, 0);
+        //        SetRectangles();
+        //        this.gameState = Game1State.Transitioning;
+        //    }
+        //    else if (currentRoom == "room1" && link.GetX() < GameConstants.ROOM_EDGE_BUFFER)
+        //    {
+        //        nextRoom = "room5";
+        //        nextRoomTexture = Content.Load<Texture2D>("Room5");
+        //        transitionDirection = new Vector2(-1, 0);
+        //        SetRectangles();
+        //        link.SetX(GraphicsDevice.Viewport.Width - 101);
+        //        currentRoom = nextRoom;
+        //        this.gameState = Game1State.Transitioning;
+        //    }
+        //    else if (currentRoom == "room2" && link.GetX() > GraphicsDevice.Viewport.Width - GameConstants.ROOM_EDGE_BUFFER)
+        //    {
+        //        nextRoom = "room4";
+        //        nextRoomTexture = Content.Load<Texture2D>("Room4");
+        //        link.SetX(GameConstants.ROOM_EDGE_BUFFER);
+
+        //        transitionDirection = new Vector2(1, 0);
+        //        SetRectangles();
+        //        this.gameState = Game1State.Transitioning;
+        //    }
+        //    else if (currentRoom == "room5" && link.GetX() > GraphicsDevice.Viewport.Width - GameConstants.ROOM_EDGE_BUFFER)
+        //    {
+        //        nextRoom = "room1";
+        //        nextRoomTexture = Content.Load<Texture2D>("Room1");
+        //        link.SetX(GameConstants.ROOM_EDGE_BUFFER);
+
+        //        transitionDirection = new Vector2(1, 0);
+        //        SetRectangles();
+        //        this.gameState = Game1State.Transitioning;
+        //    }
+        //    else if (currentRoom == "room2" && link.GetX() < GameConstants.ROOM_EDGE_BUFFER)
+        //    {
+        //        nextRoom = "room1";
+        //        nextRoomTexture = Content.Load<Texture2D>("Room1");
+        //        transitionDirection = new Vector2(-1, 0);
+        //        SetRectangles();
+        //        link.SetX(GraphicsDevice.Viewport.Width - 101);
+        //        currentRoom = nextRoom;
+        //        this.gameState = Game1State.Transitioning;
+        //    }
+        //    else if (currentRoom == "room4" && link.GetX() < GameConstants.ROOM_EDGE_BUFFER)
+        //    {
+        //        nextRoom = "room2";
+        //        nextRoomTexture = Content.Load<Texture2D>("Room2");
+        //        transitionDirection = new Vector2(-1, 0);
+        //        SetRectangles();
+        //        link.SetX(GraphicsDevice.Viewport.Width - 101);
+        //        currentRoom = nextRoom;
+        //        this.gameState = Game1State.Transitioning;
+        //    }
+        //    else if (currentRoom == "room2" && link.GetY() < GameConstants.ROOM_EDGE_BUFFER)
+        //    {
+        //        nextRoom = "room3";
+        //        nextRoomTexture = Content.Load<Texture2D>("Room3");
+        //        transitionDirection = new Vector2(0, -1);
+        //        SetRectangles();
+        //        link.SetY(GraphicsDevice.Viewport.Height - 99);
+        //        currentRoom = nextRoom;
+        //        this.gameState = Game1State.Transitioning;
+        //    }
+        //    else if (currentRoom == "room3" && link.GetY() > GraphicsDevice.Viewport.Height - GameConstants.ROOM_EDGE_THRESHOLD)
+        //    {
+        //        nextRoom = "room2";
+        //        nextRoomTexture = Content.Load<Texture2D>("Room2");
+        //        transitionDirection = new Vector2(0, 1);
+        //        SetRectangles();
+        //        link.SetY(101);
+        //        currentRoom = nextRoom;
+        //        this.gameState = Game1State.Transitioning;
+        //    }
+        //    else if (currentRoom == "room5" && link.GetY() > GraphicsDevice.Viewport.Height - GameConstants.ROOM_EDGE_THRESHOLD)
+        //    {
+        //        nextRoom = "room6";
+        //        nextRoomTexture = Content.Load<Texture2D>("Room6");
+        //        transitionDirection = new Vector2(0, 1);
+        //        SetRectangles();
+        //        link.SetY(101);
+        //        currentRoom = nextRoom;
+        //        this.gameState = Game1State.Transitioning;
+        //    }
+        //    else if (currentRoom == "room6" && link.GetY() < GameConstants.ROOM_EDGE_BUFFER)
+        //    {
+        //        nextRoom = "room5";
+        //        nextRoomTexture = Content.Load<Texture2D>("Room5");
+        //        transitionDirection = new Vector2(0, -1);
+        //        SetRectangles();
+        //        link.SetY(GraphicsDevice.Viewport.Height - 70);
+        //        currentRoom = nextRoom;
+        //        this.gameState = Game1State.Transitioning;
+        //    }
+        //    else if (currentRoom == "room6" && link.GetY() > GraphicsDevice.Viewport.Height - GameConstants.ROOM_EDGE_THRESHOLD)
+        //    {
+        //        nextRoom = "room7";
+        //        nextRoomTexture = Content.Load<Texture2D>("Room7");
+        //        transitionDirection = new Vector2(0, 1);
+        //        SetRectangles();
+        //        link.SetY(101);
+        //        currentRoom = nextRoom;
+        //        this.gameState = Game1State.Transitioning;
+        //    }
+        //    else if (currentRoom == "room7" && link.GetY() < GameConstants.ROOM_EDGE_BUFFER)
+        //    {
+        //        nextRoom = "room6";
+        //        nextRoomTexture = Content.Load<Texture2D>("Room6");
+        //        transitionDirection = new Vector2(0, -1);
+        //        SetRectangles();
+        //        link.SetY(GraphicsDevice.Viewport.Height - 99);
+        //        currentRoom = nextRoom;
+        //        this.gameState = Game1State.Transitioning;
+        //    }
+        //    else if (currentRoom == "room5" && link.GetX() < GameConstants.ROOM_EDGE_BUFFER)
+        //    {
+        //        nextRoom = "room8";
+        //        nextRoomTexture = Content.Load<Texture2D>("Room8");
+        //        transitionDirection = new Vector2(-1, 0);
+        //        SetRectangles();
+        //        link.SetX(GraphicsDevice.Viewport.Width - 101);
+        //        currentRoom = nextRoom;
+        //        this.gameState = Game1State.Transitioning;
+        //    }
+        //    else if (currentRoom == "room8" && link.GetX() > GraphicsDevice.Viewport.Width - GameConstants.ROOM_EDGE_BUFFER)
+        //    {
+        //        nextRoom = "room5";
+        //        nextRoomTexture = Content.Load<Texture2D>("Room5");
+        //        link.SetX(GameConstants.ROOM_EDGE_BUFFER);
+        //        transitionDirection = new Vector2(1, 0);
+        //        SetRectangles();
+        //        this.gameState = Game1State.Transitioning;
+        //    }
+        //    else if (currentRoom == "room8" && link.GetY() < GameConstants.ROOM_EDGE_BUFFER)
+        //    {
+        //        nextRoom = "room9";
+        //        nextRoomTexture = Content.Load<Texture2D>("Room9");
+        //        transitionDirection = new Vector2(0, -1);
+        //        SetRectangles();
+        //        link.SetY(GraphicsDevice.Viewport.Height - 99);
+        //        currentRoom = nextRoom;
+        //        this.gameState = Game1State.Transitioning;
+        //    }
+
+        //    else if (currentRoom == "room9" && link.GetY() > GraphicsDevice.Viewport.Height - GameConstants.ROOM_EDGE_THRESHOLD)
+        //    {
+        //        nextRoom = "room8";
+        //        nextRoomTexture = Content.Load<Texture2D>("Room8");
+        //        transitionDirection = new Vector2(0, 1);
+        //        SetRectangles();
+        //        link.SetY(101);
+        //        currentRoom = nextRoom;
+        //        this.gameState = Game1State.Transitioning;
+        //    }
+        //    hud.UpdateRoomNumber(GetCurrentRoomNumber());
+        //}
 
         private void SetRectangles()
         {

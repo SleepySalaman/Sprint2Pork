@@ -194,7 +194,7 @@
 /processorParam:TextureFormat=Color
 /build:red_goriya.png
 
-#begin Room1.jpg
+#begin Room1.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -204,19 +204,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Room1.jpg
-
-#begin Room1Alone.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Room1Alone.png
+/build:Room1.png;room1.png
 
 #begin Room2.jpg
 /importer:TextureImporter
@@ -228,19 +216,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Room2.jpg
-
-#begin Room2Alone.jpg
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Room2Alone.jpg
+/build:Room2.jpg;room2.jpg
 
 #begin Room3.png
 /importer:TextureImporter
@@ -252,7 +228,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Room3.png
+/build:Room3.png;room3.png
 
 #begin Room4.jpg
 /importer:TextureImporter
@@ -264,7 +240,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Room4.jpg
+/build:Room4.jpg;room4.jpg
 
 #begin Room5.png
 /importer:TextureImporter
@@ -276,7 +252,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Room5.png
+/build:Room5.png;room5.png
 
 #begin Room6.png
 /importer:TextureImporter
@@ -288,7 +264,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Room6.png
+/build:Room6.png;room6.png
 
 #begin Room7.jpg
 /importer:TextureImporter
@@ -300,7 +276,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Room7.jpg
+/build:Room7.jpg;room7.jpg
 
 #begin Room8.jpg
 /importer:TextureImporter
@@ -312,7 +288,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Room8.jpg
+/build:Room8.jpg;room8.jpg
 
 #begin Room9.png
 /importer:TextureImporter
@@ -324,7 +300,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Room9.png
+/build:Room9.png;room9.png
 
 #begin sfxFlamesShot.wav
 /importer:WavImporter
