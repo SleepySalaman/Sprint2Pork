@@ -369,7 +369,9 @@ namespace Sprint2Pork
             hud.SubscribeToLinkEvents(link);
             minimap = new Minimap(GraphicsDevice, link);
 
-            currentRoom = "room2";
+            currentRoom = "room1";
+            roomTexture = roomManager.GetNextRoomTexture(currentRoom);
+
             (blocks, groundItems, enemies, fireballManagers) = rooms[currentRoom];
             gameState = Game1State.Playing;
 
