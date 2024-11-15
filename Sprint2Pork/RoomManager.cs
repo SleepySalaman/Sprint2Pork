@@ -63,9 +63,9 @@ namespace Sprint2Pork
                     if (link.GetX() < leftBorder) { nextRoom = "room5"; }
                     break;
                 case "room2":
-                    if (link.GetX() > rightBorder) { nextRoom = "room5"; }
+                    if (link.GetX() > rightBorder) { nextRoom = "room4"; }
                     if (link.GetX() < leftBorder) { nextRoom = "room1"; }
-                    if (link.GetY() < topBorder) { nextRoom = "room4"; }
+                    if (link.GetY() < topBorder) { nextRoom = "room3"; }
                     break;
                 case "room3":
                     if (link.GetY() > bottomBorder) { nextRoom = "room2"; }

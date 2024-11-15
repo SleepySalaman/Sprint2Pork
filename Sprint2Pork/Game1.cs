@@ -460,7 +460,7 @@ namespace Sprint2Pork
                 int row = i / itemsPerRow;
                 int col = i % itemsPerRow;
                 Vector2 position = new Vector2(startX + (itemSize + padding) * col, startY + (itemSize + padding) * row);
-
+                
                 spriteBatch.Draw(allTextures[9], position, sourceRect, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
 
                 // If the item is the one in SlotB, draw a selection box around it
