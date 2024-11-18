@@ -12,7 +12,7 @@ namespace Sprint2Pork
         int startY = 0;
         List<Rectangle> sourceRects = new List<Rectangle>();
         public ISprite sprite;
-        String directionStr;
+        String directionStr = "Down";
 
         public BlueBoomer(ILinkDirectionState state, int X, int Y)
         {

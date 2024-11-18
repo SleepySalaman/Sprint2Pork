@@ -8,13 +8,11 @@ namespace Sprint2Pork
     {
         private List<SoundEffect> soundEffects;
         private SoundEffectInstance soundInstance;
-        private bool playingFlag;
         //private Dictionary<string, float> delays;
 
         public SoundManager()
         {
             soundEffects = new List<SoundEffect>();
-            playingFlag = false;
             //delays = new Dictionary<string, float>();
         }
 

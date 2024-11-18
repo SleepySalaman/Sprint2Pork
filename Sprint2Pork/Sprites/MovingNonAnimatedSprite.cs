@@ -6,12 +6,10 @@ public class MovingNonAnimatedSprite : ISprite
 {
     private int totalFrames;
     private int currentFrame;
-    private bool flipped;
     private int spriteWidth;
     private int spriteHeight;
     private List<Rectangle> sourceRects;
     private Rectangle destinationRect;
-    private int count;
     private string direction;
 
     public MovingNonAnimatedSprite(int x, int y, Rectangle rect, string direction)
@@ -19,7 +17,6 @@ public class MovingNonAnimatedSprite : ISprite
         sourceRects = new List<Rectangle> { rect };
         spriteWidth = rect.Width;
         spriteHeight = rect.Height;
-        count = 0;
         currentFrame = 0;
         totalFrames = sourceRects.Count;
         this.direction = direction;

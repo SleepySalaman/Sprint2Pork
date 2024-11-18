@@ -24,9 +24,6 @@ namespace Sprint2Pork
         private int screenHeight;
         private ISprite linkSprite;
 
-        private bool isMoving;
-        private bool IsFrozen;
-        private bool IsDamaged;
         private int damageEffectCounter;
         private bool isTakingDamage;
         private const int flashRate = 1;
@@ -59,7 +56,6 @@ namespace Sprint2Pork
             OffsetX = 0;
             OffsetY = 0;
             attackFrameCount = 0;
-            IsFrozen = false;
             this.inventory = inventory;
 
             // Initialize damage effect fields
@@ -209,8 +205,6 @@ namespace Sprint2Pork
             }
         }
 
-        public void Idle() => isMoving = false;
-
         public void Move(bool reverse)
         {
             if (ItemInUse)  // Keep using the frozen direction when item is in use
@@ -252,13 +246,11 @@ namespace Sprint2Pork
 
         public void Attack()
         {
-            IsFrozen = true;
             attackFrameCount++;
 
             if (attackFrameCount > 40)
             {
                 attackFrameCount = 0;
-                IsFrozen = false;
                 BeIdle();
             }
         }
