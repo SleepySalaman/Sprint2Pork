@@ -1,10 +1,10 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Sprint2Pork;
 using Sprint2Pork.Blocks;
 using Sprint2Pork.Entity.Moving;
 using Sprint2Pork.Items;
-using Sprint2Pork;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 
 public class Minimap
 {

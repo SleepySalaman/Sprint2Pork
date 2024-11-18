@@ -1,22 +1,20 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
 using Sprint2Pork.Blocks;
 using Sprint2Pork.Entity.Moving;
-using Sprint2Pork.GroundItems;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Sprint2Pork.Items;
 using Sprint2Pork.rooms;
+using System.Collections.Generic;
 
-namespace Sprint2Pork {
-    public class RoomLoader {
+namespace Sprint2Pork
+{
+    public class RoomLoader
+    {
 
-        public static void LoadRooms(Texture2D blockTexture, Texture2D groundItemTexture, Texture2D enemyTexture, 
-            ref List<Block> blocks, ref List<GroundItem> groundItems, ref List<IEnemy> enemies, 
+        public static void LoadRooms(Texture2D blockTexture, Texture2D groundItemTexture, Texture2D enemyTexture,
+            ref List<Block> blocks, ref List<GroundItem> groundItems, ref List<IEnemy> enemies,
             ref List<EnemyManager> fireballManagers, ref Dictionary<string, (List<Block>, List<GroundItem>, List<IEnemy>, List<EnemyManager>)> rooms,
-            ref SoundManager soundManager, ref string currentRoom) {
+            ref SoundManager soundManager, ref string currentRoom)
+        {
             CSVLevelLoader.LoadObjectsFromCSV("room1.csv", blockTexture, groundItemTexture, enemyTexture, out var room1Blocks, out var room1Items, out var room1Enemies, out var fireballManagerRoom1, soundManager);
             CSVLevelLoader.LoadObjectsFromCSV("room2.csv", blockTexture, groundItemTexture, enemyTexture, out var room2Blocks, out var room2Items, out var room2Enemies, out var fireballManagersRoom2, soundManager);
             CSVLevelLoader.LoadObjectsFromCSV("room3.csv", blockTexture, groundItemTexture, enemyTexture, out var room3Blocks, out var room3Items, out var room3Enemies, out var fireballManagersRoom3, soundManager);

@@ -6,11 +6,9 @@ using Sprint2Pork.Constants;
 using Sprint2Pork.Entity.Moving;
 using Sprint2Pork.GroundItems;
 using Sprint2Pork.Items;
-using Sprint2Pork.rooms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static System.Formats.Asn1.AsnWriter;
 
 namespace Sprint2Pork
 {
@@ -88,7 +86,7 @@ namespace Sprint2Pork
             IsFullscreen = false;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            
+
             soundManager = new SoundManager();
             allTextures = new List<Texture2D>();
             blocks = new List<Block>();
@@ -245,7 +243,8 @@ namespace Sprint2Pork
         private void UpdateLink(int linkPreviousX, int linkPreviousY)
         {
             ISprite itemSprite = link.linkItem.SpriteGet();
-            if (itemSprite != null) {
+            if (itemSprite != null)
+            {
                 link.linkItem.SpriteSet(itemSprite);
             }
 
@@ -264,12 +263,15 @@ namespace Sprint2Pork
                     link.SetY(linkPreviousY);
                     break;
                 }
-                if (link.linkItem.Collides(block.getBoundingBox())) {
+                if (link.linkItem.Collides(block.getBoundingBox()))
+                {
                     link.StopLinkItem();
                 }
             }
-            if (link.IsLinkUsingItem()) {
-                if (Collision.CollidesWithOutside(link.linkItem.SpriteGet().GetRect(), roomBoundingBox)) {
+            if (link.IsLinkUsingItem())
+            {
+                if (Collision.CollidesWithOutside(link.linkItem.SpriteGet().GetRect(), roomBoundingBox))
+                {
                     link.StopLinkItem();
                 }
             }
@@ -291,7 +293,8 @@ namespace Sprint2Pork
                     else if (item is Triangle)
                     {
                         GameOver();
-                    }else if (item is Potion)
+                    }
+                    else if (item is Potion)
                     {
                         healthCount.HealFullHeart();
                     }
@@ -384,24 +387,38 @@ namespace Sprint2Pork
             spriteBatch.Begin();
 
             GraphicsDevice.Clear(Color.Black);
-            if (gameState == Game1State.StartScreen) {
+            if (gameState == Game1State.StartScreen)
+            {
                 DrawStartScreen();
-            } else if (gameState == Game1State.GameOver) {
+            }
+            else if (gameState == Game1State.GameOver)
+            {
                 DrawGameOverScreen();
-            } else {
+            }
+            else
+            {
                 spriteBatch.Draw(hudTexture, new Rectangle(0, 0, viewport.Width, GameConstants.HUD_HEIGHT), Color.White);
                 healthCount.DrawLives(spriteBatch, lifeTexture, viewport);
 
-                if (gameState == Game1State.Playing) {
+                if (gameState == Game1State.Playing)
+                {
                     DrawPlayingScreen();
 
-                } else if (gameState == Game1State.Transitioning) {
+                }
+                else if (gameState == Game1State.Transitioning)
+                {
                     DrawTransitioningScreen();
-                } else if (gameState == Game1State.Paused) {
+                }
+                else if (gameState == Game1State.Paused)
+                {
                     DrawPausedScreen();
-                } else if (gameState == Game1State.Inventory) {
+                }
+                else if (gameState == Game1State.Inventory)
+                {
                     DrawInventoryScreen();
-                } else if (gameState == Game1State.GameOver) {
+                }
+                else if (gameState == Game1State.GameOver)
+                {
                     spriteBatch.DrawString(font, "Game Over", new Vector2(GameConstants.TEXT_DISPLAY, GameConstants.TEXT_DISPLAY), Color.Red);
                 }
             }
@@ -452,7 +469,7 @@ namespace Sprint2Pork
                 int row = i / itemsPerRow;
                 int col = i % itemsPerRow;
                 Vector2 position = new Vector2(startX + (itemSize + padding) * col, startY + (itemSize + padding) * row);
-                
+
                 spriteBatch.Draw(allTextures[9], position, sourceRect, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
 
                 // If the item is the one in SlotB, draw a selection box around it
@@ -463,9 +480,9 @@ namespace Sprint2Pork
                 }
             }
             minimap.Draw(spriteBatch, blocks, groundItems, enemies, new Rectangle(20, 140, 200, 200), 0.5f);
-            Rectangle minimapRectangle = new Rectangle(60, 210, 320, 158); 
+            Rectangle minimapRectangle = new Rectangle(60, 210, 320, 158);
             DrawBlueBox(minimapRectangle);
-            DrawBlueBox(new Rectangle(startX - padding, startY - padding, boxWidth + 2*padding, boxHeight + 2*padding));
+            DrawBlueBox(new Rectangle(startX - padding, startY - padding, boxWidth + 2 * padding, boxHeight + 2 * padding));
         }
 
 
@@ -560,9 +577,12 @@ namespace Sprint2Pork
 
         public void StartGame()
         {
-            if (gameState == Game1State.StartScreen){
+            if (gameState == Game1State.StartScreen)
+            {
                 gameState = Game1State.Playing;
-            } else {
+            }
+            else
+            {
                 gameState = Game1State.StartScreen;
             }
         }

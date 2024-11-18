@@ -1,12 +1,8 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Sprint2Pork.Constants;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sprint2Pork
 {
@@ -95,7 +91,7 @@ namespace Sprint2Pork
             }
             return nextRoom;
 
-            }
+        }
         public Texture2D GetNextRoomTexture(string nextRoom)
         {
             roomMap.TryGetValue(nextRoom, out Texture2D room);
@@ -104,7 +100,7 @@ namespace Sprint2Pork
 
         public Vector2 GetDirection(Link link)
         {
-            Vector2 nextDirection = new Vector2(0,0);
+            Vector2 nextDirection = new Vector2(0, 0);
             if (link.GetX() > rightBorder) { transitionDirections.TryGetValue("right", out nextDirection); }
             else if (link.GetX() < leftBorder) { transitionDirections.TryGetValue("left", out nextDirection); }
             else if (link.GetY() < topBorder) { transitionDirections.TryGetValue("up", out nextDirection); }
@@ -119,6 +115,6 @@ namespace Sprint2Pork
             else if (link.GetY() < topBorder) { link.SetY(GraphicsDevice.Viewport.Height - 50); }
             else if (link.GetY() > bottomBorder) { link.SetY(101); }
         }
-        }
     }
+}
 

@@ -8,10 +8,11 @@ namespace Sprint2Pork
     public class EnemyUpdater
     {
 
-        public static void UpdateEnemies(Link link, List<IEnemy> enemies, List<Block> blocks, List<EnemyManager> fireballManagers, 
+        public static void UpdateEnemies(Link link, List<IEnemy> enemies, List<Block> blocks, List<EnemyManager> fireballManagers,
             LinkHealth healthCount)
         {
-            if (link.IsLinkUsingItem()) {
+            if (link.IsLinkUsingItem())
+            {
                 link.linkItem.Update(link);
             }
 
@@ -22,12 +23,15 @@ namespace Sprint2Pork
                 enemy.Update();
                 enemy.Move(blocks);
                 bool collidesWithLink = Collision.Collides(link.GetRect(), enemy.GetRect());
-                if (collidesWithLink) {
+                if (collidesWithLink)
+                {
                     link.TakeDamage();
                     healthCount.TakeDamage();
                 }
-                if (link.IsLinkUsingItem()) {
-                    if (link.linkItem.Collides(enemy.GetRect())) {
+                if (link.IsLinkUsingItem())
+                {
+                    if (link.linkItem.Collides(enemy.GetRect()))
+                    {
                         enemy.TakeDamage();
                     }
                 }
@@ -35,9 +39,12 @@ namespace Sprint2Pork
                 {
                     int id = enemy.GetFireballID();
                     enemiesToRemove.Add(enemy);
-                    if(id != 0) {
-                        foreach (var manager in fireballManagers) {
-                            if (manager.GetID() == id) {
+                    if (id != 0)
+                    {
+                        foreach (var manager in fireballManagers)
+                        {
+                            if (manager.GetID() == id)
+                            {
                                 fireballsToRemove.Add(manager);
                             }
                         }
@@ -48,7 +55,8 @@ namespace Sprint2Pork
             {
                 enemies.Remove(enemy);
             }
-            foreach (var manager in fireballsToRemove) {
+            foreach (var manager in fireballsToRemove)
+            {
                 fireballManagers.Remove(manager);
             }
         }

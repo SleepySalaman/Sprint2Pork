@@ -1,9 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Sprint2Pork.Items;
 using System;
 using System.Collections.Generic;
-using System.Net.Http.Headers;
 
 namespace Sprint2Pork
 {
@@ -47,11 +45,11 @@ namespace Sprint2Pork
             {
                 { "Rupee", new Rectangle(72, 0, 8, 16) },
                 { "Key", new Rectangle(240, 0, 8, 16) },
-                { "GroundBomb", new Rectangle(136, 0, 8, 16) }, 
-                { "Sword", new Rectangle(104, 16, 6, 16) }, 
+                { "GroundBomb", new Rectangle(136, 0, 8, 16) },
+                { "Sword", new Rectangle(104, 16, 6, 16) },
                 { "Arrow", new Rectangle(152, 16, 8, 16) },
                 { "Boomerang", new Rectangle(128, 0, 8, 16) },
-                { "WoodArrow", new Rectangle(152, 0, 8, 16) }, 
+                { "WoodArrow", new Rectangle(152, 0, 8, 16) },
                 { "BlueBoomer", new Rectangle(128, 16, 8, 16) },
                 { "Fire", new Rectangle(224, 0, 8, 16) },
             };
@@ -74,7 +72,7 @@ namespace Sprint2Pork
             if (!string.IsNullOrEmpty(slotAItem) && itemSourceRects.ContainsKey(slotAItem))
             {
                 Rectangle sourceRect = itemSourceRects[slotAItem];
-                Vector2 slotAPosition = new Vector2(445, 40); 
+                Vector2 slotAPosition = new Vector2(445, 40);
                 spriteBatch.Draw(itemsTexture, slotAPosition, sourceRect, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
             }
             else
