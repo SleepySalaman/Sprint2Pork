@@ -4,13 +4,12 @@ using System.Collections.Generic;
 
 public class MovingNonAnimatedSprite : ISprite
 {
-    private int totalFrames;
-    private int currentFrame;
-    private int spriteWidth;
-    private int spriteHeight;
-    private List<Rectangle> sourceRects;
+    private readonly int currentFrame;
+    private readonly int spriteWidth;
+    private readonly int spriteHeight;
+    private readonly List<Rectangle> sourceRects;
     private Rectangle destinationRect;
-    private string direction;
+    private readonly string direction;
 
     public MovingNonAnimatedSprite(int x, int y, Rectangle rect, string direction)
     {
@@ -18,7 +17,6 @@ public class MovingNonAnimatedSprite : ISprite
         spriteWidth = rect.Width;
         spriteHeight = rect.Height;
         currentFrame = 0;
-        totalFrames = sourceRects.Count;
         this.direction = direction;
         destinationRect = new Rectangle(x, y, rect.Width * 3, rect.Height * 3);
     }
