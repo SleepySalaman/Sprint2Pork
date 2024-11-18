@@ -9,7 +9,6 @@ public class MovingNonAnimatedSprite : ISprite
     private bool flipped;
     private int spriteWidth;
     private int spriteHeight;
-    private int interval;
     private List<Rectangle> sourceRects;
     private Rectangle destinationRect;
     private int count;
@@ -20,7 +19,6 @@ public class MovingNonAnimatedSprite : ISprite
         sourceRects = new List<Rectangle> { rect };
         spriteWidth = rect.Width;
         spriteHeight = rect.Height;
-        interval = 0; // No animation interval for non-animated sprite
         count = 0;
         currentFrame = 0;
         totalFrames = sourceRects.Count;

@@ -14,9 +14,6 @@ namespace Sprint2Pork.Entity.Moving
 
         private int relX;
         private int modX = 20;
-
-        private int maxX = -50;
-
         public Fireball(int id, int x, int initX, int initY)
         {
             sourceRects = new List<Rectangle>() {

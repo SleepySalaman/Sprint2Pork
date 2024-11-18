@@ -30,7 +30,6 @@ namespace Sprint2Pork
         private SpriteFont font;
 
         private int[] spritePos = new int[2] { 0, 0 };
-        private bool moving = false;
         private Texture2D backgroundTexture;
         private Texture2D hudTexture;
         private Texture2D roomTexture;
@@ -46,17 +45,12 @@ namespace Sprint2Pork
         private List<EnemyManager> fireballManagers;
         private Vector2 enemyInitPos = new Vector2(GameConstants.ENEMY_INIT_X, GameConstants.ENEMY_INIT_Y);
         private Texture2D winStateTexture;
-        private int currentBlockIndex = 0;
         private Vector2 blockPosition = new Vector2(200, 200);
 
         private List<GroundItem> items;
-        private int currentItemIndex = 0;
 
         private EnemyManager enemyManager;
         private UpdateEnemySprite enemyUpdater;
-
-        private int currentEnemyNum = 0;
-        private int numEnemies = 12;
 
         private Link link;
         private HUD hud;
@@ -69,7 +63,6 @@ namespace Sprint2Pork
         public bool menu = false;
         private string currentRoom;
         private string nextRoom;
-        private int lifeCount;
         private LinkHealth healthCount = new LinkHealth();
         private Dictionary<string, (List<Block>, List<GroundItem>, List<IEnemy>, List<EnemyManager>)> rooms;
         private Paused pausedScreen;
@@ -272,12 +265,12 @@ namespace Sprint2Pork
                     break;
                 }
                 if (link.linkItem.Collides(block.getBoundingBox())) {
-                    link.endItem();
+                    link.StopLinkItem();
                 }
             }
             if (link.IsLinkUsingItem()) {
                 if (Collision.CollidesWithOutside(link.linkItem.SpriteGet().GetRect(), roomBoundingBox)) {
-                    link.endItem();
+                    link.StopLinkItem();
                 }
             }
         }
@@ -354,11 +347,8 @@ namespace Sprint2Pork
 
         public void ResetGame()
         {
-            currentBlockIndex = 0;
-            currentItemIndex = 0;
             spritePos[0] = GameConstants.DEFAULT_SPRITE_POSITION;
             spritePos[1] = GameConstants.DEFAULT_SPRITE_POSITION;
-            moving = false;
 
             enemyUpdater = new UpdateEnemySprite((int)enemyInitPos.X, (int)enemyInitPos.Y);
 

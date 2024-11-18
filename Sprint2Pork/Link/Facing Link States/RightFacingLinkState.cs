@@ -6,7 +6,6 @@ namespace Sprint2Pork
     public class RightFacingLinkState : ILinkDirectionState
     {
         private Link link;
-        private ISprite linkSprite;
 
         public RightFacingLinkState(Link link)
         {

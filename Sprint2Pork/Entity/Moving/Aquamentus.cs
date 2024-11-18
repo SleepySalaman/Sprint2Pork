@@ -8,13 +8,6 @@ namespace Sprint2Pork.Entity.Moving
     {
         private int x;
 
-        private bool fireballsCreated;
-
-        private int fireballCount = 3;
-        private int fireballDistance = -40;
-
-        private List<Fireball> fireballs;
-
         private int moveCount = 0;
         private int moveMaxCount = 1;
 

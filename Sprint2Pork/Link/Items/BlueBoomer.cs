@@ -11,8 +11,8 @@ namespace Sprint2Pork
         int startX = 0;
         int startY = 0;
         List<Rectangle> sourceRects = new List<Rectangle>();
-        String directionStr;
         public ISprite sprite;
+        String directionStr;
 
         public BlueBoomer(ILinkDirectionState state, int X, int Y)
         {

@@ -8,12 +8,9 @@ public class KeyboardController : IController
     private Game1 programGame;
     private Link link;
     private List<Block> listOfBlocks;
-    private int currentBlockIndex;
-
     private KeyboardState previousKeyboardState;
 
     // Damage effect fields
-    private int damageEffectCounter;
     private bool isTakingDamage;
     private const int flashRate = 5;
 
@@ -22,11 +19,9 @@ public class KeyboardController : IController
         programGame = g;
         link = linkCharacter;
         listOfBlocks = blocks;
-        currentBlockIndex = 0;
         previousKeyboardState = Keyboard.GetState();
 
         // Initialize damage effect fields
-        damageEffectCounter = 0;
         isTakingDamage = false;
     }
 

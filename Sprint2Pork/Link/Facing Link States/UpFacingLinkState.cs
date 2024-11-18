@@ -6,7 +6,6 @@ namespace Sprint2Pork
     public class UpFacingLinkState : ILinkDirectionState
     {
         private Link link;
-        private ISprite linkSprite;
 
         public UpFacingLinkState(Link link)
         {

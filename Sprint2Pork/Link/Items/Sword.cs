@@ -11,8 +11,6 @@ namespace Sprint2Pork
         int startY = 0;
         public ISprite sprite;
         string directionStr = "Up";
-        int offSetX = 0;
-        int offSetY = 0;
         public Sword(ILinkDirectionState state, int X, int Y)
         {
             startX += X;

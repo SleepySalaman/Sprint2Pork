@@ -300,7 +300,7 @@ namespace Sprint2Pork
             return isTakingDamage;
         }
 
-        public void endItem() {
+        public void StopLinkItem() {
             linkCount = 20;
         }
 
