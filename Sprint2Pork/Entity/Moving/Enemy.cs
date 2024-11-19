@@ -74,6 +74,14 @@ namespace Sprint2Pork.Entity.Moving
             }
         }
 
+        public void TakeDamage(bool active)
+        {
+            if (health > 0 && active)
+            {
+                health--;
+            }
+        }
+
         private void DrawHitbox(SpriteBatch sb, Texture2D hitboxTxt, bool showHitbox)
         {
             if (showHitbox)

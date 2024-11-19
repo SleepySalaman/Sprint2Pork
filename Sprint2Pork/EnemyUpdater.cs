@@ -18,6 +18,7 @@ namespace Sprint2Pork
 
             var enemiesToRemove = new List<IEnemy>();
             var fireballsToRemove = new List<EnemyManager>();
+            bool hit = false;
             foreach (Enemy enemy in enemies)
             {
                 enemy.Update();
@@ -30,9 +31,10 @@ namespace Sprint2Pork
                 }
                 if (link.IsLinkUsingItem())
                 {
-                    if (link.linkItem.Collides(enemy.GetRect()))
+                    if (!hit && link.linkItem.Collides(enemy.GetRect()))
                     {
-                        enemy.TakeDamage();
+                        enemy.TakeDamage(!hit);
+                        hit = true;
                     }
                 }
                 if (enemy.getHealth() <= 0)
