@@ -11,6 +11,8 @@ namespace Sprint2Pork
         public ISprite sprite;
         int startX = 0;
         int startY = 0;
+        bool collided = false;
+
         public Bomb(ILinkDirectionState state, int X, int Y)
         {
             startX += X;
@@ -91,11 +93,23 @@ namespace Sprint2Pork
         }
         public bool Collides(Rectangle rect2)
         {
+            if (collided)
+            {
+                return false;
+            }
             Rectangle rect1 = sprite.GetRect();
-            return (rect1.X + rect1.Width > rect2.X &&
+            if (rect1.X + rect1.Width > rect2.X &&
                 rect1.X < rect2.X + rect2.Width &&
                 rect1.Y + rect1.Height > rect2.Y &&
-                rect1.Y < rect2.Y + rect2.Height);
+                rect1.Y < rect2.Y + rect2.Height)
+            {
+                collided = true;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         public Rectangle getLocation() => (sprite.GetRect());
         public void SpriteSet(ISprite sprite) => this.sprite = sprite;
