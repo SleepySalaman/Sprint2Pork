@@ -433,34 +433,14 @@ namespace Sprint2Pork
 
         private void DrawGameState()
         {
-            switch (gameState)
-            {
-                case Game1State.Playing:
-                    DrawPlayingScreen();
-                    break;
-                case Game1State.Transitioning:
-                    DrawTransitioningScreen();
-                    break;
-                case Game1State.Paused:
-                case Game1State.Inventory:
-                    DrawInventoryScreen();
-                    break;
-                case Game1State.GameOver:
-                    spriteBatch.DrawString(font, "Game Over", new Vector2(GameConstants.TEXT_DISPLAY, GameConstants.TEXT_DISPLAY), Color.Red);
-                    break;
-            }
+            Drawing.DrawGameState(gameState, spriteBatch, font, winStateTexture, viewport, this);
         }
 
-        private void DrawInventoryScreen()
+        public void DrawInventoryScreen()
         {
-            hud.Draw(spriteBatch, allTextures[9]);
-            minimap.Draw(spriteBatch, blocks, groundItems, enemies, new Rectangle(120, 15, 140, 5), 0.15f);
-
-            string title = "GAME PAUSED";
-            Vector2 titlePos = new Vector2((viewport.Width - font.MeasureString(title).X) / 2, 150);
-            spriteBatch.DrawString(font, title, titlePos, Color.White);
-            DrawInventoryItems();
+            Drawing.DrawInventoryScreen(spriteBatch, hud, minimap, blocks, groundItems, enemies, font, viewport, allTextures[9], this);
         }
+
         private void InitializeItemSourceRects()
         {
             itemSourceRects = new Dictionary<string, Rectangle>
@@ -474,7 +454,7 @@ namespace Sprint2Pork
                 { "Fire", new Rectangle(224, 0, 8, 16) },
             };
         }
-        private void DrawInventoryItems(float scale = 4.0f)
+        public void DrawInventoryItems(float scale = 4.0f)
         {
             int startX = GameConstants.INVENTORY_START_X;
             int startY = GameConstants.INVENTORY_START_Y;
@@ -499,8 +479,7 @@ namespace Sprint2Pork
                 // If the item is the one in SlotB, draw a selection box around it
                 if (item.Key == link.SlotB)
                 {
-                    Rectangle selectionBox = new Rectangle((int)position.X, (int)position.Y, (int)(sourceRect.Width * scale), (int)(sourceRect.Height * scale));
-                    DrawSelectionBox(selectionBox);
+                    Drawing.DrawSelectionBox(spriteBatch, hitboxTexture, new Rectangle((int)position.X, (int)position.Y, (int)(sourceRect.Width * scale), (int)(sourceRect.Height * scale)));
                 }
             }
             minimap.Draw(spriteBatch, blocks, groundItems, enemies, new Rectangle(20, 140, 200, 200), 0.5f);
@@ -524,25 +503,6 @@ namespace Sprint2Pork
             spriteBatch.Draw(whiteTexture, new Rectangle(rectangle.Left, rectangle.Bottom - thickness, rectangle.Width, thickness), color);
         }
 
-        private void DrawSelectionBox(Rectangle rectangle)
-        {
-            int thickness = 3;
-            int length = 9;
-            Color color = Color.Red;
-
-            rectangle = new Rectangle(rectangle.Left - 3, rectangle.Top - 3, rectangle.Width + 6, rectangle.Height + 4);
-
-            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Top, length, thickness), color);
-            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Top, thickness, length), color);
-            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Right - length, rectangle.Top, length, thickness), color);
-            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Right - thickness, rectangle.Top, thickness, length), color);
-            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Bottom - thickness, length, thickness), color);
-            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Bottom - length, thickness, length), color);
-            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Right - length, rectangle.Bottom - thickness, length, thickness), color);
-            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Right - thickness, rectangle.Bottom - length, thickness, length), color);
-        }
-
-
         private void DrawGameOverScreen()
         {
             spriteBatch.Draw(winStateTexture, new Rectangle(0, 0, viewport.Width, viewport.Height), Color.White);
@@ -557,7 +517,7 @@ namespace Sprint2Pork
             );
         }
 
-        private void DrawPlayingScreen()
+        public void DrawPlayingScreen()
         {
             spriteBatch.Draw(roomTexture, new Rectangle(0, GameConstants.ROOM_Y_OFFSET, viewport.Width, viewport.Height - GameConstants.ROOM_Y_OFFSET), Color.White);
             link.Draw(spriteBatch, allTextures[0], allTextures[10]);
@@ -567,7 +527,7 @@ namespace Sprint2Pork
             minimap.Draw(spriteBatch, blocks, groundItems, enemies, new Rectangle(120, 15, 140, 5), 0.15f);
         }
 
-        private void DrawTransitioningScreen()
+        public void DrawTransitioningScreen()
         {
             spriteBatch.Draw(roomTexture, oldRoomRectangle, Color.White);
             spriteBatch.Draw(nextRoomTexture, nextRoomRectangle, Color.White);
