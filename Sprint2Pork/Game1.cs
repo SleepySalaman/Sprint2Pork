@@ -16,71 +16,78 @@ namespace Sprint2Pork
 {
     public class Game1 : Game
     {
+        // Graphics and Rendering
         public GraphicsDeviceManager graphics;
-        private Minimap minimap;
-
-        public bool IsFullscreen { get; set; }
+        public Viewport viewport;
         private SpriteBatch spriteBatch;
-        private List<IController> controllerList;
-
-        private ISprite textSprite;
-
-        private List<Texture2D> allTextures;
-
         private SpriteFont font;
 
-        private int[] spritePos = new int[2] { 0, 0 };
+        // Textures
         private Texture2D backgroundTexture;
         private Texture2D hudTexture;
         private Texture2D roomTexture;
         private Texture2D nextRoomTexture;
         private Texture2D lifeTexture;
         private Texture2D pauseOverlayTexture;
-
         private Texture2D hitboxTexture;
-
-        private List<Block> blocks;
-        private List<GroundItem> groundItems;
-        private List<IEnemy> enemies;
-        private List<EnemyManager> fireballManagers;
-        private Vector2 enemyInitPos = new Vector2(GameConstants.ENEMY_INIT_X, GameConstants.ENEMY_INIT_Y);
         private Texture2D winStateTexture;
-        private Vector2 blockPosition = new Vector2(200, 200);
+        private Texture2D startScreenTexture;
+        private List<Texture2D> allTextures;
 
-        private List<GroundItem> items;
+        // Game State and Management
+        public Game1State gameState { get; private set; }
+        private Game1StateManager gameStateManager;
+        private string currentRoom;
+        private string nextRoom;
 
-        private EnemyManager enemyManager;
-        private UpdateEnemySprite enemyUpdater;
-
-        private Link link;
+        // UI and HUD Components
         private HUD hud;
+        private Minimap minimap;
+        private Paused pausedScreen;
+        private ISprite textSprite;
         private Inventory inventory;
         private Dictionary<string, Rectangle> itemSourceRects;
 
-        public Viewport viewport;
-
-        public bool showHitboxes = false;
-        public bool menu = false;
-        private string currentRoom;
-        private string nextRoom;
+        // Player and Character Related
+        private Link link;
         private LinkHealth healthCount = new LinkHealth();
-        private Dictionary<string, (List<Block>, List<GroundItem>, List<IEnemy>, List<EnemyManager>)> rooms;
-        private Paused pausedScreen;
-        private SoundManager soundManager;
+        private int[] spritePos = new int[2] { 0, 0 };
 
-        public Game1State gameState { get; private set; }
-        private Game1StateManager gameStateManager;
+        // Enemy and Enemy Management
+        private List<IEnemy> enemies;
+        private List<EnemyManager> fireballManagers;
+        private EnemyManager enemyManager;
+        private UpdateEnemySprite enemyUpdater;
+        private Vector2 enemyInitPos = new Vector2(GameConstants.ENEMY_INIT_X, GameConstants.ENEMY_INIT_Y);
+
+        // Game World and Room Management
+        private RoomManager roomManager;
+        private Dictionary<string, (List<Block>, List<GroundItem>, List<IEnemy>, List<EnemyManager>)> rooms;
+        private List<Block> blocks;
+        private List<GroundItem> groundItems;
+        private List<GroundItem> items;
+        private Vector2 blockPosition = new Vector2(200, 200);
+        private Rectangle roomBoundingBox = new Rectangle(70, 110, 660, 800);
+
+        // Transition and Room-related Variables
         private float transitionDuration = GameConstants.TRANSITION_DURATION;
         private float transitionTimer = 0f;
         private Rectangle oldRoomRectangle;
         private Rectangle oldRoomRectangleSaved;
         private Rectangle nextRoomRectangle;
         private Rectangle nextRoomRectangleSaved;
-        private Rectangle roomBoundingBox = new Rectangle(70, 110, 660, 800);
         private Vector2 transitionDirection;
-        private Texture2D startScreenTexture;
 
-        private RoomManager roomManager;
+        // Audio
+        private SoundManager soundManager;
+
+        // Input and Control
+        private List<IController> controllerList;
+
+        // Toggles and Flags
+        public bool IsFullscreen { get; set; }
+        public bool showHitboxes = false;
+        public bool menu = false;
 
         public Game1()
         {
