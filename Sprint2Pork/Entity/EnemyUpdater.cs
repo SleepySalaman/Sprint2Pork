@@ -4,7 +4,7 @@ using Sprint2Pork.Entity.Moving;
 using System;
 using System.Collections.Generic;
 
-namespace Sprint2Pork
+namespace Sprint2Pork.Entity
 {
     public class EnemyUpdater
     {

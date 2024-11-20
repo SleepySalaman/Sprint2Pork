@@ -3,9 +3,12 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 using Sprint2Pork.Blocks;
 using Sprint2Pork.Constants;
+using Sprint2Pork.Entity;
 using Sprint2Pork.Entity.Moving;
+using Sprint2Pork.Essentials;
 using Sprint2Pork.GroundItems;
 using Sprint2Pork.Items;
+using Sprint2Pork.rooms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -127,36 +130,50 @@ namespace Sprint2Pork
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            startScreenTexture = Content.Load<Texture2D>("StartScreen");
+            LoadContentTextures();
+            LoadSounds();
+            InitializeGameComponents();
+            LoadRooms();
+        }
 
+        private void LoadContentTextures()
+        {
+            startScreenTexture = Content.Load<Texture2D>("StartScreen");
             pauseOverlayTexture = new Texture2D(GraphicsDevice, 1, 1);
             pauseOverlayTexture.SetData(new[] { new Color(0, 0, 0, 0.5f) });
 
-            //Loading Sounds
-            soundManager.LoadAllSounds(Content);
-            MediaPlayer.IsRepeating = true;
-            MediaPlayer.Play(Content.Load<Song>("backgroundMusic"));
-
-            InitializeHandler.LoadEnemyContent(ref spriteBatch, ref enemyUpdater, ref enemyManager,
-                GraphicsDevice, (int)enemyInitPos.X, (int)enemyInitPos.Y, soundManager);
-
-            LoadTextures.LoadAllTextures(allTextures, Content);
-
             font = Content.Load<SpriteFont>("File");
-            // Loading the background/room
             backgroundTexture = Content.Load<Texture2D>("Room1");
             hudTexture = Content.Load<Texture2D>("ZeldaHUD");
             roomTexture = Content.Load<Texture2D>("Room1");
             lifeTexture = Content.Load<Texture2D>("Zelda_Lives");
-            textSprite = new TextSprite(200, GameConstants.TEXT_DISPLAY, font);
-
-            hud = new HUD(inventory, font, link);
-            pausedScreen = new Paused(inventory);
-            GenerateBlocks.fillBlockList(blocks, allTextures[8], blockPosition);
             winStateTexture = Content.Load<Texture2D>("WinScreen");
             hitboxTexture = new Texture2D(GraphicsDevice, 1, 1);
             hitboxTexture.SetData(new Color[] { Color.Red });
 
+            LoadTextures.LoadAllTextures(allTextures, Content);
+        }
+
+        private void LoadSounds()
+        {
+            soundManager.LoadAllSounds(Content);
+            MediaPlayer.IsRepeating = true;
+            MediaPlayer.Play(Content.Load<Song>("backgroundMusic"));
+        }
+
+        private void InitializeGameComponents()
+        {
+            InitializeHandler.LoadEnemyContent(ref spriteBatch, ref enemyUpdater, ref enemyManager,
+                GraphicsDevice, (int)enemyInitPos.X, (int)enemyInitPos.Y, soundManager);
+
+            textSprite = new TextSprite(200, GameConstants.TEXT_DISPLAY, font);
+            hud = new HUD(inventory, font, link);
+            pausedScreen = new Paused(inventory);
+            GenerateBlocks.fillBlockList(blocks, allTextures[8], blockPosition);
+        }
+
+        private void LoadRooms()
+        {
             RoomLoader.LoadRooms(allTextures[8], allTextures[9], allTextures[2], ref blocks, ref groundItems, ref enemies,
                 ref fireballManagers, ref rooms, ref soundManager, ref currentRoom);
         }
@@ -165,7 +182,8 @@ namespace Sprint2Pork
         {
             if (gameState == Game1State.StartScreen)
             {
-                UpdateControllers(); // Only update controllers to check for start input
+                // Only updates controllers for start screen inputs
+                UpdateControllers();
             }
             else if (gameState == Game1State.Playing)
             {
@@ -206,7 +224,6 @@ namespace Sprint2Pork
             {
                 if (item.GetType() == typeof(Key))
                 {
-                    // TODO: Troubleshoot why it only plays every other time?
                     soundManager.PlaySound("sfxKeyAppears");
                 }
             }

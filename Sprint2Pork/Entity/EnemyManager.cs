@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Sprint2Pork.Entity.Moving;
 using System.Collections.Generic;
 
-namespace Sprint2Pork
+namespace Sprint2Pork.Entity
 {
     public class EnemyManager
     {

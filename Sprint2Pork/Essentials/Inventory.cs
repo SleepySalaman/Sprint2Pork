@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Sprint2Pork
+namespace Sprint2Pork.Essentials
 {
     public class Inventory
     {
@@ -36,7 +36,7 @@ namespace Sprint2Pork
             }
         }
 
-        public void RemoveItem(String item, int count = 1)
+        public void RemoveItem(string item, int count = 1)
         {
             if (items.ContainsKey(item) && items[item] >= 1)
             {
