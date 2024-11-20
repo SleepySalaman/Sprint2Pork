@@ -18,8 +18,6 @@ namespace Sprint2Pork
                 {"Triangle", 0 },
                 {"Compass", 0 },
                 {"Candle", 0 },
-                {"WoodenGroundArrow", 0 },
-                {"BlueGroundArrow", 0 },
                 {"Gypsie", 0 },
                 {"Meat", 0 },
                 {"Clock", 0 },

@@ -38,8 +38,6 @@ namespace Sprint2Pork.GroundItems
                 new Compass(400, 200, itemFrames[2]),
                 new Key(400, 200, itemFrames[3]),
                 new Candle(400, 200, itemFrames[4]),
-                new WoodenGroundArrow(400, 200, itemFrames[5]),
-                new BlueGroundArrow(400, 200, itemFrames[6]),
                 new Gypsie(400, 200, itemFrames[7]),
                 new Meat(400, 200, itemFrames[8]),
                 new Clock(400, 200, itemFrames[9]),

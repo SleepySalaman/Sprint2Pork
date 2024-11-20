@@ -95,9 +95,6 @@ namespace Sprint2Pork.rooms
                             case 15:
                                 groundItems.Add(new Candle((int)position.X, (int)position.Y, new List<Rectangle> { new Rectangle(160, 0, 8, 16), new Rectangle(160, 16, 8, 16) }));
                                 break;
-                            case 16:
-                                groundItems.Add(new WoodenGroundArrow((int)position.X, (int)position.Y, new List<Rectangle> { new Rectangle(152, 0, 8, 16), new Rectangle(24, 16, 8, 16) }));
-                                break;
                             case 17:
                                 groundItems.Add(new Gypsie((int)position.X, (int)position.Y, new List<Rectangle> { new Rectangle(48, 0, 8, 16), new Rectangle(40, 0, 8, 16) }));
                                 break;
@@ -118,9 +115,6 @@ namespace Sprint2Pork.rooms
                                 break;
                             case 23:
                                 groundItems.Add(new GroundBomb((int)position.X, (int)position.Y, new List<Rectangle> { new Rectangle(134, 0, 10, 16), new Rectangle(24, 16, 8, 16) }));
-                                break;
-                            case 24:
-                                groundItems.Add(new BlueGroundArrow((int)position.X, (int)position.Y, new List<Rectangle> { new Rectangle(152, 16, 8, 16), new Rectangle(24, 16, 8, 16) }));
                                 break;
 
                             // Enemies

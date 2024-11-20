@@ -128,8 +128,8 @@ namespace Sprint2Pork
 
                 var blueArrowCount = inventory.GetItemCount("BlueGroundArrow");
                 if ((itemIndex == 3 && inventory.GetItemCount("GroundBomb") > 0) ||
-                    (itemIndex == 4 && inventory.GetItemCount("WoodenGroundArrow") > 0) ||
-                    (itemIndex == 1 && inventory.GetItemCount("BlueGroundArrow") > 0) ||
+                    (itemIndex == 4 && inventory.GetItemCount("Rupee") > 0) ||
+                    (itemIndex == 1 && inventory.GetItemCount("Rupee") > 0) ||
                     (itemIndex != 3 && itemIndex != 1 && itemIndex != 4))
                 {
                     UseItem(itemIndex);

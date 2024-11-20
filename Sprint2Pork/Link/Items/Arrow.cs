@@ -127,7 +127,7 @@ namespace Sprint2Pork
         public Rectangle getLocation() => (sprite.GetRect());
         public void SpriteSet(ISprite sprite) => this.sprite = sprite;
         public ISprite SpriteGet() => sprite;
-        public string GetItemName() => "BlueGroundArrow";
+        public string GetItemName() => "Rupee";
     }
 
 }
