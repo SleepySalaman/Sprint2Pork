@@ -1,6 +1,12 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Sprint2Pork.Blocks;
 using Sprint2Pork.Constants;
+using Sprint2Pork.Entity.Moving;
+using Sprint2Pork.Entity;
+using Sprint2Pork.Essentials;
+using Sprint2Pork.Items;
+using Sprint2Pork.rooms;
 using System.Collections.Generic;
 using System.Numerics;
 
@@ -114,6 +120,28 @@ namespace Sprint2Pork
             else if (link.GetX() < leftBorder) { link.SetX(GraphicsDevice.Viewport.Width - 101); }
             else if (link.GetY() < topBorder) { link.SetY(GraphicsDevice.Viewport.Height - 50); }
             else if (link.GetY() > bottomBorder) { link.SetY(101); }
+        }
+
+        public int GetCurrentRoomNumber(string currentRoom)
+        {
+            if (int.TryParse(currentRoom.Substring(4), out int roomNumber))
+            {
+                return roomNumber;
+            }
+            return -1;
+        }
+
+        public void GetDevRoom(ref string currentRoom, ref List<Block> blocks, ref List<GroundItem> groundItems, ref List<IEnemy> enemies, ref List<EnemyManager> fireballManagers, Dictionary<string, (List<Block>, List<GroundItem>, List<IEnemy>, List<EnemyManager>)> rooms, ref Link link, Viewport viewport, SoundManager soundManager, List<IController> controllerList)
+        {
+            RoomChange.SwitchRoom("room1", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
+            link = new Link(viewport.Width, viewport.Height, soundManager, new Inventory());
+            foreach (IController controller in controllerList)
+            {
+                if (controller is KeyboardController keyboardController)
+                {
+                    keyboardController.UpdateLink(link);
+                }
+            }
         }
     }
 }

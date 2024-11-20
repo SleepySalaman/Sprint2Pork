@@ -1,7 +1,10 @@
-﻿using Sprint2Pork.Blocks;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Sprint2Pork.Blocks;
 using Sprint2Pork.Entity;
 using Sprint2Pork.Entity.Moving;
 using Sprint2Pork.Items;
+using System;
 using System.Collections.Generic;
 
 namespace Sprint2Pork.rooms
@@ -35,6 +38,20 @@ namespace Sprint2Pork.rooms
         {
             currentRoom = newRoom;
             (blocks, groundItems, enemies, fireballManagers) = rooms[currentRoom];
+        }
+
+        public static void CheckRoomChange(Game1State gameState, ref string currentRoom, ref string nextRoom, ref Texture2D nextRoomTexture, ref Vector2 transitionDirection, RoomManager roomManager, Link link, GraphicsDevice graphicsDevice, HUD hud, Action setRectangles, Action<Game1State> setGameState, Func<int> getCurrentRoomNumber)
+        {
+            nextRoom = roomManager.GetNextRoom(currentRoom, link);
+            if (nextRoom != "none")
+            {
+                nextRoomTexture = roomManager.GetNextRoomTexture(nextRoom);
+                transitionDirection = roomManager.GetDirection(link);
+                roomManager.PlaceLink(link, graphicsDevice);
+                setRectangles();
+                setGameState(Game1State.Transitioning);
+            }
+            hud.UpdateRoomNumber(getCurrentRoomNumber());
         }
     }
 }

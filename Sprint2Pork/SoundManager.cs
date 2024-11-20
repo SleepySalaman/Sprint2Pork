@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Media;
 using System.Collections.Generic;
 
 namespace Sprint2Pork
@@ -39,6 +40,18 @@ namespace Sprint2Pork
             soundInstance.Volume = 0.25f;
             soundInstance.Play();
             //playingFlag = true;
+        }
+
+        public void ToggleBackgroundMusic()
+        {
+            if (MediaPlayer.State == MediaState.Playing)
+            {
+                MediaPlayer.Pause();
+            }
+            else
+            {
+                MediaPlayer.Resume();
+            }
         }
     }
 }

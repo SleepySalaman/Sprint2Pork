@@ -301,34 +301,44 @@ namespace Sprint2Pork
             foreach (var item in groundItems)
             {
                 item.Update(item.destinationRect.X, item.destinationRect.Y);
+
                 if (Collision.CollidesWithGroundItem(link.GetRect(), item.GetRect()))
                 {
-                    if (item is Key)
-                    {
-                        soundManager.PlaySound("sfxItemReceived");
-                    }
-                    else if (item is Triangle)
-                    {
-                        GameOver();
-                    }
-                    else if (item is Potion)
-                    {
-                        healthCount.HealFullHeart();
-                    }
-                    else if (item is Heart)
-                    {
-                        healthCount.HealHalfHeart();
-                    }
-                    else
-                    {
-                        soundManager.PlaySound("sfxItemObtained");
-                    }
-                    item.PerformAction();
+                    HandleItemCollision(item);
                     itemsToRemove.Add(item);
-                    link.CollectItem(item);
                 }
             }
 
+            RemoveGroundItems(itemsToRemove);
+        }
+
+        private void HandleItemCollision(GroundItem item)
+        {
+            switch (item)
+            {
+                case Key:
+                    soundManager.PlaySound("sfxItemReceived");
+                    break;
+                case Triangle:
+                    GameOver();
+                    break;
+                case Potion:
+                    healthCount.HealFullHeart();
+                    break;
+                case Heart:
+                    healthCount.HealHalfHeart();
+                    break;
+                default:
+                    soundManager.PlaySound("sfxItemObtained");
+                    break;
+            }
+
+            item.PerformAction();
+            link.CollectItem(item);
+        }
+
+        private void RemoveGroundItems(List<GroundItem> itemsToRemove)
+        {
             foreach (var item in itemsToRemove)
             {
                 groundItems.Remove(item);
@@ -337,16 +347,7 @@ namespace Sprint2Pork
 
         private void CheckRoomChange(Game1State gameState)
         {
-            nextRoom = roomManager.GetNextRoom(currentRoom, link);
-            if (nextRoom != "none")
-            {
-                nextRoomTexture = roomManager.GetNextRoomTexture(nextRoom);
-                transitionDirection = roomManager.GetDirection(link);
-                roomManager.PlaceLink(link, GraphicsDevice);
-                SetRectangles();
-                this.gameState = Game1State.Transitioning;
-            }
-            hud.UpdateRoomNumber(GetCurrentRoomNumber());
+            RoomChange.CheckRoomChange(gameState, ref currentRoom, ref nextRoom, ref nextRoomTexture, ref transitionDirection, roomManager, link, GraphicsDevice, hud, SetRectangles, state => this.gameState = state, GetCurrentRoomNumber);
         }
 
         private void SetRectangles()
@@ -374,18 +375,19 @@ namespace Sprint2Pork
 
             soundManager = new SoundManager();
             soundManager.LoadAllSounds(Content);
+
             inventory.Reset();
+
             link = new Link(viewport.Width, viewport.Height, soundManager, inventory);
+            healthCount = new LinkHealth();
+
             hud.SubscribeToLinkEvents(link);
             minimap = new Minimap(GraphicsDevice, link);
 
             currentRoom = "room1";
             roomTexture = roomManager.GetNextRoomTexture(currentRoom);
-
             (blocks, groundItems, enemies, fireballManagers) = rooms[currentRoom];
             gameState = Game1State.Playing;
-
-            healthCount = new LinkHealth();
 
             RoomLoader.LoadRooms(allTextures[8], allTextures[9], allTextures[2], ref blocks, ref groundItems, ref enemies,
                 ref fireballManagers, ref rooms, ref soundManager, ref currentRoom);
@@ -404,45 +406,49 @@ namespace Sprint2Pork
             spriteBatch.Begin();
 
             GraphicsDevice.Clear(Color.Black);
-            if (gameState == Game1State.StartScreen)
-            {
-                DrawStartScreen();
-            }
-            else if (gameState == Game1State.GameOver)
-            {
-                DrawGameOverScreen();
-            }
-            else
-            {
-                spriteBatch.Draw(hudTexture, new Rectangle(0, 0, viewport.Width, GameConstants.HUD_HEIGHT), Color.White);
-                healthCount.DrawLives(spriteBatch, lifeTexture, viewport);
 
-                if (gameState == Game1State.Playing)
-                {
-                    DrawPlayingScreen();
-
-                }
-                else if (gameState == Game1State.Transitioning)
-                {
-                    DrawTransitioningScreen();
-                }
-                else if (gameState == Game1State.Paused)
-                {
-                    DrawInventoryScreen();
-                }
-                else if (gameState == Game1State.Inventory)
-                {
-                    DrawInventoryScreen();
-                }
-                else if (gameState == Game1State.GameOver)
-                {
-                    spriteBatch.DrawString(font, "Game Over", new Vector2(GameConstants.TEXT_DISPLAY, GameConstants.TEXT_DISPLAY), Color.Red);
-                }
+            switch (gameState)
+            {
+                case Game1State.StartScreen:
+                    DrawStartScreen();
+                    break;
+                case Game1State.GameOver:
+                    DrawGameOverScreen();
+                    break;
+                default:
+                    DrawHUD();
+                    DrawGameState();
+                    break;
             }
 
             spriteBatch.End();
-
             base.Draw(gameTime);
+        }
+
+        private void DrawHUD()
+        {
+            spriteBatch.Draw(hudTexture, new Rectangle(0, 0, viewport.Width, GameConstants.HUD_HEIGHT), Color.White);
+            healthCount.DrawLives(spriteBatch, lifeTexture, viewport);
+        }
+
+        private void DrawGameState()
+        {
+            switch (gameState)
+            {
+                case Game1State.Playing:
+                    DrawPlayingScreen();
+                    break;
+                case Game1State.Transitioning:
+                    DrawTransitioningScreen();
+                    break;
+                case Game1State.Paused:
+                case Game1State.Inventory:
+                    DrawInventoryScreen();
+                    break;
+                case Game1State.GameOver:
+                    spriteBatch.DrawString(font, "Game Over", new Vector2(GameConstants.TEXT_DISPLAY, GameConstants.TEXT_DISPLAY), Color.Red);
+                    break;
+            }
         }
 
         private void DrawInventoryScreen()
@@ -512,13 +518,9 @@ namespace Sprint2Pork
             Texture2D whiteTexture = new Texture2D(graphics.GraphicsDevice, 1, 1);
             whiteTexture.SetData(new[] { Color.White });
 
-            // Draw top line
             spriteBatch.Draw(whiteTexture, new Rectangle(rectangle.Left, rectangle.Top, rectangle.Width, thickness), color);
-            // Draw left line
             spriteBatch.Draw(whiteTexture, new Rectangle(rectangle.Left, rectangle.Top, thickness, rectangle.Height), color);
-            // Draw right line
             spriteBatch.Draw(whiteTexture, new Rectangle(rectangle.Right - thickness, rectangle.Top, thickness, rectangle.Height), color);
-            // Draw bottom line
             spriteBatch.Draw(whiteTexture, new Rectangle(rectangle.Left, rectangle.Bottom - thickness, rectangle.Width, thickness), color);
         }
 
@@ -528,22 +530,14 @@ namespace Sprint2Pork
             int length = 9;
             Color color = Color.Red;
 
-            // Expand the rectangle by 2 pixels on each side
             rectangle = new Rectangle(rectangle.Left - 3, rectangle.Top - 3, rectangle.Width + 6, rectangle.Height + 4);
 
-            // Top-left corner
             spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Top, length, thickness), color);
             spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Top, thickness, length), color);
-
-            // Top-right corner
             spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Right - length, rectangle.Top, length, thickness), color);
             spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Right - thickness, rectangle.Top, thickness, length), color);
-
-            // Bottom-left corner
             spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Bottom - thickness, length, thickness), color);
             spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Bottom - length, thickness, length), color);
-
-            // Bottom-right corner
             spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Right - length, rectangle.Bottom - thickness, length, thickness), color);
             spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Right - thickness, rectangle.Bottom - length, thickness, length), color);
         }
@@ -556,7 +550,6 @@ namespace Sprint2Pork
 
         private void DrawStartScreen()
         {
-            // Draw the start screen texture to fill the entire viewport
             spriteBatch.Draw(
                 startScreenTexture,
                 new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height),
@@ -580,42 +573,16 @@ namespace Sprint2Pork
             spriteBatch.Draw(nextRoomTexture, nextRoomRectangle, Color.White);
         }
 
-        private void DrawPausedScreen()
-        {
-            spriteBatch.Draw(roomTexture, new Rectangle(0, GameConstants.ROOM_Y_OFFSET, viewport.Width, viewport.Height - GameConstants.ROOM_Y_OFFSET), Color.White);
-            link.Draw(spriteBatch, allTextures[0], allTextures[10]);
-            Drawing.DrawGeneratedObjects(spriteBatch, blocks, groundItems, enemies, fireballManagers, allTextures, lifeTexture, hitboxTexture, showHitboxes);
-
-            spriteBatch.Draw(pauseOverlayTexture, new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), new Color(0, 0, 0, 400));
-
-            pausedScreen.DrawPausedScreen(spriteBatch, font, viewport, allTextures[9]);
-            minimap.Draw(spriteBatch, blocks, groundItems, enemies,
-                        new Rectangle(50, 200, 200, 200), 0.3f);
-        }
-
         public void StartGame()
         {
-            if (gameState == Game1State.StartScreen)
-            {
-                gameState = Game1State.Playing;
-            }
-            else
-            {
-                gameState = Game1State.StartScreen;
-            }
+            gameState = gameState == Game1State.StartScreen ? Game1State.Playing : Game1State.StartScreen;
         }
 
         public void GetDevRoom()
         {
-            RoomChange.SwitchRoom("room1", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
-            link = new Link(viewport.Width, viewport.Height, soundManager, inventory);
-            foreach (IController controller in controllerList)
-            {
-                if (controller is KeyboardController keyboardController)
-                {
-                    keyboardController.UpdateLink(link);
-                }
-            }
+            currentRoom = "room1";
+            roomTexture = roomManager.GetNextRoomTexture(currentRoom);
+            roomManager.GetDevRoom(ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms, ref link, viewport, soundManager, controllerList);
         }
 
         public void SwitchToNextRoom()
@@ -633,27 +600,7 @@ namespace Sprint2Pork
         public void TogglePause()
 
         {
-            if (gameState == Game1State.Playing)
-            {
-                gameState = Game1State.Paused;
-            }
-            else if (gameState == Game1State.Paused)
-            {
-                gameState = Game1State.Playing;
-            }
-        }
-
-        public void ToggleInventory()
-
-        {
-            if (gameState == Game1State.Playing)
-            {
-                gameState = Game1State.Inventory;
-            }
-            else if (gameState == Game1State.Inventory)
-            {
-                gameState = Game1State.Playing;
-            }
+            gameState = gameState == Game1State.Playing ? Game1State.Paused : Game1State.Playing;
         }
 
         public void GameOver()
@@ -663,23 +610,12 @@ namespace Sprint2Pork
 
         public void ToggleBackgroundMusic()
         {
-            if (MediaPlayer.State == MediaState.Playing)
-            {
-                MediaPlayer.Pause();
-            }
-            else
-            {
-                MediaPlayer.Resume();
-            }
+            soundManager.ToggleBackgroundMusic();
         }
 
         private int GetCurrentRoomNumber()
         {
-            if (int.TryParse(currentRoom.Substring(4), out int roomNumber))
-            {
-                return roomNumber;
-            }
-            return -1;
+            return roomManager.GetCurrentRoomNumber(currentRoom);
         }
     }
 }

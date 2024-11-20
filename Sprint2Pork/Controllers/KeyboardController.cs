@@ -173,7 +173,7 @@ public class KeyboardController : IController
         }
         if (IsKeyPressed(ks, Keys.I))
         {
-            programGame.ToggleInventory();
+            programGame.TogglePause();
         }
 
         if (IsKeyPressed(ks, Keys.P))
@@ -183,10 +183,6 @@ public class KeyboardController : IController
         if (IsKeyPressed(ks, Keys.O))
         {
             programGame.GameOver();
-        }
-        if (IsKeyPressed(ks, Keys.O))
-        {
-            programGame.ToggleInventory();
         }
 
         if (ks.IsKeyDown(Keys.R))

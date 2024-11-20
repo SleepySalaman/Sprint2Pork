@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Sprint2Pork.Blocks;
 using Sprint2Pork.Entity;
 using Sprint2Pork.Entity.Moving;
@@ -41,6 +42,5 @@ namespace Sprint2Pork
                 fireball.Draw(spriteBatch, allTextures[1], hitboxTexture, showHitbox);
             }
         }
-
     }
 }
