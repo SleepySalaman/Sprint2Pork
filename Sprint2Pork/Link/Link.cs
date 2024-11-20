@@ -122,6 +122,9 @@ namespace Sprint2Pork
 
         public void UseItemB()
         {
+
+            if (ItemInUse) return; // Prevent multiple uses per frame
+
             int itemIndex = items.IndexOf(SlotB);
             if (itemIndex != -1)
             {

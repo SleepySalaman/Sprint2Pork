@@ -103,32 +103,32 @@ public class KeyboardController : IController
 
     private void HandleItemUse(KeyboardState ks, ILinkItems linkItem)
     {
-        if (IsKeyPressed(ks, Keys.D1) || linkItem is Arrow)
+        if (IsKeyPressed(ks, Keys.D1))
         {
             link.BeAttacking();
             link.UseItem(1);
         }
-        else if (IsKeyPressed(ks, Keys.D2) || linkItem is Boomerang)
+        else if (IsKeyPressed(ks, Keys.D2))
         {
             link.BeAttacking();
             link.UseItem(2);
         }
-        else if (IsKeyPressed(ks, Keys.D3) || linkItem is Bomb)
+        else if (IsKeyPressed(ks, Keys.D3))
         {
             link.BeAttacking();
             link.UseItem(3);
         }
-        else if (IsKeyPressed(ks, Keys.D4) || linkItem is WoodArrow)
+        else if (IsKeyPressed(ks, Keys.D4))
         {
             link.BeAttacking();
             link.UseItem(4);
         }
-        else if (IsKeyPressed(ks, Keys.D5) || linkItem is BlueBoomer)
+        else if (IsKeyPressed(ks, Keys.D5))
         {
             link.BeAttacking();
             link.UseItem(5);
         }
-        else if (IsKeyPressed(ks, Keys.D6) || linkItem is Fire)
+        else if (IsKeyPressed(ks, Keys.D6))
         {
             link.BeAttacking();
             link.UseItem(6);
