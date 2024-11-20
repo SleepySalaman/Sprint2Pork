@@ -4,15 +4,15 @@ using System.Collections.Generic;
 
 namespace Sprint2Pork.Items
 {
-    public class GroundArrow : GroundItem
+    public class WoodenGroundArrow : GroundItem
     {
-        public GroundArrow(int x, int y, List<Rectangle> frames) : base(x, y, frames)
+        public WoodenGroundArrow(int x, int y, List<Rectangle> frames) : base(x, y, frames)
         {
         }
 
         public override void PerformAction()
         {
-            Console.WriteLine("Arrow collected!");
+            Console.WriteLine("Wooden arrow collected!");
         }
     }
 }

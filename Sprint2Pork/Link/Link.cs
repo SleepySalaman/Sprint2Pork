@@ -125,7 +125,12 @@ namespace Sprint2Pork
             int itemIndex = items.IndexOf(SlotB);
             if (itemIndex != -1)
             {
-                if (itemIndex != 3 || (itemIndex == 3 && inventory.GetItemCount("GroundBomb") > 0))
+
+                var blueArrowCount = inventory.GetItemCount("BlueGroundArrow");
+                if ((itemIndex == 3 && inventory.GetItemCount("GroundBomb") > 0) ||
+                    (itemIndex == 4 && inventory.GetItemCount("WoodenGroundArrow") > 0) ||
+                    (itemIndex == 1 && inventory.GetItemCount("BlueGroundArrow") > 0) ||
+                    (itemIndex != 3 && itemIndex != 1 && itemIndex != 4))
                 {
                     UseItem(itemIndex);
                 }
