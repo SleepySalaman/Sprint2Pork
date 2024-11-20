@@ -20,8 +20,8 @@ namespace Sprint2Pork
         {
             this.inventory = inventory;
             this.font = font;
-            this.slotAItem = link.SlotA;
-            this.slotBItem = link.SlotB;
+            slotAItem = link.SlotA;
+            slotBItem = link.SlotB;
             this.link = link;
             InitializeHUDItemSourceRects();
 

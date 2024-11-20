@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace Sprint2Pork
+﻿namespace Sprint2Pork
 {
     public enum Game1State
     {

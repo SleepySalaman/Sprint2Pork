@@ -2,8 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Sprint2Pork.Blocks;
 using Sprint2Pork.Constants;
-using Sprint2Pork.Entity.Moving;
 using Sprint2Pork.Entity;
+using Sprint2Pork.Entity.Moving;
 using Sprint2Pork.Essentials;
 using Sprint2Pork.Items;
 using Sprint2Pork.rooms;
@@ -25,7 +25,7 @@ namespace Sprint2Pork
 
         public RoomManager(GraphicsDevice GraphicsDevice)
         {
-            this.roomList = new List<string>();
+            roomList = new List<string>();
             roomList.Add("room1");
             roomList.Add("room2");
             roomList.Add("room3");
@@ -48,7 +48,7 @@ namespace Sprint2Pork
             {
                 roomMap.Add(room, Content.Load<Texture2D>(room));
             }
-            this.transitionDirections = new Dictionary<string, Vector2>();
+            transitionDirections = new Dictionary<string, Vector2>();
             transitionDirections.Add("right", new Vector2(1, 0));
             transitionDirections.Add("left", new Vector2(-1, 0));
             transitionDirections.Add("up", new Vector2(0, -1));

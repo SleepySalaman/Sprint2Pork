@@ -6,7 +6,6 @@ using Sprint2Pork.Constants;
 using Sprint2Pork.Entity;
 using Sprint2Pork.Entity.Moving;
 using Sprint2Pork.Essentials;
-using Sprint2Pork.GroundItems;
 using Sprint2Pork.Items;
 using Sprint2Pork.rooms;
 using System;
@@ -98,7 +97,6 @@ namespace Sprint2Pork
             fireballManagers = new List<EnemyManager>();
 
             controllerList = new List<IController>();
-            //LoadGroundItems();
 
             rooms = new Dictionary<string, (List<Block> blocks, List<GroundItem> groundItems,
                 List<IEnemy> enemies, List<EnemyManager> fireballs)>();
@@ -107,12 +105,6 @@ namespace Sprint2Pork
             gameStateManager = new Game1StateManager(gameState);
 
 
-        }
-
-        private void LoadGroundItems()
-        {
-            GroundItemsController itemController = new GroundItemsController();
-            items = itemController.CreateGroundItems();
         }
 
         protected override void Initialize()
