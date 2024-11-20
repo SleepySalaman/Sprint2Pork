@@ -28,9 +28,10 @@ namespace Sprint2Pork
 
         public void DrawPausedScreen(SpriteBatch spriteBatch, SpriteFont font, Viewport viewport, Texture2D itemsTexture)
         {
-            int yOffset = 200;
+            int xOffset = 100; // Starting X position
+            int yOffset = 100; // Y position for the title
             int titleSpacing = 40;
-            int itemSpacing = 80;
+            int itemSpacing = 100; // Spacing between items
             float scale = 3.0f;
 
             string title = "GAME PAUSED";
@@ -43,15 +44,16 @@ namespace Sprint2Pork
             foreach (var itemType in itemTypes)
             {
                 Rectangle sourceRect = itemSourceRects[itemType];
-                Vector2 itemPos = new Vector2(viewport.Width / 2 - (sourceRect.Width * scale) / 2, yOffset);
+                Vector2 itemPos = new Vector2(xOffset, yOffset);
                 spriteBatch.Draw(itemsTexture, itemPos, sourceRect, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
 
                 string countText = $"x{inventory.GetItemCount(itemType)}";
                 Vector2 countPos = new Vector2(itemPos.X + (sourceRect.Width * scale) + 10, yOffset);
                 spriteBatch.DrawString(font, countText, countPos, Color.White);
 
-                yOffset += itemSpacing;
+                xOffset += itemSpacing; // Move to the next item position
             }
         }
+
     }
 }

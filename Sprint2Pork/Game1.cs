@@ -428,7 +428,7 @@ namespace Sprint2Pork
                 }
                 else if (gameState == Game1State.Paused)
                 {
-                    DrawPausedScreen();
+                    DrawInventoryScreen();
                 }
                 else if (gameState == Game1State.Inventory)
                 {
@@ -447,11 +447,12 @@ namespace Sprint2Pork
 
         private void DrawInventoryScreen()
         {
-            // Draw the HUD and minimap
             hud.Draw(spriteBatch, allTextures[9]);
             minimap.Draw(spriteBatch, blocks, groundItems, enemies, new Rectangle(120, 15, 140, 5), 0.15f);
 
-            // Draw the inventory items
+            string title = "GAME PAUSED";
+            Vector2 titlePos = new Vector2((viewport.Width - font.MeasureString(title).X) / 2, 150);
+            spriteBatch.DrawString(font, title, titlePos, Color.White);
             DrawInventoryItems();
         }
         private void InitializeItemSourceRects()
