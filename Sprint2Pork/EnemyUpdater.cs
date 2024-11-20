@@ -61,6 +61,7 @@ namespace Sprint2Pork
                     {
                         enemy.TakeDamage(); // Apply damage only once
                         enemyHitTracker[enemy] = true; // Mark the enemy as hit
+                        link.loseItem();
                     }
                 }
 
