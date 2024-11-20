@@ -93,14 +93,11 @@ namespace Sprint2Pork
         public void OffsetYChange(int change) => OffsetY = OffsetY + change;
 
         public int LinkCountGet() => linkCount;
-        public void LinkCountSet(int count) => linkCount = count;
 
         public bool IsLinkUsingItem() => ItemInUse;
 
         public void LinkSpriteUpdate() => linkSprite.Update(X, Y);
         public void LinkSpriteSet(ISprite sprite) => linkSprite = sprite;
-        public Rectangle LinkItemGetRect() => linkItem.getLocation();
-        public ILinkItems LinkItemSpriteGet() => linkItem;
 
         /*
          * Section for non-set/get methods
@@ -254,7 +251,6 @@ namespace Sprint2Pork
                     break;
             }
         }
-
 
         public void Attack()
         {

@@ -20,41 +20,5 @@ namespace Sprint2Pork
         {
             currentState = state;
         }
-
-        public void Update(GameTime gameTime)
-        {
-
-        }
-
-        public void ChangeState(Game1State newState)
-        {
-            currentState = newState;
-            //switch(newState)
-            //{
-
-
-            //}
-        }
-
-        private void InitializeTitleScreen()
-        {
-
-        }
-        private void InitializePlaying()
-        {
-
-        }
-        private void InitializePaused()
-        {
-
-        }
-        private void InitializeTransitioning()
-        {
-
-        }
-        private void InitializeGameOver()
-        {
-
-        }
     }
 }

@@ -13,6 +13,7 @@ namespace Sprint2Pork
                 rect1.Y < rect2.Y + rect2.Height);
         }
 
+        // Checks collision with center of item rather than borders
         public static bool CollidesWithGroundItem(Rectangle linkRect, Rectangle groundItemRect)
         {
             int groundItemCenterX = groundItemRect.X + groundItemRect.Width / 2;

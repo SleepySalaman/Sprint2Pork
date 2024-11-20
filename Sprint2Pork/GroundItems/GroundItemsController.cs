@@ -30,7 +30,7 @@ namespace Sprint2Pork.GroundItems
             };
         }
 
-        public List<GroundItem> createGroundItems()
+        public List<GroundItem> CreateGroundItems()
         {
             List<GroundItem> items = new List<GroundItem> {
                 new Rupee(400, 200, itemFrames[0]),
@@ -48,6 +48,5 @@ namespace Sprint2Pork.GroundItems
             };
             return items;
         }
-
     }
 }

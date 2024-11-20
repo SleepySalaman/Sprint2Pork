@@ -11,15 +11,6 @@ namespace Sprint2Pork
 {
     public class Drawing
     {
-
-        public static void DrawCyclingEnemy(UpdateEnemySprite enemyUpdater, EnemyManager enemyManager, SpriteBatch spriteBatch,
-            List<Texture2D> allTextures, IEnemy enemySprite, int currentEnemyNum, ISprite textSprite, Texture2D lifeTxt, Texture2D hitboxTxt, bool showHitbox)
-        {
-            enemyUpdater.DrawCurrentEnemy(enemySprite, spriteBatch, allTextures, currentEnemyNum, lifeTxt, hitboxTxt, showHitbox);
-            textSprite.Draw(spriteBatch, allTextures[0]);
-            enemyManager.Draw(spriteBatch, allTextures[1], hitboxTxt, showHitbox);
-        }
-
         public static void DrawGeneratedObjects(SpriteBatch spriteBatch, List<Block> blocks, List<GroundItem> groundItems,
             List<IEnemy> enemies, List<EnemyManager> fireballManagers, List<Texture2D> allTextures, Texture2D lifeTexture,
             Texture2D hitboxTexture, bool showHitbox)
@@ -91,6 +82,17 @@ namespace Sprint2Pork
             spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Bottom - length, thickness, length), color);
             spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Right - length, rectangle.Bottom - thickness, length, thickness), color);
             spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Right - thickness, rectangle.Bottom - length, thickness, length), color);
+        }
+
+        public static void DrawBlueBox(SpriteBatch spriteBatch, Texture2D texture, Rectangle rectangle)
+        {
+            int thickness = 3;
+            Color color = Color.Blue;
+
+            spriteBatch.Draw(texture, new Rectangle(rectangle.Left, rectangle.Top, rectangle.Width, thickness), color);
+            spriteBatch.Draw(texture, new Rectangle(rectangle.Left, rectangle.Bottom - thickness, rectangle.Width, thickness), color);
+            spriteBatch.Draw(texture, new Rectangle(rectangle.Left, rectangle.Top, thickness, rectangle.Height), color);
+            spriteBatch.Draw(texture, new Rectangle(rectangle.Right - thickness, rectangle.Top, thickness, rectangle.Height), color);
         }
     }
 }

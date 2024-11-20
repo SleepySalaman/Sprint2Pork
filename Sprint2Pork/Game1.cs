@@ -98,7 +98,7 @@ namespace Sprint2Pork
             fireballManagers = new List<EnemyManager>();
 
             controllerList = new List<IController>();
-            LoadGroundItems();
+            //LoadGroundItems();
 
             rooms = new Dictionary<string, (List<Block> blocks, List<GroundItem> groundItems,
                 List<IEnemy> enemies, List<EnemyManager> fireballs)>();
@@ -112,7 +112,7 @@ namespace Sprint2Pork
         private void LoadGroundItems()
         {
             GroundItemsController itemController = new GroundItemsController();
-            items = itemController.createGroundItems();
+            items = itemController.CreateGroundItems();
         }
 
         protected override void Initialize()
@@ -169,7 +169,6 @@ namespace Sprint2Pork
             textSprite = new TextSprite(200, GameConstants.TEXT_DISPLAY, font);
             hud = new HUD(inventory, font, link);
             pausedScreen = new Paused(inventory);
-            GenerateBlocks.fillBlockList(blocks, allTextures[8], blockPosition);
         }
 
         private void LoadRooms()
@@ -476,7 +475,6 @@ namespace Sprint2Pork
 
                 spriteBatch.Draw(allTextures[9], position, sourceRect, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
 
-                // If the item is the one in SlotB, draw a selection box around it
                 if (item.Key == link.SlotB)
                 {
                     Drawing.DrawSelectionBox(spriteBatch, hitboxTexture, new Rectangle((int)position.X, (int)position.Y, (int)(sourceRect.Width * scale), (int)(sourceRect.Height * scale)));
@@ -491,16 +489,9 @@ namespace Sprint2Pork
 
         private void DrawBlueBox(Rectangle rectangle)
         {
-            int thickness = 3;
-            Color color = Color.Blue;
-
             Texture2D whiteTexture = new Texture2D(graphics.GraphicsDevice, 1, 1);
             whiteTexture.SetData(new[] { Color.White });
-
-            spriteBatch.Draw(whiteTexture, new Rectangle(rectangle.Left, rectangle.Top, rectangle.Width, thickness), color);
-            spriteBatch.Draw(whiteTexture, new Rectangle(rectangle.Left, rectangle.Top, thickness, rectangle.Height), color);
-            spriteBatch.Draw(whiteTexture, new Rectangle(rectangle.Right - thickness, rectangle.Top, thickness, rectangle.Height), color);
-            spriteBatch.Draw(whiteTexture, new Rectangle(rectangle.Left, rectangle.Bottom - thickness, rectangle.Width, thickness), color);
+            Drawing.DrawBlueBox(spriteBatch, whiteTexture, rectangle);
         }
 
         private void DrawGameOverScreen()
