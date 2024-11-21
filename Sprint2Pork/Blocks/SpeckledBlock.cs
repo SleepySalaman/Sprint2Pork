@@ -5,8 +5,8 @@ namespace Sprint2Pork.Blocks
 {
     public class SpeckledBlock : Block
     {
-        public SpeckledBlock(Texture2D texture, Vector2 position)
-            : base(texture, position, new Rectangle(80, 0, 16, 17))
+        public SpeckledBlock(Texture2D texture, Vector2 position, bool isMovable = false)
+            : base(texture, position, new Rectangle(80, 0, 16, 17), isMovable)
         {
         }
     }

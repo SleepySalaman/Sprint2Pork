@@ -5,9 +5,10 @@ namespace Sprint2Pork.Blocks
 {
     public class FloorBlock : Block
     {
-        public FloorBlock(Texture2D texture, Vector2 position)
-            : base(texture, position, new Rectangle(0, 0, 16, 16)) // Use specific rectangle
+        public FloorBlock(Texture2D texture, Vector2 position, bool isMovable = false)
+            : base(texture, position, new Rectangle(0, 0, 16, 16), isMovable)
         {
         }
     }
+
 }

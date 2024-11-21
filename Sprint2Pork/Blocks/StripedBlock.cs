@@ -5,8 +5,8 @@ namespace Sprint2Pork.Blocks
 {
     public class StripedBlock : Block
     {
-        public StripedBlock(Texture2D texture, Vector2 position)
-            : base(texture, position, new Rectangle(144, 0, 16, 17))
+        public StripedBlock(Texture2D texture, Vector2 position, bool isMovable = false)
+            : base(texture, position, new Rectangle(144, 0, 16, 17), isMovable)
         {
         }
     }

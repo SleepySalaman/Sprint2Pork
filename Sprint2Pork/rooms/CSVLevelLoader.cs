@@ -51,7 +51,7 @@ namespace Sprint2Pork.rooms
                                 blocks.Add(new FloorBlock(blockTexture, position));
                                 break;
                             case 2:
-                                blocks.Add(new Block2(blockTexture, position));
+                                blocks.Add(new Block2(blockTexture, position, true));
                                 break;
                             case 3:
                                 blocks.Add(new EnemyBlock1(blockTexture, position));
