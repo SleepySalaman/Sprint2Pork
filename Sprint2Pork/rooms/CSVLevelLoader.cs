@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sprint2Pork.Blocks;
+using Sprint2Pork.Constants;
 using Sprint2Pork.Entity;
 using Sprint2Pork.Entity.Moving;
 using Sprint2Pork.Items;
@@ -21,7 +22,7 @@ namespace Sprint2Pork.rooms
 
             int fireballIDCount = 1;
 
-            int tileSize = 40;
+            int tileSize = GameConstants.BLOCK_TILE_SIZE;
             int row = 0;
 
             string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "rooms", "levels", fileName);

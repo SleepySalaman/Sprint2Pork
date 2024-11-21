@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprint2Pork.Constants;
 
 namespace Sprint2Pork.Blocks
 {
@@ -12,7 +13,7 @@ namespace Sprint2Pork.Blocks
         public Rectangle SourceRect { get; set; }
         private float scale = 1.875f;
         public Rectangle BoundingBox => new Rectangle((int)Position.X, (int)Position.Y, (int)(SourceRect.Width * scale), (int)(SourceRect.Height * scale));
-        public const int TileSize = 43; // Assuming 16px * 3 scale
+        public const int TileSize = GameConstants.BLOCK_TILE_SIZE;  
 
         public Block(Texture2D texture, Vector2 position, Rectangle sourceRect, bool isMovable = false)
         {

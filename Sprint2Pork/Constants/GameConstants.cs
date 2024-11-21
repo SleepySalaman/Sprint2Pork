@@ -25,6 +25,7 @@
         public const int INVENTORY_PADDING = 10;
         public const int INVENTORY_ITEMS_PER_ROW = 4;
         public const int INVENTORY_RECTANGLE_ADJUSTMENT_SIZE = 5;
+        public const int BLOCK_TILE_SIZE = 40;
 
         // Transition Related
         public const float TRANSITION_DURATION = 1.0f;
