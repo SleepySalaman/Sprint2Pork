@@ -191,7 +191,7 @@ namespace Sprint2Pork
                 UpdateControllers();
                 UpdateGroundItems();
                 UpdateEnemies(gameTime);
-                UpdateLink(linkPreviousX, linkPreviousY);
+                UpdateLink(linkPreviousX, linkPreviousY, gameTime);
 
                 CheckRoomChange(gameState);
 
@@ -255,14 +255,14 @@ namespace Sprint2Pork
             }
         }
 
-        private void UpdateLink(int linkPreviousX, int linkPreviousY)
+        private void UpdateLink(int linkPreviousX, int linkPreviousY, GameTime gameTime)
         {
             ISprite itemSprite = link.linkItem.SpriteGet();
             if (itemSprite != null)
             {
                 link.linkItem.SpriteSet(itemSprite);
             }
-
+            link.UpdateInvincibilityTimer(gameTime);
             link.actionState.Update();
             link.LinkSpriteUpdate();
             HandleBlockCollision(linkPreviousX, linkPreviousY);

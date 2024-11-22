@@ -47,7 +47,7 @@ namespace Sprint2Pork.Entity
                 enemy.Move(blocks);
 
                 // Check for collision with Link
-                if (Collision.Collides(link.GetRect(), enemy.GetRect()))
+                if (Collision.Collides(link.GetRect(), enemy.GetRect()) && !link.isInvincible)
                 {
                     link.TakeDamage();
                     healthCount.TakeDamage();
@@ -60,7 +60,7 @@ namespace Sprint2Pork.Entity
                     {
                         enemy.TakeDamage(); // Apply damage only once
                         enemyHitTracker[enemy] = true; // Mark the enemy as hit
-                        link.loseItem();
+                        link.LoseItem();
                     }
                 }
 
@@ -108,7 +108,7 @@ namespace Sprint2Pork.Entity
                 fireball.Update(gameTime, 0);
                 foreach (var fireballRect in fireball.GetFireballRects())
                 {
-                    if (Collision.Collides(link.GetRect(), fireballRect))
+                    if (Collision.Collides(link.GetRect(), fireballRect) && !link.isInvincible)
                     {
                         link.TakeDamage();
                         health.TakeDamage();

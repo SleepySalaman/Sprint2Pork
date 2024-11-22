@@ -9,7 +9,7 @@ namespace Sprint2Pork
 
         public void Update(Link link)
         {
-            link.loseItem();
+            link.LoseItem();
         }
         public void Draw(SpriteBatch sb, Texture2D texture)
         {

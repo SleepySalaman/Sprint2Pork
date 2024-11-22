@@ -41,6 +41,10 @@ namespace Sprint2Pork
         private int currentItemIndex;
         public event Action SlotBChanged;
 
+        public bool isInvincible;
+        private readonly double invincibilityDuration;
+        private double invincibilityTimer;
+
         public String SlotA { get; private set; }
         public String SlotB { get; private set; }
 
@@ -59,9 +63,12 @@ namespace Sprint2Pork
             attackFrameCount = 0;
             this.inventory = inventory;
 
-            // Initialize damage effect fields
+            // Initialize damage effect and temp invincibility fields
             damageEffectCounter = 0;
             isTakingDamage = false;
+            isInvincible = false;
+            invincibilityDuration = 2.0;
+            invincibilityTimer = 0;
 
             soundManager = paramSoundManager;
             playingFlag = false;
@@ -195,9 +202,32 @@ namespace Sprint2Pork
         public void BeIdle() => actionState.BeIdle();
         public void BeMoving() => actionState.BeMoving();
         public void BeAttacking() => actionState.BeAttacking();
-        public void TakeDamage() => actionState.TakeDamage();
+        public void TakeDamage()
+        {
+            if (!isInvincible)
+            {
+                damageEffectCounter = 0;
+                isTakingDamage = true;
+                isInvincible = true;
+                invincibilityTimer = invincibilityDuration;
+                actionState.TakeDamage();
+            }
+        }
 
-        public void loseItem()
+        public void UpdateInvincibilityTimer(GameTime gameTime)
+        {
+            if (isInvincible)
+            {
+                invincibilityTimer -= gameTime.ElapsedGameTime.TotalSeconds;
+                if (invincibilityTimer <= 0)
+                {
+                    isInvincible = false;
+                    invincibilityTimer = 0;
+                }
+            }
+        }
+
+        public void LoseItem()
         {
             ItemInUse = false;
             linkItem = new NoItem();
@@ -316,7 +346,7 @@ namespace Sprint2Pork
                 ItemInUse = false;
                 OffsetY = 0;
                 OffsetX = 0;
-                loseItem();
+                LoseItem();
             }
         }
 

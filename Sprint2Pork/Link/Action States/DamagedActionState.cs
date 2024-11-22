@@ -11,7 +11,6 @@ namespace Sprint2Pork
         public DamagedActionState(Link link, bool isFlashing)
         {
             this.link = link;
-            //this.damageDuration = damageDuration;
             this.isFlashing = isFlashing;
             SetFlashingSprite();
 
@@ -102,18 +101,6 @@ namespace Sprint2Pork
         public void Update()
         {
             link.BeDamaged();
-            //frameCounter++;
-
-            //if (frameCounter % 10 != 0)
-            //{
-            //    isFlashing = !isFlashing;
-            //    SetFlashingSprite();
-            //}
-
-            //if (frameCounter >= damageDuration)
-            //{
-            //    BeIdle();
-            //}
         }
     }
 }
