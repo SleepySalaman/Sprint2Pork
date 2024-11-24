@@ -32,6 +32,7 @@ namespace Sprint2Pork
             roomList.Add("room4");
             roomList.Add("room5");
             roomList.Add("room6");
+            roomList.Add("room7locked");
             roomList.Add("room7");
             roomList.Add("room8");
             roomList.Add("room9");
@@ -55,7 +56,7 @@ namespace Sprint2Pork
             transitionDirections.Add("down", new Vector2(0, 1));
         }
 
-        public string GetNextRoom(string currentRoom, Link link)
+        public string GetNextRoom(string currentRoom, Link link, Inventory inventory)
         {
             string nextRoom = "none";
             switch (currentRoom)
@@ -81,8 +82,21 @@ namespace Sprint2Pork
                     if (link.GetX() < leftBorder) { nextRoom = "room8"; }
                     break;
                 case "room6":
-                    if (link.GetY() > bottomBorder) { nextRoom = "room7"; }
+                    if (link.GetY() > bottomBorder)
+                    {
+                        if (inventory.GetItemCount("Key") >= 1)
+                        {
+                            nextRoom = "room7";
+                        }
+                        else
+                        {
+                            nextRoom = "room7locked";
+                        }
+                    }
                     if (link.GetY() < topBorder) { nextRoom = "room5"; }
+                    break;
+                case "room7locked":
+                    if (link.GetY() < topBorder) { nextRoom = "room6"; }
                     break;
                 case "room7":
                     if (link.GetY() < topBorder) { nextRoom = "room6"; }
