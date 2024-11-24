@@ -36,6 +36,7 @@ namespace Sprint2Pork
             roomList.Add("room7");
             roomList.Add("room8");
             roomList.Add("room9");
+            roomList.Add("room10");
             leftBorder = GameConstants.ROOM_EDGE_BUFFER;
             rightBorder = GraphicsDevice.Viewport.Width - leftBorder;
             topBorder = GameConstants.ROOM_EDGE_BUFFER;
@@ -100,6 +101,7 @@ namespace Sprint2Pork
                     break;
                 case "room7":
                     if (link.GetY() < topBorder) { nextRoom = "room6"; }
+                    if (link.GetX() > rightBorder) { nextRoom = "room10"; }
                     break;
                 case "room8":
                     if (link.GetX() > rightBorder) { nextRoom = "room5"; }
@@ -107,6 +109,9 @@ namespace Sprint2Pork
                     break;
                 case "room9":
                     if (link.GetY() > bottomBorder) { nextRoom = "room8"; }
+                    break;
+                case "room10":
+                    if (link.GetX() < leftBorder ) { nextRoom = "room7"; }
                     break;
             }
             return nextRoom;
