@@ -67,7 +67,14 @@ namespace Sprint2Pork
         private List<GroundItem> groundItems;
         private List<GroundItem> items;
         private Vector2 blockPosition = new Vector2(200, 200);
-        private Rectangle roomBoundingBox = new Rectangle(70, 110, 660, 800);
+        private Rectangle roomBoundingBox = new Rectangle(50, 110, 660, 850);
+
+
+        //text
+        public static string textToDisplay = "";
+        public static float textDisplayTimer = 0f;
+        public static float textDelayTimer = 0.5f; // Half second delay before text appears
+        public static bool isTextDelaying = false;
 
         // Transition and Room-related Variables
         private float transitionDuration = GameConstants.TRANSITION_DURATION;
@@ -434,7 +441,6 @@ namespace Sprint2Pork
         protected override void Draw(GameTime gameTime)
         {
             spriteBatch.Begin();
-
             GraphicsDevice.Clear(Color.Black);
 
             switch (gameState)
@@ -449,6 +455,24 @@ namespace Sprint2Pork
                     DrawHUD();
                     DrawGameState();
                     break;
+            }
+            if (textDisplayTimer > 0)
+            {
+                if (isTextDelaying)
+                {
+                    textDelayTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    if (textDelayTimer <= 0)
+                    {
+                        isTextDelaying = false;
+                    }
+                }
+                else
+                {
+                    Vector2 textPosition = new Vector2(viewport.Width / 2 - font.MeasureString(textToDisplay).X / 2,
+                                                     viewport.Height / 2);
+                    spriteBatch.DrawString(font, textToDisplay, textPosition, Color.White);
+                    textDisplayTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                }
             }
 
             spriteBatch.End();

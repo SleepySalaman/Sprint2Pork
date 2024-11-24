@@ -58,9 +58,14 @@ namespace Sprint2Pork.Entity
                 {
                     if (!enemyHitTracker.ContainsKey(enemy))
                     {
-                        enemy.TakeDamage(); // Apply damage only once
-                        enemyHitTracker[enemy] = true; // Mark the enemy as hit
-                        link.LoseItem();
+                        enemy.TakeDamage();
+                        enemyHitTracker[enemy] = true;
+
+                        // Add this check to specifically handle arrows
+                        if (link.linkItem is Arrow || link.linkItem is WoodArrow)
+                        {
+                            link.LoseItem();
+                        }
                     }
                 }
 

@@ -5,6 +5,9 @@ namespace Sprint2Pork
 {
     public class Arrow : ILinkItems
     {
+        private bool isBreaking = false;
+        private int breakAnimationTimer = 0;
+        private const int BREAK_ANIMATION_DURATION = 10;
         public int direction = 0;
         Rectangle rect = new Rectangle();
         string directionStr;
@@ -53,6 +56,17 @@ namespace Sprint2Pork
 
         public void Update(Link link)
         {
+            if (isBreaking)
+            {
+                breakAnimationTimer++;
+                rect = new Rectangle(51, 34, 10, 9);
+                sprite = new MovingNonAnimatedSprite(startX + link.OffsetXGet(), startY + link.OffsetYGet(), rect, directionStr);
+                if(breakAnimationTimer >= BREAK_ANIMATION_DURATION)
+                {
+                    link.LoseItem();
+                }
+                return;
+            }
             if (direction == 0)
             {
                 link.OffsetXChange(-12);
@@ -106,10 +120,8 @@ namespace Sprint2Pork
         }
         public bool Collides(Rectangle rect2)
         {
-            if (collided)
-            {
-                return false;
-            }
+            if (collided || isBreaking) return false;
+
             Rectangle rect1 = sprite.GetRect();
             if (rect1.X + rect1.Width > rect2.X &&
                 rect1.X < rect2.X + rect2.Width &&
@@ -117,12 +129,11 @@ namespace Sprint2Pork
                 rect1.Y < rect2.Y + rect2.Height)
             {
                 collided = true;
+                isBreaking = true;
+                breakAnimationTimer = 0;
                 return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
         public Rectangle getLocation() => (sprite.GetRect());
         public void SpriteSet(ISprite sprite) => this.sprite = sprite;

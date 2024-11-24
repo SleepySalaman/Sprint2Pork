@@ -92,6 +92,10 @@ namespace Sprint2Pork
                         else
                         {
                             nextRoom = "room7locked";
+                            Game1.textToDisplay = "You need to obtain a key to enter";
+                            Game1.textDisplayTimer = 1.0f;
+                            Game1.textDelayTimer = 0.8f;
+                            Game1.isTextDelaying = true;
                         }
                     }
                     if (link.GetY() < topBorder) { nextRoom = "room5"; }
@@ -101,7 +105,7 @@ namespace Sprint2Pork
                     break;
                 case "room7":
                     if (link.GetY() < topBorder) { nextRoom = "room6"; }
-                    if (link.GetX() > rightBorder) { nextRoom = "room10"; }
+                    if (link.GetX() > rightBorder) { nextRoom = "room10"; inventory.RemoveItem("Key"); }
                     break;
                 case "room8":
                     if (link.GetX() > rightBorder) { nextRoom = "room5"; }
@@ -111,7 +115,7 @@ namespace Sprint2Pork
                     if (link.GetY() > bottomBorder) { nextRoom = "room8"; }
                     break;
                 case "room10":
-                    if (link.GetX() < leftBorder ) { nextRoom = "room7"; }
+                    if (link.GetX() < leftBorder ) { nextRoom = "room7";}
                     break;
             }
             return nextRoom;
