@@ -21,6 +21,7 @@ namespace Sprint2Pork
         public Viewport viewport;
         private SpriteBatch spriteBatch;
         private SpriteFont font;
+        private UpdateManager updateManager;
 
         // Textures
         private Texture2D backgroundTexture;
@@ -125,6 +126,7 @@ namespace Sprint2Pork
         {
             inventory = new Inventory();
             InitializeHandler.BaseInitialize(ref viewport, graphics, ref link, ref controllerList, ref blocks, this, soundManager, inventory);
+            updateManager = new UpdateManager(this, link, healthCount, controllerList, soundManager);
             hud = new HUD(inventory, font, link);
             pausedScreen = new Paused(inventory);
             minimap = new Minimap(GraphicsDevice, link);
@@ -187,18 +189,17 @@ namespace Sprint2Pork
         {
             if (gameState == Game1State.StartScreen)
             {
-                // Only updates controllers for start screen inputs
-                UpdateControllers();
+                updateManager.UpdateControllers();
             }
             else if (gameState == Game1State.Playing)
             {
                 int linkPreviousX = link.GetX();
                 int linkPreviousY = link.GetY();
 
-                UpdateControllers();
-                UpdateGroundItems();
-                UpdateEnemies(gameTime);
-                UpdateLink(linkPreviousX, linkPreviousY, gameTime);
+                updateManager.UpdateControllers();
+                updateManager.UpdateGroundItems(groundItems);
+                updateManager.UpdateEnemies(enemies, blocks, fireballManagers, gameTime, enemyManager);
+                updateManager.UpdateLink(linkPreviousX, linkPreviousY, gameTime, blocks, roomBoundingBox);
 
                 CheckRoomChange(gameState);
 
@@ -208,17 +209,9 @@ namespace Sprint2Pork
             {
                 HandleTransition(gameTime);
             }
-            else if (gameState == Game1State.Paused)
+            else if (gameState == Game1State.Paused || gameState == Game1State.GameOver || gameState == Game1State.Inventory)
             {
-                UpdateControllers();
-            }
-            else if (gameState == Game1State.GameOver)
-            {
-                UpdateControllers();
-            }
-            else if (gameState == Game1State.Inventory)
-            {
-                UpdateControllers();
+                updateManager.UpdateControllers();
             }
         }
 
@@ -250,47 +243,6 @@ namespace Sprint2Pork
                 currentRoom = nextRoom;
                 CheckForKey();
             }
-        }
-
-        private void UpdateEnemies(GameTime gameTime)
-        {
-            EnemyUpdater.UpdateEnemies(link, enemies, blocks, fireballManagers, healthCount);
-            EnemyUpdater.UpdateFireballs(enemyManager, ref link, ref fireballManagers, gameTime, ref healthCount);
-            if (!healthCount.IsLinkAlive())
-            {
-                GameOver();
-            }
-        }
-
-        private void UpdateLink(int linkPreviousX, int linkPreviousY, GameTime gameTime)
-        {
-            ISprite itemSprite = link.linkItem.SpriteGet();
-            if (itemSprite != null)
-            {
-                link.linkItem.SpriteSet(itemSprite);
-            }
-            link.UpdateInvincibilityTimer(gameTime);
-            link.actionState.Update();
-            link.LinkSpriteUpdate();
-            BlockCollisionHandler.HandleBlockCollision(link, linkPreviousX, linkPreviousY, blocks, roomBoundingBox);
-        }
-
-        private void UpdateGroundItems()
-        {
-            var itemsToRemove = new List<GroundItem>();
-
-            foreach (var item in groundItems)
-            {
-                item.Update(item.destinationRect.X, item.destinationRect.Y);
-
-                if (Collision.CollidesWithGroundItem(link.GetRect(), item.GetRect()))
-                {
-                    HandleItemCollision(item);
-                    itemsToRemove.Add(item);
-                }
-            }
-
-            RemoveGroundItems(itemsToRemove);
         }
 
         private void HandleItemCollision(GroundItem item)
