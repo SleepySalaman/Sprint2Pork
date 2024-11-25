@@ -173,10 +173,11 @@ namespace Sprint2Pork
             MediaPlayer.Play(Content.Load<Song>("backgroundMusic"));
         }
 
-        public void InitializeGameComponents()
+        private void InitializeGameComponents()
         {
             InitializeHandler.LoadEnemyContent(ref spriteBatch, ref enemyUpdater, ref enemyManager,
                 GraphicsDevice, (int)enemyInitPos.X, (int)enemyInitPos.Y, soundManager);
+
             textSprite = new TextSprite(200, GameConstants.TEXT_DISPLAY, font);
             hud = new HUD(inventory, font, link);
             pausedScreen = new Paused(inventory);
