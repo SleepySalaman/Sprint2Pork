@@ -1,4 +1,4 @@
-﻿namespace Sprint2Pork
+﻿namespace Sprint2Pork.Managers
 {
     public enum Game1State
     {

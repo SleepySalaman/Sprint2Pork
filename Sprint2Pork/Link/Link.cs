@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Sprint2Pork.Essentials;
 using Sprint2Pork.Items;
+using Sprint2Pork.Managers;
 using System;
 using System.Collections.Generic;
 

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Sprint2Pork.Blocks;
 using Sprint2Pork.Entity;
 using Sprint2Pork.Essentials;
+using Sprint2Pork.Managers;
 using System.Collections.Generic;
 
 namespace Sprint2Pork

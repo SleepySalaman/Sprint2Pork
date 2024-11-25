@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Media;
 using System.Collections.Generic;
 
-namespace Sprint2Pork
+namespace Sprint2Pork.Managers
 {
     public class SoundManager
     {

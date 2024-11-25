@@ -7,6 +7,7 @@ using Sprint2Pork.Entity;
 using Sprint2Pork.Entity.Moving;
 using Sprint2Pork.Essentials;
 using Sprint2Pork.Items;
+using Sprint2Pork.Managers;
 using Sprint2Pork.rooms;
 using System;
 using System.Collections.Generic;
@@ -26,50 +27,50 @@ namespace Sprint2Pork
         // Textures
         private Texture2D backgroundTexture;
         private Texture2D hudTexture;
-        private Texture2D roomTexture;
+        public Texture2D roomTexture;
         private Texture2D nextRoomTexture;
         private Texture2D lifeTexture;
         private Texture2D pauseOverlayTexture;
         private Texture2D hitboxTexture;
         private Texture2D winStateTexture;
         private Texture2D startScreenTexture;
-        private List<Texture2D> allTextures;
+        public List<Texture2D> allTextures;
 
         // Game State and Management
         public Game1State gameState { get; private set; }
-        private Game1StateManager gameStateManager;
-        private string currentRoom;
+        public Game1StateManager gameStateManager;
+        public string currentRoom;
         private string nextRoom;
 
         // UI and HUD Components
-        private HUD hud;
-        private Minimap minimap;
+        public HUD hud;
+        public Minimap minimap;
         private Paused pausedScreen;
         private ISprite textSprite;
-        private Inventory inventory;
+        public Inventory inventory;
         private Dictionary<string, Rectangle> itemSourceRects;
 
         // Player and Character Related
-        private Link link;
-        private LinkHealth healthCount = new LinkHealth();
-        private int[] spritePos = new int[2] { 0, 0 };
+        public Link link;
+        public LinkHealth healthCount = new LinkHealth();
+        public int[] spritePos = new int[2] { 0, 0 };
 
         // Enemy and Enemy Management
-        private List<IEnemy> enemies;
-        private List<EnemyManager> fireballManagers;
+        public List<IEnemy> enemies;
+        public List<EnemyManager> fireballManagers;
         private EnemyManager enemyManager;
-        private UpdateEnemySprite enemyUpdater;
-        private Vector2 enemyInitPos = new Vector2(GameConstants.ENEMY_INIT_X, GameConstants.ENEMY_INIT_Y);
+        public UpdateEnemySprite enemyUpdater;
+        public Vector2 enemyInitPos = new Vector2(GameConstants.ENEMY_INIT_X, GameConstants.ENEMY_INIT_Y);
 
         // Game World and Room Management
-        private RoomManager roomManager;
-        private Dictionary<string, (List<Block>, List<GroundItem>, List<IEnemy>, List<EnemyManager>)> rooms;
-        private List<Block> blocks;
-        private List<GroundItem> groundItems;
+        public RoomManager roomManager;
+        public Dictionary<string, (List<Block>, List<GroundItem>, List<IEnemy>, List<EnemyManager>)> rooms;
+        public List<Block> blocks;
+        public List<GroundItem> groundItems;
         private List<GroundItem> items;
         private Vector2 blockPosition = new Vector2(200, 200);
         private Rectangle roomBoundingBox = new Rectangle(50, 110, 660, 850);
-
+        private GameStateManager stateManager;
 
         //text
         public static string textToDisplay = "";
@@ -87,10 +88,10 @@ namespace Sprint2Pork
         private Vector2 transitionDirection;
 
         // Audio
-        private SoundManager soundManager;
+        public SoundManager soundManager;
 
         // Input and Control
-        private List<IController> controllerList;
+        public List<IController> controllerList;
 
         // Toggles and Flags
         public bool IsFullscreen { get; set; }
@@ -131,6 +132,7 @@ namespace Sprint2Pork
             pausedScreen = new Paused(inventory);
             minimap = new Minimap(GraphicsDevice, link);
             roomManager = new RoomManager(GraphicsDevice);
+            stateManager = new GameStateManager(this, link, soundManager, inventory, healthCount, controllerList, minimap, hud, GraphicsDevice);
             roomManager.InitializeRooms(Content);
             base.Initialize();
         }
@@ -245,6 +247,7 @@ namespace Sprint2Pork
             }
         }
 
+
         private void HandleItemCollision(GroundItem item)
         {
             switch (item)
@@ -298,40 +301,9 @@ namespace Sprint2Pork
                 controller.Update();
             }
         }
-
-        public void ResetGame()
+        public void SetGameState(Game1State newState)
         {
-            spritePos[0] = GameConstants.DEFAULT_SPRITE_POSITION;
-            spritePos[1] = GameConstants.DEFAULT_SPRITE_POSITION;
-
-            enemyUpdater = new UpdateEnemySprite((int)enemyInitPos.X, (int)enemyInitPos.Y);
-
-            soundManager = new SoundManager();
-            soundManager.LoadAllSounds(Content);
-
-            inventory.Reset();
-
-            link = new Link(viewport.Width, viewport.Height, soundManager, inventory);
-            healthCount = new LinkHealth();
-
-            hud.SubscribeToLinkEvents(link);
-            minimap = new Minimap(GraphicsDevice, link);
-
-            currentRoom = "room1";
-            roomTexture = roomManager.GetNextRoomTexture(currentRoom);
-            (blocks, groundItems, enemies, fireballManagers) = rooms[currentRoom];
-            gameState = Game1State.Playing;
-
-            RoomLoader.LoadRooms(allTextures[8], allTextures[9], allTextures[2], ref blocks, ref groundItems, ref enemies,
-                ref fireballManagers, ref rooms, ref soundManager, ref currentRoom);
-
-            foreach (IController controller in controllerList)
-            {
-                if (controller is KeyboardController keyboardController)
-                {
-                    keyboardController.UpdateLink(link);
-                }
-            }
+            gameState = newState;
         }
 
         protected override void Draw(GameTime gameTime)
@@ -474,12 +446,6 @@ namespace Sprint2Pork
             spriteBatch.Draw(roomTexture, oldRoomRectangle, Color.White);
             spriteBatch.Draw(nextRoomTexture, nextRoomRectangle, Color.White);
         }
-
-        public void StartGame()
-        {
-            gameState = gameState == Game1State.StartScreen ? Game1State.Playing : Game1State.StartScreen;
-        }
-
         public void GetDevRoom()
         {
             currentRoom = "room1";
@@ -499,20 +465,29 @@ namespace Sprint2Pork
             roomTexture = roomManager.GetNextRoomTexture(currentRoom);
         }
 
-        public void TogglePause()
-
-        {
-            gameState = gameState == Game1State.Playing ? Game1State.Paused : Game1State.Playing;
-        }
-
         public void GameOver()
         {
-            gameState = Game1State.GameOver;
+            stateManager.GameOver();
+        }
+
+        public void TogglePause()
+        {
+            stateManager.TogglePause();
         }
 
         public void ToggleBackgroundMusic()
         {
-            soundManager.ToggleBackgroundMusic();
+            stateManager.ToggleBackgroundMusic();
+        }
+
+        public void ResetGame()
+        {
+            stateManager.ResetGame();
+        }
+
+        public void StartGame()
+        {
+            stateManager.StartGame();
         }
 
         private int GetCurrentRoomNumber()

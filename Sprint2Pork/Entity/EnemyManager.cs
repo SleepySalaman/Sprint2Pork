@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sprint2Pork.Entity.Moving;
+using Sprint2Pork.Managers;
 using System.Collections.Generic;
 
 namespace Sprint2Pork.Entity

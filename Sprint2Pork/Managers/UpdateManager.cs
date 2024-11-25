@@ -5,7 +5,7 @@ using Sprint2Pork.Entity.Moving;
 using Sprint2Pork.Items;
 using System.Collections.Generic;
 
-namespace Sprint2Pork
+namespace Sprint2Pork.Managers
 {
     public class UpdateManager
     {
