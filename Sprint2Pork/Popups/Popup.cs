@@ -9,8 +9,10 @@ using System.Security.Policy;
 using System.Numerics;
 using Microsoft.Xna.Framework.Input;
 using static System.Net.Mime.MediaTypeNames;
+using System.Diagnostics;
+using Image = System.Drawing.Image;
 
-namespace Sprint2Pork.Popup
+namespace Sprint2Pork.Popups
 {
     public class Popup
     {
@@ -86,7 +88,11 @@ namespace Sprint2Pork.Popup
         public int AddImage(string location, int x, int y, int width, int height)
         {
             PictureBox pb1 = new();
-            pb1.Image = System.Drawing.Image.FromFile(location);
+            Debug.WriteLine(location);
+            pb1.Image = Image.FromFile(location);
+            if(pb1.Image != null) {
+                pb1.Image.Dispose();
+            }
             pb1.Location = new Point(x, y);
             pb1.Size = new Size(width, height);
             pb1.SizeMode = PictureBoxSizeMode.Zoom;
