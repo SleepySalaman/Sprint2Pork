@@ -38,42 +38,46 @@ namespace Sprint2Pork
             this.graphicsDevice = graphicsDevice;
         }
 
+
         public void ResetGame()
         {
-            game.spritePos[0] = GameConstants.DEFAULT_SPRITE_POSITION;
-            game.spritePos[1] = GameConstants.DEFAULT_SPRITE_POSITION;
+            // Re-initialize game components
+            game.InitializeGameComponents();
 
-            game.enemyUpdater = new UpdateEnemySprite((int)game.enemyInitPos.X, (int)game.enemyInitPos.Y);
+            game.link = link;
 
-            game.soundManager = new SoundManager();
-            game.soundManager.LoadAllSounds(game.Content);
-
-            game.inventory.Reset();
-
-            game.link = new Link(game.viewport.Width, game.viewport.Height, game.soundManager, game.inventory);
-            game.healthCount = new LinkHealth();
-
-            game.hud.SubscribeToLinkEvents(game.link);
-            game.minimap = new Minimap(game.GraphicsDevice, game.link);
-
-            game.currentRoom = "room1";
-            game.roomTexture = game.roomManager.GetNextRoomTexture(game.currentRoom);
-            (game.blocks, game.groundItems, game.enemies, game.fireballManagers) = game.rooms[game.currentRoom];
-
-            game.SetGameState(Game1State.Playing);
-
-            RoomLoader.LoadRooms(game.allTextures[8], game.allTextures[9], game.allTextures[2],
-                ref game.blocks, ref game.groundItems, ref game.enemies,
-                ref game.fireballManagers, ref game.rooms, ref game.soundManager, ref game.currentRoom);
-
-            foreach (IController controller in game.controllerList)
+            // Update Link reference in all controllers
+            foreach (IController controller in controllerList)
             {
                 if (controller is KeyboardController keyboardController)
                 {
-                    keyboardController.UpdateLink(game.link);
+                    keyboardController.UpdateLink(link);
                 }
             }
+            // Set initial states and flags
+            game.link.directionState = new DownFacingLinkState(game.link);
+            game.link.actionState = new IdleActionState(game.link);
+            game.link.linkItem = new NoItem();
+            game.link.isInvincible = false;
+            game.link.SetX(115);
+            game.link.SetY(180);
+
+            // Reset other game components
+            game.spritePos[0] = GameConstants.DEFAULT_SPRITE_POSITION;
+            game.spritePos[1] = GameConstants.DEFAULT_SPRITE_POSITION;
+            game.enemyUpdater = new UpdateEnemySprite((int)game.enemyInitPos.X, (int)game.enemyInitPos.Y);
+            game.soundManager = new SoundManager();
+            game.soundManager.LoadAllSounds(game.Content);
+            game.inventory.Reset();
+            game.healthCount = new LinkHealth();
+            game.hud.SubscribeToLinkEvents(game.link);
+            game.minimap = new Minimap(game.GraphicsDevice, game.link);
+            game.currentRoom = "room1";
+            game.roomTexture = game.roomManager.GetNextRoomTexture(game.currentRoom);
+            (game.blocks, game.groundItems, game.enemies, game.fireballManagers) = game.rooms[game.currentRoom];
+            game.SetGameState(Game1State.Playing);
         }
+
 
 
         public void GameOver()
