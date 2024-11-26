@@ -119,6 +119,9 @@ namespace Sprint2Pork.rooms
                             case 23:
                                 groundItems.Add(new GroundBomb((int)position.X, (int)position.Y, new List<Rectangle> { new Rectangle(134, 0, 10, 16), new Rectangle(24, 16, 8, 16) }));
                                 break;
+                            case 24:
+                                groundItems.Add(new Pig((int)position.X, ((int)position.Y), new List<Rectangle> { new Rectangle(3, 94, 16, 24) }));
+                                break;
 
                             // Enemies
                             case 30:
