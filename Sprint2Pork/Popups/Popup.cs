@@ -9,9 +9,13 @@ using System.Security.Policy;
 using System.Numerics;
 using Microsoft.Xna.Framework.Input;
 using static System.Net.Mime.MediaTypeNames;
+using System.Diagnostics;
+using Image = System.Drawing.Image;
 
-namespace ProjectMangoJuice {
-    public class Popup {
+namespace Sprint2Pork.Popups
+{
+    public class Popup
+    {
 
         private Form form;
         private bool formVisible;
@@ -29,9 +33,11 @@ namespace ProjectMangoJuice {
 
         private bool moved = false;
 
-        public Popup(int x, int y, int width, int height) {
+        public Popup(int x, int y, int width, int height)
+        {
             rects = new();
-            form = new Form() {
+            form = new Form()
+            {
                 Location = new Point(x, y),
                 StartPosition = FormStartPosition.Manual,
                 Size = new Size(width, height),
@@ -43,23 +49,30 @@ namespace ProjectMangoJuice {
             InitializeSprites();
         }
 
-        private void InitializeDrawing() {
+        private void InitializeDrawing()
+        {
             myBrush = new SolidBrush(Color.Red);
             formGraphics = form.CreateGraphics();
         }
 
-        private void InitializeSprites() {
+        private void InitializeSprites()
+        {
             pbList = new();
             imgPos = new();
             displacement = new();
             previousDisplacement = new();
         }
 
-        public void ToggleRender() {
-            if (!form.IsDisposed && popupCooldownCount > amountCooldown) {
-                if (!formVisible) {
+        public void ToggleRender()
+        {
+            if (!form.IsDisposed && popupCooldownCount > amountCooldown)
+            {
+                if (!formVisible)
+                {
                     form.Show();
-                } else {
+                }
+                else
+                {
                     form.Hide();
                 }
                 formVisible = !formVisible;
@@ -67,13 +80,19 @@ namespace ProjectMangoJuice {
             }
         }
 
-        public void AddRectangle(int x, int y, int width, int height) {
+        public void AddRectangle(int x, int y, int width, int height)
+        {
             rects.Add(new Rectangle(x, y, width, height));
         }
 
-        public int AddImage(string location, int x, int y, int width, int height) {
+        public int AddImage(string location, int x, int y, int width, int height)
+        {
             PictureBox pb1 = new();
-            pb1.Image = System.Drawing.Image.FromFile(location);
+            Debug.WriteLine(location);
+            pb1.Image = Image.FromFile(location);
+            if(pb1.Image != null) {
+                pb1.Image.Dispose();
+            }
             pb1.Location = new Point(x, y);
             pb1.Size = new Size(width, height);
             pb1.SizeMode = PictureBoxSizeMode.Zoom;
@@ -86,34 +105,44 @@ namespace ProjectMangoJuice {
             return pbList.Count - 1;
         }
 
-        private void HandleKeyPresses(object sender, KeyEventArgs e) {
-            if (e.KeyCode == System.Windows.Forms.Keys.P) {
+        private void HandleKeyPresses(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == System.Windows.Forms.Keys.P)
+            {
                 ToggleRender();
             }
         }
 
-        public void Draw() {
-            foreach (Rectangle r in rects) {
+        public void Draw()
+        {
+            foreach (Rectangle r in rects)
+            {
                 formGraphics.FillRectangle(myBrush, r);
             }
         }
 
-        public void moveImage(int index, int dX, int dY) {
+        public void moveImage(int index, int dX, int dY)
+        {
             displacement[index] = new Vector2(imgPos[index].X + dX, imgPos[index].Y + dY);
             moved = true;
         }
 
-        public void setImagePos(int index, int x, int y) {
+        public void setImagePos(int index, int x, int y)
+        {
             displacement[index] = new Vector2(x, y);
             moved = true;
         }
 
-        public void Update() {
+        public void Update()
+        {
             popupCooldownCount++;
-            if (moved) {
-                for (int i = 0; i < displacement.Count; i++) {
+            if (moved)
+            {
+                for (int i = 0; i < displacement.Count; i++)
+                {
                     if (displacement[i].X != previousDisplacement[i].X ||
-                        displacement[i].Y != previousDisplacement[i].Y) {
+                        displacement[i].Y != previousDisplacement[i].Y)
+                    {
                         form.Controls.Remove(pbList[i]);
                         pbList[i].Location = new Point((int)(imgPos[i].X + displacement[i].X), (int)(imgPos[i].Y + displacement[i].Y));
                         previousDisplacement[i] = displacement[i];

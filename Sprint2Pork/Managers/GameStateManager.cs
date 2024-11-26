@@ -40,6 +40,15 @@ namespace Sprint2Pork
 
         public void ResetGame()
         {
+            game.InitializeGameComponents();
+            game.link = link;
+            game.link.SetX(115);
+            game.link.SetY(180);
+            game.link.directionState = new DownFacingLinkState(game.link);
+            game.link.actionState = new IdleActionState(game.link);
+            game.link.linkItem = new NoItem();
+            game.link.isInvincible = false;
+
             game.spritePos[0] = GameConstants.DEFAULT_SPRITE_POSITION;
             game.spritePos[1] = GameConstants.DEFAULT_SPRITE_POSITION;
 
@@ -50,7 +59,6 @@ namespace Sprint2Pork
 
             game.inventory.Reset();
 
-            game.link = new Link(game.viewport.Width, game.viewport.Height, game.soundManager, game.inventory);
             game.healthCount = new LinkHealth();
 
             game.hud.SubscribeToLinkEvents(game.link);
