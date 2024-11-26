@@ -59,11 +59,13 @@ namespace Sprint2Pork
             if (isBreaking)
             {
                 breakAnimationTimer++;
-                rect = new Rectangle(51, 34, 10, 9);
+                rect = new Rectangle(51, 34, 10, 9); // Where is this rectangle on the screen?
                 sprite = new MovingNonAnimatedSprite(startX + link.OffsetXGet(), startY + link.OffsetYGet(), rect, directionStr);
                 if(breakAnimationTimer >= BREAK_ANIMATION_DURATION)
                 {
                     link.LoseItem();
+                    //isBreaking = false;
+                    //collided = false;
                 }
                 return;
             }
@@ -133,6 +135,7 @@ namespace Sprint2Pork
                 breakAnimationTimer = 0;
                 return true;
             }
+
             return false;
         }
         public Rectangle getLocation() => (sprite.GetRect());

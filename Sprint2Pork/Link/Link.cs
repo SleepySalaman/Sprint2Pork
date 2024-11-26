@@ -334,6 +334,7 @@ namespace Sprint2Pork
         public void StopLinkItem()
         {
             linkCount = 20;
+            //this.UpdateItem();
         }
 
         public void UpdateItem()
