@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using static System.Windows.Forms.LinkLabel;
 
 namespace Sprint2Pork
 {
@@ -56,19 +57,19 @@ namespace Sprint2Pork
 
         public void Update(Link link)
         {
-            if (isBreaking)
-            {
-                breakAnimationTimer++;
-                rect = new Rectangle(51, 34, 10, 9); // Where is this rectangle on the screen?
-                sprite = new MovingNonAnimatedSprite(startX + link.OffsetXGet(), startY + link.OffsetYGet(), rect, directionStr);
-                if(breakAnimationTimer >= BREAK_ANIMATION_DURATION)
-                {
-                    link.LoseItem();
-                    //isBreaking = false;
-                    //collided = false;
-                }
-                return;
-            }
+            //if (isBreaking)
+            //{
+            //    breakAnimationTimer++;
+            //    rect = new Rectangle(51, 34, 10, 9); // Where is this rectangle on the screen?
+            //    sprite = new MovingNonAnimatedSprite(startX + link.OffsetXGet(), startY + link.OffsetYGet(), rect, directionStr);
+            //    if(breakAnimationTimer >= BREAK_ANIMATION_DURATION)
+            //    {
+            //        link.LoseItem();
+            //        //isBreaking = false;
+            //        //collided = false;
+            //    }
+            //    return;
+            //}
             if (direction == 0)
             {
                 link.OffsetXChange(-12);
@@ -131,8 +132,10 @@ namespace Sprint2Pork
                 rect1.Y < rect2.Y + rect2.Height)
             {
                 collided = true;
-                isBreaking = true;
-                breakAnimationTimer = 0;
+                //isBreaking = true;
+                //breakAnimationTimer = 0;
+                rect = new Rectangle(0, 69, 7, 18);
+                sprite = new MovingNonAnimatedSprite(startX, startY, rect, directionStr);
                 return true;
             }
 

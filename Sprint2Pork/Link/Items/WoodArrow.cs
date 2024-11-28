@@ -117,6 +117,8 @@ namespace Sprint2Pork
                 rect1.Y < rect2.Y + rect2.Height)
             {
                 collided = true;
+                rect = new Rectangle(0, 69, 7, 18);
+                sprite = new MovingNonAnimatedSprite(startX, startY, rect, directionStr);
                 return true;
             }
             else
