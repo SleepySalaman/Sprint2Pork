@@ -62,10 +62,10 @@ namespace Sprint2Pork.Entity
                         enemyHitTracker[enemy] = true;
 
                         // Add this check to specifically handle arrows
-                        if (link.linkItem is Arrow || link.linkItem is WoodArrow)
-                        {
-                            link.LoseItem();
-                        }
+                        //if (link.linkItem is Arrow || link.linkItem is WoodArrow)
+                        //{
+                        //    link.LoseItem();
+                        //}
                     }
                 }
 
