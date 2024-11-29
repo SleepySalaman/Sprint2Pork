@@ -14,8 +14,6 @@ namespace Sprint2Pork.rooms
 {
     public class CSVLevelLoader
     {
-        private const float TILE_HEIGHT_MULTIPLIER = 1.025f;
-
         public static void LoadObjectsFromCSV(
             string fileName,
             Texture2D blockTexture,
@@ -106,7 +104,7 @@ namespace Sprint2Pork.rooms
                 {
                     Vector2 position = new Vector2(
                         col * tileSize,
-                        row * tileSize * TILE_HEIGHT_MULTIPLIER);
+                        row * tileSize * GameConstants.TILE_HEIGHT_MULTIPLIER);
 
                     ProcessCellValue(
                         cellValue,

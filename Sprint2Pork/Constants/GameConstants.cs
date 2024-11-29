@@ -7,6 +7,7 @@
         public const int VIEWPORT_HEIGHT = 600;
         public const int HUD_HEIGHT = 89;
         public const int ROOM_Y_OFFSET = 85;
+        public const float TILE_HEIGHT_MULTIPLIER = 1.025f;
 
         // Movement/Positions
         public const int ROOM_EDGE_BUFFER = 100;
