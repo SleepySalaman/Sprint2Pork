@@ -365,60 +365,6 @@ namespace Sprint2Pork
             Drawing.DrawInventoryScreen(spriteBatch, hud, minimap, blocks, groundItems, enemies, font, viewport, allTextures[9], this);
         }
 
-        private void InitializeItemSourceRects()
-        {
-            itemSourceRects = new Dictionary<string, Rectangle>
-            {
-                { "GroundBomb", new Rectangle(136, 0, 8, 16) },
-                { "Sword", new Rectangle(104, 16, 6, 16) },
-                { "Arrow", new Rectangle(152, 16, 8, 16) },
-                { "Boomerang", new Rectangle(128, 0, 8, 16) },
-                { "WoodArrow", new Rectangle(152, 0, 8, 16) },
-                { "BlueBoomer", new Rectangle(128, 16, 8, 16) },
-                { "Fire", new Rectangle(224, 0, 8, 16) },
-            };
-        }
-        public void DrawInventoryItems(float scale = 4.0f)
-        {
-            int startX = GameConstants.INVENTORY_START_X;
-            int startY = GameConstants.INVENTORY_START_Y;
-            int itemSize = GameConstants.INVENTORY_ITEM_SIZE;
-            int padding = GameConstants.INVENTORY_PADDING;
-            int itemsPerRow = GameConstants.INVENTORY_ITEMS_PER_ROW;
-            InitializeItemSourceRects();
-
-            int boxWidth = (itemSize + padding) * itemsPerRow - padding;
-            int boxHeight = (itemSize + padding) * (itemSourceRects.Count / itemsPerRow + 1) - padding;
-
-            for (int i = 0; i < itemSourceRects.Count; i++)
-            {
-                var item = itemSourceRects.ElementAt(i);
-                Rectangle sourceRect = item.Value;
-                int row = i / itemsPerRow;
-                int col = i % itemsPerRow;
-                Vector2 position = new Vector2(startX + (itemSize + padding) * col, startY + (itemSize + padding) * row);
-
-                spriteBatch.Draw(allTextures[9], position, sourceRect, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
-
-                if (item.Key == link.SlotB)
-                {
-                    Drawing.DrawSelectionBox(spriteBatch, hitboxTexture, new Rectangle((int)position.X, (int)position.Y, (int)(sourceRect.Width * scale), (int)(sourceRect.Height * scale)));
-                }
-            }
-            minimap.Draw(spriteBatch, blocks, groundItems, enemies, new Rectangle(20, 140, 200, 200), 0.5f);
-            Rectangle minimapRectangle = new Rectangle(60, 210, 320, 158);
-            DrawBlueBox(minimapRectangle);
-            DrawBlueBox(new Rectangle(startX - padding, startY - padding, boxWidth + 2 * padding, boxHeight + 2 * padding));
-        }
-
-
-        private void DrawBlueBox(Rectangle rectangle)
-        {
-            Texture2D whiteTexture = new Texture2D(graphics.GraphicsDevice, 1, 1);
-            whiteTexture.SetData(new[] { Color.White });
-            Drawing.DrawBlueBox(spriteBatch, whiteTexture, rectangle);
-        }
-
         private void DrawGameOverScreen()
         {
             spriteBatch.Draw(winStateTexture, new Rectangle(0, 0, viewport.Width, viewport.Height), Color.White);
