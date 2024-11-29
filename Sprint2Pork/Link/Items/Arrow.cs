@@ -92,24 +92,15 @@ namespace Sprint2Pork
             if (link.LinkCountGet() >= 19)
             {
                 rect = new Rectangle(51, 34, 10, 9); // 170 47
-                if (link.directionState is RightFacingLinkState)
+                if (link.directionState is UpFacingLinkState)
                 {
-                    link.OffsetXChange(87);
-                    link.OffsetYChange(17);
-                }
-                else if (link.directionState is UpFacingLinkState)
-                {
-                    link.OffsetXChange(25);
-                    link.OffsetYChange(-15);
-                }
-                else if (link.directionState is LeftFacingLinkState)
-                {
-                    link.OffsetYChange(50);
+                    link.OffsetXChange(5);
+                    link.OffsetYChange(-25);
                 }
                 else if (link.directionState is DownFacingLinkState)
                 {
-                    link.OffsetXChange(50);
-                    link.OffsetYChange(100);
+                    link.OffsetXChange(-10);
+                    link.OffsetYChange(30);
                 }
                 sprite = new MovingNonAnimatedSprite(startX + link.OffsetXGet(), startY + link.OffsetYGet(), rect, directionStr);
             }
