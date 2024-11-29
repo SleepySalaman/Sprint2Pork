@@ -106,42 +106,52 @@ namespace Sprint2Pork
 
                 if (item.Key == link.SlotB)
                 {
-                    DrawSelectionBox(spriteBatch, hitboxTexture, new Rectangle((int)position.X, (int)position.Y, (int)(sourceRect.Width * scale), (int)(sourceRect.Height * scale)));
+                    DrawSelectionBox(spriteBatch, new Rectangle((int)position.X, (int)position.Y, (int)(sourceRect.Width * scale), (int)(sourceRect.Height * scale)));
                 }
             }
             minimap.Draw(spriteBatch, blocks, groundItems, enemies, new Rectangle(20, 140, 200, 200), 0.5f);
             Rectangle minimapRectangle = new Rectangle(60, 210, 320, 158);
-            DrawBlueBox(spriteBatch, hitboxTexture, minimapRectangle);
-            DrawBlueBox(spriteBatch, hitboxTexture, new Rectangle(startX - padding, startY - padding, boxWidth + 2 * padding, boxHeight + 2 * padding));
+            DrawBlueBox(spriteBatch, minimapRectangle);
+            DrawBlueBox(spriteBatch, new Rectangle(startX - padding, startY - padding, boxWidth + 2 * padding, boxHeight + 2 * padding));
         }
 
-        public static void DrawSelectionBox(SpriteBatch spriteBatch, Texture2D hitboxTexture, Rectangle rectangle)
+        public static void DrawSelectionBox(SpriteBatch spriteBatch, Rectangle rectangle)
         {
             int thickness = 3;
             int length = 9;
             Color color = Color.Red;
 
             rectangle = new Rectangle(rectangle.Left - 3, rectangle.Top - 3, rectangle.Width + 6, rectangle.Height + 4);
+            Texture2D texture = CreateSolidColorTexture(spriteBatch.GraphicsDevice, color);
 
-            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Top, length, thickness), color);
-            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Top, thickness, length), color);
-            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Right - length, rectangle.Top, length, thickness), color);
-            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Right - thickness, rectangle.Top, thickness, length), color);
-            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Bottom - thickness, length, thickness), color);
-            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Left, rectangle.Bottom - length, thickness, length), color);
-            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Right - length, rectangle.Bottom - thickness, length, thickness), color);
-            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.Right - thickness, rectangle.Bottom - length, thickness, length), color);
+            spriteBatch.Draw(texture, new Rectangle(rectangle.Left, rectangle.Top, length, thickness), color);
+            spriteBatch.Draw(texture, new Rectangle(rectangle.Left, rectangle.Top, thickness, length), color);
+            spriteBatch.Draw(texture, new Rectangle(rectangle.Right - length, rectangle.Top, length, thickness), color);
+            spriteBatch.Draw(texture, new Rectangle(rectangle.Right - thickness, rectangle.Top, thickness, length), color);
+            spriteBatch.Draw(texture, new Rectangle(rectangle.Left, rectangle.Bottom - thickness, length, thickness), color);
+            spriteBatch.Draw(texture, new Rectangle(rectangle.Left, rectangle.Bottom - length, thickness, length), color);
+            spriteBatch.Draw(texture, new Rectangle(rectangle.Right - length, rectangle.Bottom - thickness, length, thickness), color);
+            spriteBatch.Draw(texture, new Rectangle(rectangle.Right - thickness, rectangle.Bottom - length, thickness, length), color);
         }
 
-        public static void DrawBlueBox(SpriteBatch spriteBatch, Texture2D texture, Rectangle rectangle)
+        public static void DrawBlueBox(SpriteBatch spriteBatch, Rectangle rectangle)
         {
             int thickness = 3;
             Color color = Color.Blue;
+            Texture2D blueBoxTexture = CreateSolidColorTexture(spriteBatch.GraphicsDevice, color);
 
-            spriteBatch.Draw(texture, new Rectangle(rectangle.Left, rectangle.Top, rectangle.Width, thickness), color);
-            spriteBatch.Draw(texture, new Rectangle(rectangle.Left, rectangle.Bottom - thickness, rectangle.Width, thickness), color);
-            spriteBatch.Draw(texture, new Rectangle(rectangle.Left, rectangle.Top, thickness, rectangle.Height), color);
-            spriteBatch.Draw(texture, new Rectangle(rectangle.Right - thickness, rectangle.Top, thickness, rectangle.Height), color);
+            spriteBatch.Draw(blueBoxTexture, new Rectangle(rectangle.Left, rectangle.Top, rectangle.Width, thickness), color);
+            spriteBatch.Draw(blueBoxTexture, new Rectangle(rectangle.Left, rectangle.Bottom - thickness, rectangle.Width, thickness), color);
+            spriteBatch.Draw(blueBoxTexture, new Rectangle(rectangle.Left, rectangle.Top, thickness, rectangle.Height), color);
+            spriteBatch.Draw(blueBoxTexture, new Rectangle(rectangle.Right - thickness, rectangle.Top, thickness, rectangle.Height), color);
         }
+
+        public static Texture2D CreateSolidColorTexture(GraphicsDevice graphicsDevice, Color color)
+        {
+            Texture2D texture = new Texture2D(graphicsDevice, 1, 1);
+            texture.SetData(new[] { color });
+            return texture;
+        }
+
     }
 }

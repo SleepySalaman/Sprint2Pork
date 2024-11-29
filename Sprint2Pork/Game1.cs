@@ -249,40 +249,6 @@ namespace Sprint2Pork
             }
         }
 
-
-        private void HandleItemCollision(GroundItem item)
-        {
-            switch (item)
-            {
-                case Key:
-                    soundManager.PlaySound("sfxItemReceived");
-                    break;
-                case Triangle:
-                    GameOver();
-                    break;
-                case Potion:
-                    healthCount.HealFullHeart();
-                    break;
-                case Heart:
-                    healthCount.HealHalfHeart();
-                    break;
-                default:
-                    soundManager.PlaySound("sfxItemObtained");
-                    break;
-            }
-
-            item.PerformAction();
-            link.CollectItem(item);
-        }
-
-        private void RemoveGroundItems(List<GroundItem> itemsToRemove)
-        {
-            foreach (var item in itemsToRemove)
-            {
-                groundItems.Remove(item);
-            }
-        }
-
         private void CheckRoomChange(Game1State gameState)
         {
             RoomChange.CheckRoomChange(gameState, ref currentRoom, ref nextRoom, ref nextRoomTexture, ref transitionDirection, roomManager, link, GraphicsDevice, hud, SetRectangles, state => this.gameState = state, GetCurrentRoomNumber, inventory);
@@ -316,14 +282,14 @@ namespace Sprint2Pork
             switch (gameState)
             {
                 case Game1State.StartScreen:
-                    DrawStartScreen();
+                    spriteBatch.Draw(startScreenTexture, new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), Color.White);
                     break;
                 case Game1State.GameOver:
-                    DrawGameOverScreen();
+                    spriteBatch.Draw(winStateTexture, new Rectangle(0, 0, viewport.Width, viewport.Height), Color.White);
                     break;
                 default:
                     DrawHUD();
-                    DrawGameState();
+                    Drawing.DrawGameState(gameState, spriteBatch, font, winStateTexture, viewport, this);
                     break;
             }
             if (textDisplayTimer > 0)
@@ -355,28 +321,9 @@ namespace Sprint2Pork
             healthCount.DrawLives(spriteBatch, lifeTexture, viewport);
         }
 
-        private void DrawGameState()
-        {
-            Drawing.DrawGameState(gameState, spriteBatch, font, winStateTexture, viewport, this);
-        }
-
         public void DrawInventoryScreen()
         {
             Drawing.DrawInventoryScreen(spriteBatch, hud, minimap, blocks, groundItems, enemies, font, viewport, allTextures[9], this);
-        }
-
-        private void DrawGameOverScreen()
-        {
-            spriteBatch.Draw(winStateTexture, new Rectangle(0, 0, viewport.Width, viewport.Height), Color.White);
-        }
-
-        private void DrawStartScreen()
-        {
-            spriteBatch.Draw(
-                startScreenTexture,
-                new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height),
-                Color.White
-            );
         }
 
         public void DrawPlayingScreen()
