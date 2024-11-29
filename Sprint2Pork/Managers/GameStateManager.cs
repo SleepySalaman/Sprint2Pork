@@ -48,7 +48,8 @@ namespace Sprint2Pork
             game.link.actionState = new IdleActionState(game.link);
             game.link.linkItem = new NoItem();
             game.link.isInvincible = false;
-
+            game.hud.SubscribeToLinkEvents(game.link);
+            game.healthCount.HealFullHeart();
             game.spritePos[0] = GameConstants.DEFAULT_SPRITE_POSITION;
             game.spritePos[1] = GameConstants.DEFAULT_SPRITE_POSITION;
 
@@ -59,9 +60,6 @@ namespace Sprint2Pork
 
             game.inventory.Reset();
 
-            game.healthCount = new LinkHealth();
-
-            game.hud.SubscribeToLinkEvents(game.link);
             game.minimap = new Minimap(game.GraphicsDevice, game.link);
 
             game.currentRoom = "room1";

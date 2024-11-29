@@ -32,7 +32,6 @@ namespace Sprint2Pork
         {
             slotBItem = link.SlotB;
         }
-
         public void SubscribeToLinkEvents(Link link)
         {
             this.link = link;
@@ -58,18 +57,15 @@ namespace Sprint2Pork
 
         public void Draw(SpriteBatch spriteBatch, Texture2D itemsTexture, float scale = 2.0f)
         {
-            // Draw inventory counts
             spriteBatch.DrawString(font, $"{inventory.GetItemCount("Rupee")}", new Vector2(335, 10), Color.White);
             spriteBatch.DrawString(font, $"{inventory.GetItemCount("Key")}", new Vector2(335, 35), Color.White);
             spriteBatch.DrawString(font, $"{inventory.GetItemCount("GroundBomb")}", new Vector2(335, 60), Color.White);
 
-            // Draw current room number
             if (currentRoomNumber != -1)
             {
                 spriteBatch.DrawString(font, $"{currentRoomNumber}", new Vector2(250, 11), Color.White);
             }
 
-            // Draw Slot A item sprite
             if (!string.IsNullOrEmpty(slotAItem) && itemSourceRects.ContainsKey(slotAItem))
             {
                 Rectangle sourceRect = itemSourceRects[slotAItem];
@@ -83,7 +79,6 @@ namespace Sprint2Pork
                 spriteBatch.Draw(itemsTexture, slotAPosition, sourceRect, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
             }
 
-            // Draw Slot B item sprite
             if (!string.IsNullOrEmpty(slotBItem) && itemSourceRects.ContainsKey(slotBItem))
             {
                 Rectangle sourceRect = itemSourceRects[slotBItem];
