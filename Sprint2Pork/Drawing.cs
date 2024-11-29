@@ -63,9 +63,9 @@ namespace Sprint2Pork
             minimap.Draw(spriteBatch, blocks, groundItems, enemies, new Rectangle(120, 15, 140, 5), 0.15f);
 
             string title = "GAME PAUSED";
-            Vector2 titlePos = new Vector2((viewport.Width - font.MeasureString(title).X) / 2, 150);
+            Vector2 titlePos = new Vector2((viewport.Width - font.MeasureString(title).X) / 2, GameConstants.INVENTORY_PAUSED_TEXT_HEIGHT);
             spriteBatch.DrawString(font, title, titlePos, Color.White);
-            DrawInventoryItems(spriteBatch, game, itemsTexture, game.allTextures[9], game.link, minimap, blocks, groundItems, enemies);
+            DrawBSlotInventoryContents(spriteBatch, game, itemsTexture, game.allTextures[9], game.link, minimap, blocks, groundItems, enemies);
         }
 
         private static void InitializeBSlotItemSourceRects(out Dictionary<string, Rectangle> itemSourceRects)
@@ -82,7 +82,7 @@ namespace Sprint2Pork
             };
         }
 
-        public static void DrawInventoryItems(SpriteBatch spriteBatch, Game1 game, Texture2D itemsTexture, Texture2D hitboxTexture, Link link, Minimap minimap, List<Block> blocks, List<GroundItem> groundItems, List<IEnemy> enemies, float scale = 4.0f)
+        public static void DrawBSlotInventoryContents(SpriteBatch spriteBatch, Game1 game, Texture2D itemsTexture, Texture2D hitboxTexture, Link link, Minimap minimap, List<Block> blocks, List<GroundItem> groundItems, List<IEnemy> enemies, float scale = 4.0f)
         {
             int startX = GameConstants.INVENTORY_START_X;
             int startY = GameConstants.INVENTORY_START_Y;
@@ -117,11 +117,11 @@ namespace Sprint2Pork
 
         public static void DrawSelectionBox(SpriteBatch spriteBatch, Rectangle rectangle)
         {
-            int thickness = 3;
-            int length = 9;
+            int thickness = GameConstants.INVENTORY_LINE_THICKNESS;
+            int length = GameConstants.INVENTORY_SELECTION_BOX_LENGTH_ADJUSTMENT;
             Color color = Color.Red;
 
-            rectangle = new Rectangle(rectangle.Left - 3, rectangle.Top - 3, rectangle.Width + 6, rectangle.Height + 4);
+            rectangle = new Rectangle(rectangle.Left - 3, rectangle.Top - 3, rectangle.Width + 6, rectangle.Height + 6);
             Texture2D texture = CreateSolidColorTexture(spriteBatch.GraphicsDevice, color);
 
             spriteBatch.Draw(texture, new Rectangle(rectangle.Left, rectangle.Top, length, thickness), color);
@@ -136,7 +136,7 @@ namespace Sprint2Pork
 
         public static void DrawBlueBox(SpriteBatch spriteBatch, Rectangle rectangle)
         {
-            int thickness = 3;
+            int thickness = GameConstants.INVENTORY_LINE_THICKNESS;
             Color color = Color.Blue;
             Texture2D blueBoxTexture = CreateSolidColorTexture(spriteBatch.GraphicsDevice, color);
 
