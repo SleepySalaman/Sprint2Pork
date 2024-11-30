@@ -8,6 +8,7 @@ using Sprint2Pork.Essentials;
 using Sprint2Pork.Items;
 using Sprint2Pork.Managers;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Media;
 
 namespace Sprint2Pork
 {
@@ -50,13 +51,14 @@ namespace Sprint2Pork
             game.link.isInvincible = false;
             game.hud.SubscribeToLinkEvents(game.link);
             game.healthCount.HealFullHeart();
+
             game.spritePos[0] = GameConstants.DEFAULT_SPRITE_POSITION;
             game.spritePos[1] = GameConstants.DEFAULT_SPRITE_POSITION;
 
             game.enemyUpdater = new UpdateEnemySprite((int)game.enemyInitPos.X, (int)game.enemyInitPos.Y);
-
             game.soundManager = new SoundManager();
             game.soundManager.LoadAllSounds(game.Content);
+            MediaPlayer.Play(game.Content.Load<Song>("backgroundMusic"));
 
             game.inventory.Reset();
 

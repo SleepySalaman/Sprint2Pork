@@ -21,7 +21,8 @@ namespace Sprint2Pork
         private int Y;
         private int OffsetX;
         private int OffsetY;
-
+        private float deathRotation = 0f;
+        private bool isDying = false;
         private int screenWidth;
         private int screenHeight;
         private ISprite linkSprite;
@@ -244,6 +245,34 @@ namespace Sprint2Pork
             {
                 linkItem.Draw(sb, itemTexture);
             }
+        }
+        public void DeathShake()
+        {
+            if (linkCount % 3 == 0)
+            {
+                if (linkCount % 6 == 0)
+                {
+                    X += 25;
+                    LookRight();
+                }
+                else
+                {
+                    X -= 25;
+                    LookLeft();
+                }
+            }
+            PlaySound("sfxPlayerHurt");
+            linkCount++;
+        }
+
+
+        public void Die()
+        {
+            PlaySound("sfxPlayerHurt");
+            isInvincible = true;
+            BeIdle();
+            LookLeft();
+            LookRight();
         }
 
         public void Move(bool reverse)
