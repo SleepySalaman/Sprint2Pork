@@ -87,16 +87,15 @@ namespace Sprint2Pork.Popups
 
         public int AddImage(string location, int x, int y, int width, int height)
         {
-            PictureBox pb1 = new();
-            Debug.WriteLine(location);
+            PictureBox pb1 = new() {
+                Location = new Point(x, y),
+                Size = new Size(width, height),
+                SizeMode = PictureBoxSizeMode.Zoom,
+                Visible = true,
+            };
+            pb1.Image?.Dispose();
+            pb1.Image = null;
             pb1.Image = Image.FromFile(location);
-            if(pb1.Image != null) {
-                pb1.Image.Dispose();
-            }
-            pb1.Location = new Point(x, y);
-            pb1.Size = new Size(width, height);
-            pb1.SizeMode = PictureBoxSizeMode.Zoom;
-            pb1.Visible = true;
             pbList.Add(pb1);
             form.Controls.Add(pbList[pbList.Count - 1]);
             imgPos.Add(new Vector2(x, y));
@@ -105,10 +104,8 @@ namespace Sprint2Pork.Popups
             return pbList.Count - 1;
         }
 
-        private void HandleKeyPresses(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == System.Windows.Forms.Keys.P)
-            {
+        private void HandleKeyPresses(object sender, KeyEventArgs e){
+            if (e.KeyCode == System.Windows.Forms.Keys.P || e.KeyCode == System.Windows.Forms.Keys.Escape){
                 ToggleRender();
             }
         }
