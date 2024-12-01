@@ -202,7 +202,7 @@ public class KeyboardController : IController
         }
         if (IsKeyPressed(ks, Keys.F12))
         {
-            programGame.GetDevRoom();
+            programGame.SwitchToDevRoom();
         }
         if (IsKeyPressed(ks, Keys.H))
         {
