@@ -104,7 +104,7 @@ namespace Sprint2Pork
 
         public Game1()
         {
-            clash1 = new ClashOfClans(300, 300, 600, 600);
+            clash1 = new ClashOfClans();
 
             graphics = new GraphicsDeviceManager(this);
             IsFullscreen = false;

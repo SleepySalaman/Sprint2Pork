@@ -9,8 +9,8 @@ namespace Sprint2Pork.Popups {
 
         private Popup gamePopup;
 
-        public ClashOfClans(int x, int y, int width, int height) {
-            gamePopup = new Popup(x, y, width, height);
+        public ClashOfClans() {
+            gamePopup = new Popup(300, 300, 600, 600);
             gamePopup.AddImage("../th1.png", 0, 0, 200, 200);
         }
 
