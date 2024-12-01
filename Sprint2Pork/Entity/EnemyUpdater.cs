@@ -11,8 +11,7 @@ namespace Sprint2Pork.Entity
         // Add a dictionary to track which enemies have been hit during the current activation
         private static Dictionary<IEnemy, bool> enemyHitTracker = new Dictionary<IEnemy, bool>();
 
-        public static void UpdateEnemies(Link link, List<IEnemy> enemies, List<Block> blocks, List<EnemyManager> fireballManagers,
-            LinkHealth healthCount)
+        public static void UpdateEnemies(Link link, List<IEnemy> enemies, List<Block> blocks, List<EnemyManager> fireballManagers, LinkHealth healthCount, GameTime gameTime, float enemyStopTimer, bool isEnemyStopActive)
         {
             if (link.IsLinkUsingItem())
             {
@@ -43,8 +42,11 @@ namespace Sprint2Pork.Entity
 
             foreach (Enemy enemy in enemies)
             {
-                enemy.Update();
-                enemy.Move(blocks);
+                if (!isEnemyStopActive)
+                {
+                    enemy.Update();
+                    enemy.Move(blocks);
+                }
 
                 // Check for collision with Link
                 if (Collision.Collides(link.GetRect(), enemy.GetRect()) && !link.isInvincible)

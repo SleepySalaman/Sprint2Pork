@@ -50,7 +50,6 @@ namespace Sprint2Pork
         private Paused pausedScreen;
         private ISprite textSprite;
         public Inventory inventory;
-        private Dictionary<string, Rectangle> itemSourceRects;
 
         // Player and Character Related
         public Link link;
@@ -63,13 +62,14 @@ namespace Sprint2Pork
         private EnemyManager enemyManager;
         public UpdateEnemySprite enemyUpdater;
         public Vector2 enemyInitPos = new Vector2(GameConstants.ENEMY_INIT_X, GameConstants.ENEMY_INIT_Y);
+        public float enemyStopTimer;
+        public bool isEnemyStopActive;
 
         // Game World and Room Management
         public RoomManager roomManager;
         public Dictionary<string, (List<Block>, List<GroundItem>, List<IEnemy>, List<EnemyManager>)> rooms;
         public List<Block> blocks;
         public List<GroundItem> groundItems;
-        private List<GroundItem> items;
         private Vector2 blockPosition = new Vector2(200, 200);
         private Rectangle roomBoundingBox = new Rectangle(50, 110, 660, 850);
         private GameStateManager stateManager;
@@ -202,7 +202,8 @@ namespace Sprint2Pork
 
                 updateManager.UpdateControllers();
                 updateManager.UpdateGroundItems(groundItems);
-                updateManager.UpdateEnemies(enemies, blocks, fireballManagers, gameTime, enemyManager);
+                updateManager.UpdateEnemyStopClock(this, enemyStopTimer, isEnemyStopActive, gameTime);
+                updateManager.UpdateEnemies(enemies, blocks, fireballManagers, gameTime, enemyManager, enemyStopTimer, isEnemyStopActive);
                 updateManager.UpdateLink(linkPreviousX, linkPreviousY, gameTime, blocks, roomBoundingBox);
 
                 CheckRoomChange(gameState);
@@ -399,6 +400,18 @@ namespace Sprint2Pork
         private int GetCurrentRoomNumber()
         {
             return roomManager.GetCurrentRoomNumber(currentRoom);
+        }
+
+        public void InitEnemyStopTimer()
+        {
+            enemyStopTimer = GameConstants.ENEMY_FREEZE_TIMER;
+            isEnemyStopActive = true;
+        }
+
+        public void ResetEnemyStopTimer()
+        {
+            enemyStopTimer = 0.0f;
+            isEnemyStopActive = false;
         }
     }
 }

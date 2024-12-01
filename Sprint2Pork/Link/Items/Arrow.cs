@@ -7,7 +7,6 @@ namespace Sprint2Pork
     public class Arrow : ILinkItems
     {
         private bool isBreaking = false;
-        private int breakAnimationTimer = 0;
         private const int BREAK_ANIMATION_DURATION = 10;
         public int direction = 0;
         Rectangle rect = new Rectangle();

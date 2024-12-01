@@ -38,5 +38,8 @@
 
         // Text Positions
         public const int TEXT_DISPLAY = 100;
+
+        // Enemy Related
+        public const float ENEMY_FREEZE_TIMER = 3.0f;
     }
 }

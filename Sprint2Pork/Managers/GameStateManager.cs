@@ -53,6 +53,7 @@ namespace Sprint2Pork
             game.healthCount.HealFullHeart();
             game.spritePos[0] = GameConstants.DEFAULT_SPRITE_POSITION;
             game.spritePos[1] = GameConstants.DEFAULT_SPRITE_POSITION;
+            game.ResetEnemyStopTimer();
 
             game.enemyUpdater = new UpdateEnemySprite((int)game.enemyInitPos.X, (int)game.enemyInitPos.Y);
 

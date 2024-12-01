@@ -4,6 +4,7 @@ using Sprint2Pork.Blocks;
 using Sprint2Pork.Entity;
 using Sprint2Pork.Entity.Moving;
 using Sprint2Pork.Items;
+using System;
 using System.Collections.Generic;
 
 namespace Sprint2Pork.Managers
@@ -33,9 +34,9 @@ namespace Sprint2Pork.Managers
             }
         }
 
-        public void UpdateEnemies(List<IEnemy> enemies, List<Block> blocks, List<EnemyManager> fireballManagers, GameTime gameTime, EnemyManager enemyManager)
+        public void UpdateEnemies(List<IEnemy> enemies, List<Block> blocks, List<EnemyManager> fireballManagers, GameTime gameTime, EnemyManager enemyManager, float enemyStopTimer, bool isEnemyStopActive)
         {
-            EnemyUpdater.UpdateEnemies(link, enemies, blocks, fireballManagers, healthCount);
+            EnemyUpdater.UpdateEnemies(link, enemies, blocks, fireballManagers, healthCount, gameTime, enemyStopTimer, isEnemyStopActive);
             EnemyUpdater.UpdateFireballs(enemyManager, ref link, ref fireballManagers, gameTime, ref healthCount);
 
             if (!healthCount.IsLinkAlive())
@@ -81,6 +82,19 @@ namespace Sprint2Pork.Managers
             RemoveGroundItems(groundItems, itemsToRemove);
         }
 
+        public void UpdateEnemyStopClock(Game1 game, float enemyStopTimer, bool isEnemyStopActive, GameTime gameTime)
+        {
+            if (isEnemyStopActive)
+            {
+                game.enemyStopTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (game.enemyStopTimer <= 0)
+                {
+                    game.isEnemyStopActive = false;
+                    game.enemyStopTimer = 0;
+                }
+            }
+        }
+
         private void HandleItemCollision(GroundItem item)
         {
             switch (item)
@@ -96,6 +110,9 @@ namespace Sprint2Pork.Managers
                     break;
                 case Heart:
                     healthCount.HealHalfHeart();
+                    break;
+                case Clock:
+                    game.InitEnemyStopTimer();
                     break;
                 default:
                     soundManager.PlaySound("sfxItemObtained");
