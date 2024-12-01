@@ -100,12 +100,11 @@ namespace Sprint2Pork
         public bool showHitboxes = false;
         public bool menu = false;
 
-        private Popup popup1;
+        private ClashOfClans clash1;
 
         public Game1()
         {
-            popup1 = new Popup(300, 300, 600, 600);
-            popup1.AddImage("../th1.png", 0, 0, 200, 200);
+            clash1 = new ClashOfClans(300, 300, 600, 600);
 
             graphics = new GraphicsDeviceManager(this);
             IsFullscreen = false;
@@ -221,7 +220,7 @@ namespace Sprint2Pork
             {
                 updateManager.UpdateControllers();
             }
-            popup1.Update();
+            clash1.Update();
         }
 
         private void CheckForKey()
@@ -284,7 +283,7 @@ namespace Sprint2Pork
             spriteBatch.Begin();
             GraphicsDevice.Clear(Color.Black);
 
-            popup1.Draw();
+            clash1.Draw();
 
             switch (gameState)
             {
@@ -419,7 +418,7 @@ namespace Sprint2Pork
         }
 
         public void TogglePopup() {
-            popup1.ToggleRender();
+            clash1.TogglePopup();
         }
     }
 }
