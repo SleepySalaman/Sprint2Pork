@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Input;
 using static System.Net.Mime.MediaTypeNames;
 using System.Diagnostics;
 using Image = System.Drawing.Image;
+using System.IO;
 
 namespace Sprint2Pork.Popups
 {
@@ -85,9 +86,20 @@ namespace Sprint2Pork.Popups
             rects.Add(new Rectangle(x, y, width, height));
         }
 
+        private static string GetFullContentFilePath(string fileName)
+        {
+            return Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "..", "..", "..",
+                "Content", "Content",
+                fileName);
+        }
+
         public int AddImage(string location, int x, int y, int width, int height)
         {
-            PictureBox pb1 = new() {
+            string fullPath = GetFullContentFilePath(location);
+            PictureBox pb1 = new()
+            {
                 Location = new Point(x, y),
                 Size = new Size(width, height),
                 SizeMode = PictureBoxSizeMode.Zoom,
@@ -95,14 +107,15 @@ namespace Sprint2Pork.Popups
             };
             pb1.Image?.Dispose();
             pb1.Image = null;
-            pb1.Image = Image.FromFile(location);
+            pb1.Image = Image.FromFile(fullPath);
             pbList.Add(pb1);
             form.Controls.Add(pbList[pbList.Count - 1]);
             imgPos.Add(new Vector2(x, y));
-            displacement.Add(new Vector2(0, 0));
-            previousDisplacement.Add(new Vector2(0, 0));
+            displacement.Add(Vector2.Zero);
+            previousDisplacement.Add(Vector2.Zero);
             return pbList.Count - 1;
         }
+
 
         private void HandleKeyPresses(object sender, KeyEventArgs e){
             if (e.KeyCode == System.Windows.Forms.Keys.P || e.KeyCode == System.Windows.Forms.Keys.Escape){
