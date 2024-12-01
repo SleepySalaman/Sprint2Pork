@@ -361,8 +361,6 @@ namespace Sprint2Pork
 
         public void GetDevRoom()
         {
-            currentRoom = "devRoom";
-            roomTexture = roomManager.GetNextRoomTexture(currentRoom);
             roomManager.GetDevRoom(ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms, ref link, viewport, soundManager, controllerList);
         }
 

@@ -8,6 +8,8 @@
         public const int HUD_HEIGHT = 89;
         public const int ROOM_Y_OFFSET = 85;
         public const float TILE_HEIGHT_MULTIPLIER = 1.025f;
+        public const int LINK_DEFAULT_X = 115;
+        public const int LINK_DEFAULT_Y = 180;
 
         // Movement/Positions
         public const int ROOM_EDGE_BUFFER = 100;

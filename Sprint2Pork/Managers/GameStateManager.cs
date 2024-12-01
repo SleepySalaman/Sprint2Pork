@@ -43,8 +43,8 @@ namespace Sprint2Pork
         {
             game.InitializeGameComponents();
             game.link = link;
-            game.link.SetX(115);
-            game.link.SetY(180);
+            game.link.SetX(GameConstants.LINK_DEFAULT_X);
+            game.link.SetY(GameConstants.LINK_DEFAULT_Y);
             game.link.directionState = new DownFacingLinkState(game.link);
             game.link.actionState = new IdleActionState(game.link);
             game.link.linkItem = new NoItem();

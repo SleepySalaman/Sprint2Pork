@@ -28,6 +28,7 @@ namespace Sprint2Pork
             CSVLevelLoader.LoadObjectsFromCSV("room8.csv", blockTexture, groundItemTexture, enemyTexture, out var room8Blocks, out var room8Items, out var room8Enemies, out var fireballManagersRoom8, soundManager);
             CSVLevelLoader.LoadObjectsFromCSV("room9.csv", blockTexture, groundItemTexture, enemyTexture, out var room9Blocks, out var room9Items, out var room9Enemies, out var fireballManagersRoom9, soundManager);
             CSVLevelLoader.LoadObjectsFromCSV("room10.csv", blockTexture, groundItemTexture, enemyTexture, out var room10Blocks, out var room10Items, out var room10Enemies, out var fireballManagersRoom10, soundManager);
+            CSVLevelLoader.LoadObjectsFromCSV("devRoom.csv", blockTexture, groundItemTexture, enemyTexture, out var devRoomBlocks, out var devRoomItems, out var devRoomEnemies, out var fireballManagersDevRoom, soundManager);
 
 
             rooms["room1"] = (new List<Block>(room1Blocks), new List<GroundItem>(room1Items), new List<IEnemy>(room1Enemies), new List<EnemyManager>(fireballManagerRoom1));
@@ -41,6 +42,8 @@ namespace Sprint2Pork
             rooms["room8"] = (new List<Block>(room8Blocks), new List<GroundItem>(room8Items), new List<IEnemy>(room8Enemies), new List<EnemyManager>(fireballManagersRoom8));
             rooms["room9"] = (new List<Block>(room9Blocks), new List<GroundItem>(room9Items), new List<IEnemy>(room9Enemies), new List<EnemyManager>(fireballManagersRoom9));
             rooms["room10"] = (new List<Block>(room10Blocks), new List<GroundItem>(room10Items), new List<IEnemy>(room10Enemies), new List<EnemyManager>(fireballManagersRoom10));
+            rooms["devRoom"] = (new List<Block>(devRoomBlocks), new List<GroundItem>(devRoomItems), new List<IEnemy>(devRoomEnemies), new List<EnemyManager>(fireballManagersDevRoom));
+
 
             currentRoom = "room1";
             (blocks, groundItems, enemies, fireballManagers) = rooms[currentRoom];

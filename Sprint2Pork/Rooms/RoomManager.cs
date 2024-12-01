@@ -39,7 +39,7 @@ namespace Sprint2Pork
             roomList.Add("room8");
             roomList.Add("room9");
             roomList.Add("room10");
-            //roomList.Add("devRoom");
+            roomList.Add("devRoom");
             leftBorder = GameConstants.ROOM_EDGE_BUFFER;
             rightBorder = GraphicsDevice.Viewport.Width - leftBorder;
             topBorder = GameConstants.ROOM_EDGE_BUFFER;
@@ -120,6 +120,10 @@ namespace Sprint2Pork
                 case "room10":
                     if (link.GetX() < leftBorder ) { nextRoom = "room7";}
                     break;
+                case "devRoom":
+                    if (link.GetX() > rightBorder) { nextRoom = "room1"; }
+                    if (link.GetX() < leftBorder) { nextRoom = "room1"; }
+                    break;
             }
             return nextRoom;
 
@@ -157,7 +161,8 @@ namespace Sprint2Pork
         public void GetDevRoom(ref string currentRoom, ref List<Block> blocks, ref List<GroundItem> groundItems, ref List<IEnemy> enemies, ref List<EnemyManager> fireballManagers, Dictionary<string, (List<Block>, List<GroundItem>, List<IEnemy>, List<EnemyManager>)> rooms, ref Link link, Viewport viewport, SoundManager soundManager, List<IController> controllerList)
         {
             RoomChange.SwitchRoom("devRoom", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
-            link = new Link(viewport.Width, viewport.Height, soundManager, new Inventory());
+            link.SetX(GameConstants.LINK_DEFAULT_X);
+            link.SetY(GameConstants.LINK_DEFAULT_Y);
             foreach (IController controller in controllerList)
             {
                 if (controller is KeyboardController keyboardController)
