@@ -29,7 +29,8 @@ namespace Sprint2Pork
         private int damageEffectCounter;
         private bool isTakingDamage;
         private const int flashRate = 1;
-
+        private float deathRotation = 0f;
+        private bool isDying = false;
         int attackFrameCount;
         private bool ItemInUse;
         private int linkCount;
@@ -110,7 +111,34 @@ namespace Sprint2Pork
         /*
          * Section for non-set/get methods
          */
+        public void DeathShake()
+        {
+            if (linkCount % 3 == 0)
+            {
+                if (linkCount % 6 == 0)
+                {
+                    X += 25;
+                    LookRight();
+                }
+                else
+                {
+                    X -= 25;
+                    LookLeft();
+                }
+            }
+            PlaySound("sfxPlayerHurt");
+            linkCount++;
+        }
 
+
+        public void Die()
+        {
+            PlaySound("sfxPlayerHurt");
+            isInvincible = true;
+            BeIdle();
+            LookLeft();
+            LookRight();
+        }
         public void NextItem()
         {
             currentItemIndex = (currentItemIndex + 1) % items.Count;

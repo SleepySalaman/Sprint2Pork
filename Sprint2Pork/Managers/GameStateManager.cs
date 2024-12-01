@@ -8,6 +8,7 @@ using Sprint2Pork.Essentials;
 using Sprint2Pork.Items;
 using Sprint2Pork.Managers;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Media;
 
 namespace Sprint2Pork
 {
@@ -57,7 +58,7 @@ namespace Sprint2Pork
 
             game.soundManager = new SoundManager();
             game.soundManager.LoadAllSounds(game.Content);
-
+            MediaPlayer.Play(game.Content.Load<Song>("backgroundMusic"));
             game.inventory.Reset();
 
             game.minimap = new Minimap(game.GraphicsDevice, game.link);

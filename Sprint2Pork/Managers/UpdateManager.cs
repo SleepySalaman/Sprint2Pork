@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Media;
 using Sprint2Pork.Blocks;
 using Sprint2Pork.Entity;
 using Sprint2Pork.Entity.Moving;
@@ -39,7 +40,13 @@ namespace Sprint2Pork.Managers
 
             if (!healthCount.IsLinkAlive())
             {
-                game.GameOver();
+                MediaPlayer.Pause();
+                MediaPlayer.Play(game.Content.Load<Song>("sfxGameOver"));
+                link.DeathShake();
+                if (link.LinkCountGet() > 100)
+                {
+                    game.GameOver();
+                }
             }
         }
 
