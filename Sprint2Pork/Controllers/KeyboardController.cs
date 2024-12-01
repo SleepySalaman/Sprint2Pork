@@ -56,7 +56,7 @@ public class KeyboardController : IController
             }
         }
 
-        if(IsKeyPressed(ks, Keys.NumPad0)) {
+        if(IsKeyPressed(ks, Keys.NumPad0) || IsKeyPressed(ks, Keys.D0)) {
             programGame.TogglePopup();
         }
 
