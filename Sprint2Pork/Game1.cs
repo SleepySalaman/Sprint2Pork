@@ -353,9 +353,14 @@ namespace Sprint2Pork
             spriteBatch.Draw(nextRoomTexture, nextRoomRectangle, Color.White);
         }
 
+        public void SwitchToDevRoom()
+        {
+            GetDevRoom();
+        }
+
         public void GetDevRoom()
         {
-            currentRoom = "room1";
+            currentRoom = "devRoom";
             roomTexture = roomManager.GetNextRoomTexture(currentRoom);
             roomManager.GetDevRoom(ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms, ref link, viewport, soundManager, controllerList);
         }
