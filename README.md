@@ -24,6 +24,7 @@ Rooms are loaded from room csv files where 0 represents empty space and positive
 - **R**: Reset (reset the game state)
 - **F**: Toggle fullscreen mode
 - **H**: Toggle hitboxes
+- **F12**: Enter dev room
 
 ### Known Bugs
 1. **Trapped on Room Switch (Debug Mode Only)**: When manually switching rooms, it is possible for Link to be stuck in a wall in the new room. This is due to Link's position being constant on a manual room change. This is a small bug that only occurs when debugging as manual room switching will not be incorporated into the final game.
