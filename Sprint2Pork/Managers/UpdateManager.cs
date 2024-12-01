@@ -103,7 +103,7 @@ namespace Sprint2Pork.Managers
                     soundManager.PlaySound("sfxItemReceived");
                     break;
                 case Triangle:
-                    game.GameOver();
+                    game.Win();
                     break;
                 case Potion:
                     healthCount.HealFullHeart();
