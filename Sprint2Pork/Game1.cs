@@ -104,8 +104,8 @@ namespace Sprint2Pork
 
         public Game1()
         {
-            popup1 = new Popup(300, 300, 400, 400);
-            popup1.AddImage("../th1.png", 50, 50, 200, 200);
+            popup1 = new Popup(300, 300, 600, 600);
+            popup1.AddImage("../th1.png", 0, 0, 200, 200);
 
             graphics = new GraphicsDeviceManager(this);
             IsFullscreen = false;
