@@ -100,11 +100,8 @@ namespace Sprint2Pork
         public bool showHitboxes = false;
         public bool menu = false;
 
-<<<<<<< Updated upstream
-=======
         private Popup popup1;
 
->>>>>>> Stashed changes
         public Game1()
         {
             popup1 = new Popup(300, 300, 400, 400);
