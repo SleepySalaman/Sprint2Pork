@@ -105,7 +105,7 @@ namespace Sprint2Pork
         public Game1()
         {
             popup1 = new Popup(300, 300, 400, 400);
-            //popup1.AddImage("../TH.png", 50, 50, 200, 200);
+            popup1.AddImage("../th1.png", 50, 50, 200, 200);
 
             graphics = new GraphicsDeviceManager(this);
             IsFullscreen = false;
@@ -221,6 +221,7 @@ namespace Sprint2Pork
             {
                 updateManager.UpdateControllers();
             }
+            popup1.Update();
         }
 
         private void CheckForKey()
@@ -282,6 +283,8 @@ namespace Sprint2Pork
         {
             spriteBatch.Begin();
             GraphicsDevice.Clear(Color.Black);
+
+            popup1.Draw();
 
             switch (gameState)
             {
@@ -415,6 +418,10 @@ namespace Sprint2Pork
         {
             enemyStopTimer = 0.0f;
             isEnemyStopActive = false;
+        }
+
+        public void TogglePopup() {
+            popup1.ToggleRender();
         }
     }
 }

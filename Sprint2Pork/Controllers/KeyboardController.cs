@@ -56,6 +56,10 @@ public class KeyboardController : IController
             }
         }
 
+        if(IsKeyPressed(ks, Keys.NumPad0)) {
+            programGame.TogglePopup();
+        }
+
         previousKeyboardState = ks;
     }
 
