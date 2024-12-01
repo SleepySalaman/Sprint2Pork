@@ -31,7 +31,7 @@ Rooms are loaded from room csv files where 0 represents empty space and positive
 ## **Tools and Processes**
 
 ### **Visual Studio Code Metrics**  
-We used Visual Studio’s built-in tools to calculate and monitor code metrics, such as coupling and complexity. Metrics were tracked weekly, and trends were analyzed to ensure continuous improvement in code quality. Our code compiles with no errors or warnings.
+We used Visual Studio’s built-in tools to calculate and monitor code metrics, such as coupling and complexity. Metrics were tracked weekly, and trends were analyzed to ensure continuous improvement in code quality.
 
 #### **Current Metrics**
 - **Project**: Sprint2Pork  
