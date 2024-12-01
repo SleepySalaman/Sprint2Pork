@@ -13,12 +13,6 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin ../../../../../Downloads/sfxGameOver.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:../../../../../Downloads/sfxGameOver.mp3;sfxGameOver.mp3
-
 #begin aquamentes.png
 /importer:TextureImporter
 /processor:TextureProcessor

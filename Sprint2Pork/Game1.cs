@@ -172,6 +172,7 @@ namespace Sprint2Pork
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(Content.Load<Song>("backgroundMusic"));
         }
+
         public void InitializeGameComponents()
         {
             InitializeHandler.LoadEnemyContent(ref spriteBatch, ref enemyUpdater, ref enemyManager,
@@ -284,17 +285,7 @@ namespace Sprint2Pork
                     spriteBatch.Draw(startScreenTexture, new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), Color.White);
                     break;
                 case Game1State.GameOver:
-                    int margin = 50;
-                    spriteBatch.Draw(hitboxTexture,
-                        new Rectangle(margin,
-                                     GameConstants.HUD_HEIGHT + margin,
-                                     viewport.Width - (margin * 2),
-                                     viewport.Height - GameConstants.HUD_HEIGHT - (margin * 2)),
-                        Color.Black);
-
-                    Vector2 textPosition = new Vector2(viewport.Width / 2 - font.MeasureString("GAME OVER").X / 2,
-                                                     viewport.Height / 2 - font.MeasureString("GAME OVER").Y / 2);
-                    spriteBatch.DrawString(font, "Game Over\n\nPress R to Restart", textPosition, Color.Red);
+                    spriteBatch.Draw(winStateTexture, new Rectangle(0, 0, viewport.Width, viewport.Height), Color.White);
                     break;
                 default:
                     DrawHUD();

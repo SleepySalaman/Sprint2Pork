@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Media;
-using System;
 using System.Collections.Generic;
 
 namespace Sprint2Pork.Managers
@@ -11,7 +10,7 @@ namespace Sprint2Pork.Managers
         private List<SoundEffect> soundEffects;
         private SoundEffectInstance soundInstance;
         //private Dictionary<string, float> delays;
-        public Boolean backgroundIsOn = true;
+
         public SoundManager()
         {
             soundEffects = new List<SoundEffect>();
@@ -42,32 +41,15 @@ namespace Sprint2Pork.Managers
             soundInstance.Play();
             //playingFlag = true;
         }
-        public void StopSound()
-        {
-            if (soundInstance != null)
-            {
-                soundInstance.Stop();
-                soundInstance.Dispose();
-                soundInstance = null;
-            }
-
-            foreach (var effect in soundEffects)
-            {
-                effect.Dispose();
-            }
-            soundEffects.Clear();
-        }
 
         public void ToggleBackgroundMusic()
         {
             if (MediaPlayer.State == MediaState.Playing)
             {
-                backgroundIsOn = false;
                 MediaPlayer.Pause();
             }
             else
             {
-                backgroundIsOn = true;
                 MediaPlayer.Resume();
             }
         }
