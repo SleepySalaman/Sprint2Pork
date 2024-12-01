@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using Sprint2Pork.Constants;
 using Sprint2Pork.Essentials;
 using Sprint2Pork.Items;
 using Sprint2Pork.Managers;
@@ -58,8 +59,8 @@ namespace Sprint2Pork
             actionState = new IdleActionState(this);
             linkItem = new NoItem();
             ItemInUse = false;
-            X = 115;
-            Y = 180;
+            X = GameConstants.LINK_DEFAULT_X;
+            Y = GameConstants.LINK_DEFAULT_Y;
             OffsetX = 0;
             OffsetY = 0;
             attackFrameCount = 0;
