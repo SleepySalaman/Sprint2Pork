@@ -20,11 +20,16 @@ namespace Sprint2Pork.Popups {
             }
             gamePopup.AddImage("../Cannon1.png", 240, 0, 80, 80);
 
-            gamePopup.AddImage("../Grass.jpg", 0, -340, 1200, 1200);
+            //gamePopup.AddImage("../Grass.jpg", 0, -340, 1200, 1200);
         }
 
         public void Update() {
             gamePopup.Update();
+            int mX = gamePopup.getMouseX();
+            int mY = gamePopup.getMouseY();
+            if(mX != -100 || mY != -100) {
+                MouseEvent(mX, mY);
+            }
         }
 
         public void Draw() {
@@ -33,6 +38,10 @@ namespace Sprint2Pork.Popups {
 
         public void TogglePopup() {
             gamePopup.ToggleRender();
+        }
+
+        private void MouseEvent(int x, int y) {
+            gamePopup.AddImage("../barbarian.jpg", x - 20, y - 20, 40, 40);
         }
 
     }

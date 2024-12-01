@@ -31,7 +31,14 @@ namespace Sprint2Pork.Popups
 
         private int amountCooldown = 30;
         private int popupCooldownCount = 0;
+        private int mouseCooldown = 5;
+        private int mouseCooldownCount = 0;
 
+        private int lastX = -1;
+        private int lastY = -1;
+
+        private bool mouseClickedX = false;
+        private bool mouseClickedY = false;
         private bool moved = false;
 
         public Popup(int x, int y, int width, int height)
@@ -45,6 +52,7 @@ namespace Sprint2Pork.Popups
             };
 
             form.KeyDown += HandleKeyPresses;
+            form.MouseDown += HandleMouseEvents;
 
             InitializeDrawing();
             InitializeSprites();
@@ -123,6 +131,18 @@ namespace Sprint2Pork.Popups
             }
         }
 
+        private void HandleMouseEvents(object sender, MouseEventArgs e) {
+            if(e.Button == MouseButtons.Left) {
+                if(mouseCooldownCount > mouseCooldown) {
+                    mouseClickedX = true;
+                    mouseClickedY = true;
+                    mouseCooldownCount = 0;
+                    lastX = e.X;
+                    lastY = e.Y;
+                }
+            }
+        }
+
         public void Draw()
         {
             foreach (Rectangle r in rects)
@@ -146,6 +166,7 @@ namespace Sprint2Pork.Popups
         public void Update()
         {
             popupCooldownCount++;
+            mouseCooldownCount++;
             if (moved)
             {
                 for (int i = 0; i < displacement.Count; i++)
@@ -161,6 +182,25 @@ namespace Sprint2Pork.Popups
                 }
                 moved = false;
             }
+        }
+
+
+        public int getMouseX() {
+            int ret = -100;
+            if (mouseClickedX) {
+                ret = lastX;
+                mouseClickedX = false;
+            }
+            return ret;
+        }
+
+        public int getMouseY() {
+            int ret = -100;
+            if (mouseClickedY) {
+                ret = lastY;
+                mouseClickedY = false;
+            }
+            return ret;
         }
 
     }
