@@ -9,6 +9,7 @@ using Sprint2Pork.Items;
 using Sprint2Pork.Managers;
 using Sprint2Pork.rooms;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 
 namespace Sprint2Pork
@@ -148,11 +149,8 @@ namespace Sprint2Pork
 
         public int GetCurrentRoomNumber(string currentRoom)
         {
-            if (int.TryParse(currentRoom.Substring(4), out int roomNumber))
-            {
-                return roomNumber;
-            }
-            return -1;
+            string digits = new string(currentRoom.SkipWhile(c => !char.IsDigit(c)).TakeWhile(char.IsDigit).ToArray());
+            return int.TryParse(digits, out int roomNumber) ? roomNumber : -1;
         }
 
         public void GetDevRoom(ref string currentRoom, ref List<Block> blocks, ref List<GroundItem> groundItems, ref List<IEnemy> enemies, ref List<EnemyManager> fireballManagers, Dictionary<string, (List<Block>, List<GroundItem>, List<IEnemy>, List<EnemyManager>)> rooms, ref Link link, Viewport viewport, SoundManager soundManager, List<IController> controllerList)
