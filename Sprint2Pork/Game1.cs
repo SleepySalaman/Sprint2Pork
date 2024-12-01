@@ -353,11 +353,6 @@ namespace Sprint2Pork
             spriteBatch.Draw(nextRoomTexture, nextRoomRectangle, Color.White);
         }
 
-        public void SwitchToDevRoom()
-        {
-            GetDevRoom();
-        }
-
         public void GetDevRoom()
         {
             currentRoom = "devRoom";
