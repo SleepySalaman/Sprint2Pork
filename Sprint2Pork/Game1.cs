@@ -100,8 +100,6 @@ namespace Sprint2Pork
         public bool showHitboxes = false;
         public bool menu = false;
 
-        private Popup popup1 = new Popup(300, 300, 400, 400);
-
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -123,8 +121,6 @@ namespace Sprint2Pork
 
             gameState = Game1State.StartScreen;
             gameStateManager = new Game1StateManager(gameState);
-
-            popup1.AddImage("../TH.png", 50, 50, 200, 200);
         }
 
         protected override void Initialize()
@@ -193,7 +189,6 @@ namespace Sprint2Pork
 
         protected override void Update(GameTime gameTime)
         {
-            popup1.Update();
             if (gameState == Game1State.StartScreen)
             {
                 updateManager.UpdateControllers();
@@ -282,8 +277,6 @@ namespace Sprint2Pork
         {
             spriteBatch.Begin();
             GraphicsDevice.Clear(Color.Black);
-
-            popup1.Draw();
 
             switch (gameState)
             {
@@ -417,10 +410,6 @@ namespace Sprint2Pork
         {
             enemyStopTimer = 0.0f;
             isEnemyStopActive = false;
-        }
-
-        public void togglePopup() {
-            popup1.ToggleRender();
         }
     }
 }
