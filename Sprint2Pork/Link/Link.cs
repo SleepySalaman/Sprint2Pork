@@ -276,10 +276,6 @@ namespace Sprint2Pork
 
         public void Move(bool reverse)
         {
-            if (ItemInUse)  // Keep using the frozen direction when item is in use
-            {
-                directionState = frozenDirectionState;
-            }
 
             int stepLength = reverse ? -8 : 4;
 
