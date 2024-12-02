@@ -57,6 +57,21 @@ namespace Sprint2Pork
             }
         }
 
+        public static void DrawGameOverScreen(SpriteBatch spriteBatch, Texture2D hitboxTexture, SpriteFont font, Viewport viewport)
+        {
+            int margin = 50;
+            spriteBatch.Draw(hitboxTexture,
+                new Rectangle(margin,
+                             GameConstants.HUD_HEIGHT + margin,
+                             viewport.Width - (margin * 2),
+                             viewport.Height - GameConstants.HUD_HEIGHT - (margin * 2)),
+                Color.Black);
+
+            Vector2 textPosition = new Vector2(viewport.Width / 2 - font.MeasureString("GAME OVER").X / 2,
+                                             viewport.Height / 2 - font.MeasureString("GAME OVER").Y / 2);
+            spriteBatch.DrawString(font, "Game Over\n\nPress R to Restart", textPosition, Color.Red);
+        }
+
         public static void DrawInventoryScreen(SpriteBatch spriteBatch, HUD hud, Minimap minimap, List<Block> blocks, List<GroundItem> groundItems, List<IEnemy> enemies, SpriteFont font, Viewport viewport, Texture2D itemsTexture, Game1 game)
         {
             hud.Draw(spriteBatch, itemsTexture);
