@@ -40,6 +40,10 @@ public class KeyboardController : IController
         {
             HandleStartScreen(ks);
         }
+        else if (programGame.gameState == Game1State.Win || programGame.gameState == Game1State.GameOver) 
+        {
+            HandleEndScreen(ks);
+        }
         else
         {
             ILinkItems linkItem = link.linkItem;
@@ -57,7 +61,7 @@ public class KeyboardController : IController
         }
 
         if(IsKeyPressed(ks, Keys.NumPad0) || IsKeyPressed(ks, Keys.D0)) {
-            programGame.TogglePopup();
+            programGame.TogglePopup(programGame);
         }
 
         previousKeyboardState = ks;
@@ -72,6 +76,19 @@ public class KeyboardController : IController
         }
 
         // Allow quitting from start screen
+        if (IsKeyPressed(ks, Keys.Q))
+        {
+            programGame.Exit();
+        }
+    }
+
+    private void HandleEndScreen(KeyboardState ks)
+    {
+        if (IsKeyPressed(ks, Keys.R) || IsKeyPressed(ks, Keys.O))
+        {
+            programGame.ResetGame();
+        }
+
         if (IsKeyPressed(ks, Keys.Q))
         {
             programGame.Exit();

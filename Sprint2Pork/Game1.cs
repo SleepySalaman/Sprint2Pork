@@ -216,7 +216,7 @@ namespace Sprint2Pork
             {
                 HandleTransition(gameTime);
             }
-            else if (gameState == Game1State.Paused || gameState == Game1State.GameOver || gameState == Game1State.Inventory)
+            else if (gameState == Game1State.Paused || gameState == Game1State.GameOver || gameState == Game1State.Inventory || gameState == Game1State.Win)
             {
                 updateManager.UpdateControllers();
             }
@@ -431,8 +431,8 @@ namespace Sprint2Pork
             isEnemyStopActive = false;
         }
 
-        public void TogglePopup() {
-            clash1.TogglePopup();
+        public void TogglePopup(Game1 game) {
+            clash1.TogglePopup(game);
         }
     }
 }

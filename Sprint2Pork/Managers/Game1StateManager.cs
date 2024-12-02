@@ -14,7 +14,6 @@
     public class Game1StateManager
     {
         private Game1State currentState;
-
         public Game1StateManager(Game1State state)
         {
             currentState = state;

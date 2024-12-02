@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sprint2Pork.Managers;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -74,8 +75,9 @@ namespace Sprint2Pork.Popups {
             gamePopup.Draw();
         }
 
-        public void TogglePopup() {
+        public void TogglePopup(Game1 game) {
             gamePopup.ToggleRender();
+            game.SetGameState(Game1State.Inventory);
         }
 
         private void MouseEvent(int x, int y) {
