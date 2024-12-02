@@ -370,6 +370,14 @@ namespace Sprint2Pork
         {
             RoomChange.SwitchToNextRoom(ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
             roomTexture = roomManager.GetNextRoomTexture(currentRoom);
+            if (currentRoom == "room9secret")
+            {
+                // TODO: Place in independent method
+                Game1.textToDisplay = "Huzzah! I have opened a passage for you.";
+                Game1.textDisplayTimer = 1.5f;
+                Game1.textDelayTimer = 0.8f;
+                Game1.isTextDelaying = true;
+            }
         }
 
         public void SwitchToPreviousRoom()

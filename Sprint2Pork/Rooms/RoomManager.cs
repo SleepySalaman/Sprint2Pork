@@ -38,8 +38,10 @@ namespace Sprint2Pork
             roomList.Add("room7");
             roomList.Add("room8");
             roomList.Add("room9");
+            roomList.Add("room9secret");
             roomList.Add("room10");
             roomList.Add("devRoom");
+            roomList.Add("room11");
             leftBorder = GameConstants.ROOM_EDGE_BUFFER;
             rightBorder = GraphicsDevice.Viewport.Width - leftBorder;
             topBorder = GameConstants.ROOM_EDGE_BUFFER;
@@ -116,7 +118,16 @@ namespace Sprint2Pork
                     break;
                 case "room8":
                     if (link.GetX() > rightBorder) { nextRoom = "room5"; }
-                    if (link.GetY() < topBorder) { nextRoom = "room9"; }
+                    if (link.GetY() < topBorder) { 
+                        if (inventory.GetItemCount("Pig") < 4)
+                        {
+                            nextRoom = "room9";
+                        } 
+                        else
+                        {
+                            nextRoom = "room9secret";
+                        }
+                    }
                     break;
                 case "room9":
                     if (link.GetY() > bottomBorder) { nextRoom = "room8"; }
@@ -128,8 +139,15 @@ namespace Sprint2Pork
                         Game1.isTextDelaying = true;
                     }
                     break;
+                case "room9secret":
+                    if (link.GetY() > bottomBorder) { nextRoom = "room8"; }
+                    if (link.GetY() < topBorder) { nextRoom = "room11"; }
+                    break;
                 case "room10":
                     if (link.GetX() < leftBorder ) { nextRoom = "room7";}
+                    break;
+                case "room11":
+                    if (link.GetY() > bottomBorder) { nextRoom = "room9secret"; }
                     break;
                 case "devRoom":
                     if (link.GetX() > rightBorder) { nextRoom = "room1"; }
