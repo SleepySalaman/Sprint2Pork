@@ -95,16 +95,20 @@ namespace Sprint2Pork
                         else
                         {
                             nextRoom = "room7locked";
-                            Game1.textToDisplay = "You need to obtain a key to enter";
-                            Game1.textDisplayTimer = 1.0f;
-                            Game1.textDelayTimer = 0.8f;
-                            Game1.isTextDelaying = true;
+                            
                         }
                     }
                     if (link.GetY() < topBorder) { nextRoom = "room5"; }
                     break;
                 case "room7locked":
                     if (link.GetY() < topBorder) { nextRoom = "room6"; }
+                    if (link.GetX() > rightBorder - 100)
+                    {
+                        Game1.textToDisplay = "You need to obtain a key to enter!";
+                        Game1.textDisplayTimer = 1.0f;
+                        Game1.textDelayTimer = 0f;
+                        Game1.isTextDelaying = true;
+                    }
                     break;
                 case "room7":
                     if (link.GetY() < topBorder) { nextRoom = "room6"; }

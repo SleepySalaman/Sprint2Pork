@@ -252,6 +252,7 @@ namespace Sprint2Pork
                 if (invincibilityTimer <= 0)
                 {
                     isInvincible = false;
+                    isTakingDamage = false;
                     invincibilityTimer = 0;
                 }
             }
