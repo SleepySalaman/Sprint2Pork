@@ -187,9 +187,10 @@ namespace Sprint2Pork
             return int.TryParse(digits, out int roomNumber) ? roomNumber : -1;
         }
 
-        public void GetDevRoom(ref string currentRoom, ref List<Block> blocks, ref List<GroundItem> groundItems, ref List<IEnemy> enemies, ref List<EnemyManager> fireballManagers, Dictionary<string, (List<Block>, List<GroundItem>, List<IEnemy>, List<EnemyManager>)> rooms, ref Link link, Viewport viewport, SoundManager soundManager, List<IController> controllerList)
+        public void GetDevRoom(ref string currentRoom, ref List<Block> blocks, ref List<GroundItem> groundItems, ref List<IEnemy> enemies, ref List<EnemyManager> fireballManagers, Dictionary<string, (List<Block>, List<GroundItem>, List<IEnemy>, List<EnemyManager>)> rooms, ref Link link, Viewport viewport, SoundManager soundManager, List<IController> controllerList, ref Texture2D roomTexture)
         {
             RoomChange.SwitchRoom("devRoom", ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
+            roomTexture = GetNextRoomTexture("room1");
             link.SetX(GameConstants.LINK_DEFAULT_X);
             link.SetY(GameConstants.LINK_DEFAULT_Y);
             foreach (IController controller in controllerList)

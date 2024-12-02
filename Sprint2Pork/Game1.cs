@@ -353,7 +353,7 @@ namespace Sprint2Pork
 
         public void GetDevRoom()
         {
-            roomManager.GetDevRoom(ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms, ref link, viewport, soundManager, controllerList);
+            roomManager.GetDevRoom(ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms, ref link, viewport, soundManager, controllerList, ref roomTexture);
         }
 
         public void SwitchToNextRoom()
