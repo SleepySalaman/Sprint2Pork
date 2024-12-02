@@ -303,6 +303,9 @@ namespace Sprint2Pork
                                                      viewport.Height / 2 - font.MeasureString("GAME OVER").Y / 2);
                     spriteBatch.DrawString(font, "Game Over\n\nPress R to Restart", textPosition, Color.Red);
                     break;
+                case Game1State.Win:
+                    spriteBatch.Draw(winStateTexture, new Rectangle(0, 0, viewport.Width, viewport.Height), Color.White);
+                    break;
                 default:
                     DrawHUD();
                     Drawing.DrawGameState(gameState, spriteBatch, font, winStateTexture, viewport, this);
@@ -374,7 +377,10 @@ namespace Sprint2Pork
             RoomChange.SwitchToPreviousRoom(ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
             roomTexture = roomManager.GetNextRoomTexture(currentRoom);
         }
-
+        public void Win()
+        {
+            stateManager.WinGame();
+        }
         public void GameOver()
         {
             stateManager.GameOver();

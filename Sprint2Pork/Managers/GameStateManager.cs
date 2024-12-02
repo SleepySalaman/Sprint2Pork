@@ -99,7 +99,10 @@ namespace Sprint2Pork
         {
             soundManager.ToggleBackgroundMusic();
         }
-
+        public void WinGame()
+        {
+            game.SetGameState(Game1State.Win);
+        }
 
         public void StartGame()
         {

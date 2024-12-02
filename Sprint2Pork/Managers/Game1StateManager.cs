@@ -8,6 +8,7 @@
         Paused,
         Transitioning,
         GameOver,
+        Win,
         Inventory
     }
     public class Game1StateManager
