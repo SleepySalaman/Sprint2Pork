@@ -132,7 +132,7 @@ namespace Sprint2Pork.Popups
         }
 
         private void HandleMouseEvents(object sender, MouseEventArgs e) {
-            if(e.Button == MouseButtons.Left) {
+             if(e.Button == MouseButtons.Left) {
                 if(mouseCooldownCount > mouseCooldown) {
                     mouseClickedX = true;
                     mouseClickedY = true;
@@ -153,7 +153,8 @@ namespace Sprint2Pork.Popups
 
         public void moveImage(int index, int dX, int dY)
         {
-            displacement[index] = new Vector2(imgPos[index].X + dX, imgPos[index].Y + dY);
+            Vector2 currentDisplacement = displacement[index];
+            displacement[index] = new Vector2(currentDisplacement.X + dX, currentDisplacement.Y + dY);
             moved = true;
         }
 
@@ -161,6 +162,14 @@ namespace Sprint2Pork.Popups
         {
             displacement[index] = new Vector2(x, y);
             moved = true;
+        }
+
+        public int getImageX(int index) {
+            return pbList[index].Location.X;
+        }
+
+        public int getImageY(int index) {
+            return pbList[index].Location.Y;
         }
 
         public void Update()
