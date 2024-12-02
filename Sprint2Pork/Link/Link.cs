@@ -332,6 +332,7 @@ namespace Sprint2Pork
                 4 => new WoodArrow(frozenDirectionState, X, Y),
                 5 => new BlueBoomer(frozenDirectionState, X, Y),
                 6 => new Fire(frozenDirectionState, X, Y),
+                7 => new PorkSword(frozenDirectionState, X, Y),
                 _ => linkItem
             };
             var itemToRemove = linkItem.GetItemName();

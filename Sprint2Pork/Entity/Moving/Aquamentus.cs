@@ -10,6 +10,7 @@ namespace Sprint2Pork.Entity.Moving
 
         private int moveCount = 0;
         private int moveMaxCount = 1;
+        private int moveDist = 1;
 
         private bool movingRight = true;
 
@@ -40,11 +41,11 @@ namespace Sprint2Pork.Entity.Moving
                 moveCount = 0;
                 if (movingRight && relativeX < 50)
                 {
-                    relativeX++;
+                    relativeX += moveDist;
                 }
                 else if (!movingRight && relativeX > -50)
                 {
-                    relativeX--;
+                    relativeX -= moveDist;
                 }
                 else
                 {
@@ -56,6 +57,11 @@ namespace Sprint2Pork.Entity.Moving
         }
 
         public override int getTextureIndex() { return 2; }
+
+        public void CurseActivate()
+        {
+            moveDist = 2;
+        }
 
     }
 }

@@ -160,6 +160,11 @@ public class KeyboardController : IController
             link.BeAttacking();
             link.PlaySound("sfxSwordZap");
             link.UseItem(0);
+        } 
+        else if (IsKeyPressed(ks, Keys.LeftShift))
+        {
+            link.BeAttacking();
+            link.UseItem(7);
         }
 
         // Uses sword (or Item A)

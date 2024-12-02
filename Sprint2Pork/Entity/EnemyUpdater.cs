@@ -11,6 +11,7 @@ namespace Sprint2Pork.Entity
         // Add a dictionary to track which enemies have been hit during the current activation
         private static Dictionary<IEnemy, bool> enemyHitTracker = new Dictionary<IEnemy, bool>();
 
+
         public static void UpdateEnemies(Link link, List<IEnemy> enemies, List<Block> blocks, List<EnemyManager> fireballManagers, LinkHealth healthCount, GameTime gameTime, float enemyStopTimer, bool isEnemyStopActive)
         {
             if (link.IsLinkUsingItem())
@@ -61,6 +62,10 @@ namespace Sprint2Pork.Entity
                     if (!enemyHitTracker.ContainsKey(enemy))
                     {
                         enemy.TakeDamage();
+                        if (link.linkItem is PorkSword)
+                        {
+                            enemy.TakeDamage();
+                        }
                         enemyHitTracker[enemy] = true;
 
                         // Add this check to specifically handle arrows
@@ -94,6 +99,11 @@ namespace Sprint2Pork.Entity
             // Remove defeated enemies
             foreach (var enemy in enemiesToRemove)
             {
+                // OLD MAN'S CURSE WOULD GO HERE
+                if (enemy is Wizard)
+                {
+ 
+                }
                 enemies.Remove(enemy);
             }
 
