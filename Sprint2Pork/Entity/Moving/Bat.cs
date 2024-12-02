@@ -75,7 +75,7 @@ namespace Sprint2Pork.Entity.Moving
             destinationRect.Y = y + moveY;
             foreach (Block b in blocks)
             {
-                if (Collision.Collides(destinationRect, b.getBoundingBox()))
+                if (Collision.Collides(destinationRect, b.GetBoundingBox()))
                 {
                     movedAmount = 0;
                     moving = false;

@@ -9,7 +9,7 @@ public class BlockCollisionHandler
     {
         foreach (Block block in blocks)
         {
-            if (Collision.Collides(link.GetRect(), block.getBoundingBox()))
+            if (Collision.Collides(link.GetRect(), block.GetBoundingBox()))
             {
                 if (block.IsMovable)
                 {
@@ -27,7 +27,7 @@ public class BlockCollisionHandler
 
                     foreach (Block otherBlock in blocks)
                     {
-                        if (otherBlock != block && Collision.Collides(new Rectangle((int)potentialPosition.X, (int)potentialPosition.Y, block.BoundingBox.Width, block.BoundingBox.Height), otherBlock.getBoundingBox()))
+                        if (otherBlock != block && Collision.Collides(new Rectangle((int)potentialPosition.X, (int)potentialPosition.Y, block.BoundingBox.Width, block.BoundingBox.Height), otherBlock.GetBoundingBox()))
                         {
                             canMove = false;
                             break;
@@ -51,7 +51,7 @@ public class BlockCollisionHandler
                 }
                 break;
             }
-            if (link.linkItem.Collides(block.getBoundingBox()))
+            if (link.linkItem.Collides(block.GetBoundingBox()))
             {
                 link.StopLinkItem();
             }

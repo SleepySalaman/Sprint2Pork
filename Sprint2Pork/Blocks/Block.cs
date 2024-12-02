@@ -11,7 +11,7 @@ namespace Sprint2Pork.Blocks
         public Texture2D Texture { get; set; }
         public Vector2 Position { get; set; }
         public Rectangle SourceRect { get; set; }
-        private float scale = 1.875f;
+        private float scale = GameConstants.BLOCK_SCALE;
         public Rectangle BoundingBox => new Rectangle((int)Position.X, (int)Position.Y, (int)(SourceRect.Width * scale), (int)(SourceRect.Height * scale));
         public const int TileSize = GameConstants.BLOCK_TILE_SIZE;  
 
@@ -40,7 +40,7 @@ namespace Sprint2Pork.Blocks
             // Use the scaling factor in the Draw call
             spriteBatch.Draw(Texture, Position, SourceRect, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
         }
-        public Rectangle getBoundingBox()
+        public Rectangle GetBoundingBox()
         {
             return BoundingBox;
         }

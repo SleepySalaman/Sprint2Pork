@@ -43,7 +43,7 @@ public class Minimap
         {
             if (!(block is InvisibleBlock))
             {
-                Rectangle blockRect = block.getBoundingBox();
+                Rectangle blockRect = block.GetBoundingBox();
                 float scaledX = bounds.X + (blockRect.X * scale);
                 float scaledY = bounds.Y + (blockRect.Y * scale);
                 float scaledWidth = blockRect.Width * scale;
