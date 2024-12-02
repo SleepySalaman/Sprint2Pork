@@ -66,7 +66,7 @@ namespace Sprint2Pork
             }
 
             //Explosion
-            if (link.LinkCountGet() >= 18)
+            if (link.LinkCountGet() >= 58)
             {
                 rect = new Rectangle(153, 29, 17, 28);
                 if (link.directionState is RightFacingLinkState)

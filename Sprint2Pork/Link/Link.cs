@@ -367,7 +367,7 @@ namespace Sprint2Pork
             ItemInUse = true;
             linkCount++;
 
-            if (linkCount > 20)
+            if ((linkCount > 20 && !(linkItem is Bomb)) || linkCount > 60)
             {
                 linkCount = 0;
                 ItemInUse = false;
