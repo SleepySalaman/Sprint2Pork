@@ -14,6 +14,11 @@ public class MouseController : IController
 
     void IController.Update()
     {
+        if (!programGame.IsActive)
+        {
+            return;
+        }
+
         MouseState currentMouseState = Mouse.GetState();
         bool mouseLeftPressed = currentMouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton == ButtonState.Released;
         bool mouseRightPressed = currentMouseState.RightButton == ButtonState.Pressed && previousMouseState.RightButton == ButtonState.Released;
