@@ -102,7 +102,7 @@ namespace Sprint2Pork
                     break;
                 case "room7locked":
                     if (link.GetY() < topBorder) { nextRoom = "room6"; }
-                    if (link.GetX() > rightBorder - 100)
+                    if (link.GetX() > (rightBorder - 75))
                     {
                         Game1.textToDisplay = "You need to obtain a key to enter!";
                         Game1.textDisplayTimer = 1.0f;
@@ -120,6 +120,13 @@ namespace Sprint2Pork
                     break;
                 case "room9":
                     if (link.GetY() > bottomBorder) { nextRoom = "room8"; }
+                    if (inventory.GetItemCount("Pig") < 4 && link.GetY() < bottomBorder - 200)
+                    {
+                        Game1.textToDisplay = "Have you found my 4 pigs yet?";
+                        Game1.textDisplayTimer = 1.0f;
+                        Game1.textDelayTimer = 0f;
+                        Game1.isTextDelaying = true;
+                    }
                     break;
                 case "room10":
                     if (link.GetX() < leftBorder ) { nextRoom = "room7";}
