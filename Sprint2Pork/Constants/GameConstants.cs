@@ -13,6 +13,7 @@ namespace Sprint2Pork.Constants
         public const int LINK_DEFAULT_X = 115;
         public const int LINK_DEFAULT_Y = 180;
         public const float BLOCK_SCALE = 1.875f;
+        public const int GAME_OVER_MARGIN = 50;
 
         // Movement/Positions
         public const int ROOM_EDGE_BUFFER = 100;

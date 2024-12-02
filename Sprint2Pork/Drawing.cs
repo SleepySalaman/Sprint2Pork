@@ -6,6 +6,7 @@ using Sprint2Pork.Entity;
 using Sprint2Pork.Entity.Moving;
 using Sprint2Pork.Items;
 using Sprint2Pork.Managers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -59,18 +60,44 @@ namespace Sprint2Pork
 
         public static void DrawGameOverScreen(SpriteBatch spriteBatch, Texture2D hitboxTexture, SpriteFont font, Viewport viewport)
         {
-            int margin = 50;
-            spriteBatch.Draw(hitboxTexture,
-                new Rectangle(margin,
-                             GameConstants.HUD_HEIGHT + margin,
-                             viewport.Width - (margin * 2),
-                             viewport.Height - GameConstants.HUD_HEIGHT - (margin * 2)),
-                Color.Black);
+            int margin = GameConstants.GAME_OVER_MARGIN;
 
-            Vector2 textPosition = new Vector2(viewport.Width / 2 - font.MeasureString("GAME OVER").X / 2,
-                                             viewport.Height / 2 - font.MeasureString("GAME OVER").Y / 2);
-            spriteBatch.DrawString(font, "Game Over\n\nPress R to Restart", textPosition, Color.Red);
+            spriteBatch.Draw(
+                hitboxTexture,
+                new Rectangle(0, GameConstants.HUD_HEIGHT, viewport.Width, viewport.Height - GameConstants.HUD_HEIGHT),
+                Color.Black * 0.8f
+            );
+
+            string gameOverText = "GAME OVER";
+            Vector2 gameOverPosition = new Vector2(
+                viewport.Width / 2 - font.MeasureString(gameOverText).X / 2,
+                viewport.Height / 2 - font.MeasureString(gameOverText).Y / 2 - margin
+            );
+
+            spriteBatch.DrawString(
+                font,
+                gameOverText,
+                gameOverPosition + new Vector2(2, 2),
+                Color.Black
+            );
+
+            spriteBatch.DrawString(font, gameOverText, gameOverPosition, Color.Red);
+            string instructionsText = "Press R to Restart\nPress Q to Quit";
+            Vector2 instructionsPosition = new Vector2(
+                viewport.Width / 2 - font.MeasureString(instructionsText).X / 2,
+                viewport.Height / 2 - font.MeasureString(instructionsText).Y / 2 + margin
+            );
+
+            Color instructionColor = (DateTime.Now.Second % 2 == 0) ? Color.White : Color.Gray;
+            spriteBatch.DrawString(
+                font,
+                instructionsText,
+                instructionsPosition + new Vector2(2, 2),
+                Color.Black
+            );
+            spriteBatch.DrawString(font, instructionsText, instructionsPosition, instructionColor);
         }
+
 
         public static void DrawInventoryScreen(SpriteBatch spriteBatch, HUD hud, Minimap minimap, List<Block> blocks, List<GroundItem> groundItems, List<IEnemy> enemies, SpriteFont font, Viewport viewport, Texture2D itemsTexture, Game1 game)
         {
