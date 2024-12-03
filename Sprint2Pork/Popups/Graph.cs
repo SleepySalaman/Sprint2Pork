@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace Sprint2Pork.Popups {
     public class Graph {
@@ -32,14 +33,41 @@ namespace Sprint2Pork.Popups {
             int[] nearest = new int[2];
             int radius = 1;
             bool found = false;
-            while (!found) {
-                for(int i = x - radius; !found && i <= x + radius; i++) {
-                    for(int j = y - radius; !found && j <= y + radius; j++) {
-                        if(i >= 0 && j >= 0 && i < w && j < h && graph[i,j] != 1 && graph[i,j] != 4) {
-                            found = true;
-                            nearest[0] = i;
-                            nearest[1] = j;
-                        }
+            while (!found && radius < 20) {
+                for(int i = x - radius; !found && i <= x + radius - 1; i++) {
+                    int j = y - radius;
+                    if (i >= 0 && j >= 0 && i < w && j < h && graph[i, j] != 1 && graph[i, j] != 4) {
+                        found = true;
+                        nearest[0] = i;
+                        nearest[1] = j;
+                        return nearest;
+                    }
+                }
+                for(int j = y - radius; !found && j <= y + radius - 1; j++) {
+                    int i = x + radius;
+                    if (i >= 0 && j >= 0 && i < w && j < h && graph[i, j] != 1 && graph[i, j] != 4) {
+                        found = true;
+                        nearest[0] = i;
+                        nearest[1] = j;
+                        return nearest;
+                    }
+                }
+                for(int i = x - radius + 1; !found && i <= x + radius; i++) {
+                    int j = y + radius;
+                    if (i >= 0 && j >= 0 && i < w && j < h && graph[i, j] != 1 && graph[i, j] != 4) {
+                        found = true;
+                        nearest[0] = i;
+                        nearest[1] = j;
+                        return nearest;
+                    }
+                }
+                for(int j = y - radius + 1; !found && j <= y + radius; j++) {
+                    int i = x - radius;
+                    if (i >= 0 && j >= 0 && i < w && j < h && graph[i, j] != 1 && graph[i, j] != 4) {
+                        found = true;
+                        nearest[0] = i;
+                        nearest[1] = j;
+                        return nearest;
                     }
                 }
             }
