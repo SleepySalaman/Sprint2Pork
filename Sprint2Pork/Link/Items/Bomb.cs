@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using static System.Windows.Forms.LinkLabel;
 
 namespace Sprint2Pork
 {
@@ -12,6 +13,7 @@ namespace Sprint2Pork
         int startX = 0;
         int startY = 0;
         bool collided = false;
+        Link link;
 
         public Bomb(ILinkDirectionState state, int X, int Y)
         {
@@ -49,6 +51,7 @@ namespace Sprint2Pork
 
         public void Update(Link link)
         {
+            this.link = link;
             switch (direction)
             {
                 case 1:
@@ -100,8 +103,8 @@ namespace Sprint2Pork
             Rectangle rect1 = sprite.GetRect();
             if (rect1.X + rect1.Width > rect2.X &&
                 rect1.X < rect2.X + rect2.Width &&
-                rect1.Y + rect1.Height > rect2.Y &&
-                rect1.Y < rect2.Y + rect2.Height)
+            rect1.Y + rect1.Height > rect2.Y &&
+                rect1.Y < rect2.Y + rect2.Height && link.LinkCountGet() >= 58)
             {
                 collided = true;
                 return true;

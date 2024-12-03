@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class BlockCollisionHandler
 {
-    public static void HandleBlockCollision(Link link, int linkPreviousX, int linkPreviousY, List<Block> blocks, Rectangle roomBoundingBox)
+    public static void HandleBlockCollision(Link link, int linkPreviousX, int linkPreviousY, List<Block> blocks, Rectangle roomBoundingBox, LinkHealth health)
     {
         foreach (Block block in blocks)
         {
@@ -61,6 +61,14 @@ public class BlockCollisionHandler
             if (Collision.CollidesWithOutside(link.linkItem.SpriteGet().GetRect(), roomBoundingBox))
             {
                 link.StopLinkItem();
+            }
+            if(link.linkItem is Bomb)
+            {
+                if (link.linkItem.Collides(link.GetRect()))
+                {
+                    link.TakeDamage();
+                    health.TakeDamage();
+                }
             }
         }
     }

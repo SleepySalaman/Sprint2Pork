@@ -61,7 +61,7 @@ namespace Sprint2Pork.Managers
             link.UpdateInvincibilityTimer(gameTime);
             link.actionState.Update();
             link.LinkSpriteUpdate();
-            BlockCollisionHandler.HandleBlockCollision(link, linkPreviousX, linkPreviousY, blocks, roomBoundingBox);
+            BlockCollisionHandler.HandleBlockCollision(link, linkPreviousX, linkPreviousY, blocks, roomBoundingBox, healthCount);
         }
 
         public void UpdateGroundItems(List<GroundItem> groundItems)
