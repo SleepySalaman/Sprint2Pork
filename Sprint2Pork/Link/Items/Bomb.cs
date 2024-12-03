@@ -82,7 +82,7 @@ namespace Sprint2Pork
                 {
                     link.OffsetXChange(-15);
                 }
-                sprite = new MovingNonAnimatedSprite(link.GetX() + link.OffsetXGet(), link.GetY() + link.OffsetYGet(), rect, directionStr);
+                sprite = new MovingNonAnimatedSprite(startX, startY, rect, directionStr);
             }
             link.UpdateItem();
 

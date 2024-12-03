@@ -137,7 +137,6 @@ public class KeyboardController : IController
         }
         else if (IsKeyPressed(ks, Keys.D3))
         {
-            link.BeAttacking();
             link.UseItem(3);
         }
         else if (IsKeyPressed(ks, Keys.D4))

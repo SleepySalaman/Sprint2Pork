@@ -260,7 +260,7 @@ namespace Sprint2Pork
         {
             ItemInUse = false;
             linkItem = new NoItem();
-            frozenDirectionState = null;
+            //frozenDirectionState = null;
             attackFrameCount = 40;
         }
 
