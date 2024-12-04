@@ -12,7 +12,7 @@ namespace Sprint2Pork.Entity
         private static Dictionary<IEnemy, bool> enemyHitTracker = new Dictionary<IEnemy, bool>();
 
 
-        public static void UpdateEnemies(Link link, List<IEnemy> enemies, List<Block> blocks, List<EnemyManager> fireballManagers, LinkHealth healthCount, GameTime gameTime, float enemyStopTimer, bool isEnemyStopActive)
+        public static void UpdateEnemies(Link link, List<IEnemy> enemies, List<Block> blocks, List<EnemyManager> fireballManagers, LinkHealth healthCount, GameTime gameTime, float enemyStopTimer, bool isEnemyStopActive, Game1 game)
         {
             if (link.IsLinkUsingItem())
             {
@@ -69,6 +69,11 @@ namespace Sprint2Pork.Entity
                                 enemy.TakeDamage();
                             }
                             enemyHitTracker[enemy] = true;
+
+                            if (enemy is Wizard)
+                            {
+                                game.TogglePopup(game);
+                            }
                         } else
                         {
                             if (link.linkItem is Arrow)

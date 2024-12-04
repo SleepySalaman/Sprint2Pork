@@ -207,7 +207,7 @@ namespace Sprint2Pork
                 updateManager.UpdateControllers();
                 updateManager.UpdateGroundItems(groundItems);
                 updateManager.UpdateEnemyStopClock(this, enemyStopTimer, isEnemyStopActive, gameTime);
-                updateManager.UpdateEnemies(enemies, blocks, fireballManagers, gameTime, enemyManager, enemyStopTimer, isEnemyStopActive);
+                updateManager.UpdateEnemies(enemies, blocks, fireballManagers, gameTime, enemyManager, enemyStopTimer, isEnemyStopActive, this);
                 updateManager.UpdateLink(linkPreviousX, linkPreviousY, gameTime, blocks, roomBoundingBox);
 
                 CheckRoomChange(gameState);
