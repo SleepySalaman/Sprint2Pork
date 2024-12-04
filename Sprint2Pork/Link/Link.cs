@@ -173,6 +173,16 @@ namespace Sprint2Pork
             }
         }
 
+        public bool HasItem(string item)
+        {
+            bool hasItem = false;
+            if (inventory.GetItemCount(item) > 0)
+            {
+                hasItem = true;
+            }
+            return hasItem;
+        }
+
         public void PlaySound(string soundName)
         {
             if (!playingFlag)

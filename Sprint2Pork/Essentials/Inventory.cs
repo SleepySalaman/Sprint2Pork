@@ -23,7 +23,8 @@ namespace Sprint2Pork.Essentials
                 {"Potion", 0 },
                 {"MapItem", 0 },
                 {"Heart", 0 },
-                {"Pig", 0 }
+                {"Pig", 0 },
+                {"PorkSwordGround", 0 }
             };
         }
 
