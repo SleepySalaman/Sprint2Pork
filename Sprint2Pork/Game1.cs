@@ -70,14 +70,13 @@ namespace Sprint2Pork
         public Dictionary<string, (List<Block>, List<GroundItem>, List<IEnemy>, List<EnemyManager>)> rooms;
         public List<Block> blocks;
         public List<GroundItem> groundItems;
-        private Vector2 blockPosition = new Vector2(200, 200);
         private Rectangle roomBoundingBox = new Rectangle(50, 110, 660, 850);
         private GameStateManager stateManager;
 
         //text
         public static string textToDisplay = "";
         public static float textDisplayTimer = 0f;
-        public static float textDelayTimer = 0.5f; // Half second delay before text appears
+        public static float textDelayTimer = 0.5f;
         public static bool isTextDelaying = false;
 
         // Transition and Room-related Variables
@@ -237,23 +236,12 @@ namespace Sprint2Pork
                 }
             }
         }
+
         private void HandleTransition(GameTime gameTime)
         {
-            transitionTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            int transitionConstant = (int)(Math.Abs(transitionDirection.X) * (transitionTimer * GameConstants.TRANSITION_SPEED)) + (int)(Math.Abs(transitionDirection.Y) * (transitionTimer * GameConstants.VERTICAL_TRANSITION_SPEED));
-
-            oldRoomRectangle = new Rectangle(oldRoomRectangleSaved.X - ((int)transitionDirection.X * transitionConstant), oldRoomRectangle.Y - ((int)transitionDirection.Y * transitionConstant), oldRoomRectangle.Width, oldRoomRectangle.Height);
-            nextRoomRectangle = new Rectangle(nextRoomRectangleSaved.X - ((int)transitionDirection.X * transitionConstant), nextRoomRectangle.Y - ((int)transitionDirection.Y * transitionConstant), nextRoomRectangle.Width, nextRoomRectangle.Height);
-
-            if (transitionTimer >= transitionDuration || ((0 >= ((int)transitionDirection.X * nextRoomRectangle.X)) && (0 >= ((int)transitionDirection.Y * nextRoomRectangle.Y) - (int)transitionDirection.Y * GameConstants.ROOM_Y_OFFSET)))
-            {
-                transitionTimer = 0f;
-                gameState = Game1State.Playing;
-                roomTexture = nextRoomTexture;
-                RoomChange.SwitchRoom(nextRoom, ref currentRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms);
-                currentRoom = nextRoom;
-                CheckForKey();
-            }
+            Game1State tempGameState = gameState;
+            RoomChange.HandleRoomTransition(gameTime, ref transitionTimer, transitionDuration, ref oldRoomRectangle, oldRoomRectangleSaved, ref nextRoomRectangle, nextRoomRectangleSaved, transitionDirection, ref tempGameState, ref roomTexture, nextRoomTexture, ref currentRoom, ref nextRoom, ref blocks, ref groundItems, ref enemies, ref fireballManagers, rooms, CheckForKey);
+            gameState = tempGameState;
         }
 
         private void CheckRoomChange(Game1State gameState)
@@ -275,6 +263,7 @@ namespace Sprint2Pork
             {
                 controller.Update();
             }
+
         }
         public void SetGameState(Game1State newState)
         {
@@ -305,6 +294,14 @@ namespace Sprint2Pork
                     Drawing.DrawGameState(gameState, spriteBatch, font, winStateTexture, viewport, this);
                     break;
             }
+            DrawTextBasedOnTextDelayTimer(gameTime);
+
+            spriteBatch.End();
+            base.Draw(gameTime);
+        }
+
+        private void DrawTextBasedOnTextDelayTimer(GameTime gameTime)
+        {
             if (textDisplayTimer > 0)
             {
                 if (isTextDelaying)
@@ -317,15 +314,11 @@ namespace Sprint2Pork
                 }
                 else
                 {
-                    Vector2 textPosition = new Vector2(viewport.Width / 2 - font.MeasureString(textToDisplay).X / 2,
-                                                     viewport.Height / 2);
+                    Vector2 textPosition = new Vector2(viewport.Width / 2 - font.MeasureString(textToDisplay).X / 2, viewport.Height / 2);
                     spriteBatch.DrawString(font, textToDisplay, textPosition, Color.White);
                     textDisplayTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
                 }
             }
-
-            spriteBatch.End();
-            base.Draw(gameTime);
         }
 
         private void DrawHUD()
@@ -365,7 +358,6 @@ namespace Sprint2Pork
             roomTexture = roomManager.GetNextRoomTexture(currentRoom);
             if (currentRoom == "room9secret")
             {
-                // TODO: Place in independent method
                 Game1.textToDisplay = "Huzzah! I have opened a passage for you.";
                 Game1.textDisplayTimer = 1.5f;
                 Game1.textDelayTimer = 0.8f;
