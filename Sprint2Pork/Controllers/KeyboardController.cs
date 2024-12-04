@@ -170,14 +170,15 @@ public class KeyboardController : IController
             link.PlaySound("sfxSwordZap");
             link.UseItem(0);
         } 
-        else if (IsKeyPressed(ks, Keys.LeftShift))
+        else if (IsKeyPressed(ks, Keys.LeftShift) && link.HasItem("PorkSwordGround"))
         {
             link.BeAttacking();
+            link.PlaySound("sfxSwordZap");
             link.UseItem(7);
         }
 
         // Uses sword (or Item A)
-        if (ks.IsKeyDown(Keys.Z) || ks.IsKeyDown(Keys.N))
+        if (ks.IsKeyDown(Keys.Z) || ks.IsKeyDown(Keys.N) || ks.IsKeyDown(Keys.LeftShift))
         {
             link.BeAttacking();
         }
