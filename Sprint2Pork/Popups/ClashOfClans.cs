@@ -154,7 +154,7 @@ namespace Sprint2Pork.Popups {
                     cannonballPosY = cannonStartY;
                     if (!cannonAlive) {
                         cannonShooting = false;
-                        gamePopup.removeImage(value);
+                        gamePopup.removeImage(cannonballIndex);
                     }
                 } else {
                     int moveX, moveY;
