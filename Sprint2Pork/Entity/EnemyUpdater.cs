@@ -61,12 +61,21 @@ namespace Sprint2Pork.Entity
                 {
                     if (!enemyHitTracker.ContainsKey(enemy))
                     {
-                        enemy.TakeDamage();
-                        if (link.linkItem is PorkSword)
+                        if (enemy is not Gohma)
                         {
                             enemy.TakeDamage();
+                            if (link.linkItem is PorkSword)
+                            {
+                                enemy.TakeDamage();
+                            }
+                            enemyHitTracker[enemy] = true;
+                        } else
+                        {
+                            if (link.linkItem is Arrow)
+                            {
+                                enemy.TakeDamage();
+                            }
                         }
-                        enemyHitTracker[enemy] = true;
 
                         // Add this check to specifically handle arrows
                         //if (link.linkItem is Arrow || link.linkItem is WoodArrow)
