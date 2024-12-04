@@ -25,6 +25,10 @@ namespace Sprint2Pork.Popups {
             return bucket;
         }
 
+        public int size() {
+            return types.Count;
+        }
+
         public void insert(string id, int value) {
             int bucket = getBucket(id);
             if (bucket == -1) {

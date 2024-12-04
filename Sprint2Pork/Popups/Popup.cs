@@ -193,6 +193,9 @@ namespace Sprint2Pork.Popups
             }
         }
 
+        public void removeImage(int index) {
+            form.Controls.Remove(pbList[index]);
+        }
 
         public int getMouseX() {
             int ret = -100;
