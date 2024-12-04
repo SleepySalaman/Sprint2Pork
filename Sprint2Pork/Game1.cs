@@ -408,6 +408,11 @@ namespace Sprint2Pork
             return roomManager.GetCurrentRoomNumber(currentRoom);
         }
 
+        public void Heal()
+        {
+            updateManager.Heal();
+        }
+
         public void InitEnemyStopTimer()
         {
             enemyStopTimer = GameConstants.ENEMY_FREEZE_TIMER;

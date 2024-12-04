@@ -121,6 +121,11 @@ public class KeyboardController : IController
         {
             link.BeIdle();
         }
+
+        if (IsKeyPressed(ks, Keys.G))
+        {
+            programGame.Heal();
+        }
     }
 
     private void HandleItemUse(KeyboardState ks, ILinkItems linkItem)
@@ -137,6 +142,7 @@ public class KeyboardController : IController
         }
         else if (IsKeyPressed(ks, Keys.D3))
         {
+            link.BeAttacking();
             link.UseItem(3);
         }
         else if (IsKeyPressed(ks, Keys.D4))

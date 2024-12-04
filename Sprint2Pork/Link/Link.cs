@@ -196,7 +196,7 @@ namespace Sprint2Pork
 
         public void LookLeft()
         {
-            if (!isTakingDamage && !ItemInUse)  // Prevent direction change when item is in use
+            if ((!isTakingDamage && !ItemInUse) || linkItem is Bomb)  // Prevent direction change when item is in use
             {
                 directionState.LookLeft();
             }
@@ -204,7 +204,7 @@ namespace Sprint2Pork
 
         public void LookRight()
         {
-            if (!isTakingDamage && !ItemInUse)
+            if ((!isTakingDamage && !ItemInUse) || linkItem is Bomb)
             {
                 directionState.LookRight();
             }
@@ -212,7 +212,7 @@ namespace Sprint2Pork
 
         public void LookUp()
         {
-            if (!isTakingDamage && !ItemInUse)
+            if ((!isTakingDamage && !ItemInUse) || linkItem is Bomb)
             {
                 directionState.LookUp();
             }
@@ -220,7 +220,7 @@ namespace Sprint2Pork
 
         public void LookDown()
         {
-            if (!isTakingDamage && !ItemInUse)
+            if ((!isTakingDamage && !ItemInUse) || linkItem is Bomb)
             {
                 directionState.LookDown();
             }

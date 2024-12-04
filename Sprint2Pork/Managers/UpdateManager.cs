@@ -95,6 +95,11 @@ namespace Sprint2Pork.Managers
             }
         }
 
+        public void Heal()
+        {
+            healthCount.HealHalfHeart();
+        }
+
         private void HandleItemCollision(GroundItem item)
         {
             switch (item)
