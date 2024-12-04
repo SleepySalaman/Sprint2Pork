@@ -90,47 +90,45 @@ namespace Sprint2Pork.Popups {
             if (barbIndexes.Count > 0) {
                 if (currentCooldownCount > cooldown) {
                     for (int i = 0; i < barbIndexes.Count; i++) {
+                        int value = barbIndexes[i].getValue();
+                        int dx = gamePopup.getImageX(value);
+                        int dy = gamePopup.getImageY(value);
                         if (cannonAlive) {
-                            int value = barbIndexes[i].getValue();
-                            int dx = gamePopup.getImageX(value);
-                            int dy = gamePopup.getImageY(value);
-                            if (cannonAlive) {
-                                dx -= cannonStartX;
-                                dy -= cannonStartY;
-                            } else if (townHallAlive) {
-                                dx -= 160;
-                                dy -= 160;
+                            dx -= cannonStartX;
+                            dy -= cannonStartY;
+                        } else if (townHallAlive) {
+                            dx -= 160;
+                            dy -= 160;
+                        }
+                        if (dx < 5 && dx > -5 && dy < 5 && dy > -5) {
+                            if (attackCount > attackCooldown) {
+                                if (cannonAlive) {
+                                    cannonTakeDamage();
+                                } else if (townHallAlive) {
+                                    townHallTakeDamage();
+                                }
+                                attackCount = 0;
                             }
-                            if(dx < 5 && dx > -5 && dy < 5 && dy > -5) {
-                                if(attackCount > attackCooldown) {
-                                    if (cannonAlive) {
-                                        cannonTakeDamage();
-                                    } else if (townHallAlive) {
-                                        townHallTakeDamage();
-                                    }
-                                    attackCount = 0;
-                                }
-                                attackCount++;
+                            attackCount++;
+                        } else {
+                            int moveX;
+                            int moveY;
+                            if (dx > 2) {
+                                moveX = -2;
+                            } else if (dx < -2) {
+                                moveX = 2;
                             } else {
-                                int moveX;
-                                int moveY;
-                                if (dx > 2) {
-                                    moveX = -2;
-                                } else if (dx < -2) {
-                                    moveX = 2;
-                                } else {
-                                    moveX = 0;
-                                }
-                                if (dy > 2) {
-                                    moveY = -2;
-                                } else if (dy < -2) {
-                                    moveY = 2;
-                                } else {
-                                    moveY = 0;
-                                }
-                                if (moveX != 0 || moveY != 0) {
-                                    gamePopup.moveImage(value, moveX, moveY);
-                                }
+                                moveX = 0;
+                            }
+                            if (dy > 2) {
+                                moveY = -2;
+                            } else if (dy < -2) {
+                                moveY = 2;
+                            } else {
+                                moveY = 0;
+                            }
+                            if (moveX != 0 || moveY != 0) {
+                                gamePopup.moveImage(value, moveX, moveY);
                             }
                         }
                     }
