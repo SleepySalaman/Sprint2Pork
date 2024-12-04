@@ -74,7 +74,6 @@ namespace Sprint2Pork.Popups {
             if (cannonHealth <= 0) {
                 gamePopup.removeImage(20);
                 cannonAlive = false;
-                cannonShooting = false;
             }
         }
 
