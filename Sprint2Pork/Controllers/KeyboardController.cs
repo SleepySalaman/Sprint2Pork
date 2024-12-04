@@ -64,6 +64,10 @@ public class KeyboardController : IController
             programGame.TogglePopup(programGame);
         }
 
+        if(IsKeyPressed(ks, Keys.RightShift)){
+            programGame.TogglePopup2(programGame);
+        }
+
         previousKeyboardState = ks;
     }
 

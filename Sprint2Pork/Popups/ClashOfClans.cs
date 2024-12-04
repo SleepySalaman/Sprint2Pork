@@ -187,7 +187,6 @@ namespace Sprint2Pork.Popups {
 
         public void TogglePopup(Game1 game) {
             gamePopup.ToggleRender();
-            game.SetGameState(Game1State.Inventory);
         }
 
         private void MouseEvent(int x, int y) {
