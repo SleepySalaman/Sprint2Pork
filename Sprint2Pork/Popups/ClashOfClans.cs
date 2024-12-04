@@ -13,10 +13,13 @@ namespace Sprint2Pork.Popups {
         private PseudoMap pm;
         private List<PseudoMapPair> barbIndexes;
 
-        private int cooldown = 5;
+        private int cooldown = 7;
         private int currentCooldownCount = 0;
 
-        private int shotCooldown = 2;
+        private int attackCooldown = 4;
+        private int attackCount = 0;
+
+        private int shotCooldown = 3;
         private int currentShotCount = 0;
 
         private int cannonStartX = 280;
@@ -28,6 +31,12 @@ namespace Sprint2Pork.Popups {
         private int cannonballIndex;
         private int cannonTargetIndex;
         private bool cannonShooting = false;
+
+        private bool cannonAlive = true;
+        private int cannonHealth = 10;
+
+        private bool townHallAlive = true;
+        private int townHallHealth = 40;
 
         public ClashOfClans() {
             gamePopup = new Popup(100, 100, 1200, 580);
@@ -60,31 +69,69 @@ namespace Sprint2Pork.Popups {
             gamePopup.Draw();
         }
 
+        private void cannonTakeDamage() {
+            cannonHealth--;
+            if (cannonHealth <= 0) {
+                gamePopup.removeImage(20);
+                cannonAlive = false;
+                cannonShooting = false;
+            }
+        }
+
+        private void townHallTakeDamage() {
+            townHallHealth--;
+            if(townHallHealth <= 0) {
+                gamePopup.removeImage(0);
+                townHallAlive = false;
+            }
+        }
+
         public void UpdateBarbs() {
             if (barbIndexes.Count > 0) {
                 if (currentCooldownCount > cooldown) {
                     for (int i = 0; i < barbIndexes.Count; i++) {
-                        int value = barbIndexes[i].getValue();
-                        int dx = gamePopup.getImageX(value) - 100;
-                        int dy = gamePopup.getImageY(value) - 100;
-                        int moveX;
-                        int moveY;
-                        if (dx > 2) {
-                            moveX = -2;
-                        } else if (dx < -2) {
-                            moveX = 2;
-                        } else {
-                            moveX = 0;
-                        }
-                        if (dy > 2) {
-                            moveY = -2;
-                        } else if (dy < -2) {
-                            moveY = 2;
-                        } else {
-                            moveY = 0;
-                        }
-                        if (moveX != 0 || moveY != 0) {
-                            gamePopup.moveImage(value, moveX, moveY);
+                        if (cannonAlive) {
+                            int value = barbIndexes[i].getValue();
+                            int dx = gamePopup.getImageX(value);
+                            int dy = gamePopup.getImageY(value);
+                            if (cannonAlive) {
+                                dx -= cannonStartX;
+                                dy -= cannonStartY;
+                            } else if (townHallAlive) {
+                                dx -= 160;
+                                dy -= 160;
+                            }
+                            if(dx < 5 && dx > -5 && dy < 5 && dy > -5) {
+                                if(attackCount > attackCooldown) {
+                                    if (cannonAlive) {
+                                        cannonTakeDamage();
+                                    } else if (townHallAlive) {
+                                        townHallTakeDamage();
+                                    }
+                                    attackCount = 0;
+                                }
+                                attackCount++;
+                            } else {
+                                int moveX;
+                                int moveY;
+                                if (dx > 2) {
+                                    moveX = -2;
+                                } else if (dx < -2) {
+                                    moveX = 2;
+                                } else {
+                                    moveX = 0;
+                                }
+                                if (dy > 2) {
+                                    moveY = -2;
+                                } else if (dy < -2) {
+                                    moveY = 2;
+                                } else {
+                                    moveY = 0;
+                                }
+                                if (moveX != 0 || moveY != 0) {
+                                    gamePopup.moveImage(value, moveX, moveY);
+                                }
+                            }
                         }
                     }
                     currentCooldownCount = 0;
@@ -100,7 +147,6 @@ namespace Sprint2Pork.Popups {
                 int dy = cannonballPosY - (gamePopup.getImageY(value) + 40);
                 if((dx < 5 && dx > -5) && (dy < 5 && dy > -5)) {
                     bool barbDead = barbIndexes[cannonTargetIndex].takeDamage();
-                    Debug.WriteLine("Barb dead: " + barbDead);
                     if (barbDead) {
                         gamePopup.removeImage(value);
                         barbIndexes.Remove(barbIndexes[cannonTargetIndex]);
@@ -109,19 +155,23 @@ namespace Sprint2Pork.Popups {
                     gamePopup.setImagePos(cannonballIndex, 0, 0);
                     cannonballPosX = cannonStartX;
                     cannonballPosY = cannonStartY;
+                    if (!cannonAlive) {
+                        cannonShooting = false;
+                        gamePopup.removeImage(value);
+                    }
                 } else {
                     int moveX, moveY;
-                    if (dx > 4) {
-                        moveX = -4;
-                    } else if (dx < -4) {
-                        moveX = 4;
+                    if (dx > 5) {
+                        moveX = -5;
+                    } else if (dx < -5) {
+                        moveX = 5;
                     } else {
                         moveX = 0;
                     }
-                    if (dy > 4) {
-                        moveY = -4;
-                    } else if (dy < -4) {
-                        moveY = 4;
+                    if (dy > 5) {
+                        moveY = -5;
+                    } else if (dy < -5) {
+                        moveY = 5;
                     } else {
                         moveY = 0;
                     }
@@ -132,7 +182,7 @@ namespace Sprint2Pork.Popups {
                     }
                 }
                 currentShotCount = 0;
-            } else if (barbIndexes.Count > 0 && !cannonShooting) {
+            } else if (barbIndexes.Count > 0 && !cannonShooting && cannonAlive) {
                 fireCannon();
             }
             currentShotCount++;
