@@ -74,7 +74,6 @@ namespace Sprint2Pork.Popups {
             if (cannonHealth <= 0) {
                 gamePopup.removeImage(20);
                 cannonAlive = false;
-                cannonShooting = false;
             }
         }
 
@@ -155,7 +154,7 @@ namespace Sprint2Pork.Popups {
                     cannonballPosY = cannonStartY;
                     if (!cannonAlive) {
                         cannonShooting = false;
-                        gamePopup.removeImage(value);
+                        gamePopup.removeImage(cannonballIndex);
                     }
                 } else {
                     int moveX, moveY;
