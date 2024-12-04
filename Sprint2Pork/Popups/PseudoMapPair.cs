@@ -40,7 +40,6 @@ namespace Sprint2Pork.Popups {
 
         public bool takeDamage() {
             pairHealth--;
-            Debug.WriteLine("Health: " + pairHealth);
             return pairHealth <= 0;
         }
 
