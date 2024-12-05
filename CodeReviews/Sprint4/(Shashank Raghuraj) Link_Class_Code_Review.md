@@ -5,7 +5,7 @@ Date: 11/28
 
 File Reviewed: Inventory.cs
 
-Author: Eli Paulman
+Author: Eli Click
 
 Time Spent: 10 minutes
 
