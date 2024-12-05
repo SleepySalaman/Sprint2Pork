@@ -211,6 +211,10 @@ namespace Sprint2Pork.rooms
                 case 24:
                     groundItems.Add(CreatePig(position));
                     break;
+                case 25:
+                    groundItems.Add(CreatePorkSwordGround(position));
+                    break;
+
 
                 // Enemies
                 case 30:
@@ -325,6 +329,12 @@ namespace Sprint2Pork.rooms
         private static Pig CreatePig(Vector2 position) =>
             new Pig((int)position.X, (int)position.Y, new List<Rectangle> {
                 new Rectangle(1, 69, 37, 50)
+            });
+
+        private static PorkSwordGround CreatePorkSwordGround(Vector2 position) =>
+            new PorkSwordGround((int)position.X, (int)position.Y, new List<Rectangle>
+            {
+                new Rectangle(104, 0, 7, 16)
             });
 
         private static void CreateAquamentus(

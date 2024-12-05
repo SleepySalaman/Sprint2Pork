@@ -34,9 +34,9 @@ namespace Sprint2Pork.Managers
             }
         }
 
-        public void UpdateEnemies(List<IEnemy> enemies, List<Block> blocks, List<EnemyManager> fireballManagers, GameTime gameTime, EnemyManager enemyManager, float enemyStopTimer, bool isEnemyStopActive)
+        public void UpdateEnemies(List<IEnemy> enemies, List<Block> blocks, List<EnemyManager> fireballManagers, GameTime gameTime, EnemyManager enemyManager, float enemyStopTimer, bool isEnemyStopActive, Game1 game)
         {
-            EnemyUpdater.UpdateEnemies(link, enemies, blocks, fireballManagers, healthCount, gameTime, enemyStopTimer, isEnemyStopActive);
+            EnemyUpdater.UpdateEnemies(link, enemies, blocks, fireballManagers, healthCount, gameTime, enemyStopTimer, isEnemyStopActive, game);
             EnemyUpdater.UpdateFireballs(enemyManager, ref link, ref fireballManagers, gameTime, ref healthCount);
 
             if (!healthCount.IsLinkAlive())
@@ -93,6 +93,11 @@ namespace Sprint2Pork.Managers
                     game.enemyStopTimer = 0;
                 }
             }
+        }
+
+        public void Heal()
+        {
+            healthCount.HealHalfHeart();
         }
 
         private void HandleItemCollision(GroundItem item)

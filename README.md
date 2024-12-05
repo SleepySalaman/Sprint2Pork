@@ -25,6 +25,7 @@ Rooms are loaded from room csv files where 0 represents empty space and positive
 - **F**: Toggle fullscreen mode
 - **H**: Toggle hitboxes
 - **F12**: Enter dev room
+- **LeftShift**: PorkSword attack (once obtained)
 
 ## Gameplay
 - **Winning**: Find and collect the TriForce to win!
